@@ -1,0 +1,29 @@
+/* Added hover animation for individual letters with background slide effect */
+.letter-hover {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.letter-hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #8cc63f, #a6e24b);
+  mix-blend-mode: difference;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: 1;
+  border-radius: 0.25rem;
+}
+
+.letter-hover:hover::before {
+  transform: scaleX(1);
+}
+
+.letter-hover:hover {
+  background: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  transform: translateY(-4px) scale(1.1);
+}
