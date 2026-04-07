@@ -2,6 +2,7 @@
 
 import {
   HeroSection,
+  TopPerformerSection,
   AboutSection,
   ProblemsSection,
   LeadAuditSection,
@@ -9,6 +10,7 @@ import {
   StatsSection,
   SalesInsightsSection,
   TargetAudienceSection,
+  TransformationSection,
   TestimonialsSection,
   CTASection,
 } from "@/components/home"
@@ -26,11 +28,14 @@ export default function Web() {
       {/* Hero - Dark with background image */}
       <HeroSection scrollToSection={scrollToSection} />
 
-      {/* About - Light white section */}
-      <AboutSection />
+      {/* Top Performers Section */}
+      <TopPerformerSection />
 
       {/* Target Audience - For you / Not for you */}
       <TargetAudienceSection />
+
+      {/* The 90-Day Transformation */}
+      <TransformationSection />
 
       {/* Lead Quality Audit - Dark section */}
       <LeadAuditSection />

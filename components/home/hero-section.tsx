@@ -1,149 +1,152 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowDown, ArrowUpRight, Check, Star, StarHalf } from "lucide-react"
+
+import { LogoMarquee } from "./logo-marquee"
 
 interface HeroSectionProps {
   scrollToSection: (sectionId: string) => void
 }
 
 export function HeroSection({ scrollToSection }: HeroSectionProps) {
-  const badges = ["Instant Access", "Step-by-Step Plan", "Expert Help"]
-
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20"
-    >
-      {/* Background Image with overlays */}
+    <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
+      {/* Background Image */}
       <div className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1920&auto=format&fit=crop')",
+            backgroundImage: "url('/assets/hero-bg.jpg')",
           }}
         />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/70" />
-        {/* Gradient overlay left to right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-      </div>
-
-      {/* Animated background elements */}
-      <div className="pointer-events-none absolute inset-0">
-        <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-emerald-500/10 blur-[120px]"
-        />
-        <motion.div
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.05, 0.15, 0.05] }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-blue-500/10 blur-[120px]"
-        />
+        {/* Warm dark overlays to match the aesthetic */}
+        <div className="absolute inset-0 bg-[#352F28]/10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#17110B]/90 via-[#17110B]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-transparent to-[#0A0705]/30 opacity-90" />
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
-          {/* Badges */}
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-32 pb-40 sm:px-8 lg:px-12">
+        <div className="mt-8 flex max-w-2xl flex-col items-start">
+          {/* Trust Badge Area */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8 flex flex-wrap gap-3"
+            transition={{ duration: 0.6 }}
+            className="mb-10 flex items-center gap-4"
           >
-            {badges.map((badge) => (
-              <span
-                key={badge}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wider text-white/80 uppercase backdrop-blur-sm"
-              >
-                <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-black shadow-[0_4px_12.8px_rgba(255,255,255,0.25)]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </span>
-                {badge}
+            {/* Avatars */}
+            <div className="flex -space-x-3">
+              {[
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+                "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop",
+                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+              ].map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt={`Avatar ${i}`}
+                  className="relative h-10 w-10 rounded-full border-2 border-[#1A1A1A] object-cover"
+                  style={{ zIndex: 4 - i }}
+                />
+              ))}
+            </div>
+
+            {/* Ratings Text */}
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-center gap-2">
+                <div className="flex text-[#FF9529]">
+                  {[1, 2, 3, 4].map((star) => (
+                    <Star key={star} className="h-3.5 w-3.5 fill-current" />
+                  ))}
+                  <StarHalf className="h-3.5 w-3.5 fill-current" />
+                </div>
+                <span className="text-[11px] font-medium tracking-wider text-white/70">RATED 4.5/5</span>
+              </div>
+              <span className="mt-0.5 text-[10px] font-bold tracking-widest text-white/90 uppercase">
+                Trusted by 250+ B2B Organizations
               </span>
-            ))}
+            </div>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="font-heading mb-6 text-4xl leading-[1.1] font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-8 space-y-1 font-serif text-[56px] leading-[1.05] tracking-wide text-white/95 drop-shadow-lg sm:text-[72px] md:text-[84px] lg:text-[100px]"
           >
-            Generate Qualified Property Buyer Leads{" "}
-            <span className="bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-500 bg-clip-text text-transparent">
-              Without Wasting Money
-            </span>{" "}
-            on Low-Quality Inquiries
+            <span className="block">LEAD</span>
+            <span className="block">DOMINANCE</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-10 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-xl"
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mb-10 max-w-[440px] text-[11px] leading-loose font-bold tracking-[0.2em] text-white/90 uppercase sm:text-xs"
           >
-            Agents closing 4–5 deals every 90 days aren't smarter. They just fixed these 3 things.
+            Convert ready buyers into deals with a proven 90-day system.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col gap-4 sm:flex-row"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mb-8"
           >
-            <Button
-              size="lg"
-              className="group bg-emerald-500 px-8 py-6 text-base font-semibold text-white shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-all hover:bg-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.5)]"
+            <button
               onClick={() => scrollToSection("contact")}
+              className="group flex items-center gap-4 rounded-full border border-white/5 bg-black py-2 pr-2 pl-6 shadow-2xl transition-transform duration-300 hover:scale-105 hover:bg-[#111]"
             >
-              Build My Pipeline
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/20 bg-white/5 px-8 py-6 text-base text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
-              onClick={() => scrollToSection("about")}
-            >
-              Speak With a Strategy Expert Today
-            </Button>
+              <span className="text-[11px] font-bold tracking-widest text-white uppercase">
+                Apply for Strategy Call
+              </span>
+              <div className="rounded-full bg-[#F36B2B] p-2.5 text-white transition-transform duration-300 group-hover:-rotate-12">
+                <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
+              </div>
+            </button>
           </motion.div>
 
-          {/* Trust indicators */}
+          {/* Checkmarks */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="mt-12 flex flex-wrap items-center gap-8 border-t border-white/10 pt-8"
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3"
           >
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-white">90+</span>
-              <span className="text-sm text-white/40">Real Estate Professionals Served</span>
-            </div>
-            <div className="h-8 w-px bg-white/10" />
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-white">5000+</span>
-              <span className="text-sm text-white/40">Qualified Buyer Leads Generated</span>
-            </div>
-            <div className="h-8 w-px bg-white/10" />
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-white">₹25 Cr+</span>
-              <span className="text-sm text-white/40">Property Pipeline Created</span>
-            </div>
+            {["Instant Access", "Step-By-Step Plan", "Cancel Anytime"].map((text, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <div className="flex items-center justify-center rounded-full bg-transparent text-white/60">
+                  <Check className="h-3.5 w-3.5" strokeWidth={4} />
+                </div>
+                <span className="text-[10px] font-bold tracking-widest whitespace-nowrap text-[#E0DEDC] uppercase sm:text-[11px]">
+                  {text}
+                </span>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute right-0 bottom-0 left-0 h-32 bg-gradient-to-t from-[#0b0f3b] to-transparent" />
+      {/* Down Arrow Indicator */}
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "auto" }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute right-1/4 bottom-20 z-20 flex flex-col items-center lg:right-[35%]"
+      >
+        <div className="mb-[-1px] h-32 w-px bg-gradient-to-b from-transparent to-white/40" />
+        <div className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/10 text-white/50 backdrop-blur-sm">
+          <ArrowDown className="h-4 w-4" />
+        </div>
+      </motion.div>
+
+      <LogoMarquee />
     </section>
   )
 }

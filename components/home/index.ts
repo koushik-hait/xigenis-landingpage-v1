@@ -1,4 +1,6 @@
 export { HeroSection } from "./hero-section"
+export { TransformationSection } from "./transformation-section"
+export { TopPerformerSection } from "./top-performer-section"
 export { AboutSection } from "./about-section"
 export { ProblemsSection } from "./problems-section"
 export { ReasonsSection } from "./reasons-section"

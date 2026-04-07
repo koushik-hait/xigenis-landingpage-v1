@@ -72,32 +72,23 @@ const problems = [
 
 export function ProblemsSection() {
   return (
-    <section id="problems" className="relative overflow-hidden bg-gray-950 px-4 py-24 sm:px-6 lg:px-8">
-      {/* Background decorative elements */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/3 h-96 w-96 rounded-full bg-red-500/5 blur-[150px]" />
-        <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-amber-500/5 blur-[150px]" />
-      </div>
-
+    <section id="problems" className="relative overflow-hidden bg-[#FAFAFA] px-4 py-24 sm:px-6 lg:px-8 border-b border-gray-100">
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-6 text-center"
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.8 }}
+           className="mb-20 text-center"
         >
-          <span className="mb-4 inline-block rounded-full border border-red-500/20 bg-red-500/10 px-4 py-1.5 text-sm font-medium text-red-400">
+          <span className="mb-6 inline-block rounded-full bg-[#FFEAE1] px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#F36B2B]">
             The Real Problem
           </span>
-          <h2 className="font-heading mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-            You're not failing. Your pipeline has a{" "}
-            <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
-              leak.
-            </span>
+          <h2 className="font-serif mb-6 text-3xl font-medium tracking-tight text-gray-900 sm:text-4xl lg:text-[44px] leading-tight">
+            You're not failing. Your pipeline has a leak.
           </h2>
-          <p className="mx-auto max-w-3xl text-lg text-white/50">
+          <p className="mx-auto max-w-[480px] text-[15px] leading-relaxed font-medium text-gray-600">
             Agents closing 4–5 deals every 90 days aren't smarter. They just fixed these 3 things.
           </p>
         </motion.div>
@@ -113,24 +104,24 @@ export function ProblemsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.7, delay: index * 0.1 }}
-                className="group"
+                className="group relative"
               >
-                <div className="grid items-start gap-8 rounded-3xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-sm transition-all duration-500 hover:border-white/10 hover:bg-white/[0.04] lg:grid-cols-12">
+                <div className="grid items-start gap-8 rounded-3xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1 lg:grid-cols-12">
                   {/* Left - Problem Info */}
                   <div className="lg:col-span-7">
                     <div className="mb-4 flex items-center gap-3">
                       <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${problem.color}`}
+                        className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${problem.color} shadow-sm`}
                       >
                         <Icon className="h-5 w-5 text-white" />
                       </div>
-                      <span className="text-sm font-medium tracking-wider text-white/40 uppercase">
+                      <span className="text-[11px] font-bold tracking-widest text-gray-400 uppercase">
                         Problem {problem.number} · {problem.title}
                       </span>
                     </div>
 
-                    <h3 className="mb-4 text-2xl font-bold text-white lg:text-3xl">{problem.headline}</h3>
-                    <p className="mb-6 text-base leading-relaxed text-white/50">{problem.description}</p>
+                    <h3 className="mb-4 text-2xl font-bold text-gray-900 lg:text-3xl tracking-tight">{problem.headline}</h3>
+                    <p className="mb-6 text-[15px] font-medium leading-relaxed text-gray-600">{problem.description}</p>
 
                     {/* Points */}
                     <div className="space-y-3">
@@ -139,21 +130,21 @@ export function ProblemsSection() {
                           <div
                             className={`mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-gradient-to-r ${problem.color}`}
                           />
-                          <span className="text-sm text-white/60">{point}</span>
+                          <span className="text-[14px] font-medium text-gray-700">{point}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   {/* Right - Stat */}
-                  <div className="flex items-center justify-center lg:col-span-5">
-                    <div className="w-full rounded-2xl border border-white/5 bg-white/[0.03] p-8 text-center">
+                  <div className="flex h-full items-center justify-center lg:col-span-5">
+                    <div className="w-full h-full flex flex-col justify-center rounded-2xl bg-[#F9F9F9] border border-gray-100 p-8 text-center transition-colors group-hover:bg-[#F2F2F2]">
                       <div
-                        className={`mb-3 bg-gradient-to-r ${problem.color} bg-clip-text text-6xl font-black text-transparent`}
+                        className={`mb-3 bg-gradient-to-br ${problem.color} bg-clip-text text-6xl font-black text-transparent drop-shadow-sm`}
                       >
                         {problem.stat}
                       </div>
-                      <p className="text-sm leading-relaxed text-white/40">{problem.statLabel}</p>
+                      <p className="text-sm font-medium leading-relaxed text-gray-500">{problem.statLabel}</p>
                     </div>
                   </div>
                 </div>
