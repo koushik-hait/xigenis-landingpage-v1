@@ -3,16 +3,27 @@
 import {
   HeroSection,
   TopPerformerSection,
-  AboutSection,
+  AboutCompany,
   ProblemsSection,
-  LeadAuditSection,
-  ReasonsSection,
-  StatsSection,
-  SalesInsightsSection,
   TargetAudienceSection,
   TransformationSection,
-  TestimonialsSection,
+  LeadQualitySection,
+  FollowUpSection,
+  AdSpendSection,
+  ReferralSection,
+  FixSection,
+  PerformanceMetrics,
+  SocialProofSection,
+  ReasonsSection,
   CTASection,
+  ProcessTimeline,
+  CaseStudies,
+  WhyChooseUs,
+  FeaturesSection,
+  CampaignInsights,
+  FAQSection,
+  TestimonialSection,
+  RealEstateHero,
 } from "@/components/home"
 
 export default function Web() {
@@ -37,26 +48,62 @@ export default function Web() {
       {/* The 90-Day Transformation */}
       <TransformationSection />
 
-      {/* Lead Quality Audit - Dark section */}
-      <LeadAuditSection />
-
       {/* The Real Problems - Dark section */}
       <ProblemsSection />
 
-      {/* Stats - Dark navy section */}
-      <StatsSection />
+      {/* Lead Quality Section */}
+      <LeadQualitySection />
 
-      {/* 8 Reasons - Light section */}
+      {/* Follow Up Section */}
+      <FollowUpSection />
+
+      {/* Ad Spend Section */}
+      <AdSpendSection />
+
+      {/* Referral Section */}
+      <ReferralSection />
+
+      {/* Fix Section */}
+      <FixSection />
+
+      {/* About Company */}
+      <AboutCompany />
+
+      {/* Performance Metrics */}
+      <PerformanceMetrics />
+
+      {/* Social Proof / Testimonials */}
+      <SocialProofSection />
+
+      {/* Reasons Section */}
       <ReasonsSection />
 
-      {/* Sales Insights - Light section */}
-      <SalesInsightsSection />
+      {/* Cta Section */}
+      <CTASection />
 
-      {/* Testimonials - Dark section */}
-      <TestimonialsSection />
+      {/* Process Section */}
+      <ProcessTimeline />
 
-      {/* Final CTA - Dark navy section */}
-      <CTASection scrollToSection={scrollToSection} />
+      {/* Case Studies */}
+      <CaseStudies />
+
+      {/* WhyChooseUs section */}
+      <WhyChooseUs />
+
+      {/* Campaign Insights */}
+      <CampaignInsights />
+
+      {/* Features Section */}
+      <FeaturesSection />
+
+      {/* FAQ Section */}
+      <FAQSection />
+
+      {/* Testimonial Section */}
+      <TestimonialSection />
+
+      {/* Real Estate Hero */}
+      <RealEstateHero />
     </div>
   )
 }

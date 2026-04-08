@@ -1,0 +1,108 @@
+import React from "react"
+import Image from "next/image"
+import { ArrowUpRight } from "lucide-react"
+
+const projects = [
+  {
+    title: "Luxury Residential Project – Goa",
+    leads: "3.4K+",
+    rate: "28%",
+    requests: "270+",
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+  },
+  {
+    title: "Luxury Residential Project – Goa",
+    leads: "3.4K+",
+    rate: "28%",
+    requests: "270+",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+  },
+  {
+    title: "Luxury Residential Project – Goa",
+    leads: "3.4K+",
+    rate: "28%",
+    requests: "270+",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
+  },
+]
+
+const CaseStudies = () => {
+  return (
+    <section className="w-full overflow-hidden bg-[#FDFDFD] py-24">
+      <div className="container mx-auto max-w-7xl px-4">
+        {/* Header Section */}
+        <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+          <div className="space-y-4">
+            <div className="inline-block rounded-full border border-gray-300 px-5 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
+              LOREM IPSUM DOLOR SIT
+            </div>
+            <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl">
+              Real Campaign Results from Real <br className="hidden md:block" /> Estate Projects
+            </h2>
+          </div>
+          <p className="max-w-[320px] text-sm leading-relaxed font-medium text-gray-500">
+            Real campaign results showing how qualified buyer leads turn into site visits and property deals.
+          </p>
+        </div>
+
+        {/* Horizontal Scroll / Grid Area */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {projects.map((project, index) => (
+            <div key={index} className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
+              {/* Background Image */}
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+
+              {/* Stats Overlay (Frosted Glass Style) */}
+              <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
+                <div className="space-y-6">
+                  <div>
+                    <p className="font-serif text-2xl text-white">{project.leads}</p>
+                    <p className="text-[9px] font-bold tracking-widest text-gray-300 uppercase">Leads Generated</p>
+                  </div>
+                  <div>
+                    <p className="font-serif text-2xl text-white">{project.rate}</p>
+                    <p className="text-[9px] font-bold tracking-widest text-gray-300 uppercase">Qualified Buyer Rate</p>
+                  </div>
+                  <div>
+                    <p className="font-serif text-2xl text-white">{project.requests}</p>
+                    <p className="text-[9px] font-bold tracking-widest text-gray-300 uppercase">Site Visit Requests</p>
+                  </div>
+                </div>
+
+                <h3 className="pr-4 font-serif text-xl leading-tight text-white">{project.title}</h3>
+              </div>
+            </div>
+          ))}
+
+          {/* "See More" Card (Blurred Background) */}
+          <div className="group relative flex aspect-[4/5] cursor-pointer items-center justify-center overflow-hidden rounded-[2.5rem]">
+            <Image
+              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop"
+              alt="More projects"
+              fill
+              className="scale-110 object-cover opacity-60 blur-md"
+            />
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm" />
+
+            <div className="relative z-10 flex flex-col items-center gap-4">
+              <span className="font-serif text-6xl text-white">12</span>
+              <button className="flex items-center gap-2 rounded-full border border-white/50 px-8 py-2 text-[11px] font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-black">
+                More <ArrowUpRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export { CaseStudies }

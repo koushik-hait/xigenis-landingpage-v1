@@ -1,146 +1,103 @@
-"use client"
-
-import { motion } from "framer-motion"
-import { Shield, Target, Zap, Users, BarChart3, Clock, Award, Lock } from "lucide-react"
+import React from "react"
 
 const reasons = [
   {
-    number: "1",
-    icon: Lock,
-    title: "Exclusive Market Access",
-    subtitle: "Secure Your Market Before a Competitor Does & Own Your City",
-    description:
-      "We take one client per property segment per city. Once your slot is filled, your competitors can never access the same system — ever.",
-    highlight: "1 client per city zone — guaranteed",
+    tag: "EXCLUSIVE MARKET ACCESS",
+    title: "Secure Your Market Before a Competitor Does & Own Your City",
+    desc: "We take one client per property segment per city. Once your slot is filled, your competitors can never access the same system — ever.",
   },
   {
-    number: "2",
-    icon: Target,
-    title: "Results-Focused System",
-    subtitle: "We Measure Success Only by Closed Deals",
-    description:
-      "Unlike traditional marketing agencies that focus on impressions or clicks, our system is built around real outcomes.",
-    highlight: "1 client per city zone — guaranteed",
+    tag: "RESULTS-FOCUSED SYSTEM",
+    title: "We Measure Success Only by Closed Deals",
+    desc: "Unlike traditional marketing agencies that focus on impressions or clicks, our system is built around real outcomes.",
   },
   {
-    number: "3",
-    icon: Zap,
-    title: "AI Lead Qualification",
-    subtitle: "Speak Only With Serious Buyers",
-    description:
-      "Our AI filters out tire-kickers and time-wasters. You only speak with genuinely interested buyers who have real purchasing intent.",
-    highlight: "Pre-qualified leads only",
+    tag: "AI Lead Qualification",
+    title: "Speak Only With Serious Buyers",
+    desc: "Our AI system filters leads based on intent, engagement, and buying capability, ensuring you spend time only with potential buyers.",
   },
   {
-    number: "4",
-    icon: Clock,
-    title: "5-Minute Auto Response",
-    subtitle: "Never Lose a Hot Lead Again",
-    description:
-      "Our system responds to every inquiry within 5 minutes — automatically. Speed is the #1 factor in lead conversion.",
-    highlight: "Under 5 minutes response time",
+    tag: "Automated Follow-Up System",
+    title: "Every Lead Gets Instant Attention",
+    desc: "Most deals are lost because agents respond too late. Our system follows up with every inquiry instantly.",
   },
   {
-    number: "5",
-    icon: BarChart3,
-    title: "Full Campaign Transparency",
-    subtitle: "See Every Metric, Every Rupee Spent",
-    description:
-      "Real-time dashboards show exactly where your money goes and what results it produces. No black-box marketing.",
-    highlight: "Complete visibility into ROI",
+    tag: "Data-Driven Campaign Strategy",
+    title: "Advertising Designed for Real Buyers",
+    desc: "Instead of generic ads, we create campaigns focused on people actively searching for properties in your market.",
   },
   {
-    number: "6",
-    icon: Users,
-    title: "Dedicated Strategy Team",
-    subtitle: "Real Estate Marketing Experts Assigned to You",
-    description:
-      "Work with professionals who understand real estate. Our team has generated 5000+ qualified buyer leads.",
-    highlight: "Industry-specific expertise",
+    tag: "Authority Positioning",
+    title: "Become the Trusted Expert in Your Market",
+    desc: "We help position you as a trusted property advisor, increasing credibility and attracting serious buyers.",
   },
   {
-    number: "7",
-    icon: Award,
-    title: "More Site Visits & Deals",
-    subtitle: "Predictable Results You Can Count On",
-    description:
-      "Our system doesn't just generate leads — it converts them into site visits and closed deals through automated nurturing.",
-    highlight: "End-to-end deal pipeline",
+    tag: "Predictable Lead Pipeline",
+    title: "Speak Only With Serious Buyers",
+    desc: "Our system creates a steady flow of qualified property buyers, so you no longer depend on random portal leads.",
   },
   {
-    number: "8",
-    icon: Shield,
-    title: "High-Intent Property Buyers",
-    subtitle: "Quality Over Quantity, Always",
-    description:
-      "Every lead is scored and verified for genuine buying intent before it reaches you. No fake numbers, no cold calls.",
-    highlight: "Verified buyer intent",
+    tag: "Automated Follow-Up System",
+    title: "See Measurable Results Within 90 Days",
+    desc: "From campaign launch to site visits and bookings, our framework is designed to deliver visible progress within three months.",
   },
 ]
 
-export function ReasonsSection() {
+const ReasonsSection = () => {
   return (
-    <section id="reasons" className="relative overflow-hidden bg-gray-50 px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
-        >
-          <span className="mb-4 inline-block rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-sm font-medium text-emerald-700">
-            Why Choose Us
-          </span>
-          <h2 className="font-heading mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-            8 Reasons Top Real Estate Professionals
-            <br />
-            <span className="text-emerald-600">Choose Our AI Lead System</span>
+    <section className="w-full bg-[#f8f8f8] py-24">
+      <div className="container mx-auto max-w-7xl px-4">
+        {/* Header Section */}
+        <div className="mb-16 space-y-4 text-center">
+          <div className="inline-block rounded-full border border-gray-400 px-6 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-600 uppercase">
+            LOREM IPSUM DOLOR SIT
+          </div>
+          <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl">
+            8 Reasons Top Real Estate Professionals <br className="hidden md:block" /> Choose Our AI Lead System
           </h2>
-          <p className="mx-auto max-w-3xl text-lg text-gray-500">
-            Most agencies promise leads. We build a predictable pipeline of qualified property buyers
-            that turns into site visits and closed deals.
+          <p className="mx-auto max-w-2xl text-lg text-gray-500">
+            Most agencies promise leads. We build a predictable pipeline of qualified property buyers that turns into
+            site visits and closed deals.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {reasons.map((reason, index) => {
-            const Icon = reason.icon
-            return (
-              <motion.div
-                key={reason.number}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl"
-              >
-                {/* Number */}
-                <div className="absolute top-4 right-4 text-5xl font-black text-gray-100 transition-colors group-hover:text-emerald-50">
-                  {reason.number}
-                </div>
+        {/* Grid Section */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {reasons.map((reason, index) => (
+            <div
+              key={index}
+              className="group relative flex min-h-[320px] flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
+            >
+              {/* Large Background Number */}
+              <span className="pointer-events-none absolute top-4 right-4 font-serif text-8xl text-gray-50 transition-colors select-none group-hover:text-gray-100">
+                {index + 1}
+              </span>
 
-                {/* Icon */}
-                <div className="relative mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 transition-colors group-hover:bg-emerald-100">
-                  <Icon className="h-6 w-6 text-emerald-600" />
+              <div className="relative z-10 flex h-full flex-col">
+                {/* Tag */}
+                <div className="mb-4">
+                  <span className="inline-block rounded-full border border-gray-200 px-3 py-1 text-[9px] font-bold tracking-wider text-gray-500 uppercase">
+                    {reason.tag}
+                  </span>
                 </div>
 
                 {/* Content */}
-                <h3 className="relative mb-2 text-lg font-bold text-gray-900">{reason.title}</h3>
-                <p className="relative mb-3 text-sm font-medium text-emerald-600">{reason.subtitle}</p>
-                <p className="relative mb-4 text-sm leading-relaxed text-gray-500">{reason.description}</p>
+                <h3 className="mb-4 font-serif text-xl leading-snug text-gray-900">{reason.title}</h3>
+                <p className="mb-6 text-sm leading-relaxed text-gray-500">{reason.desc}</p>
 
-                {/* Highlight */}
-                <div className="relative rounded-lg bg-emerald-50 px-3 py-2">
-                  <span className="text-xs font-medium text-emerald-700">{reason.highlight}</span>
+                {/* Bottom Guaranteed Tag */}
+                <div className="mt-auto">
+                  <span className="rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold tracking-widest text-orange-500 uppercase">
+                    1 client per city zone — guaranteed
+                  </span>
                 </div>
-              </motion.div>
-            )
-          })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   )
 }
+
+export { ReasonsSection }
