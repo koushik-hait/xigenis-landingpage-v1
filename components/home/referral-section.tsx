@@ -3,7 +3,7 @@ import { XCircle, CheckCircle2, ArrowRight } from "lucide-react"
 
 const ReferralSection = () => {
   return (
-    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F9FAFB] py-20">
+    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F9FAFB] py-10">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-16 lg:flex-row">
           {/* Left Column: Text & CTA */}

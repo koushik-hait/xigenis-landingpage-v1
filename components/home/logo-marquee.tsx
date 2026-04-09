@@ -1,13 +1,43 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function LogoMarquee() {
   const logos = [
-    { type: "umansky" },
-    { type: "est" },
-    { type: "ff" },
-    { type: "godrej" },
+    { 
+      type: "umansky", 
+      image: "/assets/xigenis-logo.png",
+      alt: "The Umansky Team",
+      fallback: (
+        <div className="flex shrink-0 items-center gap-3">
+          <span className="text-xl">A</span>
+          <span className="flex flex-col font-serif text-sm tracking-widest uppercase">
+            <span className="text-[8px] tracking-[0.3em]">The</span>
+            <span className="text-[11px]">Umansky</span>
+            <span className="text-[9px]">Team</span>
+          </span>
+        </div>
+      )
+    },
+    { 
+      type: "est", 
+      image: "/assets/xigenis-logo.png",
+      alt: "EST",
+      fallback: <span className="shrink-0 font-serif text-3xl font-bold tracking-widest">EST</span>
+    },
+    { 
+      type: "ff", 
+      image: "/assets/xigenis-logo.png",
+      alt: "FF",
+      fallback: <span className="shrink-0 font-serif text-3xl font-bold italic">FF</span>
+    },
+    { 
+      type: "godrej", 
+      image: "/assets/xigenis-logo.png",
+      alt: "Godrej",
+      fallback: <span className="shrink-0 font-serif text-2xl text-[#C0AAA0] italic">Godrej</span>
+    },
   ]
 
   // We repeat the base logos 4 times to create a long continuous row that's guaranteed
@@ -15,7 +45,7 @@ export function LogoMarquee() {
   const singleBlock = [...logos, ...logos, ...logos, ...logos]
 
   return (
-    <div className="absolute right-0 bottom-0 left-0 z-20 border-t border-white/5 bg-gradient-to-r from-black/80 via-[#1A1613]/80 to-black/80 py-5 backdrop-blur-md sm:py-6">
+    <div className="absolute right-0 bottom-0 left-0 z-20 border-t border-white/5 bg-gradient-to-r from-black/80 via-[#1A1613]/80 to-black/80 py-5 backdrop-blur-md sm:py-6 opacity-50">
       <div className="mx-auto flex max-w-[1400px] shrink-0 items-center justify-between overflow-hidden px-6 text-white/80 opacity-60">
         <div className="flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <motion.div
@@ -34,25 +64,22 @@ export function LogoMarquee() {
               <div key={blockIndex} className="flex shrink-0 items-center gap-12 sm:gap-20 pr-12 sm:pr-20">
                 {singleBlock.map((logo, index) => (
                   <div key={`${blockIndex}-${index}`} className="flex shrink-0 items-center">
-                    {logo.type === "umansky" && (
-                      <div className="flex shrink-0 items-center gap-3">
-                        <span className="text-xl">A</span>
-                        <span className="flex flex-col font-serif text-sm tracking-widest uppercase">
-                          <span className="text-[8px] tracking-[0.3em]">The</span>
-                          <span className="text-[11px]">Umansky</span>
-                          <span className="text-[9px]">Team</span>
-                        </span>
+                    <div className="relative h-8 w-24 sm:h-10 sm:w-32">
+                      <Image
+                        src={logo.image}
+                        alt={logo.alt}
+                        fill
+                        className="object-contain opacity-80"
+                        onError={(e) => {
+                          // Fallback to text if image fails to load
+                          e.currentTarget.style.display = 'none'
+                          e.currentTarget.nextElementSibling?.classList.remove('hidden')
+                        }}
+                      />
+                      <div className="hidden">
+                        {logo.fallback}
                       </div>
-                    )}
-                    {logo.type === "est" && (
-                      <span className="shrink-0 font-serif text-3xl font-bold tracking-widest">EST</span>
-                    )}
-                    {logo.type === "ff" && (
-                      <span className="shrink-0 font-serif text-3xl font-bold italic">FF</span>
-                    )}
-                    {logo.type === "godrej" && (
-                      <span className="shrink-0 font-serif text-2xl text-[#C0AAA0] italic">Godrej</span>
-                    )}
+                    </div>
                   </div>
                 ))}
               </div>

@@ -4,7 +4,7 @@ import { XCircle, CheckCircle2, Megaphone, Instagram, Facebook, Linkedin, Twitte
 
 const AdSpendSection = () => {
   return (
-    <section className="flex min-h-screen w-full items-center overflow-hidden bg-white py-20">
+    <section className="flex min-h-screen w-full items-center overflow-hidden bg-white py-10">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-16 lg:flex-row lg:gap-4">
           {/* Left Column: Visual Composition */}

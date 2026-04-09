@@ -4,7 +4,7 @@ import { XCircle, CheckCircle2, PhoneOff, Frown, Building2 } from "lucide-react"
 
 const LeadQualitySection = () => {
   return (
-    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#fafafa] py-20">
+    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#fafafa] py-10">
       <div className="relative container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-16 lg:flex-row lg:gap-8">
           {/* Left Column: UI Card Element */}

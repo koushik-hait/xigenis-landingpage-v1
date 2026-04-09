@@ -5,11 +5,11 @@ import { ArrowUpRight } from "lucide-react"
 
 export function TransformationSection() {
   return (
-    <section className="relative w-full py-24 lg:py-32 overflow-hidden bg-sky-100">
+    <section className="relative w-full py-10 lg:py-32 overflow-hidden bg-sky-100">
       {/* Background Image - Sky with clouds */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center opacity-80 z-0" 
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1513002749550-c59d220818a1?q=80&w=2000&auto=format&fit=crop')" }} 
+        style={{ backgroundImage: "url('/assets/transformation-bg.jpg')" }} 
       />
       
       {/* Soft gradient overlay to ensure text readability */}

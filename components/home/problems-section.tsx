@@ -76,9 +76,9 @@ export function ProblemsSection() {
   return (
     <section
       id="problems"
-      className="relative overflow-hidden border-b border-gray-100 bg-[#FAFAFA] px-4 py-24 sm:px-6 lg:px-8"
+      className="relative overflow-hidden border-b border-gray-100 bg-[#FAFAFA] px-4 py-10 sm:px-6 lg:px-8"
     >
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative z-10 mx-auto w-full">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -102,12 +102,12 @@ export function ProblemsSection() {
         {/* lead problem  */}
         <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-gradient-to-r from-white to-orange-50 pt-20 pb-16">
           {/* Background Image (Optional: Replace with your actual background property image) */}
-          <div className="absolute inset-0 z-0 opacity-20">
+          <div className="absolute inset-0 z-0 opacity-100">
             {/* Placeholder for the blurred house background */}
-            <div className="h-full w-full bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop')] bg-cover bg-center blur-sm" />
+            <div className="h-full w-full object-cover bg-[url('/assets/problems-bg.png')] bg-cover bg-center" />
           </div>
 
-          <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 container mx-auto w-full px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-8">
               {/* Left Column: Text Content */}
               <div className="w-full space-y-8 lg:w-1/2">
@@ -142,12 +142,12 @@ export function ProblemsSection() {
               <div className="relative mt-12 flex min-h-[600px] w-full items-end justify-center lg:mt-0 lg:min-h-[700px] lg:w-1/2">
                 {/* Main Subject Image */}
                 {/* Replace src with your actual cut-out image of the person */}
-                <div className="relative z-10 h-[500px] w-[300px] sm:h-[600px] sm:w-[400px] lg:w-[450px]">
+                <div className="relative lg:hidden z-10 h-[500px] w-[300px] sm:h-[600px] sm:w-[400px] lg:w-[450px]">
                   <Image
                     src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"
                     alt="Smiling Professional"
                     fill
-                    className="rounded-t-full object-cover object-top shadow-2xl"
+                    className=" object-cover"
                     // Note: The original image has a transparent background cut-out.
                     // For best results, use a PNG with a transparent background.
                   />

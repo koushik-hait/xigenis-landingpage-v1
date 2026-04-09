@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
 
 export function TopPerformerSection() {
   const cards = [1, 2, 3]
@@ -47,20 +47,25 @@ export function TopPerformerSection() {
               visits, and closed high-value property deals using our proven system.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="flex items-center gap-2"
-            >
-              <button className="bg-black hover:bg-[#1a1a1a] transition-colors rounded-full px-6 py-3 text-xs font-bold text-white tracking-widest uppercase">
-                See How It Works
-              </button>
-              <button className="bg-[#F36B2B] hover:bg-[#E05A1C] transition-colors rounded-full p-3 flex items-center justify-center text-white">
-                <ArrowRight className="w-5 h-5 -rotate-45" />
-              </button>
-            </motion.div>
+            {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mb-8"
+          >
+            <button
+                        onClick={() => {console.log('Apply for Strategy Call')}}
+                        className="group relative flex items-center gap-4 py-2 pr-2 pl-6 overflow-hidden transition-all duration-300 hover:rounded-full hover:border hover:border-white/5 before:absolute before:inset-0 before:-translate-x-full before:bg-black before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0"
+                      >
+                        <span className="relative p-2 text-[11px] font-bold tracking-widest text-white uppercase rounded-full border border-transparent bg-black backdrop-blur-sm">
+                          Apply for Strategy Call
+                        </span>
+                        <div className="relative rounded-full bg-[#F36B2B] p-2.5 text-white transition-all duration-300 group-hover:rotate-45 group-hover:scale-110">
+                          <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
+                        </div>
+                      </button>
+          </motion.div>
           </div>
 
           {/* Right Cards Track */}
