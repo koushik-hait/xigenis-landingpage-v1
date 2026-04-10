@@ -1,9 +1,7 @@
-"use client"
-
 import {
   HeroSection,
   TopPerformerSection,
-  AboutCompany,
+  AboutSection,
   ProblemsSection,
   TargetAudienceSection,
   TransformationSection,
@@ -25,19 +23,16 @@ import {
   TestimonialSection,
   RealEstateHero,
 } from "@/components/home"
+import { getCmsContent } from "@/app/actions/cms"
 
-export default function Web() {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-  }
+export default async function Web() {
+  // Fetch dynamic content
+  const heroCmsData = await getCmsContent('home', 'hero');
 
   return (
     <div className="bg-background text-foreground min-h-screen">
       {/* Hero - Dark with background image */}
-      <HeroSection scrollToSection={scrollToSection} />
+      <HeroSection cmsContent={heroCmsData as any} />
 
       {/* Top Performers Section */}
       <TopPerformerSection />
@@ -67,7 +62,7 @@ export default function Web() {
       <FixSection />
 
       {/* About Company */}
-      <AboutCompany />
+      <AboutSection />
 
       {/* Performance Metrics */}
       <PerformanceMetrics />

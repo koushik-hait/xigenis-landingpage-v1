@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { Building2, BarChart3, ShieldCheck, UserCheck, CalendarDays, Zap } from "lucide-react"
@@ -108,15 +110,69 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* Mobile Horizontal Scroll */}
+        <div className="md:hidden">
+          <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
+            <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+              {features.map((feature, index) => (
+                <div key={index} className="flex-shrink-0 w-[85vw] max-w-md snap-center">
+                  <div
+                    className={`relative flex min-h-[380px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${feature.featured
+                        ? "border-transparent bg-black text-white"
+                        : "border-gray-100 bg-white text-gray-900 shadow-sm"
+                      }`}
+                  >
+                    {/* Featured Background Image */}
+                    {feature.featured && (
+                      <div className="absolute inset-0 opacity-30 grayscale transition-all duration-700 hover:grayscale-0">
+                        <Image src={feature.image!} alt="Building" fill className="object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                      </div>
+                    )}
+
+                    {/* Icon Container */}
+                    <div
+                      className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${feature.featured ? "bg-white text-black" : "bg-gray-100"
+                        }`}
+                    >
+                      {feature.icon}
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10 flex-grow space-y-4">
+                      <h3 className={`text-xl leading-snug font-bold ${feature.featured ? "text-white" : "text-gray-900"}`}>
+                        {feature.title}
+                      </h3>
+                      <p className={`text-sm leading-relaxed ${feature.featured ? "text-gray-300" : "text-gray-500"}`}>
+                        {feature.desc}
+                      </p>
+                    </div>
+
+                    {/* Bottom Tag */}
+                    <div className="relative z-10 mt-8">
+                      <span
+                        className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${feature.featured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
+                          }`}
+                      >
+                        {feature.tag}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-2 gap-6 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`relative flex min-h-[380px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${
-                feature.featured
+              className={`relative flex min-h-[380px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${feature.featured
                   ? "border-transparent bg-black text-white"
                   : "border-gray-100 bg-white text-gray-900 shadow-sm"
-              }`}
+                }`}
             >
               {/* Featured Background Image */}
               {feature.featured && (
@@ -128,9 +184,8 @@ const WhyChooseUs = () => {
 
               {/* Icon Container */}
               <div
-                className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${
-                  feature.featured ? "bg-white text-black" : "bg-gray-100"
-                }`}
+                className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${feature.featured ? "bg-white text-black" : "bg-gray-100"
+                  }`}
               >
                 {feature.icon}
               </div>
@@ -148,9 +203,8 @@ const WhyChooseUs = () => {
               {/* Bottom Tag */}
               <div className="relative z-10 mt-8">
                 <span
-                  className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${
-                    feature.featured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
-                  }`}
+                  className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${feature.featured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
+                    }`}
                 >
                   {feature.tag}
                 </span>

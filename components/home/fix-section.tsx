@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { ArrowRight, Check } from "lucide-react"
@@ -8,7 +10,7 @@ const FixSection = () => {
       {/* 1. Background Image with Dark Vignette/Gradient */}
       <div className="absolute inset-0 z-0 opacity-70">
         <Image
-          src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop"
+          src="/assets/fix-bg.png"
           alt="Collaboration in park"
           fill
           className="scale-105 object-cover object-center"
@@ -49,14 +51,14 @@ const FixSection = () => {
           {/* Right Column: Key Feature Cards Overlay */}
           <div className="relative mt-16 flex min-h-[500px] w-full items-center justify-center lg:mt-0 lg:w-1/2 lg:pl-16">
             {/* Main Subject Image */}
-            <div className="relative z-10 h-[500px] w-[300px] sm:w-[400px] lg:w-[450px]">
+            {/* <div className="relative z-10 h-[500px] w-[300px] sm:w-[400px] lg:w-[450px]">
               <Image
                 src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?q=80&w=2076&auto=format&fit=crop"
                 alt="Man using laptop on grass"
                 fill
                 className="rounded-3xl object-cover object-top"
               />
-            </div>
+            </div> */}
 
             {/* Floating UI Cards */}
             <div className="pointer-events-none absolute inset-0 z-20">

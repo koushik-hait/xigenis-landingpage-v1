@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { ArrowUpRight, ShieldCheck, PieChart, Users, Lock } from "lucide-react"
@@ -46,7 +48,7 @@ export function FeaturesSection() {
           <div className="relative h-[500px] w-[400px]">
             {/* Replace with your actual asset path */}
             <Image
-              src="/giant-man-on-house.png"
+              src="/assets/man-on-house.png"
               alt="Expert support for your real estate growth"
               fill
               className="object-contain"
@@ -77,7 +79,35 @@ export function FeaturesSection() {
           </div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {/* Mobile Horizontal Scroll */}
+          <div className="md:hidden">
+            <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
+              <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+                {features.map((f) => (
+                  <div key={f.id} className="flex-shrink-0 w-[85vw] max-w-sm snap-center">
+                    <div className="flex flex-col justify-between h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+                      <div>
+                        <div className="mb-4 flex items-start justify-between">
+                          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm font-bold text-white">
+                            {f.id}
+                          </span>
+                          <div className="text-gray-400">{f.icon}</div>
+                        </div>
+                        <h3 className="mb-2 leading-tight font-bold text-gray-900">{f.title}</h3>
+                        <p className="mb-4 text-sm leading-relaxed text-gray-500">{f.description}</p>
+                      </div>
+                      <div className="inline-block w-fit rounded-full border border-gray-300 px-3 py-1 text-[10px] font-semibold text-gray-600">
+                        {f.tag}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-2 gap-6">
             {features.map((f) => (
               <div
                 key={f.id}

@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { XCircle, CheckCircle2, PhoneOff, Frown, Building2 } from "lucide-react"

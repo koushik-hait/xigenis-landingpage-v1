@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 
 const reasons = [
@@ -62,7 +64,49 @@ const ReasonsSection = () => {
         </div>
 
         {/* Grid Section */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {/* Mobile Horizontal Scroll */}
+        <div className="md:hidden">
+          <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
+            <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+              {reasons.map((reason, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-[85vw] max-w-sm snap-center"
+                >
+                  <div className="group relative flex min-h-[320px] flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl h-full">
+                    {/* Large Background Number */}
+                    <span className="pointer-events-none absolute top-4 right-4 font-serif text-8xl text-gray-50 transition-colors select-none group-hover:text-gray-100">
+                      {index + 1}
+                    </span>
+
+                    <div className="relative z-10 flex h-full flex-col">
+                      {/* Tag */}
+                      <div className="mb-4">
+                        <span className="inline-block rounded-full border border-gray-200 px-3 py-1 text-[9px] font-bold tracking-wider text-gray-500 uppercase">
+                          {reason.tag}
+                        </span>
+                      </div>
+
+                      {/* Content */}
+                      <h3 className="mb-4 font-serif text-xl leading-snug text-gray-900">{reason.title}</h3>
+                      <p className="mb-6 text-sm leading-relaxed text-gray-500">{reason.desc}</p>
+
+                      {/* Bottom Guaranteed Tag */}
+                      <div className="mt-auto">
+                        <span className="rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold tracking-widest text-orange-500 uppercase">
+                          1 client per city zone — guaranteed
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-2 gap-6 lg:grid-cols-4">
           {reasons.map((reason, index) => (
             <div
               key={index}

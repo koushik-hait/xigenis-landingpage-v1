@@ -1,19 +1,28 @@
-import React from "react"
-import Image from "next/image"
-import { ArrowUpRight } from "lucide-react"
+'use client';
 
-const AboutCompany = () => {
+import { ArrowUpRight } from 'lucide-react';
+
+export function AboutSection() {
   return (
-    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-white py-20">
-      <div className="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Top Content: Heading & Description */}
-        <div className="relative z-20 mb-12 max-w-xl lg:mb-0">
+    <section 
+      className="relative flex min-h-screen w-full items-center overflow-hidden bg-white py-20"
+      style={{
+        backgroundImage: 'url(/assets/about-bg.png)',
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <div className="relative container flex flex-col mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* ROW 1: Top Content: Heading & Description */}
+        <div className="relative z-20 mb-12 max-w-xl">
           <div className="mb-4 inline-block rounded-full bg-gray-100 px-4 py-1 text-xs font-bold tracking-widest text-gray-600 uppercase">
             About Us
           </div>
           <h2 className="mb-6 font-serif text-4xl text-gray-900 lg:text-5xl">About Company</h2>
           <p className="mb-8 text-base leading-relaxed text-gray-600 lg:text-lg">
-            At Xigenis, we help real estate professionals build a predictable pipeline of qualified property buyers.{" "}
+            At Xigenis, we help real estate professionals build a predictable pipeline of qualified property
+            buyers.{' '}
             <br className="hidden lg:block" />
             Our system combines AI-driven lead generation, targeted campaigns, and smart follow-up automation to attract
             serious buyers and close more deals consistently.
@@ -28,27 +37,10 @@ const AboutCompany = () => {
           </button>
         </div>
 
-        {/* Central Visual: Floating Island & House */}
-        {/* On mobile, this will stack. On desktop, it anchors the layout. */}
-        <div className="relative mt-12 flex w-full items-center justify-center lg:mt-0">
-          {/* Base Floating Island Graphic */}
-          <div className="relative h-[500px] w-full max-w-[900px] sm:h-[600px] lg:h-[700px]">
-            {/* NOTE: This image should be a PNG with transparency 
-                containing the mountain/island and the 4-story house.
-            */}
-            <Image
-              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop" // Placeholder for visual reference
-              alt="Floating real estate concept"
-              fill
-              className="z-10 object-contain"
-              priority
-            />
-          </div>
-
-          {/* GLASSMORPHISM STAT CARDS */}
-
+        {/* ROW 2: Central Visual & Stat Cards */}
+        <div className="relative mt-16 flex w-full items-center justify-between gap-6 lg:gap-12">
           {/* Left Stat Card (2X / 4X) */}
-          <div className="absolute bottom-20 left-0 z-20 w-56 rounded-3xl border border-white/20 bg-black/40 p-6 text-white shadow-2xl backdrop-blur-md lg:bottom-[25%] lg:left-10 lg:w-64">
+          <div className="z-20 w-56 rounded-[15px] border border-white/20 bg-black/40 p-6 text-white shadow-2xl backdrop-blur-md lg:w-64">
             <div className="space-y-6">
               <div>
                 <div className="flex items-baseline gap-2">
@@ -69,7 +61,7 @@ const AboutCompany = () => {
           </div>
 
           {/* Right Stat Card (Grid Layout) */}
-          <div className="absolute right-0 bottom-10 z-20 w-full max-w-[320px] rounded-3xl border border-white/20 bg-black/40 p-8 text-white shadow-2xl backdrop-blur-md lg:right-10 lg:bottom-[20%] lg:max-w-[450px]">
+          <div className="z-20 w-full max-w-[250px] rounded-3xl border border-white/20 bg-black/40 p-8 text-white shadow-2xl backdrop-blur-md lg:max-w-[350px]">
             <div className="grid grid-cols-2 gap-x-8 gap-y-10">
               {/* Stat 1 */}
               <div className="space-y-1">
@@ -107,7 +99,5 @@ const AboutCompany = () => {
       {/* Background Decorative Element (Subtle radial gradient) */}
       <div className="absolute top-1/2 left-1/2 z-0 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle_at_center,_rgba(249,115,22,0.05)_0%,_transparent_70%)]" />
     </section>
-  )
+  );
 }
-
-export { AboutCompany }

@@ -8,11 +8,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
+
   logging: {
     fetches: {
       fullUrl: true,

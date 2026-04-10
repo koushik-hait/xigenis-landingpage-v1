@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { CheckCircle2, ArrowUpRight } from "lucide-react"
@@ -137,7 +139,59 @@ const ProcessTimeline = () => {
         </div>
 
         {/* The Timeline Board */}
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
+        <div className="md:hidden">
+          <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
+            <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+              {zones.map((zone) => (
+                <div key={zone.id} className="flex-shrink-0 w-[85vw] max-w-md snap-center">
+                  <div className="overflow-hidden min-h-[100vh] rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
+                    {/* Zone Header */}
+                    <div className="bg-[#333] text-white p-6">
+                      <span className="mb-2 inline-block rounded-md bg-orange-500 px-2 py-0.5 text-[9px] font-black">
+                        ZONE - {zone.id}
+                      </span>
+                      <h3 className="block text-sm font-bold">{zone.title}</h3>
+                      <p className="mt-1 text-[10px] font-medium text-gray-400">{zone.subtitle}</p>
+                    </div>
+
+                    {/* Steps Container */}
+                    <div className="relative p-8">
+                      {zone.steps.map((step, index) => (
+                        <div key={step.id} className="relative mb-12 last:mb-0">
+                          {/* Vertical Line for mobile */}
+                          {index < zone.steps.length - 1 && (
+                            <div className="absolute top-12 left-6 z-0 w-px h-16 bg-gray-300" />
+                          )}
+
+                          <div className="relative z-10">
+                            {/* Step circle */}
+                            <div className="absolute left-0 top-2 h-3 w-3 rounded-full bg-orange-500 border-2 border-white" />
+
+                            <div className="pl-8 space-y-3">
+                              <div className="flex items-center gap-2">
+                                <span className="rounded bg-orange-500 px-2 py-0.5 text-[9px] font-bold text-white">
+                                  Step - {step.id} • {step.days}
+                                </span>
+                              </div>
+                              <h4 className="text-sm font-bold text-gray-900">{step.title}</h4>
+                              <p className="text-[11px] leading-relaxed text-gray-500">{step.desc}</p>
+                              <div className="inline-block rounded bg-gray-200 px-3 py-1 text-[9px] font-bold text-gray-600 uppercase">
+                                {step.tag}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Timeline Board */}
+        <div className="hidden md:block overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
           {/* Top Zone Headers */}
           <div className="grid grid-cols-1 bg-[#333] text-white md:grid-cols-4">
             {zones.map((zone) => (

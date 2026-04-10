@@ -1,8 +1,10 @@
+"use client"
+
 export { ProcessTimeline } from "./process-section"
 export { HeroSection } from "./hero-section"
 export { TransformationSection } from "./transformation-section"
 export { TopPerformerSection } from "./top-performer-section"
-export { AboutCompany } from "./about-section"
+export { AboutSection } from "./about-section"
 export { ProblemsSection } from "./problems-section"
 export { ReasonsSection } from "./reasons-section"
 export { StatsSection } from "./stats-section"

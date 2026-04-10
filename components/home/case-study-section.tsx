@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
@@ -46,7 +48,72 @@ const CaseStudies = () => {
         </div>
 
         {/* Horizontal Scroll / Grid Area */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {/* Mobile Horizontal Scroll */}
+        <div className="md:hidden">
+          <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
+            <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+              {projects.map((project, index) => (
+                <div key={index} className="flex-shrink-0 w-[75vw] max-w-sm snap-center">
+                  <div className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
+                    {/* Background Image */}
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+
+                    {/* Dark Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+
+                    {/* Stats Overlay (Frosted Glass Style) */}
+                    <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
+                      <div className="space-y-4">
+                        <div>
+                          <p className="font-serif text-xl text-white">{project.leads}</p>
+                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">Leads Generated</p>
+                        </div>
+                        <div>
+                          <p className="font-serif text-xl text-white">{project.rate}</p>
+                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">Qualified Buyer Rate</p>
+                        </div>
+                        <div>
+                          <p className="font-serif text-xl text-white">{project.requests}</p>
+                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">Site Visit Requests</p>
+                        </div>
+                      </div>
+
+                      <h3 className="pr-2 font-serif text-lg leading-tight text-white">{project.title}</h3>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* "See More" Card (Blurred Background) */}
+              <div className="flex-shrink-0 w-[75vw] max-w-sm snap-center">
+                <div className="group relative flex aspect-[4/5] cursor-pointer items-center justify-center overflow-hidden rounded-[2.5rem]">
+                  <Image
+                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop"
+                    alt="More projects"
+                    fill
+                    className="scale-110 object-cover opacity-60 blur-md"
+                  />
+                  <div className="absolute inset-0 bg-white/10 backdrop-blur-sm" />
+
+                  <div className="relative z-10 flex flex-col items-center gap-4">
+                    <span className="font-serif text-5xl text-white">12</span>
+                    <button className="flex items-center gap-2 rounded-full border border-white/50 px-6 py-2 text-[10px] font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-black">
+                      More <ArrowUpRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-2 gap-6 lg:grid-cols-4">
           {projects.map((project, index) => (
             <div key={index} className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
               {/* Background Image */}

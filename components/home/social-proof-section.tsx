@@ -1,105 +1,90 @@
 "use client"
 
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import Image from "next/image"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Star } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-is-mobile"
 
 /* ───────────────────── DATA ───────────────────── */
 
-const avatars = [
-  {
-    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
-    alt: "Real estate professional",
-    size: 72,
-    top: "8%",
-    left: "12%",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    alt: "Property agent",
-    size: 80,
-    top: "5%",
-    left: "32%",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
-    alt: "Developer partner",
-    size: 96,
-    top: "2%",
-    left: "50%",
-    highlight: true,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-    alt: "Broker",
-    size: 76,
-    top: "8%",
-    left: "68%",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-    alt: "Channel partner",
-    size: 68,
-    top: "4%",
-    left: "86%",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
-    alt: "Sales professional",
-    size: 72,
-    top: "28%",
-    left: "22%",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
-    alt: "Marketing lead",
-    size: 64,
-    top: "32%",
-    left: "78%",
-  },
-]
-
 const testimonials = [
   {
     name: "Rahul Sharma",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+    avatar: {
+      src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+      alt: "Real estate professional",
+      size: 72,
+      top: "8%",
+      left: "12%",
+    },
     rating: 5,
     quote:
       "The system completely changed how we generate buyer leads. Instead of chasing random inquiries, we now speak with serious property buyers who are ready to visit and invest.",
   },
   {
     name: "Priya Nair",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+    avatar: {
+      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+      alt: "Property agent",
+      size: 80,
+      top: "5%",
+      left: "32%",
+    },
     rating: 5,
     quote:
       "Before Xigenis, we were spending ₹1L/month on portals with zero tracking. Now every rupee is accounted for and we see 4x more quality site visits.",
   },
   {
     name: "Amrita Verma",
-    avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
+    avatar: {
+      src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+      alt: "Broker",
+      size: 76,
+      top: "8%",
+      left: "68%",
+    },
     rating: 5,
     quote:
       "320+ qualified buyer leads in 60 days. ₹4.2 Cr property deals closed. The ROI from Xigenis has been phenomenal for our entire team.",
   },
   {
     name: "Vikram Desai",
-    avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+    avatar: {
+      src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+      alt: "Channel partner",
+      size: 68,
+      top: "4%",
+      left: "86%",
+    },
     rating: 5,
     quote:
       "We closed 8 deals within the first quarter. The AI-driven follow-up system ensures no lead ever goes cold. This is the future of real estate marketing.",
   },
   {
     name: "Sneha Kapoor",
-    avatar:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+    avatar: {
+      src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
+      alt: "Sales professional",
+      size: 72,
+      top: "28%",
+      left: "22%",
+    },
     rating: 5,
     quote:
       "Our site visit ratio jumped from 5% to 22%. The quality of leads is unmatched — every conversation is with a genuine buyer ready to invest.",
+  },
+  {
+    name: "Rajesh Kumar",
+    avatar: {
+      src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+      alt: "Marketing lead",
+      size: 64,
+      top: "32%",
+      left: "78%",
+    },
+    rating: 5,
+    quote:
+      "The AI-driven follow-up system ensures no lead ever goes cold. This is the future of real estate marketing.",
   },
 ]
 
@@ -142,6 +127,20 @@ const SocialProofSection = () => {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1))
   }, [maxIndex])
 
+  // Auto-play functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        if (prev >= maxIndex) {
+          return 0 // Reset to beginning when reaching the end
+        }
+        return prev + 1
+      })
+    }, 5000) // Change testimonial every 5 seconds
+
+    return () => clearInterval(interval) // Cleanup on unmount
+  }, [maxIndex])
+
   return (
     <section className="relative w-full overflow-hidden bg-white py-20 lg:py-28">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -173,33 +172,32 @@ const SocialProofSection = () => {
         </div>
 
         {/* ─── FLOATING AVATARS ─── */}
-        <div className="relative mx-auto mb-10 hidden h-[220px] max-w-4xl lg:block">
-          {avatars.map((avatar, i) => (
+        <div className="relative mx-auto mb-5 hidden h-[220px] max-w-4xl lg:block">
+          {testimonials.slice(0, 5).map((testimonial, i) => (
             <div
               key={i}
-              className="absolute transition-transform duration-500 hover:scale-110"
+              className="absolute transition-all duration-500 hover:scale-110"
               style={{
-                top: avatar.top,
-                left: avatar.left,
+                top: testimonial.avatar.top,
+                left: testimonial.avatar.left,
                 transform: "translate(-50%, 0)",
               }}
             >
               <div
-                className={`overflow-hidden rounded-full shadow-lg ${
-                  avatar.highlight
-                    ? "ring-[3px] ring-orange-300 ring-offset-[3px] ring-offset-white"
-                    : "ring-2 ring-white"
-                }`}
+                className={`overflow-hidden rounded-full shadow-lg transition-all duration-500 ${!isMobile && i === currentIndex + 1
+                  ? "ring-[3px] ring-orange-300 ring-offset-[3px] ring-offset-white scale-110"
+                  : "ring-2 ring-white"
+                  }`}
                 style={{
-                  width: avatar.size,
-                  height: avatar.size,
+                  width: testimonial.avatar.size,
+                  height: testimonial.avatar.size,
                 }}
               >
                 <Image
-                  src={avatar.src}
-                  alt={avatar.alt}
-                  width={avatar.size}
-                  height={avatar.size}
+                  src={testimonial.avatar.src}
+                  alt={testimonial.avatar.alt}
+                  width={testimonial.avatar.size}
+                  height={testimonial.avatar.size}
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -208,25 +206,24 @@ const SocialProofSection = () => {
         </div>
 
         {/* Mobile Avatars — horizontal row */}
-        <div className="mb-10 flex items-center justify-center gap-3 lg:hidden">
-          {avatars.slice(0, 5).map((avatar, i) => (
+        <div className="mb-5 flex items-center justify-center gap-3 lg:hidden">
+          {testimonials.slice(0, 5).map((testimonial, i) => (
             <div
               key={i}
-              className={`overflow-hidden rounded-full ${
-                i === 2
-                  ? "ring-[3px] ring-orange-300 ring-offset-2 ring-offset-white"
-                  : "ring-2 ring-white"
-              }`}
+              className={`overflow-hidden rounded-full transition-all duration-300 ${i === currentIndex
+                ? "ring-[3px] ring-orange-300 ring-offset-2 ring-offset-white scale-110"
+                : "ring-2 ring-white"
+                }`}
               style={{
-                width: i === 2 ? 64 : 48,
-                height: i === 2 ? 64 : 48,
+                width: i === currentIndex ? 64 : 48,
+                height: i === currentIndex ? 64 : 48,
               }}
             >
               <Image
-                src={avatar.src}
-                alt={avatar.alt}
-                width={i === 2 ? 64 : 48}
-                height={i === 2 ? 64 : 48}
+                src={testimonial.avatar.src}
+                alt={testimonial.avatar.alt}
+                width={i === currentIndex ? 64 : 48}
+                height={i === currentIndex ? 64 : 48}
                 className="h-full w-full object-cover"
               />
             </div>
@@ -262,18 +259,19 @@ const SocialProofSection = () => {
                 transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
               }}
             >
+
               {testimonials.map((t, i) => (
                 <div
                   key={i}
                   className="w-full flex-shrink-0 px-3"
                   style={{ flexBasis: `${100 / visibleCount}%` }}
                 >
-                  <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-[0_2px_24px_rgba(0,0,0,0.06)] transition-shadow duration-300 hover:shadow-[0_8px_40px_rgba(0,0,0,0.10)]">
+                  <div className={`rounded-2xl border border-gray-100 bg-white p-6 shadow-[0_2px_24px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_8px_40px_rgba(0,0,0,0.10)] ${!isMobile && i !== currentIndex + 1 ? 'blur-sm opacity-60' : ''}`}>
                     {/* Header: Avatar + Name + Google */}
                     <div className="mb-4 flex items-center gap-3">
                       <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-gray-100">
                         <Image
-                          src={t.avatar}
+                          src={t.avatar.src}
                           alt={t.name}
                           width={48}
                           height={48}
@@ -312,11 +310,10 @@ const SocialProofSection = () => {
                 key={i}
                 onClick={() => setCurrentIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === currentIndex
-                    ? "w-6 bg-orange-500"
-                    : "w-2 bg-gray-200 hover:bg-gray-300"
-                }`}
+                className={`h-2 rounded-full transition-all duration-300 ${i === currentIndex
+                  ? "w-6 bg-orange-500"
+                  : "w-2 bg-gray-200 hover:bg-gray-300"
+                  }`}
               />
             ))}
           </div>

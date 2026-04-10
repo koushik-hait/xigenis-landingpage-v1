@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { XCircle, CheckCircle2, Megaphone, Instagram, Facebook, Linkedin, Twitter } from "lucide-react"
@@ -12,22 +14,26 @@ const AdSpendSection = () => {
             {/* Social Media & Icon Cloud */}
             <div className="absolute inset-0 z-0">
               {/* Megaphone Card */}
-              <div className="absolute top-1/4 left-4 z-20 -rotate-12 transform rounded-2xl border border-gray-100 bg-white p-4 shadow-xl sm:left-10">
-                <Megaphone className="h-8 w-8 text-orange-500" />
+              <div className="absolute top-[40%] left-[0%] z-20 -rotate-12 transform rounded-2xl border border-gray-100 bg-white p-4 shadow-xl sm:left-10">
+              <Image src="/assets/megaphone.png" alt="Megaphone" width={32} height={32} />
+                
               </div>
 
               {/* Floating Social Icons */}
-              <div className="absolute top-[20%] left-[30%] rotate-12 transform rounded-lg bg-white p-2 shadow-md">
-                <Instagram className="h-6 w-6 text-pink-500" />
+              <div className="absolute top-[20%] left-[20%] rotate-12 transform rounded-lg bg-white p-2 shadow-md">
+                
+              <Image src="/assets/instagram.svg" alt="Instagram" width={32} height={32} />
               </div>
-              <div className="absolute top-[10%] left-[45%] rounded-md bg-white p-1.5 shadow-sm">
-                <Linkedin className="h-4 w-4 text-blue-700" />
+              <div className="absolute top-[10%] left-[10%] rounded-md bg-white p-1.5 shadow-sm">
+              <Image src="/assets/linkedin.svg" alt="LinkedIn" width={32} height={32} />
+                
               </div>
-              <div className="absolute top-[25%] left-[55%] -rotate-12 transform rounded-lg bg-white p-2 shadow-md">
-                <Facebook className="h-6 w-6 text-blue-600" />
+              <div className="absolute top-[30%] left-[8%] -rotate-12 transform rounded-lg bg-white p-2 shadow-md">
+              <Image src="/assets/facebook.svg" alt="Facebook" width={32} height={32} />
+                
               </div>
-              <div className="absolute top-[35%] left-[25%] -rotate-6 transform rounded-md bg-white p-1.5 shadow-sm">
-                <Twitter className="h-4 w-4 text-black" />
+              <div className="absolute top-[35%] left-[5%] -rotate-6 transform rounded-md bg-white p-1.5 shadow-sm">
+                              <Image src="/assets/whatsapp.png" alt="Whatsapp" width={32} height={32} />
               </div>
               {/* WhatsApp-ish Placeholder */}
               <div className="absolute top-[45%] left-[35%] rotate-12 transform rounded-full bg-green-500 p-2 shadow-lg">
@@ -36,9 +42,9 @@ const AdSpendSection = () => {
             </div>
 
             {/* Main Subject Image */}
-            <div className="relative z-10 h-[500px] w-[280px] sm:w-[350px] lg:w-[400px]">
+            <div className="relative z-10 h-[400px] w-[220px] sm:w-[300px] lg:w-[400px]">
               <Image
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop"
+                src="/assets/man.png"
                 alt="Business Professional"
                 fill
                 className="object-cover object-top grayscale-[0.2]"
@@ -48,9 +54,9 @@ const AdSpendSection = () => {
             {/* Data Cards Overlay */}
             <div className="pointer-events-none absolute inset-0 z-20">
               {/* ₹80K Ad Spend Card */}
-              <div className="pointer-events-auto absolute top-10 right-4 w-44 overflow-hidden rounded-3xl bg-white shadow-2xl sm:right-10">
-                <div className="p-6 text-center">
-                  <span className="font-serif text-4xl text-gray-900">₹80K</span>
+              <div className="pointer-events-auto absolute top-10 right-4 w-44 overflow-hidden rounded-xl bg-white sm:right-10">
+                <div className="p-2 text-center">
+                  <span className="font-serif text-3xl text-gray-900">₹80K</span>
                 </div>
                 <div className="bg-black py-2 text-center">
                   <span className="text-[10px] font-bold tracking-widest text-white uppercase">Ad Spend / Month</span>
@@ -58,20 +64,20 @@ const AdSpendSection = () => {
               </div>
 
               {/* 94 Leads Card */}
-              <div className="pointer-events-auto absolute top-1/2 -right-4 w-44 translate-y-[-50%] rounded-3xl border border-gray-50 bg-white p-6 text-center shadow-xl">
-                <span className="font-serif text-5xl text-gray-900">94</span>
+              <div className="pointer-events-auto absolute top-1/2 -right-4 w-44 translate-y-[-50%] rounded-xl border border-gray-50 bg-white p-2 text-center shadow-xl">
+                <span className="font-serif text-3xl text-gray-900">94</span>
                 <p className="mt-2 text-xs font-bold text-gray-400 uppercase">Leads Generated</p>
               </div>
 
               {/* 0-1 Deals Closed Card */}
-              <div className="pointer-events-auto absolute right-10 bottom-[20%] w-40 rounded-3xl bg-black p-6 text-center shadow-2xl">
-                <span className="font-serif text-3xl text-white">0—1</span>
+              <div className="pointer-events-auto absolute right-10 bottom-[20%] w-40 rounded-3xl bg-black p-2 text-center shadow-2xl">
+                <span className="font-serif text-2xl text-white">0—1</span>
                 <p className="mt-2 text-[10px] font-bold text-gray-400 uppercase">Deals Closed</p>
               </div>
 
               {/* 3-4 Site Visits Card (Bottom Left) */}
               <div className="pointer-events-auto absolute bottom-4 -left-4 w-64 rounded-[2rem] bg-white p-8 shadow-2xl sm:left-4">
-                <span className="font-serif text-5xl text-gray-900">3—4</span>
+                <span className="font-serif text-3xl text-gray-900">3—4</span>
                 <p className="mt-1 text-sm font-bold text-gray-800">Site Visits Booked</p>
                 <div className="mt-4 rounded-full bg-gray-100 px-4 py-2">
                   <p className="text-[10px] font-bold text-gray-500 uppercase">83% of Meta campaigns end here</p>
@@ -86,7 +92,7 @@ const AdSpendSection = () => {
               PROBLEM 03 • LEAD QUALITY
             </div>
 
-            <h2 className="font-serif text-4xl leading-tight text-gray-900 lg:text-5xl">
+            <h2 className="font-serif text-3xl leading-tight text-gray-900 lg:text-5xl">
               Burning ₹30K—₹1L Monthly <br />
               on Ads That Convert Nothing
             </h2>

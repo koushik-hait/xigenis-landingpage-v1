@@ -107,7 +107,82 @@ export function ProblemsSection() {
             <div className="h-full w-full object-cover bg-[url('/assets/problems-bg.png')] bg-cover bg-center" />
           </div>
 
-          <div className="relative z-10 container mx-auto w-full px-4 sm:px-6 lg:px-8">
+          {/* Mobile Horizontal Scroll Layout */}
+          <div className="lg:hidden absolute inset-0 z-10">
+            <div className="overflow-x-auto snap-x snap-mandatory h-full">
+              <div className="flex gap-4 h-full" style={{ minWidth: 'max-content', padding: '0 1rem' }}>
+                {/* First Screen - Header and Intro */}
+                <div className="flex-shrink-0 w-[85vw] snap-center flex flex-col justify-center py-20">
+                  <div className="px-4">
+                    <div className="inline-block rounded-full bg-gray-800 px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase mb-6">
+                      Sound Familiar?
+                    </div>
+                    <h1 className="font-serif text-3xl leading-tight text-gray-900 sm:text-4xl mb-8">
+                      Your Lead Problem Is <br /> Not What You Think
+                    </h1>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-lg">
+                      <ul className="space-y-4 mb-6">
+                        {[
+                          "Do you spend ₹30K to ₹1L on ads and still get 80% fake numbers?",
+                          "Are you chasing 100 leads a month but can't get 4 site visits a week?",
+                          "Have you tried portals, freelancers, and cold calls and NOTHING worked consistently?",
+                        ].map((text, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <XCircle className="mt-0.5 h-5 w-5 flex-shrink-0 fill-red-100 text-red-500" />
+                            <span className="text-sm leading-snug font-medium text-gray-700">{text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="text-sm leading-relaxed text-gray-600">
+                        You're not bad at sales. You're using a broken system in a market that rewards speed, follow-up, and qualified traffic — not volume.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Second Screen - Visual with Stats */}
+                <div className="flex-shrink-0 w-[85vw] snap-center flex flex-col justify-center py-20">
+                  <div className="px-4">
+                    <div className="relative h-[600px] rounded-3xl bg-white/80 backdrop-blur-sm p-6 shadow-lg">
+                      {/* Main Image */}
+                      <div className="relative h-[350px] w-full mb-6">
+                        <Image
+                          src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"
+                          alt="Smiling Professional"
+                          fill
+                          className="object-cover rounded-2xl"
+                        />
+                      </div>
+                      
+                      {/* Floating Stats */}
+                      <div className="absolute top-8 right-8 bg-[#F97316] text-white p-4 rounded-2xl shadow-lg max-w-[140px]">
+                        <div className="font-serif text-2xl">900%</div>
+                        <div className="text-xs opacity-90">Higher conversion in 5 mins</div>
+                      </div>
+                      
+                      <div className="absolute top-32 left-8 bg-black text-white p-4 rounded-2xl shadow-lg max-w-[140px]">
+                        <div className="font-serif text-2xl">72%</div>
+                        <div className="text-xs opacity-80">Unqualified leads problem</div>
+                      </div>
+                      
+                      <div className="absolute bottom-8 right-8 bg-white border border-gray-100 p-4 rounded-2xl shadow-lg max-w-[140px]">
+                        <div className="font-serif text-2xl text-[#D97706]">3-5%</div>
+                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Lead conversion rate</div>
+                      </div>
+
+                      <div className="absolute bottom-8 left-8 bg-white border border-gray-100 p-4 rounded-2xl shadow-lg max-w-[140px]">
+                        <div className="font-serif text-2xl text-[#D97706]">60%</div>
+                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Leads die after Day 2</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="relative z-10 hidden lg:block container mx-auto w-full px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-8">
               {/* Left Column: Text Content */}
               <div className="w-full space-y-8 lg:w-1/2">

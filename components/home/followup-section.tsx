@@ -1,5 +1,8 @@
+"use client"
+
 import React from "react"
 import { XCircle, CheckCircle2, Clock, MessageSquare, Send } from "lucide-react"
+import Image from "next/image"
 
 const FollowUpSection = () => {
   return (
@@ -9,29 +12,11 @@ const FollowUpSection = () => {
           {/* Right Column: Mobile Device Mockup */}
           <div className="relative flex w-full justify-center lg:w-1/2">
             {/* Phone Frame */}
-            <div className="relative flex h-[600px] w-[300px] flex-col overflow-hidden rounded-[3rem] border-[8px] border-white bg-[#1A1A1A] px-6 pt-12 shadow-2xl">
+            <div className="relative flex h-[600px] w-[300px] flex-col overflow-hidden" style={{ backgroundImage: 'url("/assets/follow-up-mobile.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
               {/* Phone Content */}
-              <div className="space-y-6 text-center">
-                <h3 className="font-serif text-3xl text-white">Speed to Lead</h3>
-
-                <div className="relative flex flex-col items-center py-8">
-                  {/* Speed Lines Icon (Clock + Motion) */}
-                  <div className="absolute top-1/2 left-0 flex -translate-y-1/2 items-center gap-2 opacity-30">
-                    <div className="mb-1 h-1 w-8 rounded-full bg-white" />
-                    <div className="mb-1 h-1 w-4 rounded-full bg-white" />
-                    <Clock className="h-12 w-12 text-white" />
-                  </div>
-
-                  <span className="font-serif text-7xl text-white">90%</span>
-                </div>
-
-                <p className="px-4 text-sm leading-relaxed text-gray-400">
-                  Higher conversion when you respond within 5 minutes vs 24–48 hours
-                </p>
-              </div>
 
               {/* Floating Chat Bubble Icon */}
-              <div className="absolute right-6 bottom-40 rounded-2xl bg-indigo-600 p-3 shadow-lg">
+              <div className="absolute right-6 bottom-80 rounded-2xl bg-indigo-600 p-3 shadow-lg">
                 <MessageSquare className="h-6 w-6 text-white" />
               </div>
 
@@ -65,9 +50,7 @@ const FollowUpSection = () => {
               <div className="mb-2 flex items-start justify-between">
                 <h4 className="font-serif text-3xl text-white">5m</h4>
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current text-white">
-                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.212l-.582 2.128 2.18-.573c.91.514 1.954.896 3.145.897 3.181 0 5.767-2.586 5.768-5.767 0-3.18-2.587-5.763-5.768-5.763zm3.385 8.164c-.144.405-.838.774-1.159.822-.288.043-.664.075-1.077-.058-.252-.081-.568-.192-.972-.368-1.722-.751-2.846-2.502-2.932-2.617-.086-.115-.701-.933-.701-1.78s.443-1.263.602-1.436c.158-.173.346-.216.461-.216.115 0 .23 0 .331.005.105.004.246-.04.385.293.144.346.49 1.196.533 1.282.043.086.072.187.014.302-.058.115-.086.187-.173.288-.086.101-.182.225-.26.302-.087.086-.177.18-.076.353.1.173.447.737.959 1.192.658.586 1.213.768 1.386.854.173.086.273.072.375-.043.101-.115.432-.504.548-.677.115-.173.23-.144.389-.086.158.058 1.008.475 1.181.561.173.086.288.13.331.202.044.072.044.418-.1.823z" />
-                  </svg>
+                  <Image src="/assets/whatsapp.png" alt="Check" width={20} height={20} />
                 </div>
               </div>
               <p className="text-xs leading-tight font-medium text-green-100/70">AI Algo-Plex response</p>

@@ -1,19 +1,12 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-is-mobile"
 
 const metricsData = [
-  {
-    title: "Residential Real Estate",
-    description: "Achievement Metrics:",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-    stats: [
-      { label: "340+", value: "Residential Campaigns Delivered" },
-      { label: "78%", value: "Pre-Qualified Buyer Rate" },
-    ],
-    large: true, // Highlight card
-  },
+  
 
   {
     title: "Commercial Real Estate",
@@ -61,56 +54,54 @@ const PerformanceMetrics = () => {
                 </div>
               </button>
             </div>
-            {metricsData.map((item, index) => {
-              if (item.large) {
-                return (
+            
                   <div
-                    key={index}
+                   
                     className="relative col-span-1 flex min-h-[200px] flex-col overflow-hidden rounded-[2rem] bg-[#1A1A1A] p-8 md:col-span-1"
                   >
                     {/* Background image with fade */}
                     <div className="absolute inset-0 z-0 opacity-20 grayscale">
-                      <Image src={item.image} alt={item.title} fill className="object-cover object-center" />
+                      <Image src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" alt="Residential Real Estate" fill className="object-cover object-center" />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent" />
                     </div>
 
                     <div className="relative z-10 space-y-4">
-                      <h3 className="font-serif text-3xl text-white">{item.title}</h3>
-                      <p className="text-sm font-bold tracking-widest text-gray-300 uppercase">{item.description}</p>
+                      <h3 className="font-serif text-3xl text-white">Residential Real Estate</h3>
+                      <p className="text-sm font-bold tracking-widest text-gray-300 uppercase">Achievement Metrics:</p>
                     </div>
 
                     {/* Achievement Metrics Boxes */}
                     <div className="relative z-10 mt-auto grid grid-cols-2 gap-4 border-t border-gray-700 pt-8">
-                      {item.stats?.map((stat, sIndex) => (
+                      
                         <div
-                          key={sIndex}
+
                           className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-inner backdrop-blur-sm"
                         >
-                          <span className="font-serif text-3xl text-white">{stat.label}</span>
+                          <span className="font-serif text-3xl text-white">340+</span>
                           <p className="text-[10px] leading-tight font-medium tracking-wider text-gray-400 uppercase">
-                            {stat.value}
+                            Residential Campaigns Delivered
                           </p>
                         </div>
-                      ))}
+
+                        <div
+
+                          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-inner backdrop-blur-sm"
+                        >
+                          <span className="font-serif text-3xl text-white">78%</span>
+                          <p className="text-[10px] leading-tight font-medium tracking-wider text-gray-400 uppercase">
+                            Pre-Qualified Buyer Rate
+                          </p>
+                        </div>
+                      
                     </div>
                   </div>
-                )
-              }
-            })}
+             
           </div>
 
           {/* Right Column: Masonry Grid of Cards */}
           <div className={`relative ${isMobile ? 'flex overflow-x-auto gap-6 snap-x snap-mandatory' : 'grid grid-cols-1 gap-6 md:grid-cols-2'} w-full lg:w-[65%]`}>
             {metricsData.map((item, index) => {
-              if (item.large) {
-                {
-                  /* Special highlight card (Residential) */
-                }
-                return <></>
-              } else {
-                {
-                  /* Standard category card */
-                }
+              
                 return (
                   <div
                     key={index}
@@ -131,7 +122,7 @@ const PerformanceMetrics = () => {
                     </div>
                   </div>
                 )
-              }
+              
             })}
           </div>
         </div>
