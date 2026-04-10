@@ -3,36 +3,45 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
 
-export function TargetAudienceSection() {
-  const notForYou = [
-    <>
-      You are <span className="font-bold">just starting in real estate</span>
-    </>,
-    <>
-      You are looking for <span className="font-bold">cheap or random leads</span>
-    </>,
-    <>
-      You don&apos;t have a <span className="font-bold">structured sales closing process</span>
-    </>,
-    <>
-      You only work with <span className="font-bold">low-budget property deals</span>
-    </>,
-  ]
+interface TargetAudienceSectionProps {
+  cmsContent?: any
+}
 
-  const forYou = [
-    <>
-      Your annual revenue is <span className="font-bold">₹50L+</span>
-    </>,
-    <>
-      You sell <span className="font-bold">₹1Cr+ ticket size properties</span>
-    </>,
-    <>
-      You are ready to <span className="font-bold">invest ₹1-3L in client acquisition</span>
-    </>,
-    <>
-      You can handle <span className="font-bold">8-12 qualified buyer leads per month</span>
-    </>,
-  ]
+export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps) {
+  const content = {
+    headingLine1: "For Real Estate Leaders Who Want",
+    headingLine2: "Predictable Deals",
+    notForYouLabel: "This is not for you if",
+    forYouLabel: "This is for you if",
+    notForYouPoints: [
+      "You are **just starting in real estate**",
+      "You are looking for **cheap or random leads**",
+      "You don't have a **structured sales closing process**",
+      "You only work with **low-budget property deals**"
+    ],
+    forYouPoints: [
+      "Your annual revenue is **₹50L+**",
+      "You sell **₹1Cr+ ticket size properties**",
+      "You are ready to **invest ₹1-3L in client acquisition**",
+      "You can handle **8-12 qualified buyer leads per month**"
+    ],
+    bgImage: "/assets/eligibility-bg.png",
+    modelImage: "/assets/eligibility-cutout.png",
+    ...cmsContent
+  }
+
+  const renderText = (text: string) => {
+    const parts = text.split(/(\*\*.*?\*\*)/g)
+    return parts.map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <span key={i} className="font-bold">{part.slice(2, -2)}</span>
+      }
+      return part
+    })
+  }
+
+  const notForYou: React.ReactNode[] = content.notForYouPoints.map((p: string) => renderText(p))
+  const forYou: React.ReactNode[] = content.forYouPoints.map((p: string) => renderText(p))
 
   return (
     <section className="relative overflow-hidden bg-[#F2F2F2] py-10 sm:py-28">
@@ -46,18 +55,17 @@ export function TargetAudienceSection() {
           className="mb-6 text-center"
         >
           <h2 className="mx-auto max-w-3xl font-serif text-3xl leading-[1.2] tracking-wide text-gray-900 uppercase sm:text-4xl lg:text-5xl">
-            For Real Estate Leaders Who Want
+            {content.headingLine1}
             <br className="hidden sm:block" />
-            <span className="mt-2 block">Predictable Deals</span>
+            <span className="mt-2 block">{content.headingLine2}</span>
           </h2>
         </motion.div>
 
-        {/* Mobile Layout */}
         <div className="lg:hidden">
           {/* Middle Graphic for Mobile */}
           <div className="relative mb-8 flex h-[350px] w-full items-end justify-center">
             <Image
-              src="/assets/eligibility-bg.png"
+              src={content.bgImage}
               alt="Eligibility Background"
               style={{ zIndex: 10 }}
               className="absolute inset-0 h-full w-full object-contain object-bottom opacity-80"
@@ -65,7 +73,7 @@ export function TargetAudienceSection() {
               height={500}
             />
             <Image
-              src="/assets/eligibility-cutout.png"
+              src={content.modelImage}
               alt="Eligibility"
               style={{ zIndex: 0 }}
               className="relative h-[320px] w-auto max-w-full object-contain object-bottom drop-shadow-2xl"
@@ -82,11 +90,11 @@ export function TargetAudienceSection() {
               viewport={{ once: true }}
               className="mb-4 rounded-full bg-[#D3D3D3] px-6 py-2.5 text-center text-xs font-bold tracking-widest text-black uppercase shadow-sm"
             >
-              This is not for you if
+              {content.notForYouLabel}
             </motion.div>
 
             <div className="flex flex-col items-center gap-4">
-              {notForYou.map((item, i) => (
+              {notForYou.map((item: React.ReactNode, i: number) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -30 }}
@@ -110,11 +118,11 @@ export function TargetAudienceSection() {
               viewport={{ once: true }}
               className="mb-4 rounded-full bg-[#D3D3D3] px-6 py-2.5 text-center text-xs font-bold tracking-widest text-black uppercase shadow-sm"
             >
-              This is for you if
+              {content.forYouLabel}
             </motion.div>
 
             <div className="flex flex-col items-center gap-4">
-              {forYou.map((item, i) => (
+              {forYou.map((item: React.ReactNode, i: number) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 30 }}
@@ -142,11 +150,11 @@ export function TargetAudienceSection() {
               viewport={{ once: true }}
               className="mr-10 mb-4 rounded-full bg-[#D3D3D3] px-6 py-2.5 text-center text-xs font-bold tracking-widest text-black uppercase shadow-sm"
             >
-              This is not for you if
+              {content.notForYouLabel}
             </motion.div>
 
             <div className="flex w-full max-w-[340px] flex-col items-end gap-4">
-              {notForYou.map((item, i) => (
+              {notForYou.map((item: React.ReactNode, i: number) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -30 }}
@@ -166,7 +174,7 @@ export function TargetAudienceSection() {
           {/* Middle Graphic */}
           <div className="relative z-10 flex items-end justify-center">
             <Image
-              src="/assets/eligibility-bg.png"
+              src={content.bgImage}
               alt="Background"
               style={{ zIndex: 10 }}
               className="absolute inset-0 h-full w-full object-contain object-bottom opacity-100"
@@ -175,7 +183,7 @@ export function TargetAudienceSection() {
             />
 
             <Image
-              src="/assets/eligibility-cutout.png"
+              src={content.modelImage}
               alt="Real Estate Professionals"
               style={{ zIndex: 0 }}
               className="relative max-w-none object-contain object-bottom drop-shadow-2xl"
@@ -192,11 +200,11 @@ export function TargetAudienceSection() {
               viewport={{ once: true }}
               className="ml-10 mb-4 rounded-full bg-[#D3D3D3] px-6 py-2.5 text-center text-xs font-bold tracking-widest text-black uppercase shadow-sm"
             >
-              This is for you if
+              {content.forYouLabel}
             </motion.div>
 
             <div className="flex w-full max-w-[340px] flex-col items-start gap-4">
-              {forYou.map((item, i) => (
+              {forYou.map((item: React.ReactNode, i: number) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 30 }}

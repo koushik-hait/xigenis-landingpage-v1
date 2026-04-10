@@ -28,6 +28,29 @@ import { getCmsContent } from "@/app/actions/cms"
 export default async function Web() {
   // Fetch dynamic content
   const heroCmsData = await getCmsContent('home', 'hero');
+  const topPerformersCmsData = await getCmsContent('home', 'top-performers');
+  const targetAudienceCmsData = await getCmsContent('home', 'target-audience');
+  const transformationCmsData = await getCmsContent('home', 'transformation');
+  const problemsCmsData = await getCmsContent('home', 'problems');
+  const leadQualityCmsData = await getCmsContent('home', 'lead-quality');
+  const followUpCmsData = await getCmsContent('home', 'follow-up');
+  const adspendCmsData = await getCmsContent('home', 'adspend');
+  const referralCmsData = await getCmsContent('home', 'referral');
+  const fixCmsData = await getCmsContent('home', 'fix');
+  const aboutCmsData = await getCmsContent('home', 'about');
+  const performanceCmsData = await getCmsContent('home', 'performance');
+  const socialProofCmsData = await getCmsContent('home', 'social-proof');
+  const reasonsCmsData = await getCmsContent('home', 'reasons');
+  const ctaCmsData = await getCmsContent('home', 'cta');
+  const processCmsData = await getCmsContent('home', 'process');
+  const caseStudiesCmsData = await getCmsContent('home', 'case-studies');
+  const whyUsCmsData = await getCmsContent('home', 'why-us');
+  const campaignInsightsCmsData = await getCmsContent('home', 'campaign-insights');
+
+  const featuresCmsData = await getCmsContent('home', 'features');
+  const faqCmsData = await getCmsContent('home', 'faq');
+  const testimonialCmsData = await getCmsContent('home', 'testimonial');
+  const realEstateHeroCmsData = await getCmsContent('home', 'real-estate-hero');
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -35,70 +58,71 @@ export default async function Web() {
       <HeroSection cmsContent={heroCmsData as any} />
 
       {/* Top Performers Section */}
-      <TopPerformerSection />
+      <TopPerformerSection cmsContent={topPerformersCmsData as any} />
 
       {/* Target Audience - For you / Not for you */}
-      <TargetAudienceSection />
+      <TargetAudienceSection cmsContent={targetAudienceCmsData as any} />
 
       {/* The 90-Day Transformation */}
-      <TransformationSection />
+      <TransformationSection cmsContent={transformationCmsData as any} />
 
       {/* The Real Problems - Dark section */}
-      <ProblemsSection />
+      <ProblemsSection cmsContent={problemsCmsData as any} />
 
       {/* Lead Quality Section */}
-      <LeadQualitySection />
+      <LeadQualitySection cmsContent={leadQualityCmsData as any} />
 
       {/* Follow Up Section */}
-      <FollowUpSection />
+      <FollowUpSection cmsContent={followUpCmsData as any} />
 
       {/* Ad Spend Section */}
-      <AdSpendSection />
+      <AdSpendSection cmsContent={adspendCmsData as any} />
 
       {/* Referral Section */}
-      <ReferralSection />
+      <ReferralSection cmsContent={referralCmsData as any} />
 
       {/* Fix Section */}
-      <FixSection />
+      <FixSection cmsContent={fixCmsData as any} />
 
       {/* About Company */}
-      <AboutSection />
+      <AboutSection cmsContent={aboutCmsData as any} />
 
       {/* Performance Metrics */}
-      <PerformanceMetrics />
+      <PerformanceMetrics cmsContent={performanceCmsData as any} />
 
       {/* Social Proof / Testimonials */}
-      <SocialProofSection />
+      <SocialProofSection cmsContent={socialProofCmsData as any} />
 
       {/* Reasons Section */}
-      <ReasonsSection />
+      <ReasonsSection cmsContent={reasonsCmsData as any} />
 
       {/* Cta Section */}
-      <CTASection />
+      <CTASection cmsContent={ctaCmsData as any} />
 
       {/* Process Section */}
-      <ProcessTimeline />
+      <ProcessTimeline cmsContent={processCmsData as any} />
 
       {/* Case Studies */}
-      <CaseStudies />
+      <CaseStudies cmsContent={caseStudiesCmsData as any} />
 
       {/* WhyChooseUs section */}
-      <WhyChooseUs />
+      <WhyChooseUs cmsContent={whyUsCmsData as any} />
 
       {/* Campaign Insights */}
-      <CampaignInsights />
+      <CampaignInsights cmsContent={campaignInsightsCmsData as any} />
 
       {/* Features Section */}
-      <FeaturesSection />
+      <FeaturesSection cmsContent={featuresCmsData as any} />
 
       {/* FAQ Section */}
-      <FAQSection />
+      <FAQSection cmsContent={faqCmsData as any} />
 
       {/* Testimonial Section */}
-      <TestimonialSection />
+      <TestimonialSection cmsContent={testimonialCmsData as any} />
 
       {/* Real Estate Hero */}
-      <RealEstateHero />
+      <RealEstateHero cmsContent={realEstateHeroCmsData as any} />
     </div>
   )
 }
+

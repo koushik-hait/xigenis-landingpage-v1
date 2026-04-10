@@ -4,60 +4,65 @@ import React from "react"
 import Image from "next/image"
 import { Star } from "lucide-react"
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Rahul Sharma",
-    role: "Real Estate Broker, Mumbai",
-    image: "/broker-1.jpg", // Replace with your assets
-    text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries and closed two deals within the first 60 days.",
-  },
-  {
-    id: 2,
-    name: "Rahul Sharma",
-    role: "Real Estate Broker, Mumbai",
-    image: "/broker-2.jpg",
-    text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries and closed two deals within the first 60 days.",
-  },
-  {
-    id: 3,
-    name: "Rahul Sharma",
-    role: "Real Estate Broker, Mumbai",
-    image: "/broker-3.jpg",
-    text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries and closed two deals within the first 60 days.",
-  },
-  // Add more as needed
-]
+interface TestimonialSectionProps {
+  cmsContent?: any
+}
 
-export function TestimonialSection() {
+export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
+  const content = {
+    pillText: 'Testimonials',
+    heading: 'Trusted by Real Estate Professionals',
+    description: "Rated by agents, brokers, and developers who are generating qualified buyer leads and closing more property deals with our system.",
+    testimonials: [
+      {
+        name: "Rahul Sharma",
+        role: "Real Estate Broker, Mumbai",
+        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop",
+        text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries and closed two deals within the first 60 days.",
+      },
+      {
+        name: "Amit Desai",
+        role: "Property Developer",
+        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop",
+        text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries and closed two deals within the first 60 days.",
+      },
+      {
+        name: "Vikram Singh",
+        role: "Agency Owner",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop",
+        text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries and closed two deals within the first 60 days.",
+      },
+    ],
+    ...cmsContent
+  }
+
   return (
     <section className="overflow-hidden bg-[#F9FAFB] py-20">
       <div className="mx-auto flex max-w-7xl flex-col items-start gap-12 px-6 lg:flex-row">
         {/* Left Side: Static Content */}
         <div className="lg:sticky lg:top-10 lg:w-1/3">
           <span className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1 text-[10px] font-bold tracking-widest text-orange-600 uppercase">
-            Testimonials
+            {content.pillText}
           </span>
-          <h2 className="mb-6 font-serif text-4xl leading-tight font-bold text-gray-900 md:text-5xl">
-            Trusted by Real Estate Professionals
+          <h2 className="mb-6 font-serif text-4xl leading-tight font-bold text-gray-900 md:text-5xl whitespace-pre-line">
+            {content.heading}
           </h2>
-          <p className="max-w-sm text-lg text-gray-500">
-            Rated by agents, brokers, and developers who are generating qualified buyer leads and closing more property
-            deals with our system.
+          <p className="max-w-sm text-lg text-gray-500 whitespace-pre-line">
+            {content.description}
           </p>
         </div>
 
         {/* Right Side: Horizontal Scrolling Container */}
         <div className="w-full lg:w-2/3">
           <div className="scrollbar-hide flex snap-x snap-mandatory gap-6 overflow-x-auto pb-8">
-            {testimonials.map((t, index) => (
+            {content.testimonials.map((t: any, index: number) => (
               <div
                 key={index}
                 className="min-w-[320px] snap-center overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm md:min-w-[360px]"
               >
                 {/* Profile Image */}
                 <div className="relative h-48 w-full">
-                  <Image src={t.image} alt={t.name} fill className="object-cover" />
+                  <Image src={t.image || "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"} alt={t.name} fill className="object-cover" />
                 </div>
 
                 {/* Card Content */}
@@ -78,7 +83,7 @@ export function TestimonialSection() {
                     ))}
                   </div>
 
-                  <p className="text-sm leading-relaxed text-gray-600 italic">&ldquo;{t.text}&rdquo;</p>
+                  <p className="text-sm leading-relaxed text-gray-600 italic whitespace-pre-line">&ldquo;{t.text}&rdquo;</p>
 
                   {/* Google Logo (Placeholder) */}
                   <div className="mt-6 flex justify-end">
@@ -112,3 +117,4 @@ export function TestimonialSection() {
     </section>
   )
 }
+

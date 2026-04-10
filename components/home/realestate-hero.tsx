@@ -4,22 +4,33 @@ import React from "react"
 import Image from "next/image"
 import { Check, Star, ArrowUpRight } from "lucide-react"
 
-const valueProps = [
-  "High-Intent Property Buyers",
-  "Qualified Buyer Inquiries Fast",
-  "Full Campaign Transparency",
-  "Real Estate Marketing Experts",
-  "More Site Visits & Deals",
-]
+interface RealEstateHeroProps {
+  cmsContent?: any
+}
 
-export function RealEstateHero() {
+export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
+  const content = {
+    badgeText: 'Trusted by 100+ B2B Organization',
+    heading: 'Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries',
+    buttonText: 'Speak With A Strategy Expert Today',
+    backgroundImage: '/hero-family-pool.jpg',
+    valueProps: [
+      "High-Intent Property Buyers",
+      "Qualified Buyer Inquiries Fast",
+      "Full Campaign Transparency",
+      "Real Estate Marketing Experts",
+      "More Site Visits & Deals",
+    ],
+    ...cmsContent
+  }
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-white font-serif">
       {/* Background Image Container */}
       <div className="absolute inset-y-0 right-0 z-0 h-full w-full lg:w-[60%]">
         <Image
-          src="/hero-family-pool.jpg" // Replace with your actual asset path
-          alt="Happy family at a luxury villa pool"
+          src={content.backgroundImage || "/hero-family-pool.jpg"}
+          alt="Real Estate Hero Background"
           fill
           className="object-cover object-center"
           priority
@@ -43,18 +54,18 @@ export function RealEstateHero() {
               ))}
             </div>
             <span className="font-sans text-xs font-semibold tracking-widest text-[#F67C46] uppercase">
-              Trusted by 100+ B2B Organization
+              {content.badgeText}
             </span>
           </div>
 
           {/* Headline */}
-          <h1 className="mb-10 text-4xl leading-tight font-medium text-gray-900 md:text-5xl lg:text-6xl">
-            Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries
+          <h1 className="mb-10 text-4xl leading-tight font-medium text-gray-900 md:text-5xl lg:text-6xl whitespace-pre-line">
+            {content.heading}
           </h1>
 
           {/* Value Propositions List */}
           <ul className="mb-12 space-y-4 font-sans">
-            {valueProps.map((prop, index) => (
+            {content.valueProps?.map((prop: string, index: number) => (
               <li key={index} className="flex items-center gap-3">
                 <div className="flex items-center justify-center rounded-full bg-[#E4FBF3] p-1.5">
                   <Check className="h-4 w-4 text-[#35D7A1]" />
@@ -66,7 +77,7 @@ export function RealEstateHero() {
 
           {/* Call To Action Button */}
           <button className="group inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 font-sans text-lg font-bold text-white transition-colors hover:bg-gray-800">
-            Speak With A Strategy Expert Today
+            {content.buttonText}
             <span className="rounded-full bg-[#F67C46] p-1.5 text-white transition-transform duration-300 group-hover:rotate-45">
               <ArrowUpRight className="h-5 w-5" />
             </span>
@@ -79,3 +90,4 @@ export function RealEstateHero() {
     </section>
   )
 }
+

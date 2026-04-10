@@ -4,13 +4,25 @@ import React from "react"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 
-const CTASection = () => {
+interface CTASectionProps {
+  cmsContent?: any
+}
+
+const CTASection = ({ cmsContent }: CTASectionProps) => {
+  const content = {
+    bgImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
+    heading: "Ready to Build a \n Predictable Pipeline of \n Property Buyers?",
+    description: "Discover how our system helps real estate professionals generate qualified leads, increase site visits, and close more deals.",
+    buttonText: "Book Your Strategy Call",
+    ...cmsContent
+  }
+
   return (
     <section className="relative flex min-h-[600px] w-full items-center overflow-hidden bg-black">
       {/* Background Visual (Right Side) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+          src={content.bgImage}
           alt="Luxury modern villa"
           fill
           className="object-cover object-center"
@@ -22,22 +34,19 @@ const CTASection = () => {
       <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl space-y-8">
           {/* Header */}
-          <h2 className="font-serif text-5xl leading-tight text-white lg:text-7xl">
-            Ready to Build a <br />
-            <span className="text-white">Predictable Pipeline of</span> <br />
-            <span className="text-white">Property Buyers?</span>
+          <h2 className="font-serif text-5xl leading-tight text-white lg:text-7xl whitespace-pre-line">
+            {content.heading}
           </h2>
 
           {/* Subtext */}
           <p className="max-w-lg text-lg leading-relaxed text-gray-400 lg:text-xl">
-            Discover how our system helps real estate professionals generate qualified leads, increase site visits, and
-            close more deals.
+            {content.description}
           </p>
 
           {/* Action Button */}
           <div className="pt-4">
             <button className="group flex items-center gap-4 rounded-full bg-white py-3 pr-3 pl-10 shadow-2xl transition-all duration-300 hover:bg-gray-100">
-              <span className="text-sm font-bold tracking-widest text-black uppercase">Book Your Strategy Call</span>
+              <span className="text-sm font-bold tracking-widest text-black uppercase">{content.buttonText}</span>
               <div className="rounded-full bg-orange-500 p-3 transition-transform duration-300 group-hover:rotate-45">
                 <ArrowUpRight className="h-6 w-6 text-white" />
               </div>
@@ -53,3 +62,4 @@ const CTASection = () => {
 }
 
 export { CTASection }
+

@@ -4,91 +4,12 @@ import React from "react"
 import Image from "next/image"
 import { CheckCircle2, ArrowUpRight } from "lucide-react"
 
-const zones = [
-  {
-    id: 1,
-    title: "Intelligence & Design",
-    subtitle: "Where most agencies don't even start",
-    owner: "Business Analyst",
-    steps: [
-      {
-        id: 1,
-        days: "Day 5-7",
-        title: "Growth & Market Intelligence",
-        desc: "Business audit, project reality check, demand analysis, competitive landscape mapping.",
-        tag: "We diagnose before we deploy.",
-      },
-      {
-        id: 2,
-        days: "Day 3-4",
-        title: "Funnel & Intent Architecture",
-        desc: "Buyer journey design, intent signal mapping, lead scoring logic, CRM pipeline planning.",
-        tag: "We diagnose before we deploy.",
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Demand & Acquisition",
-    subtitle: "Where attention becomes intent",
-    owner: "Performance Marketer",
-    steps: [
-      {
-        id: 3,
-        days: "Day 5-7",
-        title: "Demand Creation Engine",
-        desc: "Authority content, trust-building, education and belief shifting across digital channels.",
-        tag: "We create demand before we capture it.",
-      },
-      {
-        id: 4,
-        days: "Day 8-10",
-        title: "Intent Lead Capture",
-        desc: "Paid acquisition, high-intent audiences, qualification-driven landing pages and smart forms.",
-        tag: "Not traffic. Not clicks. Real intent.",
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "Intelligence & Automation",
-    subtitle: "Where money is actually made",
-    owner: "GTM Engineer",
-    steps: [
-      {
-        id: 5,
-        days: "Day 11-13",
-        title: "Lead Intelligence & Follow-Up",
-        desc: "AI scoring, WhatsApp automation, email sequencing, intelligent sales routing.",
-        tag: "No lead left unattended.",
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "Revenue Outcomes",
-    subtitle: "Where deals get closed",
-    owner: "Client Success Manager",
-    steps: [
-      {
-        id: 6,
-        days: "Day 14-15",
-        title: "Sales Enablement & Site Visits",
-        desc: "Context-rich handoff, visit confirmations, objection handling and conversion optimisation.",
-        tag: "From enquiry to site visit — systematically.",
-      },
-    ],
-  },
-]
+interface ProcessFooterProps {
+  highlights: { label: string; sub: string }[]
+  btnText: string
+}
 
-const ProcessFooter = () => {
-  const highlights = [
-    { label: "6 STEPS", sub: "END-TO-END" },
-    { label: "4 DEDICATED SPECIALISTS", sub: "PER ACCOUNT" },
-    { label: "SYSTEM FULLY", sub: "LIVE IN 15 DAYS" },
-    { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" },
-  ]
-
+const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText }) => {
   return (
     <div className="mt-12 mb-20 w-full rounded-2xl border border-orange-100 bg-[#FFF5F1] px-6 py-4 shadow-sm md:rounded-full md:px-12">
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
@@ -112,7 +33,7 @@ const ProcessFooter = () => {
         {/* Action Button */}
         <div className="flex flex-shrink-0 items-center gap-2">
           <button className="rounded-full bg-black px-8 py-3 text-[11px] font-black tracking-widest text-white uppercase transition-colors hover:bg-gray-800">
-            START YOUR 15 DAYS BUILD
+            {btnText}
           </button>
           <div className="cursor-pointer rounded-full bg-orange-500 p-3 shadow-lg shadow-orange-200 transition-transform hover:scale-105">
             <ArrowUpRight className="h-5 w-5 text-white" />
@@ -123,18 +44,112 @@ const ProcessFooter = () => {
   )
 }
 
-const ProcessTimeline = () => {
+interface ProcessTimelineProps {
+  cmsContent?: any
+}
+
+const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
+  const content = {
+    pillText: "OUR PROCESS",
+    heading: "How We Build Your Revenue System in 15 Days",
+    description: "Six phases. Three zones. Four senior experts. One outcome: deals closing on autopilot.",
+    zones: [
+      {
+        id: 1,
+        title: "Intelligence & Design",
+        subtitle: "Where most agencies don't even start",
+        owner: "Business Analyst",
+        steps: [
+          {
+            id: 1,
+            days: "Day 5-7",
+            title: "Growth & Market Intelligence",
+            desc: "Business audit, project reality check, demand analysis, competitive landscape mapping.",
+            tag: "We diagnose before we deploy.",
+          },
+          {
+            id: 2,
+            days: "Day 3-4",
+            title: "Funnel & Intent Architecture",
+            desc: "Buyer journey design, intent signal mapping, lead scoring logic, CRM pipeline planning.",
+            tag: "We diagnose before we deploy.",
+          },
+        ],
+      },
+      {
+        id: 2,
+        title: "Demand & Acquisition",
+        subtitle: "Where attention becomes intent",
+        owner: "Performance Marketer",
+        steps: [
+          {
+            id: 3,
+            days: "Day 5-7",
+            title: "Demand Creation Engine",
+            desc: "Authority content, trust-building, education and belief shifting across digital channels.",
+            tag: "We create demand before we capture it.",
+          },
+          {
+            id: 4,
+            days: "Day 8-10",
+            title: "Intent Lead Capture",
+            desc: "Paid acquisition, high-intent audiences, qualification-driven landing pages and smart forms.",
+            tag: "Not traffic. Not clicks. Real intent.",
+          },
+        ],
+      },
+      {
+        id: 3,
+        title: "Intelligence & Automation",
+        subtitle: "Where money is actually made",
+        owner: "GTM Engineer",
+        steps: [
+          {
+            id: 5,
+            days: "Day 11-13",
+            title: "Lead Intelligence & Follow-Up",
+            desc: "AI scoring, WhatsApp automation, email sequencing, intelligent sales routing.",
+            tag: "No lead left unattended.",
+          },
+        ],
+      },
+      {
+        id: 4,
+        title: "Revenue Outcomes",
+        subtitle: "Where deals get closed",
+        owner: "Client Success Manager",
+        steps: [
+          {
+            id: 6,
+            days: "Day 14-15",
+            title: "Sales Enablement & Site Visits",
+            desc: "Context-rich handoff, visit confirmations, objection handling and conversion optimisation.",
+            tag: "From enquiry to site visit — systematically.",
+          },
+        ],
+      },
+    ],
+    footerHighlights: [
+      { label: "6 STEPS", sub: "END-TO-END" },
+      { label: "4 DEDICATED SPECIALISTS", sub: "PER ACCOUNT" },
+      { label: "SYSTEM FULLY", sub: "LIVE IN 15 DAYS" },
+      { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" }
+    ],
+    footerBtnText: "START YOUR 15 DAYS BUILD",
+    ...cmsContent
+  }
+
   return (
     <section className="w-full overflow-hidden bg-white py-24">
       <div className="container mx-auto max-w-7xl px-4">
         {/* Header Section */}
         <div className="mb-20 space-y-4 text-center">
           <div className="inline-block rounded-full border border-gray-300 px-6 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
-            OUR PROCESS
+            {content.pillText}
           </div>
-          <h2 className="font-serif text-4xl text-gray-900 md:text-5xl">How We Build Your Revenue System in 15 Days</h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-500 italic">
-            Six phases. Three zones. Four senior experts. One outcome: deals closing on autopilot.
+          <h2 className="font-serif text-4xl text-gray-900 md:text-5xl whitespace-pre-line">{content.heading}</h2>
+          <p className="mx-auto max-w-2xl text-lg text-gray-500 italic whitespace-pre-line">
+            {content.description}
           </p>
         </div>
 
@@ -142,7 +157,7 @@ const ProcessTimeline = () => {
         <div className="md:hidden">
           <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
             <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
-              {zones.map((zone) => (
+              {content.zones.map((zone: any) => (
                 <div key={zone.id} className="flex-shrink-0 w-[85vw] max-w-md snap-center">
                   <div className="overflow-hidden min-h-[100vh] rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
                     {/* Zone Header */}
@@ -150,13 +165,13 @@ const ProcessTimeline = () => {
                       <span className="mb-2 inline-block rounded-md bg-orange-500 px-2 py-0.5 text-[9px] font-black">
                         ZONE - {zone.id}
                       </span>
-                      <h3 className="block text-sm font-bold">{zone.title}</h3>
-                      <p className="mt-1 text-[10px] font-medium text-gray-400">{zone.subtitle}</p>
+                      <h3 className="block text-sm font-bold whitespace-pre-line">{zone.title}</h3>
+                      <p className="mt-1 text-[10px] font-medium text-gray-400 whitespace-pre-line">{zone.subtitle}</p>
                     </div>
 
                     {/* Steps Container */}
                     <div className="relative p-8">
-                      {zone.steps.map((step, index) => (
+                      {zone.steps.map((step: any, index: number) => (
                         <div key={step.id} className="relative mb-12 last:mb-0">
                           {/* Vertical Line for mobile */}
                           {index < zone.steps.length - 1 && (
@@ -170,11 +185,11 @@ const ProcessTimeline = () => {
                             <div className="pl-8 space-y-3">
                               <div className="flex items-center gap-2">
                                 <span className="rounded bg-orange-500 px-2 py-0.5 text-[9px] font-bold text-white">
-                                  Step - {step.id} • {step.days}
+                                  {step.id} • {step.days}
                                 </span>
                               </div>
-                              <h4 className="text-sm font-bold text-gray-900">{step.title}</h4>
-                              <p className="text-[11px] leading-relaxed text-gray-500">{step.desc}</p>
+                              <h4 className="text-sm font-bold text-gray-900 whitespace-pre-line">{step.title}</h4>
+                              <p className="text-[11px] leading-relaxed text-gray-500 whitespace-pre-line">{step.desc}</p>
                               <div className="inline-block rounded bg-gray-200 px-3 py-1 text-[9px] font-bold text-gray-600 uppercase">
                                 {step.tag}
                               </div>
@@ -194,25 +209,25 @@ const ProcessTimeline = () => {
         <div className="hidden md:block overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
           {/* Top Zone Headers */}
           <div className="grid grid-cols-1 bg-[#333] text-white md:grid-cols-4">
-            {zones.map((zone) => (
+            {content.zones.map((zone: any) => (
               <div key={zone.id} className="border-r border-gray-600 p-6 last:border-r-0">
                 <span className="mb-2 inline-block rounded-md bg-orange-500 px-2 py-0.5 text-[9px] font-black">
                   ZONE - {zone.id}
                 </span>
-                <h3 className="block text-sm font-bold">{zone.title}</h3>
-                <p className="mt-1 text-[10px] font-medium text-gray-400">{zone.subtitle}</p>
+                <h3 className="block text-sm font-bold whitespace-pre-line">{zone.title}</h3>
+                <p className="mt-1 text-[10px] font-medium text-gray-400 whitespace-pre-line">{zone.subtitle}</p>
               </div>
             ))}
           </div>
 
           {/* Steps & Connections Container */}
           <div className="relative grid min-h-[500px] grid-cols-1 md:grid-cols-4">
-            {zones.map((zone) => (
+            {content.zones.map((zone: any) => (
               <div key={zone.id} className="relative space-y-12 border-r border-gray-200 p-8 last:border-r-0">
                 {/* Vertical Line for tree (Desktop only) */}
                 <div className="absolute top-0 bottom-0 left-8 z-0 hidden w-px bg-gray-300 md:block" />
 
-                {zone.steps.map((step) => (
+                {zone.steps.map((step: any) => (
                   <div key={step.id} className="relative z-10 pl-12">
                     {/* Horizontal connector line */}
                     <div className="absolute top-6 left-0 hidden h-px w-12 bg-gray-300 md:block" />
@@ -220,11 +235,11 @@ const ProcessTimeline = () => {
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
                         <span className="rounded bg-orange-500 px-2 py-0.5 text-[9px] font-bold text-white">
-                          Step - {step.id} • {step.days}
+                          {step.id} • {step.days}
                         </span>
                       </div>
-                      <h4 className="text-sm font-bold text-gray-900">{step.title}</h4>
-                      <p className="text-[11px] leading-relaxed text-gray-500">{step.desc}</p>
+                      <h4 className="text-sm font-bold text-gray-900 whitespace-pre-line">{step.title}</h4>
+                      <p className="text-[11px] leading-relaxed text-gray-500 whitespace-pre-line">{step.desc}</p>
                       <div className="inline-block rounded bg-gray-200 px-3 py-1 text-[9px] font-bold text-gray-600 uppercase">
                         {step.tag}
                       </div>
@@ -237,7 +252,7 @@ const ProcessTimeline = () => {
 
           {/* Bottom Owner Footer */}
           <div className="grid grid-cols-1 border-t border-gray-200 bg-gray-50 md:grid-cols-4">
-            {zones.map((zone) => (
+            {content.zones.map((zone: any) => (
               <div key={zone.id} className="flex items-center gap-3 border-r border-gray-200 p-6 last:border-r-0">
                 <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-gray-300 grayscale">
                   <Image
@@ -258,9 +273,10 @@ const ProcessTimeline = () => {
           </div>
         </div>
       </div>
-      <ProcessFooter />
+      <ProcessFooter highlights={content.footerHighlights} btnText={content.footerBtnText} />
     </section>
   )
 }
 
 export { ProcessTimeline }
+

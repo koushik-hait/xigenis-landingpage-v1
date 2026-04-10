@@ -4,31 +4,41 @@ import React from "react"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 
-const projects = [
-  {
-    title: "Luxury Residential Project – Goa",
-    leads: "3.4K+",
-    rate: "28%",
-    requests: "270+",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
-  },
-  {
-    title: "Luxury Residential Project – Goa",
-    leads: "3.4K+",
-    rate: "28%",
-    requests: "270+",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-  },
-  {
-    title: "Luxury Residential Project – Goa",
-    leads: "3.4K+",
-    rate: "28%",
-    requests: "270+",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
-  },
-]
+interface CaseStudiesProps {
+  cmsContent?: any
+}
 
-const CaseStudies = () => {
+const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
+  const content = {
+    pillText: "LOREM IPSUM DOLOR SIT",
+    heading: "Real Campaign Results from Real \n Estate Projects",
+    description: "Real campaign results showing how qualified buyer leads turn into site visits and property deals.",
+    projects: [
+      {
+        title: "Luxury Residential Project – Goa",
+        leads: "3.4K+",
+        rate: "28%",
+        requests: "270+",
+        image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+      },
+      {
+        title: "Luxury Residential Project – Goa",
+        leads: "3.4K+",
+        rate: "28%",
+        requests: "270+",
+        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+      },
+      {
+        title: "Luxury Residential Project – Goa",
+        leads: "3.4K+",
+        rate: "28%",
+        requests: "270+",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
+      },
+    ],
+    ...cmsContent
+  }
+
   return (
     <section className="w-full overflow-hidden bg-[#FDFDFD] py-24">
       <div className="container mx-auto max-w-7xl px-4">
@@ -36,14 +46,14 @@ const CaseStudies = () => {
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="space-y-4">
             <div className="inline-block rounded-full border border-gray-300 px-5 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
-              LOREM IPSUM DOLOR SIT
+              {content.pillText}
             </div>
-            <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl">
-              Real Campaign Results from Real <br className="hidden md:block" /> Estate Projects
+            <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line">
+              {content.heading}
             </h2>
           </div>
-          <p className="max-w-[320px] text-sm leading-relaxed font-medium text-gray-500">
-            Real campaign results showing how qualified buyer leads turn into site visits and property deals.
+          <p className="max-w-[320px] text-sm leading-relaxed font-medium text-gray-500 whitespace-pre-line">
+            {content.description}
           </p>
         </div>
 
@@ -52,7 +62,7 @@ const CaseStudies = () => {
         <div className="md:hidden">
           <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
             <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
-              {projects.map((project, index) => (
+              {content.projects.map((project: any, index: number) => (
                 <div key={index} className="flex-shrink-0 w-[75vw] max-w-sm snap-center">
                   <div className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
                     {/* Background Image */}
@@ -114,7 +124,7 @@ const CaseStudies = () => {
 
         {/* Desktop Grid */}
         <div className="hidden md:grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {projects.map((project, index) => (
+          {content.projects.map((project: any, index: number) => (
             <div key={index} className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
               {/* Background Image */}
               <Image
@@ -173,3 +183,4 @@ const CaseStudies = () => {
 }
 
 export { CaseStudies }
+

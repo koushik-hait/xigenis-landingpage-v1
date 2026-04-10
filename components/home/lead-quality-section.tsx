@@ -4,7 +4,36 @@ import React from "react"
 import Image from "next/image"
 import { XCircle, CheckCircle2, PhoneOff, Frown, Building2 } from "lucide-react"
 
-const LeadQualitySection = () => {
+interface LeadQualitySectionProps {
+  cmsContent?: any
+}
+
+const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
+  const content = {
+    pillText: "PROBLEM 01 • LEAD QUALITY",
+    heading: "Spending Lakhs on Portals & Getting Fake Numbers",
+    description: "MagicBricks, 99acres, Housing.com — 80-90% of those leads are cold or uncontactable. You're not getting leads. You're buying noise.",
+    points: [
+      "100 leads, 4 site visits. Zero predictability.",
+      "Every month feels like starting from scratch.",
+      "AI Algo-Plex delivers pre-qualified buyer intent only."
+    ],
+    mainStatValue: "72%",
+    mainStatText: "of Indian agents say unqualified inquiries is their #1 problem.",
+    mainStatSource: "Source: 99acres Agent Survey 2024.",
+    auditTotalLabel: "Total Leads This Month",
+    auditTotalValue: "112 inquiries received",
+    auditFakeLabel: "Fake / Wrong Numbers",
+    auditFakeValue: "84 leads were invalid or unreachable",
+    auditNoRespLabel: "No Response After 3 Calls",
+    auditNoRespValue: "19 leads never answered follow-ups",
+    auditQualLabel: "Actually Qualified Buyers",
+    auditQualValue: "Only 9 leads showed real buying intent",
+    auditSiteLabel: "Site Visit Rate",
+    auditSiteValue: "4% of leads converted into site visits",
+    ...cmsContent
+  }
+
   return (
     <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#fafafa] py-10">
       <div className="relative container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -23,24 +52,15 @@ const LeadQualitySection = () => {
                 {/* Item 1: Total Leads (Pops out to the left) */}
                 <div className="relative z-20 -ml-6 flex w-[calc(100%+1.5rem)] items-center gap-4 rounded-2xl bg-white p-4 shadow-[0_4px_20px_rgb(0,0,0,0.06)]">
                   <div className="flex -space-x-2">
-                    {/* Placeholder Avatars */}
                     {[1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-gray-200"
-                      >
-                        <Image
-                          src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                          alt="avatar"
-                          fill
-                          className="object-cover"
-                        />
+                      <div key={i} className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-gray-200">
+                        <Image src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="avatar" fill className="object-cover" />
                       </div>
                     ))}
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-gray-500">Total Leads This Month</p>
-                    <p className="text-sm font-bold text-gray-900">112 inquiries received</p>
+                    <p className="text-xs font-medium text-gray-500">{content.auditTotalLabel}</p>
+                    <p className="text-sm font-bold text-gray-900">{content.auditTotalValue}</p>
                   </div>
                 </div>
 
@@ -48,8 +68,8 @@ const LeadQualitySection = () => {
                 <div className="mx-2 flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-4">
                   <PhoneOff className="h-6 w-6 flex-shrink-0 text-orange-500" />
                   <div>
-                    <p className="text-xs font-medium text-gray-500">Fake / Wrong Numbers</p>
-                    <p className="text-sm font-bold text-gray-900">84 leads were invalid or unreachable</p>
+                    <p className="text-xs font-medium text-gray-500">{content.auditFakeLabel}</p>
+                    <p className="text-sm font-bold text-gray-900">{content.auditFakeValue}</p>
                   </div>
                 </div>
 
@@ -57,8 +77,8 @@ const LeadQualitySection = () => {
                 <div className="mx-2 flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-4">
                   <Frown className="h-6 w-6 flex-shrink-0 text-orange-500" />
                   <div>
-                    <p className="text-xs font-medium text-gray-500">No Response After 3 Calls</p>
-                    <p className="text-sm font-bold text-gray-900">19 leads never answered follow-ups</p>
+                    <p className="text-xs font-medium text-gray-500">{content.auditNoRespLabel}</p>
+                    <p className="text-sm font-bold text-gray-900">{content.auditNoRespValue}</p>
                   </div>
                 </div>
 
@@ -66,22 +86,14 @@ const LeadQualitySection = () => {
                 <div className="mx-2 flex items-center gap-4 rounded-2xl bg-gray-200/80 p-4">
                   <div className="flex -space-x-2">
                     {[1, 2].map((i) => (
-                      <div
-                        key={i}
-                        className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-300"
-                      >
-                        <Image
-                          src={`https://i.pravatar.cc/100?img=${i + 20}`}
-                          alt="avatar"
-                          fill
-                          className="object-cover"
-                        />
+                      <div key={i} className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-300">
+                        <Image src={`https://i.pravatar.cc/100?img=${i + 20}`} alt="avatar" fill className="object-cover" />
                       </div>
                     ))}
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-gray-600">Actually Qualified Buyers</p>
-                    <p className="text-sm font-bold text-gray-900">Only 9 leads showed real buying intent</p>
+                    <p className="text-xs font-medium text-gray-600">{content.auditQualLabel}</p>
+                    <p className="text-sm font-bold text-gray-900">{content.auditQualValue}</p>
                   </div>
                 </div>
 
@@ -91,8 +103,8 @@ const LeadQualitySection = () => {
                     <Building2 className="h-5 w-5 text-gray-600" />
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-gray-500">Site Visit Rate</p>
-                    <p className="text-sm font-bold text-gray-900">4% of leads converted into site visits</p>
+                    <p className="text-xs font-medium text-gray-500">{content.auditSiteLabel}</p>
+                    <p className="text-sm font-bold text-gray-900">{content.auditSiteValue}</p>
                   </div>
                 </div>
               </div>
@@ -102,44 +114,39 @@ const LeadQualitySection = () => {
           {/* Right Column: Text Content */}
           <div className="w-full max-w-xl lg:w-[55%] lg:pl-10">
             <div className="mb-6 inline-block rounded-full bg-[#2B2B2B] px-4 py-1.5 text-xs font-bold tracking-widest text-white uppercase">
-              PROBLEM 01 • LEAD QUALITY
+              {content.pillText}
             </div>
 
             <h2 className="mb-6 font-serif text-3xl leading-[1.2] text-gray-900 sm:text-4xl lg:text-5xl">
-              Spending Lakhs on Portals & Getting Fake Numbers
+              {content.heading}
             </h2>
 
             <p className="mb-8 text-lg leading-relaxed text-gray-600">
-              MagicBricks, 99acres, Housing.com — 80-90% of those leads are cold or uncontactable. You're not getting
-              leads. You're buying noise.
+              {content.description}
             </p>
 
             <ul className="mb-10 space-y-4">
-              <li className="flex items-start gap-3">
-                <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
-                <span className="font-medium text-gray-800">100 leads, 4 site visits. Zero predictability.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
-                <span className="font-medium text-gray-800">Every month feels like starting from scratch.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
-                <span className="font-medium text-gray-800">
-                  AI Algo-Plex delivers pre-qualified buyer intent only.
-                </span>
-              </li>
+              {content.points.map((text: string, index: number) => (
+                <li key={index} className="flex items-start gap-3">
+                  {index === content.points.length - 1 ? (
+                    <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
+                  ) : (
+                    <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
+                  )}
+                  <span className="font-medium text-gray-800">{text}</span>
+                </li>
+              ))}
             </ul>
 
             {/* Statistic Box */}
             <div className="rounded-2xl border border-gray-200 bg-[#EEEEEE] p-6">
               <div className="mb-1 flex items-baseline gap-2">
-                <span className="font-serif text-4xl text-gray-900">72%</span>
+                <span className="font-serif text-4xl text-gray-900">{content.mainStatValue}</span>
               </div>
               <p className="text-sm leading-snug text-gray-600">
-                of Indian agents say unqualified inquiries is their #1 problem.
+                {content.mainStatText}
                 <br />
-                <span className="mt-1 inline-block text-gray-400">Source: 99acres Agent Survey 2024.</span>
+                <span className="mt-1 inline-block text-gray-400">{content.mainStatSource}</span>
               </p>
             </div>
           </div>

@@ -80,6 +80,116 @@ const menuItems: MenuItem[] = [
         href: '/dashboard/hero',
         icon: <FileText className="h-3 w-3" />,
       },
+      {
+        title: 'Top Performers',
+        href: '/dashboard/top-performers',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Target Audience',
+        href: '/dashboard/target-audience',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Transformation',
+        href: '/dashboard/transformation',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Problems',
+        href: '/dashboard/problems',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Lead Quality',
+        href: '/dashboard/lead-quality',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Follow Up',
+        href: '/dashboard/follow-up',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Ad Spend',
+        href: '/dashboard/adspend',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Referral',
+        href: '/dashboard/referral',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'The Fix',
+        href: '/dashboard/fix',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'About Company',
+        href: '/dashboard/about',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Performance',
+        href: '/dashboard/performance',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Social Proof',
+        href: '/dashboard/social-proof',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Reasons',
+        href: '/dashboard/reasons',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'CTA Action',
+        href: '/dashboard/cta',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Process Timeline',
+        href: '/dashboard/process',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Case Studies',
+        href: '/dashboard/case-studies',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Why Choose Us',
+        href: '/dashboard/why-us',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Campaign Insights',
+        href: '/dashboard/campaign-insights',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Features',
+        href: '/dashboard/features',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'FAQ',
+        href: '/dashboard/faq',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Testimonials',
+        href: '/dashboard/testimonial',
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: 'Bottom Hero',
+        href: '/dashboard/real-estate-hero',
+        icon: <FileText className="h-3 w-3" />,
+      },
     ],
   },
   {

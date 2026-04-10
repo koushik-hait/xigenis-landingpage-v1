@@ -4,7 +4,35 @@ import React from "react"
 import Image from "next/image"
 import { XCircle, CheckCircle2, Megaphone, Instagram, Facebook, Linkedin, Twitter } from "lucide-react"
 
-const AdSpendSection = () => {
+interface AdSpendSectionProps {
+  cmsContent?: any
+}
+
+const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
+  const content = {
+    pillText: "PROBLEM 03 • LEAD QUALITY",
+    heading: "Burning ₹30K—₹1L Monthly \n on Ads That Convert Nothing",
+    description: "Running ads yourself or with a cheap freelancer? Poor targeting and zero funnel follow-up kill your ROI before a single visit happens.",
+    points: [
+      "Wrong audience targeting means paying to reach non-buyers.",
+      "No nurture funnel means leads evaporate after the first click.",
+      "AI Algo-Plex runs a complete paid acquisition system end-to-end."
+    ],
+    mainStatValue: "83%",
+    mainStatText: "of Meta real estate campaigns fail due to poor targeting and no follow-up funnel.",
+    card1Value: "₹80K",
+    card1Label: "Ad Spend / Month",
+    card2Value: "94",
+    card2Label: "Leads Generated",
+    card3Value: "0—1",
+    card3Label: "Deals Closed",
+    card4Value: "3—4",
+    card4Label: "Site Visits Booked",
+    card4SubText: "83% of Meta campaigns end here",
+    mainImage: "/assets/man.png",
+    ...cmsContent
+  }
+
   return (
     <section className="flex min-h-screen w-full items-center overflow-hidden bg-white py-10">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -44,7 +72,7 @@ const AdSpendSection = () => {
             {/* Main Subject Image */}
             <div className="relative z-10 h-[400px] w-[220px] sm:w-[300px] lg:w-[400px]">
               <Image
-                src="/assets/man.png"
+                src={content.mainImage}
                 alt="Business Professional"
                 fill
                 className="object-cover object-top grayscale-[0.2]"
@@ -53,34 +81,34 @@ const AdSpendSection = () => {
 
             {/* Data Cards Overlay */}
             <div className="pointer-events-none absolute inset-0 z-20">
-              {/* ₹80K Ad Spend Card */}
+              {/* Card 1 */}
               <div className="pointer-events-auto absolute top-10 right-4 w-44 overflow-hidden rounded-xl bg-white sm:right-10">
                 <div className="p-2 text-center">
-                  <span className="font-serif text-3xl text-gray-900">₹80K</span>
+                  <span className="font-serif text-3xl text-gray-900">{content.card1Value}</span>
                 </div>
                 <div className="bg-black py-2 text-center">
-                  <span className="text-[10px] font-bold tracking-widest text-white uppercase">Ad Spend / Month</span>
+                  <span className="text-[10px] font-bold tracking-widest text-white uppercase">{content.card1Label}</span>
                 </div>
               </div>
 
-              {/* 94 Leads Card */}
+              {/* Card 2 */}
               <div className="pointer-events-auto absolute top-1/2 -right-4 w-44 translate-y-[-50%] rounded-xl border border-gray-50 bg-white p-2 text-center shadow-xl">
-                <span className="font-serif text-3xl text-gray-900">94</span>
-                <p className="mt-2 text-xs font-bold text-gray-400 uppercase">Leads Generated</p>
+                <span className="font-serif text-3xl text-gray-900">{content.card2Value}</span>
+                <p className="mt-2 text-xs font-bold text-gray-400 uppercase">{content.card2Label}</p>
               </div>
 
-              {/* 0-1 Deals Closed Card */}
+              {/* Card 3 */}
               <div className="pointer-events-auto absolute right-10 bottom-[20%] w-40 rounded-3xl bg-black p-2 text-center shadow-2xl">
-                <span className="font-serif text-2xl text-white">0—1</span>
-                <p className="mt-2 text-[10px] font-bold text-gray-400 uppercase">Deals Closed</p>
+                <span className="font-serif text-2xl text-white">{content.card3Value}</span>
+                <p className="mt-2 text-[10px] font-bold text-gray-400 uppercase">{content.card3Label}</p>
               </div>
 
-              {/* 3-4 Site Visits Card (Bottom Left) */}
+              {/* Card 4 */}
               <div className="pointer-events-auto absolute bottom-4 -left-4 w-64 rounded-[2rem] bg-white p-8 shadow-2xl sm:left-4">
-                <span className="font-serif text-3xl text-gray-900">3—4</span>
-                <p className="mt-1 text-sm font-bold text-gray-800">Site Visits Booked</p>
+                <span className="font-serif text-3xl text-gray-900">{content.card4Value}</span>
+                <p className="mt-1 text-sm font-bold text-gray-800">{content.card4Label}</p>
                 <div className="mt-4 rounded-full bg-gray-100 px-4 py-2">
-                  <p className="text-[10px] font-bold text-gray-500 uppercase">83% of Meta campaigns end here</p>
+                  <p className="text-[10px] font-bold text-gray-500 uppercase">{content.card4SubText}</p>
                 </div>
               </div>
             </div>
@@ -89,46 +117,37 @@ const AdSpendSection = () => {
           {/* Right Column: Text Content */}
           <div className="w-full space-y-6 lg:w-1/2 lg:pl-12">
             <div className="inline-block rounded-full bg-[#2B2B2B] px-4 py-1.5 text-xs font-bold tracking-widest text-white uppercase">
-              PROBLEM 03 • LEAD QUALITY
+              {content.pillText}
             </div>
 
-            <h2 className="font-serif text-3xl leading-tight text-gray-900 lg:text-5xl">
-              Burning ₹30K—₹1L Monthly <br />
-              on Ads That Convert Nothing
+            <h2 className="font-serif text-3xl leading-tight text-gray-900 lg:text-5xl whitespace-pre-line">
+              {content.heading}
             </h2>
 
             <p className="text-lg leading-relaxed text-gray-600">
-              Running ads yourself or with a cheap freelancer? Poor targeting and zero funnel follow-up kill your ROI
-              before a single visit happens.
+              {content.description}
             </p>
 
             <ul className="space-y-4 pt-2">
-              <li className="flex items-start gap-3">
-                <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
-                <span className="text-sm font-medium text-gray-700 sm:text-base">
-                  Wrong audience targeting means paying to reach non-buyers.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
-                <span className="text-sm font-medium text-gray-700 sm:text-base">
-                  No nurture funnel means leads evaporate after the first click.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
-                <span className="text-sm font-medium text-gray-700 sm:text-base">
-                  AI Algo-Plex runs a complete paid acquisition system end-to-end.
-                </span>
-              </li>
+              {content.points.map((text: string, index: number) => (
+                <li key={index} className="flex items-start gap-3">
+                  {index === content.points.length - 1 ? (
+                    <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
+                  ) : (
+                    <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
+                  )}
+                  <span className="text-sm font-medium text-gray-700 sm:text-base">
+                    {text}
+                  </span>
+                </li>
+              ))}
             </ul>
 
             {/* Large Gray Footer Box */}
             <div className="mt-10 rounded-2xl border border-gray-200 bg-[#D9D9D9]/50 p-8">
-              <span className="mb-2 block font-serif text-4xl text-gray-900">83%</span>
+              <span className="mb-2 block font-serif text-4xl text-gray-900">{content.mainStatValue}</span>
               <p className="text-xs leading-normal font-bold tracking-tight text-gray-600 uppercase">
-                of Meta real estate campaigns fail due to poor targeting and <br className="hidden sm:block" /> no
-                follow-up funnel.
+                {content.mainStatText}
               </p>
             </div>
           </div>
