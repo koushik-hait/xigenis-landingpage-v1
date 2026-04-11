@@ -13,6 +13,7 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 
 const defaultContent = {
   heading: 'Answers To Your Most Important\nQuestions',
+  headingSize: '48',
   buttonText: 'ASK A QUESTION',
   faqs: [
     { question: "How Quickly Can I Start Getting Buyer Leads?", answer: "Most of our partners see their first high-intent buyer leads within the first 72 hours of the campaign going live." },
@@ -50,6 +51,7 @@ export default function FAQAdmin() {
             <CardHeader><CardTitle>Header Text</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} rows={3} /></div>
+              <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
               <div className="space-y-2"><Label>Button Text</Label><Input value={d.buttonText} onChange={e => handleChange(device, 'buttonText', e.target.value)} /></div>
             </CardContent>
           </Card>

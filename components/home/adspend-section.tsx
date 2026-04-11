@@ -30,6 +30,8 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
     card4Label: "Site Visits Booked",
     card4SubText: "83% of Meta campaigns end here",
     mainImage: "/assets/man.png",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -120,11 +122,11 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="font-serif text-3xl leading-tight text-gray-900 lg:text-5xl whitespace-pre-line">
+            <h2 className="font-serif text-3xl leading-tight text-gray-900 lg:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
               {content.heading}
             </h2>
 
-            <p className="text-lg leading-relaxed text-gray-600">
+            <p className="text-lg leading-relaxed text-gray-600" style={{ fontSize: `${content.descriptionSize}px` }}>
               {content.description}
             </p>
 

@@ -31,6 +31,8 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
     auditQualValue: "Only 9 leads showed real buying intent",
     auditSiteLabel: "Site Visit Rate",
     auditSiteValue: "4% of leads converted into site visits",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -117,11 +119,11 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="mb-6 font-serif text-3xl leading-[1.2] text-gray-900 sm:text-4xl lg:text-5xl">
+            <h2 className="mb-6 font-serif text-3xl leading-[1.2] text-gray-900 sm:text-4xl lg:text-5xl" style={{ fontSize: `${content.headingSize}px` }}>
               {content.heading}
             </h2>
 
-            <p className="mb-8 text-lg leading-relaxed text-gray-600">
+            <p className="mb-8 text-lg leading-relaxed text-gray-600" style={{ fontSize: `${content.descriptionSize}px` }}>
               {content.description}
             </p>
 

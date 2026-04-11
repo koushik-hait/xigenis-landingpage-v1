@@ -15,7 +15,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   pillText: "LOREM IPSUM DOLOR SIT",
   heading: "Real Campaign Results from Real \n Estate Projects",
+  headingSize: "48",
   description: "Real campaign results showing how qualified buyer leads turn into site visits and property deals.",
+  descriptionSize: "16",
   projects: [
     { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop" },
     { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" },
@@ -53,7 +55,9 @@ export default function CaseStudiesCmsPage() {
           <CardContent className="space-y-4 max-w-2xl">
             <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading (Use \n for breaks)</Label><Textarea rows={2} value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
           </CardContent>
         </Card>
         <div className="space-y-6">

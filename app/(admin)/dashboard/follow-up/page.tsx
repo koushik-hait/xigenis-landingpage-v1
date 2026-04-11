@@ -15,7 +15,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   pillText: "Problem 02 • Follow-up Failure",
   heading: "60% of Your Leads Go Cold Because No One Followed Up",
+  headingSize: "48",
   description: "Excel sheets and manual calls don't scale. Most agents lose their best leads in 48 hours — simply too busy to call back in time.",
+  descriptionSize: "16",
   points: [
     "Serious buyers lose interest fast. Speed wins deals.",
     "Manual follow-up burns 20–30 hrs every single week.",
@@ -57,7 +59,9 @@ export default function FollowUpCmsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Bullet Points (One per line)</Label><Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} /></div>
             <div className="border-t pt-4 space-y-4">
                 <div className="space-y-2"><Label>Main Stat Box Value</Label><Input value={d.mainStatValue} onChange={e => handleChange(device, 'mainStatValue', e.target.value)} /></div>

@@ -39,6 +39,8 @@ const CampaignInsights = ({ cmsContent }: CampaignInsightsProps) => {
         desc: "Lorem ipsum dolor sit amet consectetur. Lacus enim orci tortor id ut odio.",
       },
     ],
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -91,8 +93,8 @@ const CampaignInsights = ({ cmsContent }: CampaignInsightsProps) => {
           <div className="inline-block rounded-full border border-orange-200 bg-[#FFF5F1] px-6 py-1.5 text-[10px] font-bold tracking-[0.2em] text-[#FF6B35] uppercase">
             {content.pillText}
           </div>
-          <h2 className="font-serif text-4xl tracking-tight text-gray-900 md:text-5xl whitespace-pre-line">{content.heading}</h2>
-          <p className="mx-auto max-w-xl text-sm leading-relaxed text-gray-500 md:text-base whitespace-pre-line">
+          <h2 className="font-serif text-4xl tracking-tight text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>{content.heading}</h2>
+          <p className="mx-auto max-w-xl text-sm leading-relaxed text-gray-500 md:text-base whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
         </div>

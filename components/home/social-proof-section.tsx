@@ -101,6 +101,8 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
           "The AI-driven follow-up system ensures no lead ever goes cold. This is the future of real estate marketing.",
       },
     ],
+    headingSize: "44",
+    descriptionSize: "16",
     ...cmsContent,
   }
 
@@ -145,10 +147,10 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
           <div className="mb-5 inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-1.5 text-[11px] font-bold tracking-widest text-orange-500 uppercase">
             {content.pillText}
           </div>
-          <h2 className="mb-5 font-serif text-3xl leading-tight whitespace-pre-line text-gray-900 sm:text-4xl lg:text-[2.75rem]">
+          <h2 className="mb-5 font-serif text-3xl leading-tight whitespace-pre-line text-gray-900 sm:text-4xl lg:text-[2.75rem]" style={{ fontSize: `${content.headingSize}px` }}>
             {content.heading}
           </h2>
-          <p className="mx-auto max-w-lg text-base leading-relaxed whitespace-pre-line text-gray-500">
+          <p className="mx-auto max-w-lg text-base leading-relaxed whitespace-pre-line text-gray-500" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
 

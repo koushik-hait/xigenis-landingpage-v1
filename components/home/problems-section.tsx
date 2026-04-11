@@ -32,6 +32,8 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
     stat4Label: "Of leads die because no one follows up after Day 2",
     bgImage: "/assets/problems-bg.png",
     mainImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -52,10 +54,10 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
           <span className="mb-5 inline-block rounded-full bg-[#FFF0E6] px-3.5 py-1 text-[11px] font-semibold tracking-[0.1em] text-[#FF5A1F] uppercase">
             {content.pillText}
           </span>
-          <h2 className="mb-5 font-serif text-[32px] leading-[1.1] font-normal tracking-[-0.02em] text-[#111] sm:text-[40px] md:text-[46px]">
+          <h2 className="mb-5 font-serif text-[32px] leading-[1.1] font-normal tracking-[-0.02em] text-[#111] sm:text-[40px] md:text-[46px]" style={{ fontSize: `${content.headingSize}px` }}>
             {content.heading}
           </h2>
-          <p className="mx-auto max-w-[460px] text-[15px] leading-[1.6] font-normal text-[#666] sm:text-[16px]">
+          <p className="mx-auto max-w-[460px] text-[15px] leading-[1.6] font-normal text-[#666] sm:text-[16px]" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
         </motion.div>

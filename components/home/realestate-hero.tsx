@@ -21,6 +21,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
       "Real Estate Marketing Experts",
       "More Site Visits & Deals",
     ],
+    headingSize: "48",
     ...cmsContent
   }
 
@@ -59,7 +60,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
           </div>
 
           {/* Headline */}
-          <h1 className="mb-10 text-4xl leading-tight font-medium text-gray-900 md:text-5xl lg:text-6xl whitespace-pre-line">
+          <h1 className="mb-10 text-4xl leading-tight font-medium text-gray-900 md:text-5xl lg:text-6xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
             {content.heading}
           </h1>
 

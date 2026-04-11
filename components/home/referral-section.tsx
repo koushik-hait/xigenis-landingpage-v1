@@ -28,6 +28,8 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
     card2Tag: "0 Leads",
     card3Title: "With referral system \n avg. revenue uplift",
     card3Tag: "+30%",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -41,11 +43,11 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="font-serif text-4xl leading-tight text-gray-900 lg:text-5xl whitespace-pre-line">
+            <h2 className="font-serif text-4xl leading-tight text-gray-900 lg:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
               {content.heading}
             </h2>
 
-            <p className="text-lg leading-relaxed text-gray-600">
+            <p className="text-lg leading-relaxed text-gray-600" style={{ fontSize: `${content.descriptionSize}px` }}>
               {content.description}
             </p>
 

@@ -14,7 +14,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 
 const defaultContent = {
   pillText: "LOREM IPSUM DOLOR SIT", heading: "Ad Campaign Insights",
+  headingSize: "48",
   description: "Performance analytics and real-time tracking of ad campaigns across multiple platforms.",
+  descriptionSize: "16",
   slides: [
     { title: "Lorem ipsum dolor sit amet consectetur.", desc: "Lorem ipsum dolor sit amet consectetur. Lacus enim orci tortor id ut odio.", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" },
     { title: "Social Channel Engagement", desc: "Lorem ipsum dolor sit amet consectetur. Lacus enim orci tortor id ut odio.", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" },
@@ -53,7 +55,9 @@ export default function CampaignInsightsCmsPage() {
           <CardContent className="space-y-4 max-w-2xl">
             <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading</Label><Input value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea rows={2} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
           </CardContent>
         </Card>
         <div className="space-y-6">

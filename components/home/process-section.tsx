@@ -136,6 +136,8 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
       { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" }
     ],
     footerBtnText: "START YOUR 15 DAYS BUILD",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -147,8 +149,8 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
           <div className="inline-block rounded-full border border-gray-300 px-6 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
             {content.pillText}
           </div>
-          <h2 className="font-serif text-4xl text-gray-900 md:text-5xl whitespace-pre-line">{content.heading}</h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-500 italic whitespace-pre-line">
+          <h2 className="font-serif text-4xl text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>{content.heading}</h2>
+          <p className="mx-auto max-w-2xl text-lg text-gray-500 italic whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
         </div>

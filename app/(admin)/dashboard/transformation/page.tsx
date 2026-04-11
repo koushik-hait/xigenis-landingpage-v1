@@ -17,9 +17,11 @@ const defaultContent = {
   pillLabel: "Sound Familiar?",
   headingLine1: "AI Lead System Results",
   headingLine2: "The 90-Day Transformation",
+  headingSize: "48",
   ctaButtonText: "Start My 90 Days",
   description1: "This is the after state — what your pipeline, calendar, and revenue look like after 90 days working with our system.",
   description2: "No random referrals. No cold calling. Just a predictable system that brings serious buyers.",
+  descriptionSize: "16",
   timelineSteps: [
     { number: "1", days: "Day 1-7", text: "System setup & target audience research" },
     { number: "2", days: "Day 8-14", text: "First qualified buyer appointments booked" },
@@ -85,8 +87,10 @@ export default function TransformationCmsPage() {
             <div className="space-y-2"><Label>CTA Button Text</Label><Input value={d.ctaButtonText} onChange={e => handleChange(device, 'ctaButtonText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading Line 1</Label><Input value={d.headingLine1} onChange={e => handleChange(device, 'headingLine1', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading Line 2</Label><Input value={d.headingLine2} onChange={e => handleChange(device, 'headingLine2', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Paragraph 1</Label><Textarea value={d.description1} onChange={e => handleChange(device, 'description1', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Paragraph 2</Label><Textarea value={d.description2} onChange={e => handleChange(device, 'description2', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2 col-span-2"><Label>Background Image</Label>
                 <div className="relative w-full h-32 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden">{d.bgImage ? <img src={d.bgImage} className="w-full h-full object-cover" /> : <Upload className="opacity-20" />}<Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => handleFileUpload(e, device, 'bg')} />{uploadingIdx === 'bg' && <div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin" /></div>}</div>
             </div>

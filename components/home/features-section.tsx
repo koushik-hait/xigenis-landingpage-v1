@@ -44,6 +44,8 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
         tag: "Full visibility. Always.",
       },
     ],
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -70,10 +72,10 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
             <span className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1 text-xs font-bold tracking-widest text-orange-600 uppercase">
               {content.pillText}
             </span>
-            <h2 className="mb-6 font-serif text-4xl font-bold text-gray-900 md:text-5xl whitespace-pre-line">
+            <h2 className="mb-6 font-serif text-4xl font-bold text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
               {content.heading}
             </h2>
-            <p className="mb-8 max-w-xl text-lg text-gray-600 whitespace-pre-line">
+            <p className="mb-8 max-w-xl text-lg text-gray-600 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
               {content.description}
             </p>
 

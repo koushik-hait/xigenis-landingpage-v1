@@ -30,6 +30,8 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
       { title: "Farmlands & Farmhouses", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop" },
       { title: "Special Purpose Real Estate", image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1996&auto=format&fit=crop" }
     ],
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -43,10 +45,10 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
               <div className="inline-block rounded-full bg-[#D9D9D9] px-4 py-1.5 text-[11px] font-bold tracking-widest text-[#333] uppercase">
                 {content.pillText}
               </div>
-              <h2 className="font-serif text-2xl leading-tight text-gray-900 lg:text-3xl whitespace-pre-line">
+              <h2 className="font-serif text-2xl leading-tight text-gray-900 lg:text-3xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
                 {content.heading}
               </h2>
-              <p className="max-w-md text-lg leading-relaxed text-gray-600">
+              <p className="max-w-md text-lg leading-relaxed text-gray-600" style={{ fontSize: `${content.descriptionSize}px` }}>
                 {content.description}
               </p>
 

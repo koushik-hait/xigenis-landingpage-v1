@@ -15,6 +15,7 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   headingLine1: "For Real Estate Leaders Who Want",
   headingLine2: "Predictable Deals",
+  headingSize: "48",
   notForYouLabel: "This is not for you if",
   forYouLabel: "This is for you if",
   notForYouPoints: [
@@ -105,6 +106,10 @@ export default function TargetAudienceCmsPage() {
               <div className="space-y-2">
                 <Label>Heading Line 2</Label>
                 <Input value={deviceContent.headingLine2} onChange={e => handleChange(device, 'headingLine2', e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Heading Font Size (px)</Label>
+                <Input type="number" value={deviceContent.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Negative Label (Not For You)</Label>

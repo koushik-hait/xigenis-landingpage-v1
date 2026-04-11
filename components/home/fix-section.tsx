@@ -23,6 +23,8 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
     card3Text: "Past clients become your next pipeline automatically.",
     card4Title: "Automated in 5 Minutes",
     card4Text: "Every lead followed up instantly. Zero manual effort needed.",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -46,11 +48,11 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="font-serif text-4xl leading-tight text-white lg:text-5xl whitespace-pre-line">
+            <h2 className="font-serif text-4xl leading-tight text-white lg:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
               {content.heading}
             </h2>
 
-            <p className="max-w-xl text-xl leading-relaxed text-gray-300">
+            <p className="max-w-xl text-xl leading-relaxed text-gray-300" style={{ fontSize: `${content.descriptionSize}px` }}>
               {content.description}
             </p>
 

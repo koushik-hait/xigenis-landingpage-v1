@@ -14,6 +14,8 @@ const CTASection = ({ cmsContent }: CTASectionProps) => {
     heading: "Ready to Build a \n Predictable Pipeline of \n Property Buyers?",
     description: "Discover how our system helps real estate professionals generate qualified leads, increase site visits, and close more deals.",
     buttonText: "Book Your Strategy Call",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -34,12 +36,12 @@ const CTASection = ({ cmsContent }: CTASectionProps) => {
       <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl space-y-8">
           {/* Header */}
-          <h2 className="font-serif text-5xl leading-tight text-white lg:text-7xl whitespace-pre-line">
+          <h2 className="font-serif text-5xl leading-tight text-white lg:text-7xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
             {content.heading}
           </h2>
 
           {/* Subtext */}
-          <p className="max-w-lg text-lg leading-relaxed text-gray-400 lg:text-xl">
+          <p className="max-w-lg text-lg leading-relaxed text-gray-400 lg:text-xl" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
 

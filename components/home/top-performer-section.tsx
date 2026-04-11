@@ -234,7 +234,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   </div>
 
                   <div className="text-[10px] font-bold text-[#F36B2B] leading-relaxed uppercase">
-                    {content.footerCard.subLabels.split('Builders').join('<br/>Builders')}
+                    {/* {content.footerCard.subLabels.split('Builders').join('<br/>Builders')} */}
                     {/* Note: In a real app we might just use \n and preserve whitespace, but keeping it simple for now */}
                     <div dangerouslySetInnerHTML={{ __html: content.footerCard.subLabels.replace('Builders', '<br/>Builders') }} />
                   </div>

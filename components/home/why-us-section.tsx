@@ -91,6 +91,8 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
       { value: "2.4L+", label: "Verified Leads Delivered" },
       { value: "98%", label: "Client Retention Rate" },
     ],
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -102,10 +104,10 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
           <div className="inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-1 text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase">
             {content.pillText}
           </div>
-          <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line">
+          <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
             {content.heading}
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-500 whitespace-pre-line">
+          <p className="mx-auto max-w-2xl text-lg text-gray-500 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
         </div>

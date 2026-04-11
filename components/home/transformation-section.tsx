@@ -44,6 +44,8 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
         afterVal: "₹48L"
       }
     ],
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -77,7 +79,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
             </div>
 
             {/* Heading */}
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-[1.1] tracking-tight mb-10">
+            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-[1.1] tracking-tight mb-10" style={{ fontSize: `${content.headingSize}px` }}>
               {content.headingLine1}<br />
               <span className="block mt-2">{content.headingLine2}</span>
             </h2>
@@ -103,7 +105,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:pt-20 lg:w-[440px] shrink-0"
           >
-            <p className="text-sm sm:text-[15px] font-medium leading-relaxed text-gray-800 space-y-4">
+            <p className="text-sm sm:text-[15px] font-medium leading-relaxed text-gray-800 space-y-4" style={{ fontSize: `${content.descriptionSize}px` }}>
               <span className="block">{content.description1}</span>
               <span className="block mt-4">{content.description2}</span>
             </p>

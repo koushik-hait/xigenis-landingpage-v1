@@ -14,7 +14,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   pillText: "LOREM IPSUM DOLOR SIT",
   heading: "8 Reasons Top Real Estate Professionals \n Choose Our AI Lead System",
+  headingSize: "48",
   description: "Most agencies promise leads. We build a predictable pipeline of qualified property buyers that turns into site visits and closed deals.",
+  descriptionSize: "16",
   reasons: [
     { tag: "EXCLUSIVE MARKET ACCESS", title: "Secure Your Market Before a Competitor Does & Own Your City", desc: "We take one client per property segment per city. Once your slot is filled, your competitors can never access the same system — ever." },
     { tag: "RESULTS-FOCUSED SYSTEM", title: "We Measure Success Only by Closed Deals", desc: "Unlike traditional marketing agencies that focus on impressions or clicks, our system is built around real outcomes." },
@@ -55,7 +57,9 @@ export default function ReasonsCmsPage() {
           <CardContent className="space-y-4 max-w-2xl">
             <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading (Use \n for breaks)</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
           </CardContent>
         </Card>
         <Card>

@@ -15,7 +15,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   bgImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
   heading: "Ready to Build a \n Predictable Pipeline of \n Property Buyers?",
+  headingSize: "48",
   description: "Discover how our system helps real estate professionals generate qualified leads, increase site visits, and close more deals.",
+  descriptionSize: "16",
   buttonText: "Book Your Strategy Call"
 }
 
@@ -39,7 +41,9 @@ export default function CTACmsPage() {
           <CardHeader><CardTitle>Text Content</CardTitle></CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2"><Label>Heading (Use \n for breaks)</Label><Textarea rows={4} value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Button Text</Label><Input value={d.buttonText} onChange={e => handleChange(device, 'buttonText', e.target.value)} /></div>
           </CardContent>
         </Card>

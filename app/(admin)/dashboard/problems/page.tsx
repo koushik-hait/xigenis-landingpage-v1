@@ -14,7 +14,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 
 const defaultContent = {
   pillText: "The Real Problem", heading: "You're not failing. Your pipeline has a leak.",
+  headingSize: "48",
   description: "Agents closing 4–5 deals every 90 days aren't smarter. They just fixed these 3 things.",
+  descriptionSize: "16",
   introPill: "Sound Familiar?", introHeading: "Your Lead Problem Is Not What You Think",
   introPoints: ["Do you spend ₹30K to ₹1L on ads and still get 80% fake numbers?", "Are you chasing 100 leads a month but can't get 4 site visits a week?", "Have you tried portals, freelancers, and cold calls and NOTHING worked consistently?"],
   introPara: "You're not bad at sales. You're using a broken system in a market that rewards speed, follow-up, and qualified traffic — not volume.",
@@ -47,7 +49,9 @@ export default function ProblemsCmsPage() {
           <CardContent className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2"><Label>Section Pill</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Section Heading</Label><Input value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2 md:col-span-2"><Label>Section Description</Label><Textarea value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Intro Pill</Label><Input value={d.introPill} onChange={e => handleChange(device, 'introPill', e.target.value)} /></div>
             <div className="space-y-2"><Label>Intro Heading</Label><Input value={d.introHeading} onChange={e => handleChange(device, 'introHeading', e.target.value)} /></div>
             <div className="space-y-2 md:col-span-2"><Label>Intro Paragraph</Label><Textarea value={d.introPara} onChange={e => handleChange(device, 'introPara', e.target.value)} /></div>

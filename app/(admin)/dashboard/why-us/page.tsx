@@ -13,7 +13,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 
 const defaultContent = {
   pillText: "WHY LEADERS CHOOSE US", heading: "Built for Those Who Close, Not Chase.",
+  headingSize: "48",
   description: "We work exclusively with real estate professionals who want qualified pipeline — not vanity metrics.",
+  descriptionSize: "16",
   features: [
     { title: "100% Real Estate DNA — No Generic Marketers", desc: "Every strategist, every campaign, every creative — built exclusively for real estate.", tag: "Sector Specialists" },
     { title: "Real-Time Dashboard — Know Where Every Rupee Goes", desc: "Live spend tracking, cost-per-lead, and funnel data — 24/7.", tag: "Full Transparency" },
@@ -56,7 +58,9 @@ export default function WhyChooseUsCmsPage() {
           <CardContent className="space-y-4 max-w-2xl">
             <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading</Label><Input value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
           </CardContent>
         </Card>
         <Card>

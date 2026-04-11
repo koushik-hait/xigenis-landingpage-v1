@@ -27,6 +27,8 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
     gridStat3Label: "Qualified Buyer \n Leads Generated",
     gridStat4Value: "15+",
     gridStat4Label: "Cities Covered \n Across India",
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -46,8 +48,8 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
           <div className="mb-4 inline-block rounded-full bg-gray-100 px-4 py-1 text-xs font-bold tracking-widest text-gray-600 uppercase">
             {content.pillText}
           </div>
-          <h2 className="mb-6 font-serif text-4xl text-gray-900 lg:text-5xl whitespace-pre-line">{content.heading}</h2>
-          <p className="mb-8 text-base leading-relaxed text-gray-600 lg:text-lg whitespace-pre-line">
+          <h2 className="mb-6 font-serif text-4xl text-gray-900 lg:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>{content.heading}</h2>
+          <p className="mb-8 text-base leading-relaxed text-gray-600 lg:text-lg whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
 

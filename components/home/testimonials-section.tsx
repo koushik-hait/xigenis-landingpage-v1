@@ -33,6 +33,8 @@ export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
         text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries and closed two deals within the first 60 days.",
       },
     ],
+    headingSize: "44",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -44,10 +46,10 @@ export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
           <span className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1 text-[10px] font-bold tracking-widest text-orange-600 uppercase">
             {content.pillText}
           </span>
-          <h2 className="mb-6 font-serif text-4xl leading-tight font-bold text-gray-900 md:text-5xl whitespace-pre-line">
+          <h2 className="mb-6 font-serif text-4xl leading-tight font-bold text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
             {content.heading}
           </h2>
-          <p className="max-w-sm text-lg text-gray-500 whitespace-pre-line">
+          <p className="max-w-sm text-lg text-gray-500 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
         </div>

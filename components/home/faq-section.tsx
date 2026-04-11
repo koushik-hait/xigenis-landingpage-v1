@@ -32,6 +32,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
         answer: "Transparency is key. You'll have a live dashboard to track every lead as it comes through our system.",
       },
     ],
+    headingSize: "48",
     ...cmsContent
   }
 
@@ -39,7 +40,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
     <section className="flex flex-col items-center bg-black px-6 py-10 text-white">
       {/* Header Section */}
       <div className="mb-12 text-center">
-        <h2 className="mb-8 font-serif text-4xl leading-tight font-medium md:text-5xl whitespace-pre-line">
+        <h2 className="mb-8 font-serif text-4xl leading-tight font-medium md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
           {content.heading}
         </h2>
 

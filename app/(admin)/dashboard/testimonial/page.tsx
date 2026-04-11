@@ -15,7 +15,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 
 const defaultContent = {
   pillText: "Testimonials", heading: "Trusted by Real Estate Professionals",
+  headingSize: "48",
   description: "Rated by agents, brokers, and developers who are generating qualified buyer leads and closing more property deals with our system.",
+  descriptionSize: "16",
   testimonials: [
     { name: "Rahul Sharma", role: "Real Estate Broker, Mumbai", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop", text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries." },
     { name: "Amit Desai", role: "Property Developer", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop", text: "We were struggling with low-quality portal leads. After implementing this system, we started getting serious buyer inquiries." },
@@ -59,7 +61,9 @@ export default function TestimonialAdmin() {
             <CardContent className="space-y-4">
               <div className="space-y-2"><Label>Pill Text</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
               <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} rows={2} /></div>
+              <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
               <div className="space-y-2"><Label>Description</Label><Textarea value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} rows={4} /></div>
+              <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             </CardContent>
           </Card>
         </div>

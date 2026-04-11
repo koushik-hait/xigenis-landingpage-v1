@@ -16,6 +16,7 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   badgeText: 'Trusted by 100+ B2B Organization',
   heading: 'Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries',
+  headingSize: '48',
   buttonText: 'Speak With A Strategy Expert Today',
   backgroundImage: '/hero-family-pool.jpg',
   valueProps: [
@@ -60,6 +61,7 @@ export default function RealEstateHeroAdmin() {
             <CardContent className="space-y-4">
               <div className="space-y-2"><Label>Trust Badge Text</Label><Input value={d.badgeText} onChange={e => handleChange(device, 'badgeText', e.target.value)} /></div>
               <div className="space-y-2"><Label>Main Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} rows={3} /></div>
+              <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
               <div className="space-y-2"><Label>Button Text</Label><Input value={d.buttonText} onChange={e => handleChange(device, 'buttonText', e.target.value)} /></div>
             </CardContent>
           </Card>

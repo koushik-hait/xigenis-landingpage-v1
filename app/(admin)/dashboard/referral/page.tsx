@@ -14,7 +14,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   pillText: "Problem 04 • No Referral System",
   heading: "Closing Deals But \n Starting From Zero Every Month",
+  headingSize: "48",
   description: "After closing, most agents disappear. No CRM, no structured referral process means every month is a fresh hunt — with no compounding momentum.",
+  descriptionSize: "16",
   points: ["Happy clients forget you exist without a system to stay top-of-mind.", "Zero referral pipeline means 100% dependence on paid ads forever.", "AI Algo-Plex automates referral nurture so every deal spawns the next."],
   statBoxValue: "3x",
   statBoxText: "Agents with automated referral systems close 3× more deals than those relying on portals alone.",
@@ -44,7 +46,9 @@ export default function ReferralCmsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Bullet Points (One per line)</Label><Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} /></div>
             <div className="border-t pt-4 space-y-4">
                 <div className="space-y-2"><Label>Stat Box Value</Label><Input value={d.statBoxValue} onChange={e => handleChange(device, 'statBoxValue', e.target.value)} /></div>

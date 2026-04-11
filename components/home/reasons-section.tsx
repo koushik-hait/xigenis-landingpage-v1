@@ -53,6 +53,8 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
         desc: "From campaign launch to site visits and bookings, our framework is designed to deliver visible progress within three months.",
       },
     ],
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -64,10 +66,10 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
           <div className="inline-block rounded-full border border-gray-400 px-6 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-600 uppercase">
             {content.pillText}
           </div>
-          <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line">
+          <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
             {content.heading}
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-500 whitespace-pre-line">
+          <p className="mx-auto max-w-2xl text-lg text-gray-500 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
         </div>

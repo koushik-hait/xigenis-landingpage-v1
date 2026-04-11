@@ -14,7 +14,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   pillText: "OUR PROCESS",
   heading: "How We Build Your Revenue System in 15 Days",
+  headingSize: "48",
   description: "Six phases. Three zones. Four senior experts. One outcome: deals closing on autopilot.",
+  descriptionSize: "16",
   zones: [
     { id: 1, title: "Intelligence & Design", subtitle: "Where most agencies don't even start", owner: "Business Analyst", steps: [
         { id: 1, days: "Day 5-7", title: "Growth & Market Intelligence", desc: "Business audit, project reality check, demand analysis, competitive landscape mapping.", tag: "We diagnose before we deploy." },
@@ -72,7 +74,9 @@ export default function ProcessCmsPage() {
               <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={(e) => handleChange(device, "pillText", e.target.value)} /></div>
               <div className="space-y-2"><Label>Heading</Label><Input value={d.heading} onChange={(e) => handleChange(device, "heading", e.target.value)} /></div>
             </div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={(e) => handleChange(device, "headingSize", e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea value={d.description} onChange={(e) => handleChange(device, "description", e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={(e) => handleChange(device, "descriptionSize", e.target.value)} /></div>
           </CardContent>
         </Card>
 

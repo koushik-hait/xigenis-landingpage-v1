@@ -25,7 +25,9 @@ const avatarDefaults = [
 const defaultContent = {
   pillText: "Testimonials",
   heading: "Trusted by Real Estate Professionals \n Across Cities",
+  headingSize: "48",
   description: "See how agents, brokers, and developers are generating qualified buyer leads, increasing site visits, and closing more property deals with our proven system.",
+  descriptionSize: "16",
   btnText: "See How It Works",
   testimonials: [
     { name: "Rahul Sharma", src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop", alt: "Real estate professional", rating: "5", quote: "The system completely changed how we generate buyer leads." },
@@ -73,7 +75,9 @@ export default function SocialProofCmsPage() {
                 <CardContent className="space-y-4">
                     <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
                     <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
                     <div className="space-y-2"><Label>Description paragraph</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
                     <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
                 </CardContent>
             </Card>

@@ -36,6 +36,8 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
         image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
       },
     ],
+    headingSize: "48",
+    descriptionSize: "16",
     ...cmsContent
   }
 
@@ -48,11 +50,11 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
             <div className="inline-block rounded-full border border-gray-300 px-5 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
               {content.pillText}
             </div>
-            <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line">
+            <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
               {content.heading}
             </h2>
           </div>
-          <p className="max-w-[320px] text-sm leading-relaxed font-medium text-gray-500 whitespace-pre-line">
+          <p className="max-w-[320px] text-sm leading-relaxed font-medium text-gray-500 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
             {content.description}
           </p>
         </div>

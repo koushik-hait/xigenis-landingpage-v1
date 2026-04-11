@@ -15,7 +15,9 @@ import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/
 const defaultContent = {
   bgImage: "/assets/fix-bg.png", pillText: "THE FIX • AI ALGO-PLEX SYSTEM",
   heading: "You Don't Need More Leads.\n You Need a System That Closes.",
+  headingSize: "48",
   description: "Not another portal. Not a freelancer running random ads. A full pipeline — built, managed, and optimised for one outcome: closed deals in 90 days.",
+  descriptionSize: "16",
   btnText: "Build My Pipeline",
   card1Title: "Complete Ad-to-Close Funnel", card1Text: "Targeting, nurture, and conversion — fully managed.",
   card2Title: "Qualified Buyers Only", card2Text: "Pre-filtered buyer intent. No fake numbers, no time-wasters.",
@@ -44,7 +46,9 @@ export default function FixCmsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
           </CardContent>
         </Card>

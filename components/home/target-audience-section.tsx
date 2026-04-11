@@ -27,6 +27,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
     ],
     bgImage: "/assets/eligibility-bg.png",
     modelImage: "/assets/eligibility-cutout.png",
+    headingSize: "48",
     ...cmsContent
   }
 
@@ -54,7 +55,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
           transition={{ duration: 0.8 }}
           className="mb-6 text-center"
         >
-          <h2 className="mx-auto max-w-3xl font-serif text-3xl leading-[1.2] tracking-wide text-gray-900 uppercase sm:text-4xl lg:text-5xl">
+          <h2 className="mx-auto max-w-3xl font-serif text-3xl leading-[1.2] tracking-wide text-gray-900 uppercase sm:text-4xl lg:text-5xl" style={{ fontSize: `${content.headingSize}px` }}>
             {content.headingLine1}
             <br className="hidden sm:block" />
             <span className="mt-2 block">{content.headingLine2}</span>
