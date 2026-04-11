@@ -57,6 +57,8 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
     checkmarks: ["Instant Access", "Step-By-Step Plan", "Cancel Anytime"]
   };
 
+  console.log(content);
+
   return (
     <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
       {/* Background Image */}
@@ -121,7 +123,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               fontSize: `${content.headlineSize}px`,
               lineHeight: '1.05'
             }}
-            className="mb-8 space-y-1 font-serif tracking-wide drop-shadow-lg max-sm:!text-[45px] max-md:!text-[72px]"
+            className="mb-8 space-y-1 font-serif tracking-wide drop-shadow-lg"
           >
             <span className="block">{content.headlineLine1}</span>
             <span className="block">{content.headlineLine2}</span>
@@ -136,7 +138,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               color: content.subtitleColor,
               fontSize: `${content.subtitleSize}px`
             }}
-            className="mb-10 max-w-[440px] leading-loose font-bold tracking-[0.2em] uppercase"
+            className="mb-10 max-w-[440px] leading-loose font-bold tracking-[0.2em]"
           >
             {content.subtitle}
           </motion.p>

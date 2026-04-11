@@ -77,7 +77,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                     <div className="inline-block rounded-full bg-gray-800 px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase mb-6">
                       {content.introPill}
                     </div>
-                    <h1 className="font-serif text-3xl leading-tight text-gray-900 sm:text-4xl mb-8">
+                    <h1 className="font-serif text-3xl leading-tight text-gray-100 sm:text-4xl mb-8">
                       {content.introHeading}
                     </h1>
                     <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-lg">
@@ -97,7 +97,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                 </div>
 
                 {/* Second Screen - Visual with Stats */}
-                <div className="flex-shrink-0 w-[85vw] snap-center flex flex-col justify-center py-20">
+                <div className="hidden flex-shrink-0 w-[85vw] snap-center flex flex-col justify-center py-20">
                   <div className="px-4">
                     <div className="relative h-[600px] rounded-3xl bg-white/80 backdrop-blur-sm p-6 shadow-lg">
                       {/* Main Image */}
@@ -109,18 +109,18 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                           className="object-cover rounded-2xl"
                         />
                       </div>
-                      
+
                       {/* Floating Stats */}
                       <div className="absolute top-8 right-8 bg-[#F97316] text-white p-4 rounded-2xl shadow-lg max-w-[140px]">
                         <div className="font-serif text-2xl">{content.stat1Value}</div>
                         <div className="text-xs opacity-90">{content.stat1Label}</div>
                       </div>
-                      
+
                       <div className="absolute top-32 left-8 bg-black text-white p-4 rounded-2xl shadow-lg max-w-[140px]">
                         <div className="font-serif text-2xl">{content.stat2Value}</div>
                         <div className="text-xs opacity-80">{content.stat2Label}</div>
                       </div>
-                      
+
                       <div className="absolute bottom-8 right-8 bg-white border border-gray-100 p-4 rounded-2xl shadow-lg max-w-[140px]">
                         <div className="font-serif text-2xl text-[#D97706]">{content.stat3Value}</div>
                         <div className="text-[10px] text-gray-500 uppercase tracking-wide">{content.stat3Label}</div>
