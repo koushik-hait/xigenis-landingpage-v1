@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Upload, Plus, Trash2 } from 'lucide-react'
+import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
 
 const defaultContent = {
   headingLine1: "For Real Estate Leaders Who Want",
@@ -33,7 +34,10 @@ const defaultContent = {
 }
 
 export default function TargetAudienceCmsPage() {
-  const [content, setContent] = useState<typeof defaultContent>(defaultContent)
+  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({
+    desktop: { ...defaultContent },
+    mobile: { ...defaultContent }
+  })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [uploadingImage, setUploadingImage] = useState<'bg' | 'model' | null>(null)
@@ -42,18 +46,21 @@ export default function TargetAudienceCmsPage() {
     async function fetchInitial() {
       const data = await getCmsContent('home', 'target-audience')
       if (data) {
-        setContent({ ...defaultContent, ...data })
+        setContent(migrateToDeviceStructure(data, defaultContent))
       }
       setIsLoading(false)
     }
     fetchInitial()
   }, [])
 
-  const handleChange = (key: string, value: any) => {
-    setContent(prev => ({ ...prev, [key]: value }))
+  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => {
+    setContent(prev => ({
+      ...prev,
+      [device]: { ...prev[device], [key]: value }
+    }))
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'bgImage' | 'modelImage') => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile', type: 'bgImage' | 'modelImage') => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -63,7 +70,7 @@ export default function TargetAudienceCmsPage() {
       formData.append('file', file)
       const { success, finalUrl } = await uploadFile(formData)
       if (success && finalUrl) {
-        handleChange(type, finalUrl)
+        handleChange(device, type, finalUrl)
         toast.success("Image uploaded")
       }
     } catch (err) {
@@ -83,36 +90,29 @@ export default function TargetAudienceCmsPage() {
 
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
-  return (
-    <div className="p-4 md:p-8 space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold">Target Audience CMS</h2>
-        <Button onClick={handleSave} disabled={isSaving}>
-          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Save Changes
-        </Button>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
+  const renderForm = (device: 'desktop' | 'mobile') => {
+    const deviceContent = content[device]
+    return (
+      <div className="grid gap-6 md:grid-cols-2 mt-4">
         <Card className="md:col-span-2">
           <CardHeader><CardTitle>Heading & Section Labels</CardTitle></CardHeader>
           <CardContent className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Heading Line 1</Label>
-                <Input value={content.headingLine1} onChange={e => handleChange('headingLine1', e.target.value)} />
+                <Input value={deviceContent.headingLine1} onChange={e => handleChange(device, 'headingLine1', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Heading Line 2</Label>
-                <Input value={content.headingLine2} onChange={e => handleChange('headingLine2', e.target.value)} />
+                <Input value={deviceContent.headingLine2} onChange={e => handleChange(device, 'headingLine2', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Negative Label (Not For You)</Label>
-                <Input value={content.notForYouLabel} onChange={e => handleChange('notForYouLabel', e.target.value)} />
+                <Input value={deviceContent.notForYouLabel} onChange={e => handleChange(device, 'notForYouLabel', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Positive Label (For You)</Label>
-                <Input value={content.forYouLabel} onChange={e => handleChange('forYouLabel', e.target.value)} />
+                <Input value={deviceContent.forYouLabel} onChange={e => handleChange(device, 'forYouLabel', e.target.value)} />
               </div>
             </div>
           </CardContent>
@@ -126,8 +126,8 @@ export default function TargetAudienceCmsPage() {
           <CardContent>
             <Textarea 
               className="min-h-[200px]"
-              value={content.notForYouPoints.join('\n')}
-              onChange={e => handleChange('notForYouPoints', e.target.value.split('\n'))}
+              value={deviceContent.notForYouPoints.join('\n')}
+              onChange={e => handleChange(device, 'notForYouPoints', e.target.value.split('\n'))}
             />
           </CardContent>
         </Card>
@@ -140,8 +140,8 @@ export default function TargetAudienceCmsPage() {
           <CardContent>
             <Textarea 
               className="min-h-[200px]"
-              value={content.forYouPoints.join('\n')}
-              onChange={e => handleChange('forYouPoints', e.target.value.split('\n'))}
+              value={deviceContent.forYouPoints.join('\n')}
+              onChange={e => handleChange(device, 'forYouPoints', e.target.value.split('\n'))}
             />
           </CardContent>
         </Card>
@@ -150,15 +150,15 @@ export default function TargetAudienceCmsPage() {
           <CardHeader><CardTitle>Background Image</CardTitle></CardHeader>
           <CardContent className="space-y-4 text-center">
             <div className="relative mx-auto w-full aspect-video rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden group">
-              {content.bgImage ? (
-                <img src={content.bgImage} className="w-full h-full object-contain" />
+              {deviceContent.bgImage ? (
+                <img src={deviceContent.bgImage} className="w-full h-full object-contain" />
               ) : (
                 <Upload className="opacity-20 w-12 h-12" />
               )}
               <Input 
                 type="file" 
                 className="absolute inset-0 opacity-0 cursor-pointer" 
-                onChange={e => handleFileUpload(e, 'bgImage')} 
+                onChange={e => handleFileUpload(e, device, 'bgImage')} 
               />
               {uploadingImage === 'bg' && (
                 <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
@@ -174,15 +174,15 @@ export default function TargetAudienceCmsPage() {
           <CardHeader><CardTitle>Model/Character Image</CardTitle></CardHeader>
           <CardContent className="space-y-4 text-center">
             <div className="relative mx-auto w-full aspect-video rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden group">
-              {content.modelImage ? (
-                <img src={content.modelImage} className="w-full h-full object-contain" />
+              {deviceContent.modelImage ? (
+                <img src={deviceContent.modelImage} className="w-full h-full object-contain" />
               ) : (
                 <Upload className="opacity-20 w-12 h-12" />
               )}
               <Input 
                 type="file" 
                 className="absolute inset-0 opacity-0 cursor-pointer" 
-                onChange={e => handleFileUpload(e, 'modelImage')} 
+                onChange={e => handleFileUpload(e, device, 'modelImage')} 
               />
               {uploadingImage === 'model' && (
                 <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
@@ -194,6 +194,20 @@ export default function TargetAudienceCmsPage() {
           </CardContent>
         </Card>
       </div>
+    )
+  }
+
+  return (
+    <div className="p-4 md:p-8 space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-3xl font-bold">Target Audience CMS</h2>
+        <Button onClick={handleSave} disabled={isSaving}>
+          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Save Changes
+        </Button>
+      </div>
+
+      <DeviceTabsWrapper renderForm={renderForm} />
     </div>
   )
 }

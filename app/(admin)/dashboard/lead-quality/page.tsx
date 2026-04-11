@@ -9,7 +9,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Upload } from 'lucide-react'
+import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
 
 const defaultContent = {
   pillText: "PROBLEM 01 • LEAD QUALITY",
@@ -36,21 +37,24 @@ const defaultContent = {
 }
 
 export default function LeadQualityCmsPage() {
-  const [content, setContent] = useState<typeof defaultContent>(defaultContent)
+  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({
+    desktop: { ...defaultContent },
+    mobile: { ...defaultContent }
+  })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     async function fetchInitial() {
       const data = await getCmsContent('home', 'lead-quality')
-      if (data) setContent({ ...defaultContent, ...data })
+      if (data) setContent(migrateToDeviceStructure(data, defaultContent))
       setIsLoading(false)
     }
     fetchInitial()
   }, [])
 
-  const handleChange = (key: string, value: any) => {
-    setContent(prev => ({ ...prev, [key]: value }))
+  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => {
+    setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } }))
   }
 
   const handleSave = async () => {
@@ -63,6 +67,42 @@ export default function LeadQualityCmsPage() {
 
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
+  const renderForm = (device: 'desktop' | 'mobile') => {
+    const d = content[device]
+    return (
+      <div className="grid gap-6 md:grid-cols-2 mt-4">
+        <Card>
+          <CardHeader><CardTitle>Text Content (Right side)</CardTitle></CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
+            <div className="space-y-2">
+              <Label>Bullet Points (One per line)</Label>
+              <Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} />
+            </div>
+            <div className="grid grid-cols-2 gap-4 border-t pt-4">
+                <div className="space-y-2"><Label>Main Stat Value</Label><Input value={d.mainStatValue} onChange={e => handleChange(device, 'mainStatValue', e.target.value)} /></div>
+                <div className="space-y-2"><Label>Main Stat Source</Label><Input value={d.mainStatSource} onChange={e => handleChange(device, 'mainStatSource', e.target.value)} /></div>
+                <div className="space-y-2 col-span-2"><Label>Main Stat Text</Label><Textarea value={d.mainStatText} onChange={e => handleChange(device, 'mainStatText', e.target.value)} /></div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader><CardTitle>Audit Card Items (Left side)</CardTitle></CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>Total Leads Label</Label><Input value={d.auditTotalLabel} onChange={e => handleChange(device, 'auditTotalLabel', e.target.value)} /></div><div className="space-y-2"><Label>Total Leads Value</Label><Input value={d.auditTotalValue} onChange={e => handleChange(device, 'auditTotalValue', e.target.value)} /></div></div>
+            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>Fake Label</Label><Input value={d.auditFakeLabel} onChange={e => handleChange(device, 'auditFakeLabel', e.target.value)} /></div><div className="space-y-2"><Label>Fake Value</Label><Input value={d.auditFakeValue} onChange={e => handleChange(device, 'auditFakeValue', e.target.value)} /></div></div>
+            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>No Resp Label</Label><Input value={d.auditNoRespLabel} onChange={e => handleChange(device, 'auditNoRespLabel', e.target.value)} /></div><div className="space-y-2"><Label>No Resp Value</Label><Input value={d.auditNoRespValue} onChange={e => handleChange(device, 'auditNoRespValue', e.target.value)} /></div></div>
+            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>Qualified Label</Label><Input value={d.auditQualLabel} onChange={e => handleChange(device, 'auditQualLabel', e.target.value)} /></div><div className="space-y-2"><Label>Qualified Value</Label><Input value={d.auditQualValue} onChange={e => handleChange(device, 'auditQualValue', e.target.value)} /></div></div>
+            <div className="grid grid-cols-2 gap-2"><div className="space-y-2"><Label>Site Visit Label</Label><Input value={d.auditSiteLabel} onChange={e => handleChange(device, 'auditSiteLabel', e.target.value)} /></div><div className="space-y-2"><Label>Site Visit Value</Label><Input value={d.auditSiteValue} onChange={e => handleChange(device, 'auditSiteValue', e.target.value)} /></div></div>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
   return (
     <div className="p-4 md:p-8 space-y-6">
       <div className="flex justify-between items-center">
@@ -71,37 +111,7 @@ export default function LeadQualityCmsPage() {
           {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes
         </Button>
       </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader><CardTitle>Text Content (Right side)</CardTitle></CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2"><Label>Pill Label</Label><Input value={content.pillText} onChange={e => handleChange('pillText', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Heading</Label><Textarea value={content.heading} onChange={e => handleChange('heading', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={4} value={content.description} onChange={e => handleChange('description', e.target.value)} /></div>
-            <div className="space-y-2">
-              <Label>Bullet Points (One per line)</Label>
-              <Textarea rows={4} value={content.points.join('\n')} onChange={e => handleChange('points', e.target.value.split('\n'))} />
-            </div>
-            <div className="grid grid-cols-2 gap-4 border-t pt-4">
-                <div className="space-y-2"><Label>Main Stat Value</Label><Input value={content.mainStatValue} onChange={e => handleChange('mainStatValue', e.target.value)} /></div>
-                <div className="space-y-2"><Label>Main Stat Source</Label><Input value={content.mainStatSource} onChange={e => handleChange('mainStatSource', e.target.value)} /></div>
-                <div className="space-y-2 col-span-2"><Label>Main Stat Text</Label><Textarea value={content.mainStatText} onChange={e => handleChange('mainStatText', e.target.value)} /></div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader><CardTitle>Audit Card Items (Left side)</CardTitle></CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>Total Leads Label</Label><Input value={content.auditTotalLabel} onChange={e => handleChange('auditTotalLabel', e.target.value)} /></div><div className="space-y-2"><Label>Total Leads Value</Label><Input value={content.auditTotalValue} onChange={e => handleChange('auditTotalValue', e.target.value)} /></div></div>
-            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>Fake Label</Label><Input value={content.auditFakeLabel} onChange={e => handleChange('auditFakeLabel', e.target.value)} /></div><div className="space-y-2"><Label>Fake Value</Label><Input value={content.auditFakeValue} onChange={e => handleChange('auditFakeValue', e.target.value)} /></div></div>
-            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>No Resp Label</Label><Input value={content.auditNoRespLabel} onChange={e => handleChange('auditNoRespLabel', e.target.value)} /></div><div className="space-y-2"><Label>No Resp Value</Label><Input value={content.auditNoRespValue} onChange={e => handleChange('auditNoRespValue', e.target.value)} /></div></div>
-            <div className="grid grid-cols-2 gap-2 border-b pb-4"><div className="space-y-2"><Label>Qualified Label</Label><Input value={content.auditQualLabel} onChange={e => handleChange('auditQualLabel', e.target.value)} /></div><div className="space-y-2"><Label>Qualified Value</Label><Input value={content.auditQualValue} onChange={e => handleChange('auditQualValue', e.target.value)} /></div></div>
-            <div className="grid grid-cols-2 gap-2"><div className="space-y-2"><Label>Site Visit Label</Label><Input value={content.auditSiteLabel} onChange={e => handleChange('auditSiteLabel', e.target.value)} /></div><div className="space-y-2"><Label>Site Visit Value</Label><Input value={content.auditSiteValue} onChange={e => handleChange('auditSiteValue', e.target.value)} /></div></div>
-          </CardContent>
-        </Card>
-      </div>
+      <DeviceTabsWrapper renderForm={renderForm} />
     </div>
   )
 }

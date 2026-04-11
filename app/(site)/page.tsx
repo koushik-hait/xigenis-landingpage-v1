@@ -25,6 +25,24 @@ import {
 } from "@/components/home"
 import { getCmsContent } from "@/app/actions/cms"
 
+function ResponsiveSection({ Component, cmsData }: { Component: any, cmsData?: any }) {
+  if (cmsData && cmsData.desktop && cmsData.mobile) {
+    return (
+      <div className="relative w-full">
+        <div className="block md:hidden">
+          <Component cmsContent={cmsData.mobile} />
+        </div>
+        <div className="hidden md:block">
+          <Component cmsContent={cmsData.desktop} />
+        </div>
+      </div>
+    )
+  }
+
+  // Fallback for flat structure
+  return <Component cmsContent={cmsData} />
+}
+
 export default async function Web() {
   // Fetch dynamic content
   const heroCmsData = await getCmsContent('home', 'hero');
@@ -55,73 +73,73 @@ export default async function Web() {
   return (
     <div className="bg-background text-foreground min-h-screen">
       {/* Hero - Dark with background image */}
-      <HeroSection cmsContent={heroCmsData as any} />
+      <ResponsiveSection Component={HeroSection} cmsData={heroCmsData as any} />
 
       {/* Top Performers Section */}
-      <TopPerformerSection cmsContent={topPerformersCmsData as any} />
+      <ResponsiveSection Component={TopPerformerSection} cmsData={topPerformersCmsData as any} />
 
       {/* Target Audience - For you / Not for you */}
-      <TargetAudienceSection cmsContent={targetAudienceCmsData as any} />
+      <ResponsiveSection Component={TargetAudienceSection} cmsData={targetAudienceCmsData as any} />
 
       {/* The 90-Day Transformation */}
-      <TransformationSection cmsContent={transformationCmsData as any} />
+      <ResponsiveSection Component={TransformationSection} cmsData={transformationCmsData as any} />
 
       {/* The Real Problems - Dark section */}
-      <ProblemsSection cmsContent={problemsCmsData as any} />
+      <ResponsiveSection Component={ProblemsSection} cmsData={problemsCmsData as any} />
 
       {/* Lead Quality Section */}
-      <LeadQualitySection cmsContent={leadQualityCmsData as any} />
+      <ResponsiveSection Component={LeadQualitySection} cmsData={leadQualityCmsData as any} />
 
       {/* Follow Up Section */}
-      <FollowUpSection cmsContent={followUpCmsData as any} />
+      <ResponsiveSection Component={FollowUpSection} cmsData={followUpCmsData as any} />
 
       {/* Ad Spend Section */}
-      <AdSpendSection cmsContent={adspendCmsData as any} />
+      <ResponsiveSection Component={AdSpendSection} cmsData={adspendCmsData as any} />
 
       {/* Referral Section */}
-      <ReferralSection cmsContent={referralCmsData as any} />
+      <ResponsiveSection Component={ReferralSection} cmsData={referralCmsData as any} />
 
       {/* Fix Section */}
-      <FixSection cmsContent={fixCmsData as any} />
+      <ResponsiveSection Component={FixSection} cmsData={fixCmsData as any} />
 
       {/* About Company */}
-      <AboutSection cmsContent={aboutCmsData as any} />
+      <ResponsiveSection Component={AboutSection} cmsData={aboutCmsData as any} />
 
       {/* Performance Metrics */}
-      <PerformanceMetrics cmsContent={performanceCmsData as any} />
+      <ResponsiveSection Component={PerformanceMetrics} cmsData={performanceCmsData as any} />
 
       {/* Social Proof / Testimonials */}
-      <SocialProofSection cmsContent={socialProofCmsData as any} />
+      <ResponsiveSection Component={SocialProofSection} cmsData={socialProofCmsData as any} />
 
       {/* Reasons Section */}
-      <ReasonsSection cmsContent={reasonsCmsData as any} />
+      <ResponsiveSection Component={ReasonsSection} cmsData={reasonsCmsData as any} />
 
       {/* Cta Section */}
-      <CTASection cmsContent={ctaCmsData as any} />
+      <ResponsiveSection Component={CTASection} cmsData={ctaCmsData as any} />
 
       {/* Process Section */}
-      <ProcessTimeline cmsContent={processCmsData as any} />
+      <ResponsiveSection Component={ProcessTimeline} cmsData={processCmsData as any} />
 
       {/* Case Studies */}
-      <CaseStudies cmsContent={caseStudiesCmsData as any} />
+      <ResponsiveSection Component={CaseStudies} cmsData={caseStudiesCmsData as any} />
 
       {/* WhyChooseUs section */}
-      <WhyChooseUs cmsContent={whyUsCmsData as any} />
+      <ResponsiveSection Component={WhyChooseUs} cmsData={whyUsCmsData as any} />
 
       {/* Campaign Insights */}
-      <CampaignInsights cmsContent={campaignInsightsCmsData as any} />
+      <ResponsiveSection Component={CampaignInsights} cmsData={campaignInsightsCmsData as any} />
 
       {/* Features Section */}
-      <FeaturesSection cmsContent={featuresCmsData as any} />
+      <ResponsiveSection Component={FeaturesSection} cmsData={featuresCmsData as any} />
 
       {/* FAQ Section */}
-      <FAQSection cmsContent={faqCmsData as any} />
+      <ResponsiveSection Component={FAQSection} cmsData={faqCmsData as any} />
 
       {/* Testimonial Section */}
-      <TestimonialSection cmsContent={testimonialCmsData as any} />
+      <ResponsiveSection Component={TestimonialSection} cmsData={testimonialCmsData as any} />
 
       {/* Real Estate Hero */}
-      <RealEstateHero cmsContent={realEstateHeroCmsData as any} />
+      <ResponsiveSection Component={RealEstateHero} cmsData={realEstateHeroCmsData as any} />
     </div>
   )
 }
