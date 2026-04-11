@@ -36,7 +36,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
   }
 
   return (
-    <section className="flex flex-col items-center bg-black px-6 py-24 text-white">
+    <section className="flex flex-col items-center bg-black px-6 py-10 text-white">
       {/* Header Section */}
       <div className="mb-12 text-center">
         <h2 className="mb-8 font-serif text-4xl leading-tight font-medium md:text-5xl whitespace-pre-line">

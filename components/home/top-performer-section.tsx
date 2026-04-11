@@ -96,17 +96,17 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
   };
 
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-24 border-t border-gray-100">
+    <section className="bg-white py-10 sm:py-10 lg:py-10 border-t border-gray-100">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-8">
-          
+
           {/* Left Content */}
           <div className="flex-1 lg:max-w-[400px] xl:max-w-[480px] flex flex-col items-start justify-center pr-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center rounded-r-none rounded-l-md px-3 py-1 mb-6 bg-[#DCDCDC] text-[10px] font-bold tracking-widest text-black/70 uppercase"
+              className="inline-flex items-center justify-center rounded-r-none rounded-l-md px-3 py-1 mb-6 bg-[#DCDCDC] text-[8px] font-bold tracking-widest text-black/70 uppercase"
               style={{ borderRadius: '0.5rem' }}
             >
               {content.tag}
@@ -117,7 +117,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              style={{ 
+              style={{
                 color: content.headingColor,
                 fontSize: `${content.headingSize}px`,
                 lineHeight: '1.2'
@@ -133,7 +133,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              style={{ 
+              style={{
                 color: content.descriptionColor,
                 fontSize: `${content.descriptionSize}px`
               }}
@@ -150,23 +150,23 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               className="mb-8"
             >
               <button
-                onClick={() => {console.log('Apply for Strategy Call')}}
+                onClick={() => { console.log('Apply for Strategy Call') }}
                 className="group relative flex items-center gap-4 py-2 pr-2 pl-6 overflow-hidden transition-all duration-300 hover:rounded-full hover:border hover:border-white/5 before:absolute before:inset-0 before:-translate-x-full before:bg-black/10 before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0"
               >
-                <span 
+                <span
                   className="relative p-2 text-[11px] font-bold tracking-widest uppercase rounded-full border border-transparent backdrop-blur-sm"
-                  style={{ 
+                  style={{
                     backgroundColor: content.ctaBgColor,
-                    color: content.ctaTextColor 
+                    color: content.ctaTextColor
                   }}
                 >
                   {content.ctaText}
                 </span>
-                <div 
+                <div
                   className="relative rounded-full p-2.5 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110"
-                  style={{ 
+                  style={{
                     backgroundColor: content.ctaArrowBgColor,
-                    color: content.ctaTextColor 
+                    color: content.ctaTextColor
                   }}
                 >
                   <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
@@ -185,9 +185,8 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className={`flex flex-col items-center flex-1 px-4 sm:px-6 w-[280px] lg:w-auto ${
-                    index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
-                  }`}
+                  className={`flex flex-col items-center flex-1 px-4 sm:px-6 w-[280px] lg:w-auto ${index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
+                    }`}
                 >
                   <div className="relative mb-5 flex flex-col items-center">
                     <img
@@ -222,7 +221,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                 className="flex flex-col items-center justify-center flex-1 px-4 sm:px-6 relative w-[280px] lg:w-auto lg:border-l lg:border-gray-100"
               >
                 <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop')] bg-cover bg-center opacity-10 blur-xl rounded-full" />
-                
+
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <div className="text-4xl sm:text-5xl font-medium text-black mb-2 relative">
                     <span className="absolute -left-6 top-1 text-2xl font-normal">+</span>
@@ -233,7 +232,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                       <div key={i} className={i === 0 ? "opacity-80" : i === 1 ? "opacity-90" : ""}>{l}</div>
                     ))}
                   </div>
-                  
+
                   <div className="text-[10px] font-bold text-[#F36B2B] leading-relaxed uppercase">
                     {content.footerCard.subLabels.split('Builders').join('<br/>Builders')}
                     {/* Note: In a real app we might just use \n and preserve whitespace, but keeping it simple for now */}
@@ -244,7 +243,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
 
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>

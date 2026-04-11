@@ -139,7 +139,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               fontSize: `${content.subtitleSize}px`,
               lineHeight: '1.05'
             }}
-            className="mb-10 max-w-[440px] leading-loose font-bold tracking-[0.2em]"
+            className="mb-10 max-w-[440px]"
           >
             {content.subtitle}
           </motion.p>
@@ -151,21 +151,19 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mb-2"
           >
+
             <button
               onClick={() => { console.log('Apply for Strategy Call') }}
-              className="group relative flex items-center gap-4 p-0 overflow-hidden transition-all duration-300 hover:rounded-full hover:border hover:border-white/5 before:absolute before:inset-0 before:-translate-x-full before:bg-black/20 before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0"
+              className="flex justify-center gap-2 items-center mx-auto shadow-xl text-lg backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-emerald-500 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+              style={{
+                backgroundColor: content.ctaBgColor,
+                color: content.ctaTextColor,
+                borderColor: content.ctaTextColor
+              }}
             >
-              <span
-                className="relative p-2 text-[11px] font-bold tracking-widest uppercase rounded-full border border-transparent backdrop-blur-sm"
-                style={{
-                  backgroundColor: content.ctaBgColor,
-                  color: content.ctaTextColor
-                }}
-              >
-                {content.ctaText}
-              </span>
+              <span className="text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
               <div
-                className="relative rounded-full p-2.5 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110"
+                className="relative rounded-full p-2.5 transition-all duration-300 group-hover:rotate-90 group-hover:scale-110 ease-linear"
                 style={{
                   backgroundColor: content.ctaArrowBgColor,
                   color: content.ctaTextColor

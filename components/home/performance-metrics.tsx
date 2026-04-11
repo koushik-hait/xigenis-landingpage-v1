@@ -34,7 +34,7 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
   }
 
   return (
-    <section className="flex w-full items-center overflow-hidden bg-white py-20">
+    <section className="flex w-full items-center overflow-hidden bg-white py-10">
       <div className="container mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start gap-12 lg:flex-row lg:gap-8">
           {/* Left Column: Heading & Intro */}
@@ -58,7 +58,7 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
                 </div>
               </button>
             </div>
-            
+
             <div className="relative mt-12 col-span-1 flex min-h-[200px] flex-col overflow-hidden rounded-[2rem] bg-[#1A1A1A] p-8 md:col-span-1">
               {/* Background image with fade */}
               <div className="absolute inset-0 z-0 opacity-20 grayscale">
@@ -73,21 +73,21 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
 
               {/* Achievement Metrics Boxes */}
               <div className="relative z-10 mt-auto grid grid-cols-2 gap-4 border-t border-gray-700 pt-8 mt-12">
-                
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-inner backdrop-blur-sm">
-                    <span className="font-serif text-3xl text-white">{content.mainCardStat1Value}</span>
-                    <p className="text-[10px] leading-tight font-medium tracking-wider text-gray-400 uppercase">
-                      {content.mainCardStat1Label}
-                    </p>
-                  </div>
 
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-inner backdrop-blur-sm">
-                    <span className="font-serif text-3xl text-white">{content.mainCardStat2Value}</span>
-                    <p className="text-[10px] leading-tight font-medium tracking-wider text-gray-400 uppercase">
-                      {content.mainCardStat2Label}
-                    </p>
-                  </div>
-                
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-inner backdrop-blur-sm">
+                  <span className="font-serif text-3xl text-white">{content.mainCardStat1Value}</span>
+                  <p className="text-[10px] leading-tight font-medium tracking-wider text-gray-400 uppercase">
+                    {content.mainCardStat1Label}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-inner backdrop-blur-sm">
+                  <span className="font-serif text-3xl text-white">{content.mainCardStat2Value}</span>
+                  <p className="text-[10px] leading-tight font-medium tracking-wider text-gray-400 uppercase">
+                    {content.mainCardStat2Label}
+                  </p>
+                </div>
+
               </div>
             </div>
           </div>

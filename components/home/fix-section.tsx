@@ -30,8 +30,8 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
     <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-black">
       {/* 1. Background Image with Dark Vignette/Gradient */}
       <div className="absolute inset-0 z-0 opacity-70">
-        <div 
-          className="h-full w-full scale-105 object-cover object-center bg-cover bg-center" 
+        <div
+          className="h-full w-full scale-105 object-cover object-center bg-cover bg-center"
           style={{ backgroundImage: `url('${content.bgImage}')` }}
         />
         {/* Subtle vignette/darkening to ensure left text readability */}
@@ -66,7 +66,7 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
           </div>
 
           {/* Right Column: Key Feature Cards Overlay */}
-          <div className="relative mt-16 flex min-h-[500px] w-full items-center justify-center lg:mt-0 lg:w-1/2 lg:pl-16">
+          <div className="relative mt-16 hidden lg:flex min-h-[500px] w-full items-center justify-center lg:mt-0 lg:w-1/2 lg:pl-16">
             {/* Floating UI Cards */}
             <div className="pointer-events-none absolute inset-0 z-20">
               {/* Card 1: Complete Funnel (Top Left) */}

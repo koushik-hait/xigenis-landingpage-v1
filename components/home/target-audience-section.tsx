@@ -44,7 +44,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
   const forYou: React.ReactNode[] = content.forYouPoints.map((p: string) => renderText(p))
 
   return (
-    <section className="relative overflow-hidden bg-[#F2F2F2] py-10 sm:py-28">
+    <section className="relative overflow-hidden bg-[#F2F2F2] py-10 sm:py-10">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
         {/* Header */}
         <motion.div

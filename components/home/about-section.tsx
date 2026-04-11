@@ -31,8 +31,8 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
   }
 
   return (
-    <section 
-      className="relative flex min-h-screen w-full items-center overflow-hidden bg-white py-20"
+    <section
+      className="relative flex min-h-screen w-full items-center overflow-hidden bg-white py-10"
       style={{
         backgroundImage: `url('${content.bgImage}')`,
         backgroundSize: 'contain',

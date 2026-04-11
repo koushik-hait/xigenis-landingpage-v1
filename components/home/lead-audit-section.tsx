@@ -40,7 +40,7 @@ const auditData = [
 
 export function LeadAuditSection() {
   return (
-    <section className="relative overflow-hidden bg-gray-950 px-4 py-24 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-gray-950 px-4 py-10 sm:px-6 lg:px-8">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-1/3 left-1/4 h-96 w-96 rounded-full bg-red-500/3 blur-[150px]" />
       </div>
