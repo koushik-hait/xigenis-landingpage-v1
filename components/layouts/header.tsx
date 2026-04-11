@@ -13,7 +13,7 @@ export function Header() {
 
   return (
     <header className="absolute top-0 right-0 left-0 z-50 pt-8 bg-transparent">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-4">
         {/* Logo */}
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-black">
           <img src="/assets/xigenis-logo.png" alt="Logo" className="h-10 w-10" />

@@ -74,7 +74,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-32 pb-40 sm:px-8 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-20 pb-30 sm:px-8 lg:px-12">
         <div className="mt-8 flex max-w-2xl flex-col items-start">
           {/* Trust Badge Area */}
           <motion.div
@@ -136,7 +136,8 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.4 }}
             style={{
               color: content.subtitleColor,
-              fontSize: `${content.subtitleSize}px`
+              fontSize: `${content.subtitleSize}px`,
+              lineHeight: '1.05'
             }}
             className="mb-10 max-w-[440px] leading-loose font-bold tracking-[0.2em]"
           >
@@ -148,11 +149,11 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-8"
+            className="mb-2"
           >
             <button
               onClick={() => { console.log('Apply for Strategy Call') }}
-              className="group relative flex items-center gap-4 py-2 pr-2 pl-6 overflow-hidden transition-all duration-300 hover:rounded-full hover:border hover:border-white/5 before:absolute before:inset-0 before:-translate-x-full before:bg-black/20 before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0"
+              className="group relative flex items-center gap-4 p-0 overflow-hidden transition-all duration-300 hover:rounded-full hover:border hover:border-white/5 before:absolute before:inset-0 before:-translate-x-full before:bg-black/20 before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0"
             >
               <span
                 className="relative p-2 text-[11px] font-bold tracking-widest uppercase rounded-full border border-transparent backdrop-blur-sm"

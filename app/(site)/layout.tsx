@@ -1,6 +1,6 @@
 import Footer from "@/components/layouts/footer"
 import { Header } from "@/components/layouts/header"
-import { WhatsAppButton } from "@/components/layouts/whatsapp-button"
+// import { WhatsAppButton } from "@/components/layouts/whatsapp-button"
 import { WebVitals } from "@/components/analytics/web-vitals"
 import type { Metadata } from "next"
 import { Montserrat, Poppins } from "next/font/google"
@@ -59,7 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Header />
         <Suspense fallback={null}>{children}</Suspense>
         <Footer />
-        <WhatsAppButton />
+        {/* <WhatsAppButton /> */}
       </div>
     </>
   )
