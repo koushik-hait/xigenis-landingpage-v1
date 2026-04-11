@@ -1,9 +1,14 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import { ArrowDown, ArrowUpRight, Check, CircleCheck, Star, StarHalf } from "lucide-react"
 
-import { LogoMarquee } from "./logo-marquee"
+// Dynamically import LogoMarquee to reduce initial bundle size
+const LogoMarquee = dynamic(() => import("./logo-marquee").then(mod => ({ default: mod.LogoMarquee })), {
+  loading: () => <div className="h-20 bg-gray-100 animate-pulse" />,
+  ssr: false
+})
 
 interface HeroSectionProps {
   cmsContent?: {
@@ -111,7 +116,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ 
+            style={{
               color: content.headlineColor,
               fontSize: `${content.headlineSize}px`,
               lineHeight: '1.05'
@@ -127,7 +132,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            style={{ 
+            style={{
               color: content.subtitleColor,
               fontSize: `${content.subtitleSize}px`
             }}
@@ -144,23 +149,23 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             className="mb-8"
           >
             <button
-              onClick={() => {console.log('Apply for Strategy Call')}}
+              onClick={() => { console.log('Apply for Strategy Call') }}
               className="group relative flex items-center gap-4 py-2 pr-2 pl-6 overflow-hidden transition-all duration-300 hover:rounded-full hover:border hover:border-white/5 before:absolute before:inset-0 before:-translate-x-full before:bg-black/20 before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0"
             >
-              <span 
+              <span
                 className="relative p-2 text-[11px] font-bold tracking-widest uppercase rounded-full border border-transparent backdrop-blur-sm"
-                style={{ 
+                style={{
                   backgroundColor: content.ctaBgColor,
-                  color: content.ctaTextColor 
+                  color: content.ctaTextColor
                 }}
               >
                 {content.ctaText}
               </span>
-              <div 
+              <div
                 className="relative rounded-full p-2.5 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110"
-                style={{ 
+                style={{
                   backgroundColor: content.ctaArrowBgColor,
-                  color: content.ctaTextColor 
+                  color: content.ctaTextColor
                 }}
               >
                 <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
@@ -180,7 +185,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
                 <div className="flex items-center justify-center rounded-full border border-white/20 bg-transparent text-white/60">
                   <CircleCheck className="h-3.5 w-3.5" strokeWidth={4} />
                 </div>
-                <span 
+                <span
                   className="text-[10px] font-bold tracking-widest whitespace-nowrap uppercase sm:text-[11px]"
                   style={{ color: content.subtitleColor }}
                 >
