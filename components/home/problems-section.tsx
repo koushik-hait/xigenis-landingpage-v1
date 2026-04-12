@@ -70,7 +70,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
         </motion.div>
 
         {/* lead problem  */}
-        <section className="relative flex max-h-screen w-full items-center overflow-hidden bg-gradient-to-r from-white to-orange-50 pt-10 pb-8">
+        <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-gradient-to-r from-white to-orange-50 py-10">
           {/* Background Image */}
           <div className="absolute inset-0 z-0 opacity-100">
             <div
@@ -93,22 +93,22 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                     <h1 className="mb-8 font-serif text-3xl leading-tight text-gray-100 sm:text-4xl">
                       {content.introHeading}
                     </h1>
-                    <div className="rounded-3xl bg-white/80 p-6 shadow-lg backdrop-blur-sm">
-                      <ul className="mb-6 space-y-4">
-                        {content.introPoints.map((text: string, index: number) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <XCircle className="mt-0.5 h-5 w-5 flex-shrink-0 fill-red-100 text-red-500" />
-                            <span className="text-sm leading-snug font-medium text-gray-700">{text}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <p className="text-sm leading-relaxed text-gray-600">{content.introPara}</p>
-                    </div>
+                    {/* <div className="rounded-3xl bg-white/80 p-6 shadow-lg backdrop-blur-sm"> */}
+                    <ul className="mb-6 space-y-4">
+                      {content.introPoints.map((text: string, index: number) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <XCircle className="mt-0.5 h-5 w-5 flex-shrink-0 fill-red-100 text-red-500" />
+                          <span className="text-sm leading-snug font-medium text-gray-700">{text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="text-sm leading-relaxed text-gray-600">{content.introPara}</p>
+                    {/* </div> */}
                   </div>
                 </div>
 
                 {/* Second Screen - Visual with Stats */}
-                <div className="flex hidden w-[85vw] flex-shrink-0 snap-center flex-col justify-center py-20">
+                <div className="hidden w-[85vw] flex-shrink-0 snap-center flex-col justify-center py-20">
                   <div className="px-4">
                     <div className="relative h-[600px] rounded-3xl bg-white/80 p-6 shadow-lg backdrop-blur-sm">
                       {/* Main Image */}

@@ -38,7 +38,7 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
   }
 
   return (
-    <section className="flex max-h-screen w-full items-center overflow-hidden bg-[#fafafa] py-10">
+    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-[#fafafa] py-20">
       <div className="max-w-8xl relative container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-16 lg:flex-row lg:gap-8">
           {/* Left Column: UI Card Element */}

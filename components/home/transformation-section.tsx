@@ -202,7 +202,115 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
             </div>
 
             {/* Testimonials Slider Container */}
-            <div className="relative flex-1 [--card-width:300px] [--gap:24px] md:[--card-width:450px] md:[--gap:32px]">
+            {/* Mobile Testimonials Cards (Simple horizontal layout) */}
+            {content.testimonials.map((t: any, idx: number) => (
+              <div
+                key={idx}
+                className="relative flex w-[300px] shrink-0 snap-start flex-col justify-between overflow-hidden rounded-[2rem] border border-white/50 bg-white/90 p-8 shadow-xl backdrop-blur-md sm:w-[380px] sm:p-10 lg:hidden"
+              >
+                <div className="relative z-10 flex h-full flex-col justify-between">
+                  <div className="mb-6 flex items-center gap-4">
+                    <img
+                      src={t.image || "/assets/man.png"}
+                      alt={t.name}
+                      className="h-14 w-14 rounded-full object-cover shadow-sm sm:h-16 sm:w-16"
+                    />
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900">{t.name}</h4>
+                      <p className="mb-0.5 text-[11px] font-medium text-gray-500 sm:text-xs">
+                        {t.role}
+                      </p>
+                      <p className="text-[13px] font-bold text-gray-900 sm:text-sm">
+                        {t.revenue}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="mb-8 text-xs leading-relaxed font-medium text-gray-600 sm:text-[14px]">
+                    {t.text}
+                  </p>
+
+                  <div>
+                    <div className="mb-4 inline-block rounded-full bg-black px-4 py-1.5 text-[9px] font-bold tracking-widest text-white uppercase shadow-md sm:text-[10px]">
+                      REVENUE DASHBOARD
+                    </div>
+                    <div className="flex flex-wrap items-end justify-between gap-6">
+                      <div className="flex flex-col gap-2">
+                        {t.stats.map((stat: string, statIdx: number) => (
+                          <div
+                            key={statIdx}
+                            className="w-max rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-[9px] font-bold tracking-wide text-gray-600 uppercase"
+                          >
+                            {stat}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex gap-3 sm:gap-4">
+                        {/* Before Circle */}
+                        <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-[3px] border-gray-100 bg-white shadow-inner sm:h-20 sm:w-20">
+                          <svg
+                            className="pointer-events-none absolute inset-0 h-full w-full -rotate-90"
+                            viewBox="0 0 36 36"
+                          >
+                            <path
+                              className="text-[#F36B2B]"
+                              strokeWidth="3"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeDasharray="25, 100"
+                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                          </svg>
+                          <div className="mt-0.5 text-center">
+                            <div className="text-[10px] font-medium tracking-wide text-gray-400 sm:text-[8px]">
+                              Before
+                            </div>
+                            <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
+                              {t.beforeVal}
+                              <br />
+                              <span className="text-[10px] font-normal text-gray-500 sm:text-[8px]">
+                                / month
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        {/* After Circle */}
+                        <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-[3px] border-gray-100 bg-white shadow-inner sm:h-20 sm:w-20">
+                          <svg
+                            className="pointer-events-none absolute inset-0 h-full w-full -rotate-90"
+                            viewBox="0 0 36 36"
+                          >
+                            <path
+                              className="text-[#F36B2B]"
+                              strokeWidth="4"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeDasharray="85, 100"
+                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                          </svg>
+                          <div className="mt-0.5 text-center">
+                            <div className="text-[10px] font-bold tracking-wide text-[#F36B2B] sm:text-[8px]">
+                              After
+                            </div>
+                            <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
+                              {t.afterVal}
+                              <br />
+                              <span className="text-[10px] font-normal text-gray-700 sm:text-[8px]">
+                                / month
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Testimonials Slider Container (Desktop Only) */}
+            <div className="relative hidden flex-1 lg:block [--card-width:300px] [--gap:24px] md:[--card-width:450px] md:[--gap:32px]">
               <div className="overflow-hidden px-2 py-4">
                 <motion.div
                   className="flex gap-[var(--gap)]"
@@ -217,7 +325,8 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                       className="relative flex w-[var(--card-width)] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/50 bg-white/90 p-8 shadow-xl backdrop-blur-md transition-all duration-500 sm:p-10"
                       style={{
                         opacity: idx >= activeIndex && idx < activeIndex + 2 ? 1 : 0.4,
-                        transform: idx >= activeIndex && idx < activeIndex + 2 ? "scale(1)" : "scale(0.95)",
+                        transform:
+                          idx >= activeIndex && idx < activeIndex + 2 ? "scale(1)" : "scale(0.95)",
                       }}
                     >
                       {/* Transparent Overlay for First Visible Card */}
@@ -234,8 +343,12 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                           />
                           <div>
                             <h4 className="text-lg font-bold text-gray-900">{t.name}</h4>
-                            <p className="mb-0.5 text-[11px] font-medium text-gray-500 sm:text-xs">{t.role}</p>
-                            <p className="text-[13px] font-bold text-gray-900 sm:text-sm">{t.revenue}</p>
+                            <p className="mb-0.5 text-[11px] font-medium text-gray-500 sm:text-xs">
+                              {t.role}
+                            </p>
+                            <p className="text-[13px] font-bold text-gray-900 sm:text-sm">
+                              {t.revenue}
+                            </p>
                           </div>
                         </div>
 
@@ -281,7 +394,9 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                                   <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
                                     {t.beforeVal}
                                     <br />
-                                    <span className="text-[10px] font-normal text-gray-500 sm:text-[8px]">/ month</span>
+                                    <span className="text-[10px] font-normal text-gray-500 sm:text-[8px]">
+                                      / month
+                                    </span>
                                   </div>
                                 </div>
                               </div>
@@ -307,7 +422,9 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                                   <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
                                     {t.afterVal}
                                     <br />
-                                    <span className="text-[10px] font-normal text-gray-700 sm:text-[8px]">/ month</span>
+                                    <span className="text-[10px] font-normal text-gray-700 sm:text-[8px]">
+                                      / month
+                                    </span>
                                   </div>
                                 </div>
                               </div>

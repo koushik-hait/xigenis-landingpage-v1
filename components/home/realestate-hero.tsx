@@ -26,7 +26,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
   }
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-white px-20 font-serif">
+    <section className="relative min-h-screen w-full overflow-hidden bg-white px-5 py-10 font-serif lg:px-20">
       {/* Background Image Container */}
       <div className="absolute inset-y-0 right-0 z-0 h-full w-full lg:w-[60%]">
         <Image

@@ -39,7 +39,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
   }
 
   return (
-    <section className="max-w-8xl mx-auto flex flex-col items-center bg-black px-20 py-10 text-white md:px-6">
+    <section className="max-w-8xl mx-auto flex flex-col items-center bg-black px-5 py-10 text-white md:px-6 lg:px-20">
       {/* Header Section */}
       <div className="mb-12 text-center">
         <h2
@@ -58,7 +58,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
       </div>
 
       {/* Accordion Container */}
-      <div className="w-full max-w-4xl space-y-4">
+      <div className="w-full max-w-3xl space-y-4 lg:max-w-4xl">
         {content.faqs.map((faq: any, index: number) => (
           <div
             key={index}

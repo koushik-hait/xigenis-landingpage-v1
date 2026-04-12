@@ -86,7 +86,7 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
           </div>
 
           {/* Right Column: Visual Component */}
-          <div className="relative flex w-full justify-center py-12 lg:w-1/2">
+          <div className="relative flex w-[90%] justify-center py-12 lg:w-1/2">
             {/* Main White Card Base */}
             <div className="relative min-h-[450px] w-full max-w-[420px] overflow-hidden rounded-[2.5rem] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
               <div className="bg-black px-8 py-5 text-white">

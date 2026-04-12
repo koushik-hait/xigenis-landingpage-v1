@@ -58,7 +58,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
       <div className="flex flex-col items-center gap-16 lg:flex-row">
         {/* Left Side: Creative Image */}
         <div className="relative flex w-full justify-center lg:w-1/2">
-          <div className="relative h-[500px] w-[400px]">
+          <div className="relative h-[300px] w-[300px] lg:h-[500px] lg:w-[400px]">
             {/* Replace with your actual asset path */}
             <Image
               src={content.image || "/assets/man-on-house.png"}

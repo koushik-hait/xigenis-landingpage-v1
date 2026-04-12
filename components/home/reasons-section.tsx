@@ -88,7 +88,7 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
             <div className="flex gap-4" style={{ minWidth: "max-content" }}>
               {content.reasons.map((reason: any, index: number) => (
                 <div key={index} className="w-[85vw] max-w-sm flex-shrink-0 snap-center">
-                  <div className="group relative flex h-full min-h-[320px] flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl">
+                  <div className="group relative flex h-[250px] flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl">
                     {/* Large Background Number */}
                     <span className="pointer-events-none absolute top-4 right-4 font-serif text-9xl text-gray-100 outline-1 outline-gray-200 transition-colors select-none group-hover:text-gray-200">
                       {index + 1}

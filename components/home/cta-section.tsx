@@ -21,7 +21,7 @@ const CTASection = ({ cmsContent }: CTASectionProps) => {
   }
 
   return (
-    <section className="relative flex min-h-[500px] w-full items-center overflow-hidden bg-black">
+    <section className="relative flex min-h-[400px] w-full items-center overflow-hidden bg-black lg:min-h-[500px]">
       {/* Background Visual (Right Side) */}
       <div className="absolute inset-0 z-0">
         <Image src={content.bgImage} alt="Luxury modern villa" fill className="object-cover object-center" />

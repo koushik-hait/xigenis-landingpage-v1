@@ -40,7 +40,7 @@ export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
   }
 
   return (
-    <section className="overflow-hidden bg-[#F9FAFB] px-20 py-10">
+    <section className="overflow-hidden bg-[#F9FAFB] px-5 py-10 lg:px-20">
       <div className="max-w-8xl mx-auto flex flex-col items-start gap-12 px-6 lg:flex-row">
         {/* Left Side: Static Content */}
         <div className="lg:sticky lg:top-10 lg:w-1/3">

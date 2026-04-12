@@ -81,35 +81,35 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
             {/* Data Cards Overlay */}
             <div className="pointer-events-none absolute inset-0 z-20">
               {/* Card 1 */}
-              <div className="pointer-events-auto absolute top-10 right-4 w-44 overflow-hidden rounded-xl bg-white sm:right-10">
+              <div className="pointer-events-auto absolute top-15 right-5 w-40 overflow-hidden rounded-xl bg-white sm:right-10 lg:top-10 lg:right-4">
                 <div className="p-2 text-center">
-                  <span className="font-serif text-3xl text-gray-900">{content.card1Value}</span>
+                  <span className="font-serif text-2xl text-gray-900">{content.card1Value}</span>
                 </div>
                 <div className="bg-black py-2 text-center">
-                  <span className="text-[10px] font-bold tracking-widest text-white uppercase">
+                  <span className="text-[8px] font-bold tracking-widest text-white uppercase">
                     {content.card1Label}
                   </span>
                 </div>
               </div>
 
               {/* Card 2 */}
-              <div className="pointer-events-auto absolute top-1/2 -right-4 w-44 translate-y-[-50%] rounded-xl border border-gray-50 bg-white p-2 text-center shadow-xl">
-                <span className="font-serif text-3xl text-gray-900">{content.card2Value}</span>
+              <div className="pointer-events-auto absolute top-1/2 -right-4 w-40 translate-y-[-50%] rounded-xl border border-gray-50 bg-white p-2 text-center shadow-xl">
+                <span className="font-serif text-2xl text-gray-900">{content.card2Value}</span>
                 <p className="mt-2 text-xs font-bold text-gray-400 uppercase">{content.card2Label}</p>
               </div>
 
               {/* Card 3 */}
-              <div className="pointer-events-auto absolute right-10 bottom-[20%] w-40 rounded-3xl bg-black p-2 text-center shadow-2xl">
+              <div className="pointer-events-auto absolute right-5 bottom-50 w-40 rounded-3xl bg-black p-2 text-center shadow-2xl lg:right-10 lg:bottom-[20%]">
                 <span className="font-serif text-2xl text-white">{content.card3Value}</span>
-                <p className="mt-2 text-[10px] font-bold text-gray-400 uppercase">{content.card3Label}</p>
+                <p className="mt-2 text-[8px] font-bold text-gray-400 uppercase">{content.card3Label}</p>
               </div>
 
               {/* Card 4 */}
-              <div className="pointer-events-auto absolute bottom-4 -left-4 w-64 rounded-[2rem] bg-white p-8 shadow-2xl sm:left-4">
-                <span className="font-serif text-3xl text-gray-900">{content.card4Value}</span>
+              <div className="pointer-events-auto absolute bottom-4 -left-4 w-80 rounded-[2rem] bg-white p-4 shadow-2xl sm:left-4">
+                <span className="font-serif text-2xl text-gray-900">{content.card4Value}</span>
                 <p className="mt-1 text-sm font-bold text-gray-800">{content.card4Label}</p>
                 <div className="mt-4 rounded-full bg-gray-100 px-4 py-2">
-                  <p className="text-[10px] font-bold text-gray-500 uppercase">{content.card4SubText}</p>
+                  <p className="text-[8px] font-bold text-gray-500 uppercase">{content.card4SubText}</p>
                 </div>
               </div>
             </div>

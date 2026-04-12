@@ -128,7 +128,7 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
                 return (
                   <div key={index} className="w-[85vw] max-w-md flex-shrink-0 snap-center">
                     <div
-                      className={`relative flex min-h-[380px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${
+                      className={`relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${
                         isFeatured
                           ? "border-transparent bg-black text-white"
                           : "border-gray-100 bg-white text-gray-900 shadow-sm"

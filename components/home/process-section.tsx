@@ -16,7 +16,7 @@ const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText }) =>
         {/* Value Highlights */}
         <div className="flex flex-wrap items-center justify-center gap-8 md:justify-start md:gap-12">
           {highlights.map((item, index) => (
-            <div key={index} className="flex basis-0 items-center gap-2">
+            <div key={index} className="flex items-center gap-2 lg:basis-0">
               <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-orange-500" />
               <div className="flex flex-wrap items-baseline gap-1">
                 <span className="text-[11px] font-black tracking-tighter whitespace-nowrap text-orange-600 uppercase">
