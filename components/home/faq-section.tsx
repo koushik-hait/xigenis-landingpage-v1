@@ -12,16 +12,18 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const content = {
-    heading: 'Answers To Your Most Important\nQuestions',
-    buttonText: 'ASK A QUESTION',
+    heading: "Answers To Your Most Important\nQuestions",
+    buttonText: "ASK A QUESTION",
     faqs: [
       {
         question: "How Quickly Can I Start Getting Buyer Leads?",
-        answer: "Most of our partners see their first high-intent buyer leads within the first 72 hours of the campaign going live. We optimize in real-time to ensure lead quality remains high from day one.",
+        answer:
+          "Most of our partners see their first high-intent buyer leads within the first 72 hours of the campaign going live. We optimize in real-time to ensure lead quality remains high from day one.",
       },
       {
         question: "Do you integrate with my existing CRM?",
-        answer: "Our automated systems capture and verify contact information immediately, pushing them directly to your CRM.",
+        answer:
+          "Our automated systems capture and verify contact information immediately, pushing them directly to your CRM.",
       },
       {
         question: "Are the leads exclusive to me?",
@@ -33,14 +35,17 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
       },
     ],
     headingSize: "48",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
-    <section className="flex flex-col items-center bg-black px-6 py-10 text-white">
+    <section className="max-w-8xl mx-auto flex flex-col items-center bg-black px-20 py-10 text-white md:px-6">
       {/* Header Section */}
       <div className="mb-12 text-center">
-        <h2 className="mb-8 font-serif text-4xl leading-tight font-medium md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+        <h2
+          className="mb-8 font-serif text-4xl leading-tight font-medium whitespace-pre-line md:text-5xl"
+          style={{ fontSize: `${content.headingSize}px` }}
+        >
           {content.heading}
         </h2>
 
@@ -63,7 +68,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
               onClick={() => setActiveIndex(activeIndex === index ? null : index)}
               className="flex w-full items-center justify-between p-6 text-left md:p-8"
             >
-              <span className="text-lg font-medium tracking-tight md:text-xl whitespace-pre-line">
+              <span className="text-lg font-medium tracking-tight whitespace-pre-line md:text-xl">
                 <span className="mr-4 opacity-60">{index + 1}.</span>
                 {faq.question}
               </span>
@@ -84,7 +89,9 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <div className="max-w-2xl px-8 pt-0 pb-8 leading-relaxed text-gray-400 whitespace-pre-line">{faq.answer}</div>
+                  <div className="max-w-2xl px-8 pt-0 pb-8 leading-relaxed whitespace-pre-line text-gray-400">
+                    {faq.answer}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -94,4 +101,3 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
     </section>
   )
 }
-

@@ -12,45 +12,49 @@ const defaultIcons = [
   <Users key="1" className="h-6 w-6" />,
   <Lock key="2" className="h-6 w-6" />,
   <ShieldCheck key="3" className="h-6 w-6" />,
-  <PieChart key="4" className="h-6 w-6" />
+  <PieChart key="4" className="h-6 w-6" />,
 ]
 
 export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
   const content = {
-    pillText: 'Our Commitment',
-    heading: 'Why Trust Us With Your Growth',
+    pillText: "Our Commitment",
+    heading: "Why Trust Us With Your Growth",
     description: "We don't hide behind dashboards or vanity metrics. What you see is exactly what is happening.",
-    buttonText: 'BOOK A FREE STRATEGY CALL',
-    image: '/assets/man-on-house.png',
+    buttonText: "BOOK A FREE STRATEGY CALL",
+    image: "/assets/man-on-house.png",
     features: [
       {
         title: "Limited Partners Per City",
-        description: "We take one client per micro-market. Your direct competitors cannot access our system in your territory — ever.",
+        description:
+          "We take one client per micro-market. Your direct competitors cannot access our system in your territory — ever.",
         tag: "Zero conflict of interest",
       },
       {
         title: "End-to-End Data Encryption",
-        description: "Every lead, every conversation, every file is fully encrypted and stored securely. Your business data never leaves our protected environment.",
+        description:
+          "Every lead, every conversation, every file is fully encrypted and stored securely. Your business data never leaves our protected environment.",
         tag: "Your data. Always safe.",
       },
       {
         title: "Real Estate-Only Team",
-        description: "We work exclusively in real estate. No lifestyle brands. No e-commerce. Every person on your account understands your market and your buyer.",
+        description:
+          "We work exclusively in real estate. No lifestyle brands. No e-commerce. Every person on your account understands your market and your buyer.",
         tag: "100% domain-specific expertise",
       },
       {
         title: "Transparent Reporting — No Black Box",
-        description: "You see exactly what we're running, what's working, and what each rupee is producing. Live dashboards. Weekly reviews. Zero hidden metrics.",
+        description:
+          "You see exactly what we're running, what's working, and what each rupee is producing. Live dashboards. Weekly reviews. Zero hidden metrics.",
         tag: "Full visibility. Always.",
       },
     ],
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
-    <section className="mx-auto max-w-7xl bg-white px-6 py-10 font-sans">
+    <section className="max-w-8xl mx-auto bg-white px-6 py-10 font-sans">
       <div className="flex flex-col items-center gap-16 lg:flex-row">
         {/* Left Side: Creative Image */}
         <div className="relative flex w-full justify-center lg:w-1/2">
@@ -72,10 +76,16 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
             <span className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1 text-xs font-bold tracking-widest text-orange-600 uppercase">
               {content.pillText}
             </span>
-            <h2 className="mb-6 font-serif text-4xl font-bold text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+            <h2
+              className="mb-6 font-serif text-4xl font-bold whitespace-pre-line text-gray-900 md:text-5xl"
+              style={{ fontSize: `${content.headingSize}px` }}
+            >
               {content.heading}
             </h2>
-            <p className="mb-8 max-w-xl text-lg text-gray-600 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
+            <p
+              className="mb-8 max-w-xl text-lg whitespace-pre-line text-gray-600"
+              style={{ fontSize: `${content.descriptionSize}px` }}
+            >
               {content.description}
             </p>
 
@@ -90,11 +100,11 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
           {/* Features Grid */}
           {/* Mobile Horizontal Scroll */}
           <div className="md:hidden">
-            <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
-              <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+            <div className="-mx-4 snap-x snap-mandatory overflow-x-auto px-4">
+              <div className="flex gap-4" style={{ minWidth: "max-content" }}>
                 {content.features.map((f: any, index: number) => (
-                  <div key={index} className="flex-shrink-0 w-[85vw] max-w-sm snap-center">
-                    <div className="flex flex-col justify-between h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+                  <div key={index} className="w-[85vw] max-w-sm flex-shrink-0 snap-center">
+                    <div className="flex h-full flex-col justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
                       <div>
                         <div className="mb-4 flex items-start justify-between">
                           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm font-bold text-white">
@@ -102,8 +112,10 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
                           </span>
                           <div className="text-gray-400">{defaultIcons[index % defaultIcons.length]}</div>
                         </div>
-                        <h3 className="mb-2 leading-tight font-bold text-gray-900 whitespace-pre-line">{f.title}</h3>
-                        <p className="mb-4 text-sm leading-relaxed text-gray-500 whitespace-pre-line">{f.description}</p>
+                        <h3 className="mb-2 leading-tight font-bold whitespace-pre-line text-gray-900">{f.title}</h3>
+                        <p className="mb-4 text-sm leading-relaxed whitespace-pre-line text-gray-500">
+                          {f.description}
+                        </p>
                       </div>
                       <div className="inline-block w-fit rounded-full border border-gray-300 px-3 py-1 text-[10px] font-semibold text-gray-600 uppercase">
                         {f.tag}
@@ -116,7 +128,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
           </div>
 
           {/* Desktop Grid */}
-          <div className="hidden md:grid grid-cols-2 gap-6">
+          <div className="hidden grid-cols-2 gap-6 md:grid">
             {content.features.map((f: any, index: number) => (
               <div
                 key={index}
@@ -129,8 +141,8 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
                     </span>
                     <div className="text-gray-400">{defaultIcons[index % defaultIcons.length]}</div>
                   </div>
-                  <h3 className="mb-2 leading-tight font-bold text-gray-900 whitespace-pre-line">{f.title}</h3>
-                  <p className="mb-4 text-sm leading-relaxed text-gray-500 whitespace-pre-line">{f.description}</p>
+                  <h3 className="mb-2 leading-tight font-bold whitespace-pre-line text-gray-900">{f.title}</h3>
+                  <p className="mb-4 text-sm leading-relaxed whitespace-pre-line text-gray-500">{f.description}</p>
                 </div>
                 <div className="inline-block w-fit rounded-full border border-gray-300 px-3 py-1 text-[10px] font-semibold text-gray-600 uppercase">
                   {f.tag}
@@ -143,4 +155,3 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
     </section>
   )
 }
-

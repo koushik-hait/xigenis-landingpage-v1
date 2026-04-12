@@ -10,10 +10,10 @@ interface RealEstateHeroProps {
 
 export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
   const content = {
-    badgeText: 'Trusted by 100+ B2B Organization',
-    heading: 'Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries',
-    buttonText: 'Speak With A Strategy Expert Today',
-    backgroundImage: '/hero-family-pool.jpg',
+    badgeText: "Trusted by 100+ B2B Organization",
+    heading: "Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries",
+    buttonText: "Speak With A Strategy Expert Today",
+    backgroundImage: "/hero-family-pool.jpg",
     valueProps: [
       "High-Intent Property Buyers",
       "Qualified Buyer Inquiries Fast",
@@ -22,11 +22,11 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
       "More Site Visits & Deals",
     ],
     headingSize: "48",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-white font-serif">
+    <section className="relative min-h-screen w-full overflow-hidden bg-white px-20 font-serif">
       {/* Background Image Container */}
       <div className="absolute inset-y-0 right-0 z-0 h-full w-full lg:w-[60%]">
         <Image
@@ -44,7 +44,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-20 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-24 md:py-32 lg:grid-cols-2">
+      <div className="max-w-8xl relative z-20 mx-auto grid grid-cols-1 items-center gap-12 px-6 py-24 md:py-32 lg:grid-cols-2">
         {/* Left Side: Text and Content */}
         <div className="w-full max-w-xl">
           {/* Trust Badge */}
@@ -60,7 +60,10 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
           </div>
 
           {/* Headline */}
-          <h1 className="mb-10 text-4xl leading-tight font-medium text-gray-900 md:text-5xl lg:text-6xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+          <h1
+            className="mb-10 text-4xl leading-tight font-medium whitespace-pre-line text-gray-900 md:text-5xl lg:text-6xl"
+            style={{ fontSize: `${content.headingSize}px` }}
+          >
             {content.heading}
           </h1>
 
@@ -91,4 +94,3 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
     </section>
   )
 }
-

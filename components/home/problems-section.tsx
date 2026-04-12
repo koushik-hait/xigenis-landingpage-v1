@@ -70,11 +70,11 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
         </motion.div>
 
         {/* lead problem  */}
-        <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-gradient-to-r from-white to-orange-50 pt-10 pb-8">
+        <section className="relative flex max-h-screen w-full items-center overflow-hidden bg-gradient-to-r from-white to-orange-50 pt-10 pb-8">
           {/* Background Image */}
           <div className="absolute inset-0 z-0 opacity-100">
             <div
-              className="h-[80%] w-full bg-cover bg-center object-cover"
+              className="h-[90%] w-full bg-cover bg-center object-cover"
               style={{ backgroundImage: `url('${content.bgImage}')` }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 via-50% to-transparent"></div>

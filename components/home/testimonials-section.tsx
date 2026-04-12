@@ -10,9 +10,10 @@ interface TestimonialSectionProps {
 
 export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
   const content = {
-    pillText: 'Testimonials',
-    heading: 'Trusted by Real Estate Professionals',
-    description: "Rated by agents, brokers, and developers who are generating qualified buyer leads and closing more property deals with our system.",
+    pillText: "Testimonials",
+    heading: "Trusted by Real Estate Professionals",
+    description:
+      "Rated by agents, brokers, and developers who are generating qualified buyer leads and closing more property deals with our system.",
     testimonials: [
       {
         name: "Rahul Sharma",
@@ -35,21 +36,27 @@ export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
     ],
     headingSize: "44",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
-    <section className="overflow-hidden bg-[#F9FAFB] py-20">
-      <div className="mx-auto flex max-w-7xl flex-col items-start gap-12 px-6 lg:flex-row">
+    <section className="overflow-hidden bg-[#F9FAFB] px-20 py-10">
+      <div className="max-w-8xl mx-auto flex flex-col items-start gap-12 px-6 lg:flex-row">
         {/* Left Side: Static Content */}
         <div className="lg:sticky lg:top-10 lg:w-1/3">
           <span className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1 text-[10px] font-bold tracking-widest text-orange-600 uppercase">
             {content.pillText}
           </span>
-          <h2 className="mb-6 font-serif text-4xl leading-tight font-bold text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+          <h2
+            className="mb-6 font-serif text-4xl leading-tight font-bold whitespace-pre-line text-gray-900 md:text-5xl"
+            style={{ fontSize: `${content.headingSize}px` }}
+          >
             {content.heading}
           </h2>
-          <p className="max-w-sm text-lg text-gray-500 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
+          <p
+            className="max-w-sm text-lg whitespace-pre-line text-gray-500"
+            style={{ fontSize: `${content.descriptionSize}px` }}
+          >
             {content.description}
           </p>
         </div>
@@ -64,7 +71,15 @@ export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
               >
                 {/* Profile Image */}
                 <div className="relative h-48 w-full">
-                  <Image src={t.image || "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"} alt={t.name} fill className="object-cover" />
+                  <Image
+                    src={
+                      t.image ||
+                      "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"
+                    }
+                    alt={t.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
 
                 {/* Card Content */}
@@ -85,7 +100,9 @@ export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
                     ))}
                   </div>
 
-                  <p className="text-sm leading-relaxed text-gray-600 italic whitespace-pre-line">&ldquo;{t.text}&rdquo;</p>
+                  <p className="text-sm leading-relaxed whitespace-pre-line text-gray-600 italic">
+                    &ldquo;{t.text}&rdquo;
+                  </p>
 
                   {/* Google Logo (Placeholder) */}
                   <div className="mt-6 flex justify-end">
@@ -119,4 +136,3 @@ export function TestimonialSection({ cmsContent }: TestimonialSectionProps) {
     </section>
   )
 }
-

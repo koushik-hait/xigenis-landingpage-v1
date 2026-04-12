@@ -8,7 +8,7 @@ import { ArrowUpRight } from "lucide-react"
 
 const WhyChooseUsFooter = ({ stats }: { stats: any[] }) => {
   return (
-    <div className="mx-auto mt-12 mb-24 w-full max-w-7xl px-4">
+    <div className="max-w-8xl mx-auto my-10 w-full px-4">
       <div className="flex flex-col items-center justify-between gap-8 rounded-2xl bg-[#D9D9D9] p-6 md:flex-row md:gap-4 md:rounded-[2rem] md:p-10">
         {/* Statistics Grid */}
         <div className="flex w-full flex-col gap-10 md:w-auto md:flex-row md:gap-20">
@@ -46,7 +46,7 @@ const defaultIcons = [
   <ShieldCheck key="3" className="h-6 w-6 text-black" />,
   <UserCheck key="4" className="h-6 w-6 text-black" />,
   <CalendarDays key="5" className="h-6 w-6 text-black" />,
-  <Zap key="6" className="h-6 w-6 text-black" />
+  <Zap key="6" className="h-6 w-6 text-black" />,
 ]
 
 const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
@@ -93,21 +93,27 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
     ],
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
-    <section className="w-full bg-white py-24">
-      <div className="container mx-auto max-w-7xl px-4">
+    <section className="w-full bg-white py-10">
+      <div className="max-w-8xl container mx-auto px-4">
         {/* Header */}
         <div className="mb-16 space-y-4 text-center">
           <div className="inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-1 text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase">
             {content.pillText}
           </div>
-          <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+          <h2
+            className="font-serif text-4xl leading-tight whitespace-pre-line text-gray-900 md:text-5xl"
+            style={{ fontSize: `${content.headingSize}px` }}
+          >
             {content.heading}
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-500 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
+          <p
+            className="mx-auto max-w-2xl text-lg whitespace-pre-line text-gray-500"
+            style={{ fontSize: `${content.descriptionSize}px` }}
+          >
             {content.description}
           </p>
         </div>
@@ -115,112 +121,150 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
         {/* Feature Grid */}
         {/* Mobile Horizontal Scroll */}
         <div className="md:hidden">
-          <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
-            <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+          <div className="-mx-4 snap-x snap-mandatory overflow-x-auto px-4">
+            <div className="flex gap-4" style={{ minWidth: "max-content" }}>
               {content.features.map((feature: any, index: number) => {
-                const isFeatured = index === 0;
+                const isFeatured = index === 0
                 return (
-                <div key={index} className="flex-shrink-0 w-[85vw] max-w-md snap-center">
-                  <div
-                    className={`relative flex min-h-[380px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${isFeatured
-                        ? "border-transparent bg-black text-white"
-                        : "border-gray-100 bg-white text-gray-900 shadow-sm"
-                      }`}
-                  >
-                    {/* Featured Background Image */}
-                    {isFeatured && (
-                      <div className="absolute inset-0 opacity-30 grayscale transition-all duration-700 hover:grayscale-0">
-                        <Image src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2000&auto=format&fit=crop" alt="Building" fill className="object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-                      </div>
-                    )}
-
-                    {/* Icon Container */}
+                  <div key={index} className="w-[85vw] max-w-md flex-shrink-0 snap-center">
                     <div
-                      className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${isFeatured ? "bg-white text-black" : "bg-gray-100"
-                        }`}
+                      className={`relative flex min-h-[380px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${
+                        isFeatured
+                          ? "border-transparent bg-black text-white"
+                          : "border-gray-100 bg-white text-gray-900 shadow-sm"
+                      }`}
                     >
-                      {defaultIcons[index % defaultIcons.length]}
-                    </div>
+                      {/* Featured Background Image */}
+                      {isFeatured && (
+                        <div className="absolute inset-0 opacity-30 grayscale transition-all duration-700 hover:grayscale-0">
+                          <Image
+                            src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2000&auto=format&fit=crop"
+                            alt="Building"
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                        </div>
+                      )}
 
-                    {/* Content */}
-                    <div className="relative z-10 flex-grow space-y-4">
-                      <h3 className={`text-xl leading-snug font-bold whitespace-pre-line ${isFeatured ? "text-white" : "text-gray-900"}`}>
-                        {feature.title}
-                      </h3>
-                      <p className={`text-sm leading-relaxed whitespace-pre-line ${isFeatured ? "text-gray-300" : "text-gray-500"}`}>
-                        {feature.desc}
-                      </p>
-                    </div>
-
-                    {/* Bottom Tag */}
-                    <div className="relative z-10 mt-8">
-                      <span
-                        className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${isFeatured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
-                          }`}
+                      {/* Icon Container */}
+                      <div
+                        className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${
+                          isFeatured ? "bg-white text-black" : "bg-gray-100"
+                        }`}
                       >
-                        {feature.tag}
-                      </span>
+                        {defaultIcons[index % defaultIcons.length]}
+                      </div>
+
+                      {/* Content */}
+                      <div className="relative z-10 flex-grow space-y-4">
+                        <h3
+                          className={`text-xl leading-snug font-bold whitespace-pre-line ${
+                            isFeatured ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          {feature.title}
+                        </h3>
+                        <p
+                          className={`text-sm leading-relaxed whitespace-pre-line ${
+                            isFeatured ? "text-gray-300" : "text-gray-500"
+                          }`}
+                        >
+                          {feature.desc}
+                        </p>
+                      </div>
+
+                      {/* Bottom Tag */}
+                      <div className="relative z-10 mt-8">
+                        <span
+                          className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${
+                            isFeatured
+                              ? "border border-white/20 bg-white/10 text-gray-300"
+                              : "bg-gray-100 text-gray-500"
+                          }`}
+                        >
+                          {feature.tag}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )})}
+                )
+              })}
             </div>
           </div>
         </div>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid grid-cols-2 gap-6 lg:grid-cols-3">
+        <div className="hidden grid-cols-2 gap-6 md:grid lg:grid-cols-3">
           {content.features.map((feature: any, index: number) => {
-            const isFeatured = index === 0;
+            const isFeatured = index === 0
             return (
-            <div
-              key={index}
-              className={`relative flex min-h-[380px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${isFeatured
-                  ? "border-transparent bg-black text-white"
-                  : "border-gray-100 bg-white text-gray-900 shadow-sm"
-                }`}
-            >
-              {/* Featured Background Image */}
-              {isFeatured && (
-                <div className="absolute inset-0 opacity-30 grayscale transition-all duration-700 hover:grayscale-0">
-                  <Image src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2000&auto=format&fit=crop" alt="Building" fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-                </div>
-              )}
-
-              {/* Icon Container */}
               <div
-                className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${isFeatured ? "bg-white text-black" : "bg-gray-100"
-                  }`}
+                key={index}
+                className={`relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${
+                  isFeatured
+                    ? "border-transparent bg-black text-white"
+                    : "border-gray-100 bg-white text-gray-900 shadow-sm"
+                }`}
               >
-                {defaultIcons[index % defaultIcons.length]}
-              </div>
+                {/* Featured Background Image */}
+                {isFeatured && (
+                  <div className="absolute inset-0 opacity-30 grayscale transition-all duration-700 hover:grayscale-0">
+                    <Image
+                      src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2000&auto=format&fit=crop"
+                      alt="Building"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                  </div>
+                )}
 
-              {/* Content */}
-              <div className="relative z-10 flex-grow space-y-4">
-                <h3 className={`text-xl leading-snug font-bold whitespace-pre-line ${isFeatured ? "text-white" : "text-gray-900"}`}>
-                  {feature.title}
-                </h3>
-                <p className={`text-sm leading-relaxed whitespace-pre-line ${isFeatured ? "text-gray-300" : "text-gray-500"}`}>
-                  {feature.desc}
-                </p>
-              </div>
-
-              {/* Bottom Tag */}
-              <div className="relative z-10 mt-8">
-                <span
-                  className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${isFeatured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
-                    }`}
+                {/* Icon Container */}
+                <div
+                  className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${
+                    isFeatured ? "bg-white text-black" : "bg-gray-100"
+                  }`}
                 >
-                  {feature.tag}
-                </span>
+                  {defaultIcons[index % defaultIcons.length]}
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 flex-grow space-y-4">
+                  <h3
+                    className={`text-xl leading-snug font-bold whitespace-pre-line ${
+                      isFeatured ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {feature.title}
+                  </h3>
+                  <p
+                    className={`text-sm leading-relaxed whitespace-pre-line ${
+                      isFeatured ? "text-gray-300" : "text-gray-500"
+                    }`}
+                  >
+                    {feature.desc}
+                  </p>
+                </div>
+
+                {/* Bottom Tag */}
+                <div className="relative z-10 mt-8">
+                  <span
+                    className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${
+                      isFeatured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
+                    }`}
+                  >
+                    {feature.tag}
+                  </span>
+                </div>
               </div>
-            </div>
-          )})}
+            )
+          })}
         </div>
+
+        {/* Footer Stats */}
+        <WhyChooseUsFooter stats={content.footerStats} />
       </div>
-      <WhyChooseUsFooter stats={content.footerStats} />
     </section>
   )
 }

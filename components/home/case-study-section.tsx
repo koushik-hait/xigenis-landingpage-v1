@@ -38,23 +38,29 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
     ],
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
     <section className="w-full overflow-hidden bg-[#FDFDFD] py-10">
-      <div className="container mx-auto max-w-7xl px-4">
+      <div className="max-w-8xl container mx-auto px-4">
         {/* Header Section */}
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="space-y-4">
             <div className="inline-block rounded-full border border-gray-300 px-5 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
               {content.pillText}
             </div>
-            <h2 className="font-serif text-4xl leading-tight text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+            <h2
+              className="font-serif text-4xl leading-tight whitespace-pre-line text-gray-900 md:text-5xl"
+              style={{ fontSize: `${content.headingSize}px` }}
+            >
               {content.heading}
             </h2>
           </div>
-          <p className="max-w-[320px] text-sm leading-relaxed font-medium text-gray-500 whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
+          <p
+            className="max-w-[320px] text-sm leading-relaxed font-medium whitespace-pre-line text-gray-500"
+            style={{ fontSize: `${content.descriptionSize}px` }}
+          >
             {content.description}
           </p>
         </div>
@@ -62,10 +68,10 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
         {/* Horizontal Scroll / Grid Area */}
         {/* Mobile Horizontal Scroll */}
         <div className="md:hidden">
-          <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
-            <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+          <div className="-mx-4 snap-x snap-mandatory overflow-x-auto px-4">
+            <div className="flex gap-4" style={{ minWidth: "max-content" }}>
               {content.projects.map((project: any, index: number) => (
-                <div key={index} className="flex-shrink-0 w-[75vw] max-w-sm snap-center">
+                <div key={index} className="w-[75vw] max-w-sm flex-shrink-0 snap-center">
                   <div className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
                     {/* Background Image */}
                     <Image
@@ -76,22 +82,28 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
                     />
 
                     {/* Dark Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0.25)_60%,transparent_100%)]" />
 
                     {/* Stats Overlay (Frosted Glass Style) */}
                     <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
                       <div className="space-y-4">
                         <div>
                           <p className="font-serif text-xl text-white">{project.leads}</p>
-                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">Leads Generated</p>
+                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">
+                            Leads Generated
+                          </p>
                         </div>
                         <div>
                           <p className="font-serif text-xl text-white">{project.rate}</p>
-                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">Qualified Buyer Rate</p>
+                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">
+                            Qualified Buyer Rate
+                          </p>
                         </div>
                         <div>
                           <p className="font-serif text-xl text-white">{project.requests}</p>
-                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">Site Visit Requests</p>
+                          <p className="text-[8px] font-bold tracking-widest text-gray-300 uppercase">
+                            Site Visit Requests
+                          </p>
                         </div>
                       </div>
 
@@ -102,7 +114,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
               ))}
 
               {/* "See More" Card (Blurred Background) */}
-              <div className="flex-shrink-0 w-[75vw] max-w-sm snap-center">
+              <div className="w-[75vw] max-w-sm flex-shrink-0 snap-center">
                 <div className="group relative flex aspect-[4/5] cursor-pointer items-center justify-center overflow-hidden rounded-[2.5rem]">
                   <Image
                     src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop"
@@ -125,7 +137,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
         </div>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid grid-cols-2 gap-6 lg:grid-cols-4">
+        <div className="hidden grid-cols-2 gap-6 md:grid lg:grid-cols-4">
           {content.projects.map((project: any, index: number) => (
             <div key={index} className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
               {/* Background Image */}
@@ -137,7 +149,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
               />
 
               {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.25)_0%,rgba(0,0,0,0.7)_50%,black_80%)]" />
 
               {/* Stats Overlay (Frosted Glass Style) */}
               <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
@@ -185,4 +197,3 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
 }
 
 export { CaseStudies }
-
