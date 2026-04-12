@@ -308,13 +308,13 @@ export default function TopPerformersCmsPage() {
                       {p.image ? (
                         <img src={p.image} className="h-full w-full object-cover" />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                          <Upload className="opacity-100" />
+                        <div className="z-20 flex h-full w-full items-center justify-center">
+                          <Upload className="h-10 w-10 cursor-pointer text-white opacity-100" />
                         </div>
                       )}
                     </div>
                     {p.image && (
-                      <div className="absolute inset-0 z-10 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                      <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
                         <Upload className="h-10 w-10 cursor-pointer text-white" />
                       </div>
                     )}

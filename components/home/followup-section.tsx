@@ -12,11 +12,12 @@ const FollowUpSection = ({ cmsContent }: FollowUpSectionProps) => {
   const content = {
     pillText: "Problem 02 • Follow-up Failure",
     heading: "60% of Your Leads Go Cold Because No One Followed Up",
-    description: "Excel sheets and manual calls don't scale. Most agents lose their best leads in 48 hours — simply too busy to call back in time.",
+    description:
+      "Excel sheets and manual calls don't scale. Most agents lose their best leads in 48 hours — simply too busy to call back in time.",
     points: [
       "Serious buyers lose interest fast. Speed wins deals.",
       "Manual follow-up burns 20–30 hrs every single week.",
-      "Our system auto-responds in under 5 minutes. Always."
+      "Our system auto-responds in under 5 minutes. Always.",
     ],
     mainStatValue: "60%",
     mainStatText: "of leads are never followed up after Day 2. Deals you already paid for, silently slipping away.",
@@ -27,17 +28,25 @@ const FollowUpSection = ({ cmsContent }: FollowUpSectionProps) => {
     mobileImage: "/assets/follow-up-mobile.png",
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
     <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F3F4F6] py-10">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-between gap-12 lg:flex-row-reverse lg:gap-4">
+        <div className="flex flex-col items-center justify-between gap-4 lg:flex-row-reverse lg:gap-4">
           {/* Right Column: Mobile Device Mockup */}
           <div className="relative flex w-full justify-center lg:w-1/2">
             {/* Phone Frame */}
-            <div className="relative flex h-[600px] w-[300px] flex-col overflow-hidden" style={{ backgroundImage: `url('${content.mobileImage}')`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+            <div
+              className="relative flex h-[500px] w-[300px] flex-col overflow-hidden"
+              style={{
+                backgroundImage: `url('${content.mobileImage}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
               {/* Phone Content */}
 
               {/* Floating Chat Bubble Icon */}
@@ -88,7 +97,10 @@ const FollowUpSection = ({ cmsContent }: FollowUpSectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="font-serif text-4xl leading-tight text-gray-900 lg:text-5xl" style={{ fontSize: `${content.headingSize}px` }}>
+            <h2
+              className="font-serif text-4xl leading-tight text-gray-900 lg:text-5xl"
+              style={{ fontSize: `${content.headingSize}px` }}
+            >
               {content.heading}
             </h2>
 
@@ -112,9 +124,7 @@ const FollowUpSection = ({ cmsContent }: FollowUpSectionProps) => {
             {/* Gray Stat Box */}
             <div className="mt-8 rounded-xl border border-gray-300 bg-transparent p-6">
               <h3 className="mb-1 font-serif text-3xl text-gray-900">{content.mainStatValue}</h3>
-              <p className="text-sm leading-relaxed text-gray-500">
-                {content.mainStatText}
-              </p>
+              <p className="text-sm leading-relaxed text-gray-500">{content.mainStatText}</p>
             </div>
           </div>
         </div>

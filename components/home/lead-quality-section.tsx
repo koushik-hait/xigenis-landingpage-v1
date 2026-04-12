@@ -12,11 +12,12 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
   const content = {
     pillText: "PROBLEM 01 • LEAD QUALITY",
     heading: "Spending Lakhs on Portals & Getting Fake Numbers",
-    description: "MagicBricks, 99acres, Housing.com — 80-90% of those leads are cold or uncontactable. You're not getting leads. You're buying noise.",
+    description:
+      "MagicBricks, 99acres, Housing.com — 80-90% of those leads are cold or uncontactable. You're not getting leads. You're buying noise.",
     points: [
       "100 leads, 4 site visits. Zero predictability.",
       "Every month feels like starting from scratch.",
-      "AI Algo-Plex delivers pre-qualified buyer intent only."
+      "AI Algo-Plex delivers pre-qualified buyer intent only.",
     ],
     mainStatValue: "72%",
     mainStatText: "of Indian agents say unqualified inquiries is their #1 problem.",
@@ -33,7 +34,7 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
     auditSiteValue: "4% of leads converted into site visits",
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
@@ -55,8 +56,16 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
                 <div className="relative z-20 -ml-6 flex w-[calc(100%+1.5rem)] items-center gap-4 rounded-2xl bg-white p-4 shadow-[0_4px_20px_rgb(0,0,0,0.06)]">
                   <div className="flex -space-x-2">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-gray-200">
-                        <Image src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="avatar" fill className="object-cover" />
+                      <div
+                        key={i}
+                        className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-gray-200"
+                      >
+                        <Image
+                          src={`https://i.pravatar.cc/100?img=${i + 10}`}
+                          alt="avatar"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                     ))}
                   </div>
@@ -88,8 +97,16 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
                 <div className="mx-2 flex items-center gap-4 rounded-2xl bg-gray-200/80 p-4">
                   <div className="flex -space-x-2">
                     {[1, 2].map((i) => (
-                      <div key={i} className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-300">
-                        <Image src={`https://i.pravatar.cc/100?img=${i + 20}`} alt="avatar" fill className="object-cover" />
+                      <div
+                        key={i}
+                        className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-300"
+                      >
+                        <Image
+                          src={`https://i.pravatar.cc/100?img=${i + 20}`}
+                          alt="avatar"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                     ))}
                   </div>
@@ -119,11 +136,17 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="mb-6 font-serif text-3xl leading-[1.2] text-gray-900 sm:text-4xl lg:text-5xl" style={{ fontSize: `${content.headingSize}px` }}>
+            <h2
+              className="mb-6 font-serif text-3xl leading-[1.2] text-gray-900 sm:text-4xl lg:text-5xl"
+              style={{ fontSize: `${content.headingSize}px` }}
+            >
               {content.heading}
             </h2>
 
-            <p className="mb-8 text-lg leading-relaxed text-gray-600" style={{ fontSize: `${content.descriptionSize}px` }}>
+            <p
+              className="mb-8 text-lg leading-relaxed text-gray-600"
+              style={{ fontSize: `${content.descriptionSize}px` }}
+            >
               {content.description}
             </p>
 
@@ -131,17 +154,24 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
               {content.points.map((text: string, index: number) => (
                 <li key={index} className="flex items-start gap-3">
                   {index === content.points.length - 1 ? (
-                    <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   ) : (
-                    <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
+                    <XCircle className="mt-0.5 h-5 w-5 flex-shrink-0 fill-red-100 text-red-500" />
                   )}
-                  <span className="font-medium text-gray-800">{text}</span>
+                  <span
+                    className="text-gray-800"
+                    style={{
+                      fontSize: "10px",
+                    }}
+                  >
+                    {text}
+                  </span>
                 </li>
               ))}
             </ul>
 
             {/* Statistic Box */}
-            <div className="rounded-2xl border border-gray-200 bg-[#EEEEEE] p-6">
+            <div className="rounded-2xl border border-gray-200 bg-[#EEEEEE] p-4">
               <div className="mb-1 flex items-baseline gap-2">
                 <span className="font-serif text-4xl text-gray-900">{content.mainStatValue}</span>
               </div>

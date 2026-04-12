@@ -159,9 +159,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   color: content.ctaTextColor,
                 }}
               >
-                <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase italic">
-                  {content.ctaText}
-                </span>
+                <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
                 <div
                   className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-45"
                   style={{

@@ -31,7 +31,10 @@ const defaultContent = {
     "You can handle **8-12 qualified buyer leads per month**"
   ],
   bgImage: "/assets/eligibility-bg.png",
-  modelImage: "/assets/eligibility-cutout.png"
+  modelImage: "/assets/eligibility-cutout.png",
+  tag: "ELIGIBILITY CHECK",
+  subHeading: "We only partner with agents making ₹50L+ in annual revenue and working with high-ticket properties.",
+  subHeadingSize: "16"
 }
 
 export default function TargetAudienceCmsPage() {
@@ -110,6 +113,18 @@ export default function TargetAudienceCmsPage() {
               <div className="space-y-2">
                 <Label>Heading Font Size (px)</Label>
                 <Input type="number" value={deviceContent.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Badge Tag</Label>
+                <Input value={deviceContent.tag} onChange={e => handleChange(device, 'tag', e.target.value)} />
+              </div>
+              <div className="space-y-2 col-span-2">
+                <Label>Description/Subheading</Label>
+                <Textarea value={deviceContent.subHeading} onChange={e => handleChange(device, 'subHeading', e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Subheading Font Size (px)</Label>
+                <Input type="number" value={deviceContent.subHeadingSize} onChange={e => handleChange(device, 'subHeadingSize', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Negative Label (Not For You)</Label>

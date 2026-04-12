@@ -17,25 +17,32 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
       "You are **just starting in real estate**",
       "You are looking for **cheap or random leads**",
       "You don't have a **structured sales closing process**",
-      "You only work with **low-budget property deals**"
+      "You only work with **low-budget property deals**",
     ],
     forYouPoints: [
       "Your annual revenue is **₹50L+**",
       "You sell **₹1Cr+ ticket size properties**",
       "You are ready to **invest ₹1-3L in client acquisition**",
-      "You can handle **8-12 qualified buyer leads per month**"
+      "You can handle **8-12 qualified buyer leads per month**",
     ],
     bgImage: "/assets/eligibility-bg.png",
     modelImage: "/assets/eligibility-cutout.png",
     headingSize: "48",
-    ...cmsContent
+    tag: "ELIGIBILITY CHECK",
+    subHeading: "We only partner with agents making ₹50L+ in annual revenue and working with high-ticket properties.",
+    subHeadingSize: "16",
+    ...cmsContent,
   }
 
   const renderText = (text: string) => {
     const parts = text.split(/(\*\*.*?\*\*)/g)
     return parts.map((part, i) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
-        return <span key={i} className="font-bold">{part.slice(2, -2)}</span>
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <span key={i} className="font-bold">
+            {part.slice(2, -2)}
+          </span>
+        )
       }
       return part
     })
@@ -53,23 +60,37 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-6 text-center"
+          className="mb-8 text-center"
         >
-          <h2 className="mx-auto max-w-3xl font-serif text-3xl leading-[1.2] tracking-wide text-gray-900 uppercase sm:text-4xl lg:text-5xl" style={{ fontSize: `${content.headingSize}px` }}>
+          <span className="mb-4 inline-block rounded-4xl bg-gray-400 px-4 py-2 text-[8px] font-bold tracking-[0.2em] text-black/40 uppercase">
+            {content.tag || "ELIGIBILITY CHECK"}
+          </span>
+          <h2
+            className="mx-auto max-w-3xl font-serif text-3xl leading-[1.2] tracking-wide text-gray-900 capitalize sm:text-4xl lg:text-5xl"
+            style={{ fontSize: `${content.headingSize}px` }}
+          >
             {content.headingLine1}
             <br className="hidden sm:block" />
             <span className="mt-2 block">{content.headingLine2}</span>
           </h2>
+          {content.subHeading && (
+            <p 
+              className="mx-auto mt-4 max-w-2xl leading-relaxed text-gray-500"
+              style={{ fontSize: `${content.subHeadingSize}px` }}
+            >
+              {content.subHeading}
+            </p>
+          )}
         </motion.div>
 
         <div className="lg:hidden">
           {/* Middle Graphic for Mobile */}
-          <div className="relative mb-8 flex h-[350px] w-full items-end justify-center">
+          <div className="relative mb-8 flex h-[300px] w-full items-end justify-center">
             <Image
               src={content.bgImage}
               alt="Eligibility Background"
               style={{ zIndex: 10 }}
-              className="absolute inset-0 h-full w-full object-contain object-bottom opacity-80"
+              className="absolute inset-0 h-full w-full origin-bottom object-contain object-bottom opacity-100"
               width={500}
               height={500}
             />
@@ -77,9 +98,9 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
               src={content.modelImage}
               alt="Eligibility"
               style={{ zIndex: 0 }}
-              className="relative h-[320px] w-auto max-w-full object-contain object-bottom drop-shadow-2xl"
-              width={500}
-              height={500}
+              className="absolute h-full w-auto max-w-full origin-bottom scale-x-125 scale-y-150 object-contain object-bottom drop-shadow-2xl"
+              width={600}
+              height={600}
             />
           </div>
 
@@ -101,7 +122,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  style={{ margin: `${i === 1 ? '30' : '0'} auto` }}
+                  style={{ margin: `${i === 1 ? "30" : "0"} auto` }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="w-full max-w-xs rounded-3xl border border-gray-100 bg-white px-6 py-4 text-gray-800 shadow-lg"
                 >
@@ -132,9 +153,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="w-full max-w-xs rounded-3xl bg-black px-6 py-4 text-white shadow-xl"
                 >
-                  <p className="text-center text-sm leading-relaxed text-white/90">
-                    {item}
-                  </p>
+                  <p className="text-center text-sm leading-relaxed text-white/90">{item}</p>
                 </motion.div>
               ))}
             </div>
@@ -199,7 +218,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="ml-10 mb-4 rounded-full bg-[#D3D3D3] px-6 py-2.5 text-center text-xs font-bold tracking-widest text-black uppercase shadow-sm"
+              className="mb-4 ml-10 rounded-full bg-[#D3D3D3] px-6 py-2.5 text-center text-xs font-bold tracking-widest text-black uppercase shadow-sm"
             >
               {content.forYouLabel}
             </motion.div>
@@ -214,9 +233,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="relative w-full rounded-3xl bg-black px-6 py-5 text-white shadow-xl"
                 >
-                  <p className="text-left text-[15px] leading-relaxed text-white/90">
-                    {item}
-                  </p>
+                  <p className="text-left text-[15px] leading-relaxed text-white/90">{item}</p>
                   {/* Speech bubble tail for desktop */}
                   <div className="absolute top-1/2 -left-3 z-[-1] h-0 w-0 -translate-y-1/2 border-t-[10px] border-r-[14px] border-b-[10px] border-t-transparent border-r-black border-b-transparent drop-shadow-md" />
                 </motion.div>
