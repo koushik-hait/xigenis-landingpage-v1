@@ -74,7 +74,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
             <span className="mt-2 block">{content.headingLine2}</span>
           </h2>
           {content.subHeading && (
-            <p 
+            <p
               className="mx-auto mt-4 max-w-2xl leading-relaxed text-gray-500"
               style={{ fontSize: `${content.subHeadingSize}px` }}
             >
@@ -198,8 +198,8 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
               alt="Background"
               style={{ zIndex: 10 }}
               className="absolute inset-0 h-full w-full object-contain object-bottom opacity-100"
-              width={500}
-              height={500}
+              width={350}
+              height={350}
             />
 
             <Image
@@ -207,8 +207,8 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
               alt="Real Estate Professionals"
               style={{ zIndex: 0 }}
               className="relative max-w-none object-contain object-bottom drop-shadow-2xl"
-              width={500}
-              height={500}
+              width={350}
+              height={350}
             />
           </div>
 

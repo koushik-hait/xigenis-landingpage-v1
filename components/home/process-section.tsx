@@ -11,12 +11,12 @@ interface ProcessFooterProps {
 
 const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText }) => {
   return (
-    <div className="mt-12 mb-20 w-full rounded-2xl border border-orange-100 bg-[#FFF5F1] px-6 py-4 shadow-sm md:rounded-full md:px-12">
+    <div className="max-w-8xl mx-auto mt-12 mb-20 rounded-2xl border border-orange-100 bg-[#FFF5F1] px-6 py-4 shadow-sm md:rounded-full md:px-12">
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
         {/* Value Highlights */}
-        <div className="flex flex-wrap justify-center gap-8 md:justify-start md:gap-12">
+        <div className="flex flex-wrap items-center justify-center gap-8 md:justify-start md:gap-12">
           {highlights.map((item, index) => (
-            <div key={index} className="flex items-center gap-2">
+            <div key={index} className="flex basis-0 items-center gap-2">
               <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-orange-500" />
               <div className="flex flex-wrap items-baseline gap-1">
                 <span className="text-[11px] font-black tracking-tighter whitespace-nowrap text-orange-600 uppercase">
@@ -133,42 +133,50 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
       { label: "6 STEPS", sub: "END-TO-END" },
       { label: "4 DEDICATED SPECIALISTS", sub: "PER ACCOUNT" },
       { label: "SYSTEM FULLY", sub: "LIVE IN 15 DAYS" },
-      { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" }
+      { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" },
     ],
     footerBtnText: "START YOUR 15 DAYS BUILD",
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
     <section className="w-full overflow-hidden bg-white py-10">
-      <div className="container mx-auto max-w-7xl px-4">
+      <div className="max-w-8xl container mx-auto px-4">
         {/* Header Section */}
         <div className="mb-20 space-y-4 text-center">
           <div className="inline-block rounded-full border border-gray-300 px-6 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
             {content.pillText}
           </div>
-          <h2 className="font-serif text-4xl text-gray-900 md:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>{content.heading}</h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-500 italic whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
+          <h2
+            className="font-serif text-4xl whitespace-pre-line text-gray-900 md:text-5xl"
+            style={{ fontSize: `${content.headingSize}px` }}
+          >
+            {content.heading}
+          </h2>
+          <p
+            className="mx-auto max-w-2xl text-lg whitespace-pre-line text-gray-500 italic"
+            style={{ fontSize: `${content.descriptionSize}px` }}
+          >
             {content.description}
           </p>
         </div>
 
         {/* The Timeline Board */}
         <div className="md:hidden">
-          <div className="overflow-x-auto snap-x snap-mandatory -mx-4 px-4">
-            <div className="flex gap-4" style={{ minWidth: 'max-content' }}>
+          <div className="-mx-4 snap-x snap-mandatory overflow-x-auto px-4">
+            <div className="flex gap-4" style={{ minWidth: "max-content" }}>
               {content.zones.map((zone: any) => (
-                <div key={zone.id} className="flex-shrink-0 w-[85vw] max-w-md snap-center">
-                  <div className="overflow-hidden min-h-[100vh] rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
+                <div key={zone.id} className="w-[85vw] max-w-md flex-shrink-0 snap-center">
+                  <div className="min-h-[100vh] overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
                     {/* Zone Header */}
-                    <div className="bg-[#333] text-white p-6">
+                    <div className="bg-[#333] p-6 text-white">
                       <span className="mb-2 inline-block rounded-md bg-orange-500 px-2 py-0.5 text-[9px] font-black">
                         ZONE - {zone.id}
                       </span>
                       <h3 className="block text-sm font-bold whitespace-pre-line">{zone.title}</h3>
-                      <p className="mt-1 text-[10px] font-medium text-gray-400 whitespace-pre-line">{zone.subtitle}</p>
+                      <p className="mt-1 text-[10px] font-medium whitespace-pre-line text-gray-400">{zone.subtitle}</p>
                     </div>
 
                     {/* Steps Container */}
@@ -177,21 +185,23 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
                         <div key={step.id} className="relative mb-12 last:mb-0">
                           {/* Vertical Line for mobile */}
                           {index < zone.steps.length - 1 && (
-                            <div className="absolute top-12 left-6 z-0 w-px h-16 bg-gray-300" />
+                            <div className="absolute top-12 left-6 z-0 h-16 w-px bg-gray-300" />
                           )}
 
                           <div className="relative z-10">
                             {/* Step circle */}
-                            <div className="absolute left-0 top-2 h-3 w-3 rounded-full bg-orange-500 border-2 border-white" />
+                            <div className="absolute top-2 left-0 h-3 w-3 rounded-full border-2 border-white bg-orange-500" />
 
-                            <div className="pl-8 space-y-3">
+                            <div className="space-y-3 pl-8">
                               <div className="flex items-center gap-2">
                                 <span className="rounded bg-orange-500 px-2 py-0.5 text-[9px] font-bold text-white">
                                   {step.id} • {step.days}
                                 </span>
                               </div>
-                              <h4 className="text-sm font-bold text-gray-900 whitespace-pre-line">{step.title}</h4>
-                              <p className="text-[11px] leading-relaxed text-gray-500 whitespace-pre-line">{step.desc}</p>
+                              <h4 className="text-sm font-bold whitespace-pre-line text-gray-900">{step.title}</h4>
+                              <p className="text-[11px] leading-relaxed whitespace-pre-line text-gray-500">
+                                {step.desc}
+                              </p>
                               <div className="inline-block rounded bg-gray-200 px-3 py-1 text-[9px] font-bold text-gray-600 uppercase">
                                 {step.tag}
                               </div>
@@ -208,7 +218,7 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
         </div>
 
         {/* Desktop Timeline Board */}
-        <div className="hidden md:block overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
+        <div className="hidden overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm md:block">
           {/* Top Zone Headers */}
           <div className="grid grid-cols-1 bg-[#333] text-white md:grid-cols-4">
             {content.zones.map((zone: any) => (
@@ -217,7 +227,7 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
                   ZONE - {zone.id}
                 </span>
                 <h3 className="block text-sm font-bold whitespace-pre-line">{zone.title}</h3>
-                <p className="mt-1 text-[10px] font-medium text-gray-400 whitespace-pre-line">{zone.subtitle}</p>
+                <p className="mt-1 text-[10px] font-medium whitespace-pre-line text-gray-400">{zone.subtitle}</p>
               </div>
             ))}
           </div>
@@ -230,9 +240,19 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
                 <div className="absolute top-0 bottom-0 left-8 z-0 hidden w-px bg-gray-300 md:block" />
 
                 {zone.steps.map((step: any) => (
-                  <div key={step.id} className="relative z-10 pl-12">
+                  <div key={step.id} className="relative z-10 pl-26">
                     {/* Horizontal connector line */}
-                    <div className="absolute top-6 left-0 hidden h-px w-12 bg-gray-300 md:block" />
+                    <div className="absolute top-10 left-0 hidden h-px w-10 bg-gray-300 md:block" />
+
+                    {/* Zone Specialist Avatar */}
+                    <div className="absolute top-2 left-10 hidden h-16 w-16 overflow-hidden rounded-full border-4 border-white bg-gray-100 shadow-lg transition-all hover:scale-110 hover:grayscale-0 md:block">
+                      <Image
+                        src={`https://i.pravatar.cc/150?u=${zone.owner}`}
+                        alt={zone.owner}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
 
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
@@ -240,8 +260,8 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
                           {step.id} • {step.days}
                         </span>
                       </div>
-                      <h4 className="text-sm font-bold text-gray-900 whitespace-pre-line">{step.title}</h4>
-                      <p className="text-[11px] leading-relaxed text-gray-500 whitespace-pre-line">{step.desc}</p>
+                      <h4 className="text-sm font-bold whitespace-pre-line text-gray-900">{step.title}</h4>
+                      <p className="text-[11px] leading-relaxed whitespace-pre-line text-gray-500">{step.desc}</p>
                       <div className="inline-block rounded bg-gray-200 px-3 py-1 text-[9px] font-bold text-gray-600 uppercase">
                         {step.tag}
                       </div>
@@ -274,11 +294,12 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
             ))}
           </div>
         </div>
+
+        {/* Process Footer */}
+        <ProcessFooter highlights={content.footerHighlights} btnText={content.footerBtnText} />
       </div>
-      <ProcessFooter highlights={content.footerHighlights} btnText={content.footerBtnText} />
     </section>
   )
 }
 
 export { ProcessTimeline }
-

@@ -67,6 +67,29 @@ export default function TransformationCmsPage() {
     handleChange(device, 'testimonials', newTestimonials)
   }
 
+  const addTestimonial = (device: 'desktop' | 'mobile') => {
+    const newTestimonial = {
+      name: "Client Name",
+      role: "Role/Location",
+      revenue: "₹0 Closed",
+      image: "",
+      text: "Detailed success story text...",
+      stats: ["Stat 1", "Stat 2", "Stat 3"],
+      beforeVal: "₹0",
+      afterVal: "₹0"
+    }
+    handleChange(device, 'testimonials', [...content[device].testimonials, newTestimonial])
+  }
+
+  const removeTestimonial = (device: 'desktop' | 'mobile', index: number) => {
+    if (content[device].testimonials.length <= 1) {
+      toast.error("At least one testimonial is required")
+      return
+    }
+    const newTestimonials = content[device].testimonials.filter((_, i) => i !== index)
+    handleChange(device, 'testimonials', newTestimonials)
+  }
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile', target: number | 'bg') => {
     const file = e.target.files?.[0]; if (!file) return
     setUploadingIdx(target)
@@ -112,11 +135,27 @@ export default function TransformationCmsPage() {
         </Card>
 
         <Card className="md:col-span-2">
-          <CardHeader><CardTitle>Testimonial Cards</CardTitle></CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0">
+            <div>
+              <CardTitle>Testimonial Cards</CardTitle>
+              <CardDescription>Manage your client success stories and their revenue transformation metrics.</CardDescription>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => addTestimonial(device)}>
+              <Plus className="mr-2 h-4 w-4" /> Add Testimonial
+            </Button>
+          </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
             {d.testimonials.map((t, idx) => (
-                <div key={idx} className="p-4 border rounded-lg space-y-4 bg-muted/20">
-                    <div className="flex items-center gap-4">
+                <div key={idx} className="p-4 border rounded-lg space-y-4 bg-muted/20 relative group">
+                    <Button 
+                      variant="destructive" 
+                      size="icon" 
+                      className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => removeTestimonial(device, idx)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                    <div className="flex items-center gap-4 pt-2">
                         <div className="relative w-16 h-16 rounded-full border overflow-hidden bg-background shrink-0">
                             {t.image ? <img src={t.image} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><Upload className="opacity-20" /></div>}
                             <Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => handleFileUpload(e, device, idx)} />

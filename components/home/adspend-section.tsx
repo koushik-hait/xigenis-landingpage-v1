@@ -12,11 +12,12 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
   const content = {
     pillText: "PROBLEM 03 • LEAD QUALITY",
     heading: "Burning ₹30K—₹1L Monthly \n on Ads That Convert Nothing",
-    description: "Running ads yourself or with a cheap freelancer? Poor targeting and zero funnel follow-up kill your ROI before a single visit happens.",
+    description:
+      "Running ads yourself or with a cheap freelancer? Poor targeting and zero funnel follow-up kill your ROI before a single visit happens.",
     points: [
       "Wrong audience targeting means paying to reach non-buyers.",
       "No nurture funnel means leads evaporate after the first click.",
-      "AI Algo-Plex runs a complete paid acquisition system end-to-end."
+      "AI Algo-Plex runs a complete paid acquisition system end-to-end.",
     ],
     mainStatValue: "83%",
     mainStatText: "of Meta real estate campaigns fail due to poor targeting and no follow-up funnel.",
@@ -32,12 +33,12 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
     mainImage: "/assets/man.png",
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
     <section className="flex min-h-screen w-full items-center overflow-hidden bg-white py-10">
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-16 lg:flex-row lg:gap-4">
           {/* Left Column: Visual Composition */}
           <div className="relative flex min-h-[600px] w-full items-center justify-center lg:w-1/2">
@@ -45,25 +46,21 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
             <div className="absolute inset-0 z-0">
               {/* Megaphone Card */}
               <div className="absolute top-[40%] left-[0%] z-20 -rotate-12 transform rounded-2xl border border-gray-100 bg-white p-4 shadow-xl sm:left-10">
-              <Image src="/assets/megaphone.png" alt="Megaphone" width={32} height={32} />
-                
+                <Image src="/assets/megaphone.png" alt="Megaphone" width={32} height={32} />
               </div>
 
               {/* Floating Social Icons */}
               <div className="absolute top-[20%] left-[20%] rotate-12 transform rounded-lg bg-white p-2 shadow-md">
-                
-              <Image src="/assets/instagram.svg" alt="Instagram" width={32} height={32} />
+                <Image src="/assets/instagram.svg" alt="Instagram" width={32} height={32} />
               </div>
               <div className="absolute top-[10%] left-[10%] rounded-md bg-white p-1.5 shadow-sm">
-              <Image src="/assets/linkedin.svg" alt="LinkedIn" width={32} height={32} />
-                
+                <Image src="/assets/linkedin.svg" alt="LinkedIn" width={32} height={32} />
               </div>
               <div className="absolute top-[30%] left-[8%] -rotate-12 transform rounded-lg bg-white p-2 shadow-md">
-              <Image src="/assets/facebook.svg" alt="Facebook" width={32} height={32} />
-                
+                <Image src="/assets/facebook.svg" alt="Facebook" width={32} height={32} />
               </div>
               <div className="absolute top-[35%] left-[5%] -rotate-6 transform rounded-md bg-white p-1.5 shadow-sm">
-                              <Image src="/assets/whatsapp.png" alt="Whatsapp" width={32} height={32} />
+                <Image src="/assets/whatsapp.png" alt="Whatsapp" width={32} height={32} />
               </div>
               {/* WhatsApp-ish Placeholder */}
               <div className="absolute top-[45%] left-[35%] rotate-12 transform rounded-full bg-green-500 p-2 shadow-lg">
@@ -89,7 +86,9 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
                   <span className="font-serif text-3xl text-gray-900">{content.card1Value}</span>
                 </div>
                 <div className="bg-black py-2 text-center">
-                  <span className="text-[10px] font-bold tracking-widest text-white uppercase">{content.card1Label}</span>
+                  <span className="text-[10px] font-bold tracking-widest text-white uppercase">
+                    {content.card1Label}
+                  </span>
                 </div>
               </div>
 
@@ -122,7 +121,10 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="font-serif text-3xl leading-tight text-gray-900 lg:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+            <h2
+              className="font-serif text-3xl leading-tight whitespace-pre-line text-gray-900 lg:text-5xl"
+              style={{ fontSize: `${content.headingSize}px` }}
+            >
               {content.heading}
             </h2>
 
@@ -138,9 +140,7 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
                   ) : (
                     <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
                   )}
-                  <span className="text-sm font-medium text-gray-700 sm:text-base">
-                    {text}
-                  </span>
+                  <span className="text-sm font-medium text-gray-700 sm:text-base">{text}</span>
                 </li>
               ))}
             </ul>

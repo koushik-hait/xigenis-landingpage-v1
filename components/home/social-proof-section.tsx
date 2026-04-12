@@ -140,17 +140,23 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
   if (validTestimonials.length === 0) return null
 
   return (
-    <section className="relative w-full overflow-hidden bg-white py-20 lg:py-28">
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative w-full overflow-hidden bg-white py-10 lg:py-10">
+      <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ─── HEADER ─── */}
-        <div className="mx-auto mb-16 max-w-2xl text-center lg:mb-20">
+        <div className="mx-auto mb-16 max-w-7xl text-center lg:mb-20">
           <div className="mb-5 inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-1.5 text-[11px] font-bold tracking-widest text-orange-500 uppercase">
             {content.pillText}
           </div>
-          <h2 className="mb-5 font-serif text-3xl leading-tight whitespace-pre-line text-gray-900 sm:text-4xl lg:text-[2.75rem]" style={{ fontSize: `${content.headingSize}px` }}>
+          <h2
+            className="mb-5 font-serif text-3xl leading-tight whitespace-pre-line text-gray-900 sm:text-4xl lg:text-[2.75rem]"
+            style={{ fontSize: `${content.headingSize}px` }}
+          >
             {content.heading}
           </h2>
-          <p className="mx-auto max-w-lg text-base leading-relaxed whitespace-pre-line text-gray-500" style={{ fontSize: `${content.descriptionSize}px` }}>
+          <p
+            className="mx-auto max-w-7xl text-base leading-relaxed whitespace-pre-line text-gray-500"
+            style={{ fontSize: `${content.descriptionSize}px` }}
+          >
             {content.description}
           </p>
 

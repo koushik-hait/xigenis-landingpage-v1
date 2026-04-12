@@ -1,6 +1,6 @@
-'use client';
+"use client"
 
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from "lucide-react"
 
 interface AboutSectionProps {
   cmsContent?: any
@@ -11,7 +11,8 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
     bgImage: "/assets/about-bg.png",
     pillText: "About Us",
     heading: "About Company",
-    description: "At Xigenis, we help real estate professionals build a predictable pipeline of qualified property buyers. \n\nOur system combines AI-driven lead generation, targeted campaigns, and smart follow-up automation to attract serious buyers and close more deals consistently.",
+    description:
+      "At Xigenis, we help real estate professionals build a predictable pipeline of qualified property buyers. \n\nOur system combines AI-driven lead generation, targeted campaigns, and smart follow-up automation to attract serious buyers and close more deals consistently.",
     btnText: "Build My Pipeline",
     stat1Value: "2X",
     stat1Label: "Faster Growth",
@@ -29,7 +30,7 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
     gridStat4Label: "Cities Covered \n Across India",
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
@@ -37,19 +38,27 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
       className="relative flex min-h-screen w-full items-center overflow-hidden bg-white py-10"
       style={{
         backgroundImage: `url('${content.bgImage}')`,
-        backgroundSize: 'contain',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        backgroundSize: "contain",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="relative container flex flex-col mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl relative container mx-auto flex flex-col px-4 sm:px-6 lg:px-8">
         {/* ROW 1: Top Content: Heading & Description */}
         <div className="relative z-20 mb-12 max-w-xl">
           <div className="mb-4 inline-block rounded-full bg-gray-100 px-4 py-1 text-xs font-bold tracking-widest text-gray-600 uppercase">
             {content.pillText}
           </div>
-          <h2 className="mb-6 font-serif text-4xl text-gray-900 lg:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>{content.heading}</h2>
-          <p className="mb-8 text-base leading-relaxed text-gray-600 lg:text-lg whitespace-pre-line" style={{ fontSize: `${content.descriptionSize}px` }}>
+          <h2
+            className="mb-6 font-serif text-4xl whitespace-pre-line text-gray-900 lg:text-5xl"
+            style={{ fontSize: `${content.headingSize}px` }}
+          >
+            {content.heading}
+          </h2>
+          <p
+            className="mb-8 text-base leading-relaxed whitespace-pre-line text-gray-600 lg:text-lg"
+            style={{ fontSize: `${content.descriptionSize}px` }}
+          >
             {content.description}
           </p>
 
@@ -70,7 +79,9 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
               <div>
                 <div className="flex items-baseline gap-2">
                   <span className="font-serif text-3xl">{content.stat1Value}</span>
-                  <span className="text-[10px] font-bold tracking-wider text-gray-300 uppercase">{content.stat1Label}</span>
+                  <span className="text-[10px] font-bold tracking-wider text-gray-300 uppercase">
+                    {content.stat1Label}
+                  </span>
                 </div>
                 <p className="mt-1 text-[9px] text-gray-400 italic">{content.stat1Sub}</p>
               </div>
@@ -78,7 +89,9 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
               <div className="border-t border-white/10 pt-4">
                 <div className="flex items-baseline gap-2">
                   <span className="font-serif text-3xl">{content.stat2Value}</span>
-                  <span className="text-[10px] font-bold tracking-wider text-gray-300 uppercase">{content.stat2Label}</span>
+                  <span className="text-[10px] font-bold tracking-wider text-gray-300 uppercase">
+                    {content.stat2Label}
+                  </span>
                 </div>
                 <p className="mt-1 text-[9px] text-gray-400 italic">{content.stat2Sub}</p>
               </div>
@@ -91,28 +104,28 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
               {/* Stat 1 */}
               <div className="space-y-1">
                 <span className="font-serif text-2xl lg:text-3xl">{content.gridStat1Value}</span>
-                <p className="text-[10px] leading-tight font-bold tracking-tight text-gray-300 uppercase whitespace-pre-line">
+                <p className="text-[10px] leading-tight font-bold tracking-tight whitespace-pre-line text-gray-300 uppercase">
                   {content.gridStat1Label}
                 </p>
               </div>
               {/* Stat 2 */}
               <div className="space-y-1">
                 <span className="font-serif text-2xl lg:text-3xl">{content.gridStat2Value}</span>
-                <p className="text-[10px] leading-tight font-bold tracking-tight text-gray-300 uppercase whitespace-pre-line">
+                <p className="text-[10px] leading-tight font-bold tracking-tight whitespace-pre-line text-gray-300 uppercase">
                   {content.gridStat2Label}
                 </p>
               </div>
               {/* Stat 3 */}
               <div className="space-y-1">
                 <span className="font-serif text-2xl lg:text-3xl">{content.gridStat3Value}</span>
-                <p className="text-[10px] leading-tight font-bold tracking-tight text-gray-300 uppercase whitespace-pre-line">
+                <p className="text-[10px] leading-tight font-bold tracking-tight whitespace-pre-line text-gray-300 uppercase">
                   {content.gridStat3Label}
                 </p>
               </div>
               {/* Stat 4 */}
               <div className="space-y-1 border-l border-white/10 pl-4">
                 <span className="font-serif text-2xl lg:text-3xl">{content.gridStat4Value}</span>
-                <p className="text-[10px] leading-tight font-bold tracking-tight text-gray-300 uppercase whitespace-pre-line">
+                <p className="text-[10px] leading-tight font-bold tracking-tight whitespace-pre-line text-gray-300 uppercase">
                   {content.gridStat4Label}
                 </p>
               </div>
@@ -124,5 +137,5 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
       {/* Background Decorative Element (Subtle radial gradient) */}
       <div className="absolute top-1/2 left-1/2 z-0 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle_at_center,_rgba(249,115,22,0.05)_0%,_transparent_70%)]" />
     </section>
-  );
+  )
 }

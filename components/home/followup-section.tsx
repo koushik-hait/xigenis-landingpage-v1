@@ -33,7 +33,7 @@ const FollowUpSection = ({ cmsContent }: FollowUpSectionProps) => {
 
   return (
     <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F3F4F6] py-10">
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 lg:flex-row-reverse lg:gap-4">
           {/* Right Column: Mobile Device Mockup */}
           <div className="relative flex w-full justify-center lg:w-1/2">

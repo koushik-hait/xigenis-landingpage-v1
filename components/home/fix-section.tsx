@@ -13,7 +13,8 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
     bgImage: "/assets/fix-bg.png",
     pillText: "THE FIX • AI ALGO-PLEX SYSTEM",
     heading: "You Don't Need More Leads.\n You Need a System That Closes.",
-    description: "Not another portal. Not a freelancer running random ads. A full pipeline — built, managed, and optimised for one outcome: closed deals in 90 days.",
+    description:
+      "Not another portal. Not a freelancer running random ads. A full pipeline — built, managed, and optimised for one outcome: closed deals in 90 days.",
     btnText: "Build My Pipeline",
     card1Title: "Complete Ad-to-Close Funnel",
     card1Text: "Targeting, nurture, and conversion — fully managed.",
@@ -25,7 +26,7 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
     card4Text: "Every lead followed up instantly. Zero manual effort needed.",
     headingSize: "48",
     descriptionSize: "16",
-    ...cmsContent
+    ...cmsContent,
   }
 
   return (
@@ -33,14 +34,14 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
       {/* 1. Background Image with Dark Vignette/Gradient */}
       <div className="absolute inset-0 z-0 opacity-70">
         <div
-          className="h-full w-full scale-105 object-cover object-center bg-cover bg-center"
+          className="h-full w-full scale-105 bg-cover bg-center object-cover object-center"
           style={{ backgroundImage: `url('${content.bgImage}')` }}
         />
         {/* Subtle vignette/darkening to ensure left text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
       </div>
 
-      <div className="relative z-10 container mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="max-w-8xl relative z-10 container mx-auto px-4 py-20 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-16 lg:flex-row lg:gap-8">
           {/* Left Column: Solution Pitch */}
           <div className="w-full space-y-10 lg:w-1/2">
@@ -48,11 +49,17 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
               {content.pillText}
             </div>
 
-            <h2 className="font-serif text-4xl leading-tight text-white lg:text-5xl whitespace-pre-line" style={{ fontSize: `${content.headingSize}px` }}>
+            <h2
+              className="font-serif text-4xl leading-tight whitespace-pre-line text-white lg:text-5xl"
+              style={{ fontSize: `${content.headingSize}px` }}
+            >
               {content.heading}
             </h2>
 
-            <p className="max-w-xl text-xl leading-relaxed text-gray-300" style={{ fontSize: `${content.descriptionSize}px` }}>
+            <p
+              className="max-w-xl text-xl leading-relaxed text-gray-300"
+              style={{ fontSize: `${content.descriptionSize}px` }}
+            >
               {content.description}
             </p>
 
@@ -68,43 +75,35 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
           </div>
 
           {/* Right Column: Key Feature Cards Overlay */}
-          <div className="relative mt-16 hidden lg:flex min-h-[500px] w-full items-center justify-center lg:mt-0 lg:w-1/2 lg:pl-16">
+          <div className="relative mt-16 hidden min-h-[500px] w-full items-center justify-center lg:mt-0 lg:flex lg:w-1/2 lg:pl-16">
             {/* Floating UI Cards */}
             <div className="pointer-events-none absolute inset-0 z-20">
               {/* Card 1: Complete Funnel (Top Left) */}
               <div className="pointer-events-auto absolute top-10 -left-6 w-60 -rotate-3 transform rounded-[2rem] border border-gray-100 bg-white/95 p-6 shadow-2xl shadow-gray-200/30 backdrop-blur-sm sm:left-4">
                 <Check className="mb-2 h-10 w-10 fill-emerald-100 text-emerald-500" />
                 <h4 className="mb-2 font-serif text-base leading-tight text-gray-900">{content.card1Title}</h4>
-                <p className="text-[11px] leading-snug font-bold text-gray-500">
-                  {content.card1Text}
-                </p>
+                <p className="text-[11px] leading-snug font-bold text-gray-500">{content.card1Text}</p>
               </div>
 
               {/* Card 2: Qualified Only (Top Right) */}
               <div className="pointer-events-auto absolute top-1/4 -right-4 w-56 rotate-3 transform rounded-[2rem] border border-gray-100 bg-white/95 p-6 shadow-2xl shadow-gray-200/30 backdrop-blur-sm sm:right-8">
                 <Check className="mb-2 h-10 w-10 fill-emerald-100 text-emerald-500" />
                 <h4 className="mb-2 font-serif text-base leading-tight text-gray-900">{content.card2Title}</h4>
-                <p className="text-[11px] leading-snug font-bold text-gray-500">
-                  {content.card2Text}
-                </p>
+                <p className="text-[11px] leading-snug font-bold text-gray-500">{content.card2Text}</p>
               </div>
 
               {/* Card 3: Referral Engine (Bottom Left) */}
               <div className="pointer-events-auto absolute bottom-1/4 left-0 w-60 rotate-2 transform rounded-[2rem] border border-gray-100 bg-white/95 p-6 shadow-2xl shadow-gray-200/30 backdrop-blur-sm sm:left-8">
                 <Check className="mb-2 h-10 w-10 fill-emerald-100 text-emerald-500" />
                 <h4 className="mb-2 font-serif text-base leading-tight text-gray-900">{content.card3Title}</h4>
-                <p className="text-[11px] leading-snug font-bold text-gray-500">
-                  {content.card3Text}
-                </p>
+                <p className="text-[11px] leading-snug font-bold text-gray-500">{content.card3Text}</p>
               </div>
 
               {/* Card 4: Automated (Bottom Right) */}
               <div className="pointer-events-auto absolute -right-4 bottom-10 w-56 -rotate-2 transform rounded-[2rem] border border-gray-100 bg-white/95 p-6 shadow-2xl shadow-gray-200/30 backdrop-blur-sm sm:right-10">
                 <Check className="mb-2 h-10 w-10 fill-emerald-100 text-emerald-500" />
                 <h4 className="mb-2 font-serif text-base leading-tight text-gray-900">{content.card4Title}</h4>
-                <p className="text-[11px] leading-snug font-bold text-gray-500">
-                  {content.card4Text}
-                </p>
+                <p className="text-[11px] leading-snug font-bold text-gray-500">{content.card4Text}</p>
               </div>
             </div>
           </div>

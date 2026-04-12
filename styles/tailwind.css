@@ -96,6 +96,12 @@
   }
 }
 
+@layer utilities {
+  .text-outline {
+    -webkit-text-stroke: 1px rgb(188, 185, 185); /* Adjust thickness and color */
+  }
+}
+
 /* Added gradient animation for hero text */
 @keyframes gradient {
   0% {
