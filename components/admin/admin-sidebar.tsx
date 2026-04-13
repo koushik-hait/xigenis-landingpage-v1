@@ -39,6 +39,17 @@ const menuItems: MenuItem[] = [
     icon: <BarChart3 className="h-4 w-4" />,
   },
   {
+    title: 'Content',
+    icon: <FileText className="h-4 w-4" />,
+    children: [
+      {
+        title: 'Footer',
+        href: '/dashboard/footer',
+        icon: <FileText className="h-3 w-3" />,
+      },
+    ],
+  },
+  {
     title: 'Users',
     icon: <Users className="h-4 w-4" />,
     requiredRole: 'admin',
