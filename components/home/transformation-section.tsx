@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState, useEffect, useCallback } from "react"
+import Link from "next/link"
 
 interface TransformationSectionProps {
   cmsContent?: any
@@ -17,6 +18,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
     headingLine1: "AI Lead System Results",
     headingLine2: "The 90-Day Transformation",
     ctaButtonText: "Start My 90 Days",
+    ctaButtonLink: "#",
     description1:
       "This is the after state — what your pipeline, calendar, and revenue look like after 90 days working with our system.",
     description2: "No random referrals. No cold calling. Just a predictable system that brings serious buyers.",
@@ -113,16 +115,16 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
             </h2>
 
             {/* CTA Buttons */}
-            <div className="flex items-center gap-3">
-              <button className="rounded-full bg-white px-6 py-3.5 shadow-md transition-colors hover:bg-gray-50">
+            <Link href={content.ctaButtonLink} className="flex items-center gap-3 group">
+              <div className="rounded-full bg-white px-6 py-3.5 shadow-md transition-colors group-hover:bg-gray-50">
                 <span className="text-[11px] font-bold tracking-widest text-gray-900 uppercase">
                   {content.ctaButtonText}
                 </span>
-              </button>
-              <button className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F36B2B] text-white shadow-md transition-colors hover:bg-[#E05A1C]">
+              </div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F36B2B] text-white shadow-md transition-colors group-hover:bg-[#E05A1C]">
                 <ArrowUpRight className="h-5 w-5" />
-              </button>
-            </div>
+              </div>
+            </Link>
           </motion.div>
 
           {/* Right Column */}

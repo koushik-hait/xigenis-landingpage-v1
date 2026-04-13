@@ -19,6 +19,7 @@ const defaultContent = {
   headingLine2: "The 90-Day Transformation",
   headingSize: "48",
   ctaButtonText: "Start My 90 Days",
+  ctaButtonLink: "#",
   description1: "This is the after state — what your pipeline, calendar, and revenue look like after 90 days working with our system.",
   description2: "No random referrals. No cold calling. Just a predictable system that brings serious buyers.",
   descriptionSize: "16",
@@ -110,6 +111,7 @@ export default function TransformationCmsPage() {
             <div className="space-y-2"><Label>CTA Button Text</Label><Input value={d.ctaButtonText} onChange={e => handleChange(device, 'ctaButtonText', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading Line 1</Label><Input value={d.headingLine1} onChange={e => handleChange(device, 'headingLine1', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading Line 2</Label><Input value={d.headingLine2} onChange={e => handleChange(device, 'headingLine2', e.target.value)} /></div>
+            <div className="space-y-2"><Label>CTA Button Link (URL)</Label><Input value={d.ctaButtonLink || ""} onChange={e => handleChange(device, 'ctaButtonLink', e.target.value)} /></div>
             <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Paragraph 1</Label><Textarea value={d.description1} onChange={e => handleChange(device, 'description1', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Paragraph 2</Label><Textarea value={d.description2} onChange={e => handleChange(device, 'description2', e.target.value)} /></div>

@@ -19,10 +19,11 @@ const defaultContent = {
   description: "Real campaign results showing how qualified buyer leads turn into site visits and property deals.",
   descriptionSize: "16",
   projects: [
-    { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop" },
-    { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" },
-    { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" },
-  ]
+    { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop", link: "#" },
+    { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop", link: "#" },
+    { title: "Luxury Residential Project – Goa", leads: "3.4K+", rate: "28%", requests: "270+", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop", link: "#" },
+  ],
+  moreLink: "#"
 }
 
 export default function CaseStudiesCmsPage() {
@@ -40,7 +41,7 @@ export default function CaseStudiesCmsPage() {
   const handleFileUpload = async (device: 'desktop' | 'mobile', index: number, file: File) => {
     setUploadingIndex(index); try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleProjectChange(device, index, 'image', finalUrl); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setUploadingIndex(null) }
   }
-  const addProject = (device: 'desktop' | 'mobile') => { handleChange(device, 'projects', [...content[device].projects, { title: "New Project", leads: "0+", rate: "0%", requests: "0+", image: "" }]) }
+  const addProject = (device: 'desktop' | 'mobile') => { handleChange(device, 'projects', [...content[device].projects, { title: "New Project", leads: "0+", rate: "0%", requests: "0+", image: "", link: "#" }]) }
   const removeProject = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'projects', content[device].projects.filter((_: any, i: number) => i !== index)) }
 
   const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'case-studies', content); if (success) toast.success("Saved successfully"); else toast.error("Failed to save"); setIsSaving(false) }
@@ -58,6 +59,7 @@ export default function CaseStudiesCmsPage() {
             <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
+            <div className="space-y-2"><Label>More Projects Link (URL)</Label><Input value={d.moreLink || ""} onChange={e => handleChange(device, 'moreLink', e.target.value)} /></div>
           </CardContent>
         </Card>
         <div className="space-y-6">
@@ -74,6 +76,7 @@ export default function CaseStudiesCmsPage() {
                           <div className="space-y-1"><Label className="text-xs">Rate Value</Label><Input value={project.rate} onChange={e => handleProjectChange(device, i, 'rate', e.target.value)} /></div>
                       </div>
                       <div className="space-y-1"><Label className="text-xs">Requests Value</Label><Input value={project.requests} onChange={e => handleProjectChange(device, i, 'requests', e.target.value)} /></div>
+                      <div className="space-y-1"><Label className="text-xs">Project Link (URL)</Label><Input value={project.link || ""} onChange={e => handleProjectChange(device, i, 'link', e.target.value)} /></div>
                       <div className="space-y-2 pt-2"><Label className="text-xs">Project Background</Label>
                           <div className="relative w-full h-32 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden group">
                           {project.image ? (<img src={project.image} className="w-full h-full object-cover opacity-80" />) : (<Upload className="opacity-20 w-8 h-8" />)}

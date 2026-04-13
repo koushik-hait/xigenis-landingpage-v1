@@ -18,6 +18,7 @@ const defaultContent = {
   description: "At Xigenis, we help real estate professionals build a predictable pipeline of qualified property buyers. \n\nOur system combines AI-driven lead generation, targeted campaigns, and smart follow-up automation to attract serious buyers and close more deals consistently.",
   descriptionSize: "16",
   btnText: "Build My Pipeline",
+  btnLink: "#",
   stat1Value: "2X", stat1Label: "Faster Growth", stat1Sub: "Vs Industry Peers",
   stat2Value: "4X", stat2Label: "Higher Sales", stat2Sub: "Vs Non-Clients",
   gridStat1Value: "90+", gridStat1Label: "Real Estate \n Professionals Served",
@@ -52,6 +53,7 @@ export default function AboutCmsPage() {
                 <div className="space-y-2"><Label>Description (Supports \n for breaks)</Label><Textarea rows={6} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
                 <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
                 <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
+                <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange(device, 'btnLink', e.target.value)} /></div>
             </CardContent>
             </Card>
             <Card>

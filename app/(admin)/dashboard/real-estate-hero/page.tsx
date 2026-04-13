@@ -18,6 +18,7 @@ const defaultContent = {
   heading: "Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries",
   headingSize: "48",
   buttonText: "Speak With A Strategy Expert Today",
+  buttonLink: "#",
   backgroundImage: "/hero-family-pool.jpg",
   valueProps: [
     "High-Intent Property Buyers",
@@ -148,6 +149,10 @@ export default function RealEstateHeroAdmin() {
               <div className="space-y-2">
                 <Label>Button Text</Label>
                 <Input value={d.buttonText} onChange={(e) => handleChange(device, "buttonText", e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Button Link (URL)</Label>
+                <Input value={d.buttonLink || ""} onChange={(e) => handleChange(device, "buttonLink", e.target.value)} />
               </div>
             </CardContent>
           </Card>

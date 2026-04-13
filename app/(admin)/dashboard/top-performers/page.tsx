@@ -23,6 +23,7 @@ const defaultContent = {
   descriptionSize: "14", // in px
   descriptionColor: "#6B7280",
   ctaText: "Apply for Strategy Call",
+  ctaLink: "#",
   ctaBgColor: "#000000",
   ctaTextColor: "#ffffff",
   ctaArrowBgColor: "#F36B2B",
@@ -43,6 +44,7 @@ const defaultContent = {
     number: "12",
     labels: ["More", "Success", "Stories"],
     subLabels: "Agents • CPs Builders • Brokers",
+    link: "#",
   },
 }
 
@@ -251,6 +253,10 @@ export default function TopPerformersCmsPage() {
               <Label>Button Text</Label>
               <Input value={deviceContent.ctaText} onChange={(e) => handleChange(device, "ctaText", e.target.value)} />
             </div>
+            <div className="space-y-2">
+              <Label>Button Link (URL)</Label>
+              <Input value={deviceContent.ctaLink || ""} onChange={(e) => handleChange(device, "ctaLink", e.target.value)} />
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Bg Color</Label>
@@ -404,6 +410,15 @@ export default function TopPerformersCmsPage() {
                 value={deviceContent.footerCard.subLabels}
                 onChange={(e) =>
                   handleChange(device, "footerCard", { ...deviceContent.footerCard, subLabels: e.target.value })
+                }
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Footer Card Link (URL)</Label>
+              <Input
+                value={deviceContent.footerCard.link || ""}
+                onChange={(e) =>
+                  handleChange(device, "footerCard", { ...deviceContent.footerCard, link: e.target.value })
                 }
               />
             </div>

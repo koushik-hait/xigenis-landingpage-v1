@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-is-mobile"
 
@@ -17,6 +18,7 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
     heading: "Real Estate \n Performance Metrics",
     description: "Turning property insights into measurable success across every segment.",
     btnText: "See How It Works",
+    btnLink: "#",
     mainCardBg: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
     mainCardTitle: "Residential Real Estate",
     mainCardSubtitle: "Achievement Metrics:",
@@ -28,18 +30,22 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
       {
         title: "Commercial Real Estate",
         image: "https://images.unsplash.com/photo-1486406146926-c627a92af1bd?q=80&w=2072&auto=format&fit=crop",
+        link: "#",
       },
       {
         title: "Industrial Real Estate",
         image: "https://images.unsplash.com/photo-1590674116584-d131495c256a?q=80&w=2070&auto=format&fit=crop",
+        link: "#",
       },
       {
         title: "Farmlands & Farmhouses",
         image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop",
+        link: "#",
       },
       {
         title: "Special Purpose Real Estate",
         image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1996&auto=format&fit=crop",
+        link: "#",
       },
     ],
     headingSize: "48",
@@ -71,12 +77,12 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
               </p>
 
               {/* CTA Button */}
-              <button className="group flex items-center gap-3 rounded-full bg-black px-8 py-3 text-white transition-transform hover:scale-105">
+              <Link href={content.btnLink} className="group flex items-center gap-3 rounded-full bg-black px-8 py-3 text-white transition-transform hover:scale-105 w-fit">
                 <span className="text-[10px] font-bold tracking-widest uppercase">{content.btnText}</span>
                 <div className="rounded-full bg-orange-500 p-2">
                   <ArrowUpRight className="h-4 w-4 text-white" />
                 </div>
-              </button>
+              </Link>
             </div>
 
             <div className="relative col-span-1 mt-12 flex min-h-[200px] flex-col overflow-hidden rounded-[2rem] bg-[#1A1A1A] p-8 md:col-span-1">
@@ -140,9 +146,9 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
 
                   <div className="relative z-10 space-y-3">
                     <h3 className="font-serif text-2xl text-white">{item.title}</h3>
-                    <button className="border-b-2 border-orange-500 pb-1 text-[11px] font-bold tracking-widest text-gray-200 uppercase transition-colors hover:text-white">
+                    <Link href={item.link || "#"} className="border-b-2 border-orange-500 pb-1 text-[11px] font-bold tracking-widest text-gray-200 uppercase transition-colors hover:text-white w-fit">
                       View Details
-                    </button>
+                    </Link>
                   </div>
                 </div>
               )

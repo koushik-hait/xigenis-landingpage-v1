@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Check, Star, ArrowUpRight } from "lucide-react"
 
 interface RealEstateHeroProps {
@@ -13,6 +14,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
     badgeText: "Trusted by 100+ B2B Organization",
     heading: "Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries",
     buttonText: "Speak With A Strategy Expert Today",
+    buttonLink: "#",
     backgroundImage: "/hero-family-pool.jpg",
     valueProps: [
       "High-Intent Property Buyers",
@@ -80,12 +82,12 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
           </ul>
 
           {/* Call To Action Button */}
-          <button className="group inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 font-sans text-lg font-bold text-white transition-colors hover:bg-gray-800">
+          <Link href={content.buttonLink} className="group inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 font-sans text-lg font-bold text-white transition-colors hover:bg-gray-800">
             {content.buttonText}
             <span className="rounded-full bg-[#F67C46] p-1.5 text-white transition-transform duration-300 group-hover:rotate-45">
               <ArrowUpRight className="h-5 w-5" />
             </span>
-          </button>
+          </Link>
         </div>
 
         {/* Right Side: Spacer for large screens */}

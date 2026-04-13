@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { Plus, Minus, ArrowUpRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
 
 interface FAQSectionProps {
   cmsContent?: any
@@ -14,6 +15,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
   const content = {
     heading: "Answers To Your Most Important\nQuestions",
     buttonText: "ASK A QUESTION",
+    buttonLink: "#",
     faqs: [
       {
         question: "How Quickly Can I Start Getting Buyer Leads?",
@@ -49,12 +51,12 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
           {content.heading}
         </h2>
 
-        <button className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-gray-200">
+        <Link href={content.buttonLink} className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-gray-200">
           {content.buttonText}
           <span className="rounded-full bg-[#FF5C35] p-1 text-white transition-transform duration-300 group-hover:rotate-45">
             <ArrowUpRight className="h-4 w-4" />
           </span>
-        </button>
+        </Link>
       </div>
 
       {/* Accordion Container */}

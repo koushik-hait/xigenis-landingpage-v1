@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowUpRight, ShieldCheck, PieChart, Users, Lock } from "lucide-react"
 
 interface FeaturesSectionProps {
@@ -21,6 +22,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
     heading: "Why Trust Us With Your Growth",
     description: "We don't hide behind dashboards or vanity metrics. What you see is exactly what is happening.",
     buttonText: "BOOK A FREE STRATEGY CALL",
+    buttonLink: "#",
     image: "/assets/man-on-house.png",
     features: [
       {
@@ -89,12 +91,12 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
               {content.description}
             </p>
 
-            <button className="group flex items-center gap-2 rounded-full bg-black px-8 py-4 font-bold text-white transition-colors hover:bg-gray-800">
+            <Link href={content.buttonLink} className="group flex items-center gap-2 rounded-full bg-black px-8 py-4 font-bold text-white transition-colors hover:bg-gray-800 w-fit">
               {content.buttonText}
               <span className="rounded-full bg-orange-500 p-1 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Features Grid */}

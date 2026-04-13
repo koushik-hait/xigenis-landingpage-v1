@@ -21,6 +21,7 @@ const defaultContent = {
   statBoxValue: "3x",
   statBoxText: "Agents with automated referral systems close 3× more deals than those relying on portals alone.",
   btnText: "Build My Own Pipeline",
+  btnLink: "#",
   headBoxValue: "0", headBoxTitle: "Referrals this month",
   card1Title: "No post-sale CRM or \n follow-up system", card1Tag: "Missing",
   card2Title: "Past clients never \n re-contacted", card2Tag: "0 Leads",
@@ -56,6 +57,7 @@ export default function ReferralCmsPage() {
             </div>
             <div className="border-t pt-4 space-y-4">
                 <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
+                <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange(device, 'btnLink', e.target.value)} /></div>
             </div>
           </CardContent>
         </Card>

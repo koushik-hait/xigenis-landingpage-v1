@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 
 interface CaseStudiesProps {
@@ -20,6 +21,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
         rate: "28%",
         requests: "270+",
         image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+        link: "#",
       },
       {
         title: "Luxury Residential Project – Goa",
@@ -27,6 +29,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
         rate: "28%",
         requests: "270+",
         image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+        link: "#",
       },
       {
         title: "Luxury Residential Project – Goa",
@@ -34,8 +37,10 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
         rate: "28%",
         requests: "270+",
         image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
+        link: "#",
       },
     ],
+    moreLink: "#",
     headingSize: "48",
     descriptionSize: "16",
     ...cmsContent,
@@ -71,7 +76,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
           <div className="-mx-4 snap-x snap-mandatory overflow-x-auto px-4">
             <div className="flex gap-4" style={{ minWidth: "max-content" }}>
               {content.projects.map((project: any, index: number) => (
-                <div key={index} className="w-[75vw] max-w-sm flex-shrink-0 snap-center">
+                <Link key={index} href={project.link || "#"} className="w-[75vw] max-w-sm flex-shrink-0 snap-center block">
                   <div className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
                     {/* Background Image */}
                     <Image
@@ -110,11 +115,11 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
                       <h3 className="pr-2 font-serif text-lg leading-tight text-white">{project.title}</h3>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
 
               {/* "See More" Card (Blurred Background) */}
-              <div className="w-[75vw] max-w-sm flex-shrink-0 snap-center">
+              <Link href={content.moreLink || "#"} className="w-[75vw] max-w-sm flex-shrink-0 snap-center block">
                 <div className="group relative flex aspect-[4/5] cursor-pointer items-center justify-center overflow-hidden rounded-[2.5rem]">
                   <Image
                     src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop"
@@ -126,12 +131,12 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
 
                   <div className="relative z-10 flex flex-col items-center gap-4">
                     <span className="font-serif text-5xl text-white">12</span>
-                    <button className="flex items-center gap-2 rounded-full border border-white/50 px-6 py-2 text-[10px] font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-black">
+                    <span className="flex items-center gap-2 rounded-full border border-white/50 px-6 py-2 text-[10px] font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-black">
                       More <ArrowUpRight className="h-4 w-4" />
-                    </button>
+                    </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -139,7 +144,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
         {/* Desktop Grid */}
         <div className="hidden grid-cols-2 gap-6 md:grid lg:grid-cols-4">
           {content.projects.map((project: any, index: number) => (
-            <div key={index} className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg">
+            <Link key={index} href={project.link || "#"} className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lg block">
               {/* Background Image */}
               <Image
                 src={project.image}
@@ -170,11 +175,11 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
 
                 <h3 className="pr-4 font-serif text-xl leading-tight text-white">{project.title}</h3>
               </div>
-            </div>
+            </Link>
           ))}
 
           {/* "See More" Card (Blurred Background) */}
-          <div className="group relative flex aspect-[4/5] cursor-pointer items-center justify-center overflow-hidden rounded-[2.5rem]">
+          <Link href={content.moreLink || "#"} className="group relative flex aspect-[4/5] cursor-pointer items-center justify-center overflow-hidden rounded-[2.5rem] block">
             <Image
               src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop"
               alt="More projects"
@@ -185,11 +190,11 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
 
             <div className="relative z-10 flex flex-col items-center gap-4">
               <span className="font-serif text-6xl text-white">12</span>
-              <button className="flex items-center gap-2 rounded-full border border-white/50 px-8 py-2 text-[11px] font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-black">
+              <span className="flex items-center gap-2 rounded-full border border-white/50 px-8 py-2 text-[11px] font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-black">
                 More <ArrowUpRight className="h-4 w-4" />
-              </button>
+              </span>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </section>

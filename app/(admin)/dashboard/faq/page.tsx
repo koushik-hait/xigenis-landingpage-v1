@@ -15,6 +15,7 @@ const defaultContent = {
   heading: 'Answers To Your Most Important\nQuestions',
   headingSize: '48',
   buttonText: 'ASK A QUESTION',
+  buttonLink: '#',
   faqs: [
     { question: "How Quickly Can I Start Getting Buyer Leads?", answer: "Most of our partners see their first high-intent buyer leads within the first 72 hours of the campaign going live." },
     { question: "Do you integrate with my existing CRM?", answer: "Our automated systems capture and verify contact information immediately, pushing them directly to your CRM." },
@@ -53,6 +54,7 @@ export default function FAQAdmin() {
               <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} rows={3} /></div>
               <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
               <div className="space-y-2"><Label>Button Text</Label><Input value={d.buttonText} onChange={e => handleChange(device, 'buttonText', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.buttonLink || ""} onChange={e => handleChange(device, 'buttonLink', e.target.value)} /></div>
             </CardContent>
           </Card>
         </div>

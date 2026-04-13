@@ -62,7 +62,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
           transition={{ duration: 0.8 }}
           className="mb-8 text-center"
         >
-          <span className="mb-4 inline-block rounded-4xl bg-gray-400 px-4 py-2 text-[8px] font-bold tracking-[0.2em] text-black/40 uppercase">
+          <span className="mb-4 inline-block rounded-4xl bg-[#DCDCDC] px-4 py-2 text-[8px] font-bold tracking-[0.2em] text-black/40 uppercase">
             {content.tag || "ELIGIBILITY CHECK"}
           </span>
           <h2
@@ -98,7 +98,7 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
               src={content.modelImage}
               alt="Eligibility"
               style={{ zIndex: 0 }}
-              className="absolute h-full w-auto max-w-full origin-bottom scale-x-125 scale-y-150 object-contain object-bottom drop-shadow-2xl"
+              className="absolute h-full w-auto max-w-full origin-bottom scale-x-150 scale-y-150 object-contain object-bottom drop-shadow-2xl"
               width={600}
               height={600}
             />
@@ -124,9 +124,9 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
                   viewport={{ once: true }}
                   style={{ margin: `${i === 1 ? "30" : "0"} auto` }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="w-full max-w-xs rounded-3xl border border-gray-100 bg-white px-6 py-4 text-gray-800 shadow-lg"
+                  className="w-full max-w-xs rounded-3xl border border-gray-100 bg-white px-4 py-3 text-gray-800 shadow-lg"
                 >
-                  <p className="text-center text-sm leading-relaxed">{item}</p>
+                  <p className="text-center text-xs leading-relaxed">{item}</p>
                 </motion.div>
               ))}
             </div>
@@ -151,9 +151,9 @@ export function TargetAudienceSection({ cmsContent }: TargetAudienceSectionProps
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="w-full max-w-xs rounded-3xl bg-black px-6 py-4 text-white shadow-xl"
+                  className="w-full max-w-xs rounded-3xl bg-black px-4 py-3 text-white shadow-xl"
                 >
-                  <p className="text-center text-sm leading-relaxed text-white/90">{item}</p>
+                  <p className="text-center text-xs leading-relaxed text-white/90">{item}</p>
                 </motion.div>
               ))}
             </div>

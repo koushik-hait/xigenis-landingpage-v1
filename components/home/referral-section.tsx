@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
 import { XCircle, CheckCircle2, ArrowRight } from "lucide-react"
 
 interface ReferralSectionProps {
@@ -21,6 +22,7 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
     statBoxValue: "3x",
     statBoxText: "Agents with automated referral systems close 3× more deals than those relying on portals alone.",
     btnText: "Build My Own Pipeline",
+    btnLink: "#",
     headBoxValue: "0",
     headBoxTitle: "Referrals this month",
     card1Title: "No post-sale CRM or \n follow-up system",
@@ -75,14 +77,14 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
             </div>
 
             {/* CTA Button */}
-            <div className="flex items-center gap-4 pt-6">
-              <button className="rounded-full bg-black px-8 py-4 text-sm font-bold tracking-widest text-white uppercase transition-colors hover:bg-gray-800">
+            <Link href={content.btnLink} className="flex items-center gap-4 pt-6 group w-fit">
+              <span className="rounded-full bg-black px-8 py-4 text-sm font-bold tracking-widest text-white uppercase transition-colors hover:bg-gray-800">
                 {content.btnText}
-              </button>
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg shadow-orange-200">
+              </span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg shadow-orange-200 transition-transform group-hover:translate-x-1">
                 <ArrowRight className="h-6 w-6" />
               </div>
-            </div>
+            </Link>
           </div>
 
           {/* Right Column: Visual Component */}

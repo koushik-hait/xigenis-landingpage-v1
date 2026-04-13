@@ -16,6 +16,8 @@ const defaultContent = {
   headingSize: "48",
   description: "We work exclusively with real estate professionals who want qualified pipeline — not vanity metrics.",
   descriptionSize: "16",
+  btnText: "START YOUR GROWTH",
+  btnLink: "#",
   features: [
     { title: "100% Real Estate DNA — No Generic Marketers", desc: "Every strategist, every campaign, every creative — built exclusively for real estate.", tag: "Sector Specialists" },
     { title: "Real-Time Dashboard — Know Where Every Rupee Goes", desc: "Live spend tracking, cost-per-lead, and funnel data — 24/7.", tag: "Full Transparency" },
@@ -61,6 +63,8 @@ export default function WhyChooseUsCmsPage() {
             <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange(device, 'btnLink', e.target.value)} /></div>
           </CardContent>
         </Card>
         <Card>

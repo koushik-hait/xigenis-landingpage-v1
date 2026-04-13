@@ -22,6 +22,7 @@ const defaultContentInner = {
   subtitleSize: "12", // in px
   subtitleColor: "#ffffff",
   ctaText: "Apply for Strategy Call",
+  ctaLink: "#",
   ctaBgColor: "#000000",
   ctaTextColor: "#ffffff",
   ctaArrowBgColor: "#F36B2B",
@@ -34,7 +35,14 @@ const defaultContentInner = {
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
   ],
-  checkmarks: ["Instant Access", "Step-By-Step Plan", "Cancel Anytime"]
+  checkmarks: ["Instant Access", "Step-By-Step Plan", "Cancel Anytime"],
+  marqueeSpeed: "40",
+  marqueeLogos: [
+    { image: "/assets/xigenis-logo.png", alt: "The Umansky Team" },
+    { image: "/assets/xigenis-logo.png", alt: "EST" },
+    { image: "/assets/xigenis-logo.png", alt: "FF" },
+    { image: "/assets/xigenis-logo.png", alt: "Godrej" }
+  ]
 }
 
 const defaultContent = {
@@ -48,6 +56,7 @@ export default function HeroCmsPage() {
   const [isSaving, setIsSaving] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadingAvatarIdx, setUploadingAvatarIdx] = useState<number | null>(null)
+  const [uploadingMarqueeIdx, setUploadingMarqueeIdx] = useState<number | null>(null)
 
   // Fetch initial content
   useEffect(() => {
@@ -140,6 +149,35 @@ export default function HeroCmsPage() {
     }
   }
 
+  const handleMarqueeLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number, device: 'desktop' | 'mobile') => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploadingMarqueeIdx(index)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const { success, finalUrl, error } = await uploadFile(formData)
+      
+      if (!success || !finalUrl) {
+        throw new Error(error || "Failed to upload marquee logo")
+      }
+
+      const newLogos = [...content[device].marqueeLogos]
+      newLogos[index] = { 
+        image: finalUrl,
+        alt: newLogos[index]?.alt || ""
+      }
+      handleChange(device, 'marqueeLogos', newLogos)
+      toast.success("Logo uploaded successfully!")
+    } catch (err: any) {
+      toast.error(err.message || "Failed to upload logo")
+    } finally {
+      setUploadingMarqueeIdx(null)
+    }
+  }
+
   const handleSave = async () => {
     setIsSaving(true)
     const { success, error } = await upsertCmsContent('home', 'hero', content)
@@ -217,6 +255,10 @@ export default function HeroCmsPage() {
              <div className="space-y-2">
                <Label>Button Text</Label>
                <Input value={deviceContent.ctaText} onChange={e => handleChange(device, 'ctaText', e.target.value)} />
+             </div>
+             <div className="space-y-2">
+               <Label>Button Link (URL)</Label>
+               <Input value={deviceContent.ctaLink} onChange={e => handleChange(device, 'ctaLink', e.target.value)} />
              </div>
              <div className="grid grid-cols-1 gap-4">
                <div className="space-y-2">
@@ -348,6 +390,109 @@ export default function HeroCmsPage() {
             <Button variant="outline" className="h-full border-dashed" onClick={() => addArrayItem(device, 'avatars')}>
               <Plus className="mr-2 h-4 w-4" /> Add New Avatar
             </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle>Logo Marquee Settings</CardTitle>
+            <CardDescription>Manage the logos that scroll at the bottom of the hero section</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2 max-w-sm">
+              <Label>Marquee Speed (Scroll Duration in seconds)</Label>
+              <div className="flex items-center gap-4">
+                <Input 
+                  type="number" 
+                  value={deviceContent.marqueeSpeed} 
+                  onChange={e => handleChange(device, 'marqueeSpeed', e.target.value)} 
+                />
+                <span className="text-xs text-muted-foreground whitespace-nowrap">Lower = Faster</span>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {deviceContent.marqueeLogos?.map((logo: { image: string, alt: string }, idx: number) => (
+                <div key={idx} className="flex flex-col gap-4 p-4 border rounded-lg bg-card/50">
+                  <div className="flex items-center justify-between">
+                    <Label>Logo {idx + 1}</Label>
+                    <Button variant="ghost" size="sm" onClick={() => {
+                      const newLogos = deviceContent.marqueeLogos.filter((_: any, i: number) => i !== idx);
+                      handleChange(device, 'marqueeLogos', newLogos);
+                    }} className="text-red-500 hover:text-red-700">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="h-20 w-full rounded border bg-muted/30 overflow-hidden flex items-center justify-center p-4">
+                      {logo.image ? (
+                        <img src={logo.image} alt={logo.alt} className="max-w-full max-h-full object-contain filter invert" />
+                      ) : (
+                        <div className="text-muted-foreground text-xs">No Logo</div>
+                      )}
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label className="text-[10px] uppercase font-bold text-muted-foreground">Alt Text / Name</Label>
+                      <Input 
+                        value={logo.alt} 
+                        placeholder="Organization name..." 
+                        onChange={e => {
+                          const newLogos = [...deviceContent.marqueeLogos];
+                          newLogos[idx] = { 
+                            image: newLogos[idx]?.image || "",
+                            alt: e.target.value || "" 
+                          };
+                          handleChange(device, 'marqueeLogos', newLogos);
+                        }} 
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label className="text-[10px] uppercase font-bold text-muted-foreground">Logo Image URL</Label>
+                      <div className="flex gap-2">
+                        <Input 
+                          value={logo.image} 
+                          placeholder="Image URL..." 
+                          className="flex-1"
+                          onChange={e => {
+                            const newLogos = [...deviceContent.marqueeLogos];
+                            newLogos[idx] = { 
+                              image: e.target.value || "",
+                              alt: newLogos[idx]?.alt || ""
+                            };
+                            handleChange(device, 'marqueeLogos', newLogos);
+                          }} 
+                        />
+                        <Button variant="outline" size="icon" className="relative shrink-0" disabled={uploadingMarqueeIdx === idx}>
+                          {uploadingMarqueeIdx === idx ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+                          <input 
+                            type="file" 
+                            accept="image/*"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" 
+                            onChange={(e) => handleMarqueeLogoUpload(e, idx, device)} 
+                            disabled={uploadingMarqueeIdx === idx}
+                          />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              
+              <Button 
+                variant="outline" 
+                className="h-full border-dashed flex flex-col gap-2 min-h-[200px]" 
+                onClick={() => {
+                  const newLogos = [...(deviceContent.marqueeLogos || []), { image: "", alt: "" }];
+                  handleChange(device, 'marqueeLogos', newLogos);
+                }}
+              >
+                <Plus className="h-6 w-6" /> 
+                <span>Add New Logo</span>
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>

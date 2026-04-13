@@ -1,39 +1,43 @@
 "use client"
 
 import dynamic from "next/dynamic"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowDown, ArrowUpRight, Check, CircleCheck, Star, StarHalf } from "lucide-react"
 
 // Dynamically import LogoMarquee to reduce initial bundle size
-const LogoMarquee = dynamic(() => import("./logo-marquee").then(mod => ({ default: mod.LogoMarquee })), {
-  loading: () => <div className="h-20 bg-gray-100 animate-pulse" />,
-  ssr: false
+const LogoMarquee = dynamic(() => import("./logo-marquee").then((mod) => ({ default: mod.LogoMarquee })), {
+  loading: () => <div className="h-20 animate-pulse bg-gray-100" />,
+  ssr: false,
 })
 
 interface HeroSectionProps {
   cmsContent?: {
-    headlineLine1: string;
-    headlineLine2: string;
-    headlineSize: string;
-    headlineColor: string;
-    subtitle: string;
-    subtitleSize: string;
-    subtitleColor: string;
-    ctaText: string;
-    ctaBgColor: string;
-    ctaTextColor: string;
-    ctaArrowBgColor: string;
-    ratingConfig: string;
-    trustedByText: string;
-    backgroundImageUrl: string;
-    avatars: string[];
-    checkmarks: string[];
-  };
+    headlineLine1: string
+    headlineLine2: string
+    headlineSize: string
+    headlineColor: string
+    subtitle: string
+    subtitleSize: string
+    subtitleColor: string
+    ctaText: string
+    ctaLink: string
+    ctaBgColor: string
+    ctaTextColor: string
+    ctaArrowBgColor: string
+    ratingConfig: string
+    trustedByText: string
+    backgroundImageUrl: string
+    avatars: string[]
+    checkmarks: string[]
+    marqueeLogos: { image: string, alt: string }[]
+    marqueeSpeed: string
+  }
 }
 
 export function HeroSection({ cmsContent }: HeroSectionProps) {
-  // Use CMS data if passed, otherwise fall back to the original hardcoded state
-  const content = (cmsContent as any) || {
+  // Default hardcoded state
+  const defaultValues = {
     headlineLine1: "LEAD",
     headlineLine2: "DOMINANCE",
     headlineSize: "100",
@@ -42,6 +46,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
     subtitleSize: "12",
     subtitleColor: "#ffffff",
     ctaText: "Apply for Strategy Call",
+    ctaLink: "#",
     ctaBgColor: "#000000",
     ctaTextColor: "#ffffff",
     ctaArrowBgColor: "#F36B2B",
@@ -54,10 +59,20 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
     ],
-    checkmarks: ["Instant Access", "Step-By-Step Plan", "Cancel Anytime"]
-  };
+    checkmarks: ["Instant Access", "Step-By-Step Plan", "Cancel Anytime"],
+    marqueeSpeed: "40",
+    marqueeLogos: [
+      { image: "/assets/xigenis-logo.png", alt: "The Umansky Team" },
+      { image: "/assets/xigenis-logo.png", alt: "EST" },
+      { image: "/assets/xigenis-logo.png", alt: "FF" },
+      { image: "/assets/xigenis-logo.png", alt: "Godrej" }
+    ]
+  }
 
-  console.log(content);
+  // Merge CMS data with defaults to handle partial objects correctly
+  const content = { ...defaultValues, ...cmsContent }
+
+  console.log(content)
 
   return (
     <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
@@ -75,7 +90,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-20 pb-30 sm:px-8 lg:px-12">
-        <div className="mt-8 flex max-w-2xl flex-col items-start">
+        <div className="mt-8 flex max-w-2xl flex-col items-start lg:max-w-4xl">
           {/* Trust Badge Area */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -107,9 +122,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
                 </div>
                 <span className="text-[11px] font-medium tracking-wider opacity-70">{content.ratingConfig}</span>
               </div>
-              <span className="mt-0.5 text-[10px] font-bold tracking-widest uppercase">
-                {content.trustedByText}
-              </span>
+              <span className="mt-0.5 text-[10px] font-bold tracking-widest uppercase">{content.trustedByText}</span>
             </div>
           </motion.div>
 
@@ -121,7 +134,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             style={{
               color: content.headlineColor,
               fontSize: `${content.headlineSize}px`,
-              lineHeight: '1.05'
+              lineHeight: "1.05",
             }}
             className="mb-8 space-y-1 font-serif tracking-wide drop-shadow-lg"
           >
@@ -137,9 +150,9 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             style={{
               color: content.subtitleColor,
               fontSize: `${content.subtitleSize}px`,
-              lineHeight: '1.05'
+              // lineHeight: "1.05",
             }}
-            className="mb-10 max-w-[440px]"
+            className="mb-10 max-w-4xl"
           >
             {content.subtitle}
           </motion.p>
@@ -151,27 +164,26 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mb-2"
           >
-
-            <button
-              onClick={() => { console.log('Apply for Strategy Call') }}
-              className="flex justify-center gap-2 items-center mx-auto shadow-xl text-lg backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-emerald-500 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+            <Link
+              href={content.ctaLink}
+              className="group relative isolation-auto z-10 mx-auto flex items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-gray-50 px-4 py-2 text-lg shadow-xl backdrop-blur-md before:absolute before:-left-full before:-z-10 before:aspect-square before:w-full before:rounded-full before:bg-emerald-500 before:transition-all before:duration-700 hover:text-gray-50 before:hover:left-0 before:hover:w-full before:hover:scale-150 before:hover:duration-700 lg:font-semibold"
               style={{
                 backgroundColor: content.ctaBgColor,
                 color: content.ctaTextColor,
-                borderColor: content.ctaTextColor
+                borderColor: content.ctaTextColor,
               }}
             >
               <span className="text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
               <div
-                className="relative rounded-full p-2.5 transition-all duration-300 group-hover:rotate-90 group-hover:scale-110 ease-linear"
+                className="relative rounded-full p-2.5 transition-all duration-300 ease-linear group-hover:scale-110 group-hover:rotate-90"
                 style={{
                   backgroundColor: content.ctaArrowBgColor,
-                  color: content.ctaTextColor
+                  color: content.ctaTextColor,
                 }}
               >
                 <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
               </div>
-            </button>
+            </Link>
           </motion.div>
 
           {/* Checkmarks */}
@@ -211,7 +223,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
         </div>
       </motion.div>
 
-      <LogoMarquee />
+      <LogoMarquee logos={content.marqueeLogos} speed={content.marqueeSpeed} />
     </section>
   )
 }

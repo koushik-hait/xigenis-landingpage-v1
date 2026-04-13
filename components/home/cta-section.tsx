@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 
 interface CTASectionProps {
@@ -15,6 +16,7 @@ const CTASection = ({ cmsContent }: CTASectionProps) => {
     description:
       "Discover how our system helps real estate professionals generate qualified leads, increase site visits, and close more deals.",
     buttonText: "Book Your Strategy Call",
+    buttonLink: "#",
     headingSize: "48",
     descriptionSize: "16",
     ...cmsContent,
@@ -49,12 +51,12 @@ const CTASection = ({ cmsContent }: CTASectionProps) => {
 
           {/* Action Button */}
           <div className="pt-4">
-            <button className="group flex items-center gap-4 rounded-full bg-white py-3 pr-3 pl-10 shadow-2xl transition-all duration-300 hover:bg-gray-100">
+            <Link href={content.buttonLink} className="group flex items-center gap-4 rounded-full bg-white py-3 pr-3 pl-10 shadow-2xl transition-all duration-300 hover:bg-gray-100 w-fit">
               <span className="text-sm font-bold tracking-widest text-black uppercase">{content.buttonText}</span>
               <div className="rounded-full bg-orange-500 p-3 transition-transform duration-300 group-hover:rotate-45">
                 <ArrowUpRight className="h-6 w-6 text-white" />
               </div>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

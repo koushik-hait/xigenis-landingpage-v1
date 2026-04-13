@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 
 interface AboutSectionProps {
   cmsContent?: any
@@ -14,6 +15,7 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
     description:
       "At Xigenis, we help real estate professionals build a predictable pipeline of qualified property buyers. \n\nOur system combines AI-driven lead generation, targeted campaigns, and smart follow-up automation to attract serious buyers and close more deals consistently.",
     btnText: "Build My Pipeline",
+    btnLink: "#",
     stat1Value: "2X",
     stat1Label: "Faster Growth",
     stat1Sub: "Vs Industry Peers",
@@ -63,12 +65,12 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
           </p>
 
           {/* CTA Button */}
-          <button className="group flex items-center gap-3 rounded-full bg-black py-2 pr-2 pl-8 text-white transition-transform hover:scale-105">
+          <Link href={content.btnLink} className="group flex items-center gap-3 rounded-full bg-black py-2 pr-2 pl-8 text-white transition-transform hover:scale-105">
             <span className="text-xs font-bold tracking-widest uppercase">{content.btnText}</span>
             <div className="rounded-full bg-orange-500 p-2">
               <ArrowUpRight className="h-5 w-5 text-white" />
             </div>
-          </button>
+          </Link>
         </div>
 
         {/* ROW 2: Central Visual & Stat Cards */}

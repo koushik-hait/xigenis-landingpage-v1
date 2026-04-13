@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Star } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-is-mobile"
 
@@ -51,6 +52,7 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
     description:
       "See how agents, brokers, and developers are generating qualified buyer leads, increasing site visits, and closing more property deals with our proven system.",
     btnText: "See How It Works",
+    btnLink: "#",
     testimonials: [
       {
         name: "Rahul Sharma",
@@ -162,12 +164,12 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
 
           {/* CTA Button */}
           <div className="mt-8 flex items-center justify-center gap-3">
-            <button className="group flex items-center gap-3 rounded-full bg-black py-2.5 pr-2.5 pl-8 text-white transition-transform hover:scale-105">
+            <Link href={content.btnLink} className="group flex items-center gap-3 rounded-full bg-black py-2.5 pr-2.5 pl-8 text-white transition-transform hover:scale-105">
               <span className="text-[10px] font-bold tracking-widest uppercase">{content.btnText}</span>
               <div className="rounded-full bg-orange-500 p-2 transition-colors group-hover:bg-orange-400">
                 <ArrowUpRight className="h-4 w-4 text-white" />
               </div>
-            </button>
+            </Link>
           </div>
         </div>
 

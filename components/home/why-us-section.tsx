@@ -2,11 +2,10 @@
 
 import React from "react"
 import Image from "next/image"
-import { Building2, BarChart3, ShieldCheck, UserCheck, CalendarDays, Zap } from "lucide-react"
+import Link from "next/link"
+import { Building2, BarChart3, ShieldCheck, UserCheck, CalendarDays, Zap, ArrowUpRight } from "lucide-react"
 
-import { ArrowUpRight } from "lucide-react"
-
-const WhyChooseUsFooter = ({ stats }: { stats: any[] }) => {
+const WhyChooseUsFooter = ({ stats, btnText, btnLink }: { stats: any[], btnText: string, btnLink: string }) => {
   return (
     <div className="max-w-8xl mx-auto my-10 w-full px-4">
       <div className="flex flex-col items-center justify-between gap-8 rounded-2xl bg-[#D9D9D9] p-6 md:flex-row md:gap-4 md:rounded-[2rem] md:p-10">
@@ -23,14 +22,14 @@ const WhyChooseUsFooter = ({ stats }: { stats: any[] }) => {
         </div>
 
         {/* Action Button */}
-        <div className="flex items-center gap-3 self-end md:self-center">
-          <button className="rounded-full bg-black px-8 py-4 text-[11px] font-black tracking-[0.2em] text-white uppercase shadow-lg transition-all hover:bg-gray-800">
-            Book a Strategy Call
-          </button>
-          <div className="cursor-pointer rounded-full bg-[#FF6B35] p-4 shadow-lg shadow-orange-200 transition-transform duration-300 hover:rotate-45">
+        <Link href={btnLink} className="flex items-center gap-3 self-end md:self-center group">
+          <span className="rounded-full bg-black px-8 py-4 text-[11px] font-black tracking-[0.2em] text-white uppercase shadow-lg transition-all hover:bg-gray-800">
+            {btnText}
+          </span>
+          <div className="rounded-full bg-[#FF6B35] p-4 shadow-lg shadow-orange-200 transition-transform duration-300 group-hover:rotate-45">
             <ArrowUpRight className="h-6 w-6 text-white" />
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   )
@@ -54,6 +53,8 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
     pillText: "WHY LEADERS CHOOSE US",
     heading: "Built for Those Who Close, Not Chase.",
     description: "We work exclusively with real estate professionals who want qualified pipeline — not vanity metrics.",
+    btnText: "START YOUR GROWTH",
+    btnLink: "#",
     features: [
       {
         title: "100% Real Estate DNA — No Generic Marketers",
@@ -263,7 +264,7 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
         </div>
 
         {/* Footer Stats */}
-        <WhyChooseUsFooter stats={content.footerStats} />
+        <WhyChooseUsFooter stats={content.footerStats} btnText={content.btnText} btnLink={content.btnLink} />
       </div>
     </section>
   )

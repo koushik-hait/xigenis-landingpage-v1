@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRight, Check } from "lucide-react"
 
 interface FixSectionProps {
@@ -16,6 +17,7 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
     description:
       "Not another portal. Not a freelancer running random ads. A full pipeline — built, managed, and optimised for one outcome: closed deals in 90 days.",
     btnText: "Build My Pipeline",
+    btnLink: "#",
     card1Title: "Complete Ad-to-Close Funnel",
     card1Text: "Targeting, nurture, and conversion — fully managed.",
     card2Title: "Qualified Buyers Only",
@@ -64,14 +66,14 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
             </p>
 
             {/* CTA Button */}
-            <div className="flex items-center gap-4 pt-6">
-              <button className="rounded-full bg-white px-10 py-5 text-sm font-bold tracking-widest text-black uppercase shadow-2xl shadow-gray-200/20 transition-colors hover:bg-gray-100">
+            <Link href={content.btnLink} className="flex items-center gap-4 pt-6 group">
+              <span className="rounded-full bg-white px-10 py-5 text-sm font-bold tracking-widest text-black uppercase shadow-2xl shadow-gray-200/20 transition-colors hover:bg-gray-100">
                 {content.btnText}
-              </button>
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white shadow-xl shadow-orange-300/30">
+              </span>
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white shadow-xl shadow-orange-300/30 transition-transform group-hover:translate-x-1">
                 <ArrowRight className="h-7 w-7" />
               </div>
-            </div>
+            </Link>
           </div>
 
           {/* Right Column: Key Feature Cards Overlay */}

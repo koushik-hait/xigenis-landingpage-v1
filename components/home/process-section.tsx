@@ -2,14 +2,16 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { CheckCircle2, ArrowUpRight } from "lucide-react"
 
 interface ProcessFooterProps {
   highlights: { label: string; sub: string }[]
   btnText: string
+  btnLink: string
 }
 
-const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText }) => {
+const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText, btnLink }) => {
   return (
     <div className="max-w-8xl mx-auto mt-12 mb-20 rounded-2xl border border-orange-100 bg-[#FFF5F1] px-6 py-4 shadow-sm md:rounded-full md:px-12">
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
@@ -31,14 +33,14 @@ const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText }) =>
         </div>
 
         {/* Action Button */}
-        <div className="flex flex-shrink-0 items-center gap-2">
-          <button className="rounded-full bg-black px-8 py-3 text-[11px] font-black tracking-widest text-white uppercase transition-colors hover:bg-gray-800">
+        <Link href={btnLink} className="flex flex-shrink-0 items-center gap-2 group">
+          <span className="rounded-full bg-black px-8 py-3 text-[11px] font-black tracking-widest text-white uppercase transition-colors hover:bg-gray-800">
             {btnText}
-          </button>
-          <div className="cursor-pointer rounded-full bg-orange-500 p-3 shadow-lg shadow-orange-200 transition-transform hover:scale-105">
+          </span>
+          <div className="rounded-full bg-orange-500 p-3 shadow-lg shadow-orange-200 transition-transform group-hover:scale-105">
             <ArrowUpRight className="h-5 w-5 text-white" />
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   )
@@ -136,6 +138,7 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
       { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" },
     ],
     footerBtnText: "START YOUR 15 DAYS BUILD",
+    footerBtnLink: "#",
     headingSize: "48",
     descriptionSize: "16",
     ...cmsContent,
@@ -296,7 +299,7 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
         </div>
 
         {/* Process Footer */}
-        <ProcessFooter highlights={content.footerHighlights} btnText={content.footerBtnText} />
+        <ProcessFooter highlights={content.footerHighlights} btnText={content.footerBtnText} btnLink={content.footerBtnLink} />
       </div>
     </section>
   )

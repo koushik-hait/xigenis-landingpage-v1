@@ -18,7 +18,9 @@ const defaultContent = {
   headingSize: '48',
   description: "We don't hide behind dashboards or vanity metrics. What you see is exactly what is happening.",
   descriptionSize: '16',
-  buttonText: 'BOOK A FREE STRATEGY CALL', image: '/assets/man-on-house.png',
+  buttonText: 'BOOK A FREE STRATEGY CALL',
+  buttonLink: '#',
+  image: '/assets/man-on-house.png',
   features: [
     { title: "Limited Partners Per City", description: "We take one client per micro-market. Your direct competitors cannot access our system.", tag: "Zero conflict of interest" },
     { title: "End-to-End Data Encryption", description: "Every lead, every conversation, every file is fully encrypted.", tag: "Your data. Always safe." },
@@ -67,6 +69,7 @@ export default function FeaturesAdmin() {
               <div className="space-y-2"><Label>Description</Label><Textarea value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} rows={3} /></div>
               <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
               <div className="space-y-2"><Label>Button Text</Label><Input value={d.buttonText} onChange={e => handleChange(device, 'buttonText', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.buttonLink || ""} onChange={e => handleChange(device, 'buttonLink', e.target.value)} /></div>
             </CardContent>
           </Card>
           <Card>

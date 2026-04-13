@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 
 interface PerformerMetric {
   label: string
@@ -27,6 +28,7 @@ interface TopPerformerSectionProps {
     descriptionSize: string
     descriptionColor: string
     ctaText: string
+    ctaLink: string
     ctaBgColor: string
     ctaTextColor: string
     ctaArrowBgColor: string
@@ -35,6 +37,7 @@ interface TopPerformerSectionProps {
       number: string
       labels: string[]
       subLabels: string
+      link: string
     }
   }
 }
@@ -51,6 +54,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
     descriptionSize: "14",
     descriptionColor: "#6B7280",
     ctaText: "Apply for Strategy Call",
+    ctaLink: "#",
     ctaBgColor: "#000000",
     ctaTextColor: "#ffffff",
     ctaArrowBgColor: "#F36B2B",
@@ -93,6 +97,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
       number: "12",
       labels: ["More", "Success", "Stories"],
       subLabels: "Agents • CPs Builders • Brokers",
+      link: "#",
     },
   }
 
@@ -149,10 +154,8 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="mb-8"
             >
-              <button
-                onClick={() => {
-                  console.log("Apply for Strategy Call")
-                }}
+              <Link
+                href={content.ctaLink || "#"}
                 className="group relative inline-flex items-center gap-6 overflow-hidden rounded-full py-2.5 pr-2.5 pl-8 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl active:scale-95"
                 style={{
                   backgroundColor: content.ctaBgColor,
@@ -172,13 +175,13 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
 
                 {/* Shine effect */}
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
-              </button>
+              </Link>
             </motion.div>
           </div>
 
           {/* Right Cards Track */}
           <div className="no-scrollbar -mx-6 flex-1 overflow-x-auto px-6 pb-4 lg:mx-0 lg:px-0">
-            <div className="flex h-full min-w-max gap-8 lg:grid lg:min-w-0 lg:grid-cols-4 lg:gap-0">
+            <div className="flex h-full min-w-max gap-4 lg:grid lg:min-w-0 lg:grid-cols-4 lg:gap-0">
               {content.performers.map((p: any, index: number) => (
                 <motion.div
                   key={index}
@@ -186,7 +189,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className={`flex w-[280px] flex-1 flex-col items-center px-4 sm:px-6 lg:w-auto ${
+                  className={`flex w-[200px] flex-1 flex-col items-center px-3 sm:px-3 lg:w-[280px] ${
                     index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
                   }`}
                 >
@@ -217,18 +220,20 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               ))}
 
               {/* + More Success Stories Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.7 }}
-                className="relative flex w-[280px] flex-1 flex-col items-center justify-center px-4 sm:px-6 lg:w-auto lg:border-l lg:border-gray-100"
+              <Link
+                href={content.footerCard.link || "#"}
+                className="relative flex w-[280px] flex-1 flex-col items-center justify-center px-4 sm:px-6 lg:w-auto lg:border-l lg:border-gray-100 group overflow-hidden"
               >
-                <div className="absolute inset-0 top-1/2 left-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop')] bg-cover bg-center opacity-10 blur-xl" />
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7 }}
+                  className="absolute inset-0 top-1/2 left-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop')] bg-cover bg-center opacity-10 blur-xl transition-transform duration-700 group-hover:scale-150"
+                />
 
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <div className="relative mb-2 text-4xl font-medium text-black sm:text-5xl">
-                    <span className="absolute top-1 -left-6 text-2xl font-normal">+</span>
                     {content.footerCard.number}
                   </div>
                   <div className="mb-6 space-y-1 text-[11px] leading-tight font-bold tracking-wider text-black uppercase">
@@ -240,8 +245,6 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   </div>
 
                   <div className="text-[10px] leading-relaxed font-bold text-[#F36B2B] uppercase">
-                    {/* {content.footerCard.subLabels.split('Builders').join('<br/>Builders')} */}
-                    {/* Note: In a real app we might just use \n and preserve whitespace, but keeping it simple for now */}
                     <div
                       dangerouslySetInnerHTML={{
                         __html: content.footerCard.subLabels.replace("Builders", "<br/>Builders"),
@@ -249,7 +252,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                     />
                   </div>
                 </div>
-              </motion.div>
+              </Link>
             </div>
           </div>
         </div>

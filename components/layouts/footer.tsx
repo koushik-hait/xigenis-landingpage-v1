@@ -82,7 +82,8 @@ export default function Footer() {
             |{" "}
             <Link href="/terms-and-conditions" className="transition-colors hover:text-black">
               Terms & Conditions
-            </Link>
+            </Link>{" "}
+            |{" "}
             <Link href="/refund-policy" className="transition-colors hover:text-black">
               Refund Policy
             </Link>{" "}

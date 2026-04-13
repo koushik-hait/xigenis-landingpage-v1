@@ -18,15 +18,16 @@ const defaultContent = {
   description: "Turning property insights into measurable success across every segment.",
   descriptionSize: "16",
   btnText: "See How It Works",
+  btnLink: "#",
   mainCardBg: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
   mainCardTitle: "Residential Real Estate", mainCardSubtitle: "Achievement Metrics:",
   mainCardStat1Value: "340+", mainCardStat1Label: "Residential Campaigns Delivered",
   mainCardStat2Value: "78%", mainCardStat2Label: "Pre-Qualified Buyer Rate",
   metricsData: [
-    { title: "Commercial Real Estate", image: "https://images.unsplash.com/photo-1486406146926-c627a92af1bd?q=80&w=2072&auto=format&fit=crop" },
-    { title: "Industrial Real Estate", image: "https://images.unsplash.com/photo-1590674116584-d131495c256a?q=80&w=2070&auto=format&fit=crop" },
-    { title: "Farmlands & Farmhouses", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop" },
-    { title: "Special Purpose Real Estate", image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1996&auto=format&fit=crop" }
+    { title: "Commercial Real Estate", image: "https://images.unsplash.com/photo-1486406146926-c627a92af1bd?q=80&w=2072&auto=format&fit=crop", link: "#" },
+    { title: "Industrial Real Estate", image: "https://images.unsplash.com/photo-1590674116584-d131495c256a?q=80&w=2070&auto=format&fit=crop", link: "#" },
+    { title: "Farmlands & Farmhouses", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop", link: "#" },
+    { title: "Special Purpose Real Estate", image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1996&auto=format&fit=crop", link: "#" }
   ]
 }
 
@@ -70,6 +71,7 @@ export default function PerformanceCmsPage() {
                     <div className="space-y-2"><Label>Description</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
                     <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
                     <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange(device, 'btnLink', e.target.value)} /></div>
                 </CardContent>
             </Card>
             <Card>
@@ -93,6 +95,7 @@ export default function PerformanceCmsPage() {
                         <div key={index} className="p-4 border rounded-md relative space-y-4 bg-muted/20">
                             <Button type="button" variant="ghost" size="icon" className="absolute right-2 top-2 text-destructive hover:bg-destructive/10" onClick={() => removeMetricCard(device, index)}><Trash2 className="w-4 h-4" /></Button>
                             <div className="space-y-2 pr-8"><Label>Title {index + 1}</Label><Input value={item.title} onChange={e => handleMetricDataChange(device, index, 'title', e.target.value)} /></div>
+                            <div className="space-y-2"><Label>Link URL</Label><Input value={item.link || ""} onChange={e => handleMetricDataChange(device, index, 'link', e.target.value)} /></div>
                             <div className="space-y-2"><Label>Background Image URL / Upload</Label>
                                 <div className="flex gap-4"><Input value={item.image} onChange={e => handleMetricDataChange(device, index, 'image', e.target.value)} className="flex-1" /><div className="relative overflow-hidden"><Button type="button" variant="outline" disabled={isUploadingValue === `image-${index}`}>{isUploadingValue === `image-${index}` ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}Upload</Button><Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, device, 'image', index)} /></div></div>
                                 {item.image && (<img src={item.image} alt="Preview" className="h-20 object-cover mt-2 rounded border" />)}

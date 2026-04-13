@@ -2,182 +2,93 @@ import React from "react"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Megaabyte",
-  description: "Privacy Policy for Megaabyte services.",
+  title: "Privacy Policy | Xigenis",
+  description: "Privacy Policy for Xigenis services.",
 }
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
-      <h1 className="mb-8 text-4xl font-bold">Privacy Policy</h1>
+    <>
+      <section className="min-h-[40vh] bg-zinc-950 flex flex-col justify-end pb-16 pt-40 relative z-10">
+        <div className="container mx-auto px-6 max-w-4xl relative z-10">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 tracking-tight fade-in-up">Privacy Policy</h1>
+          <p className="text-zinc-400 text-lg fade-in-up" data-delay="0.1">Last updated: April 13, 2026</p>
+        </div>
+      </section>
 
-      <div className="text-muted-foreground space-y-8 text-lg leading-relaxed">
-        <section>
-          <h2 className="text-foreground mb-4 text-2xl font-semibold">Introduction</h2>
-          <p>
-            This Privacy Policy describes how 7602308104 and its affiliates (collectively "7602308104, we, our, us")
-            collect, use, share, protect or otherwise process your information/ personal data through our website
-            https://megaabyte.com (hereinafter referred to as Platform). Please note that you may be able to browse
-            certain sections of the Platform without registering with us. We do not offer any product/service under this
-            Platform outside India and your personal data will primarily be stored and processed in India. By visiting
-            this Platform, providing your information or availing any product/service offered on the Platform, you
-            expressly agree to be bound by the terms and conditions of this Privacy Policy, the Terms of Use and the
-            applicable service/product terms and conditions, and agree to be governed by the laws of India including but
-            not limited to the laws applicable to data protection and privacy. If you do not agree please do not use or
-            access our Platform.
-          </p>
-        </section>
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="prose prose-lg prose-zinc max-w-none font-light fade-in-up space-y-6 text-zinc-700">
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Privacy Matters</h3>
+            <p>Protecting your private information is our priority. This Statement of Privacy applies to xigenis.com, and Xigenis LLC and governs data collection and usage. For the purposes of this Privacy Policy, unless otherwise noted, all references to Xigenis include xigenis.com and Xigenis. The Xigenis website is a Services list and information site. By using the Xigenis LLC website, you consent to the data practices described in this statement.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Collection</h3>
-          <p>
-            We collect your personal data when you use our Platform, services or otherwise interact with us during the
-            course of our relationship and related information provided from time to time. Some of the information that
-            we may collect includes but is not limited to personal data / information provided to us during
-            sign-up/registering or using our Platform such as name, date of birth, address, telephone/mobile number,
-            email ID and/or any such information shared as proof of identity or address. Some of the sensitive personal
-            data may be collected with your consent, such as your bank account or credit or debit card or other payment
-            instrument information or biometric information such as your facial features or physiological information
-            (in order to enable use of certain features when opted for, available on the Platform) etc all of the above
-            being in accordance with applicable law(s) You always have the option to not provide information, by
-            choosing not to use a particular service or feature on the Platform. We may track your behaviour,
-            preferences, and other information that you choose to provide on our Platform. This information is compiled
-            and analysed on an aggregated basis. We will also collect your information related to your transactions on
-            Platform and such third-party business partner platforms. When such a third-party business partner collects
-            your personal data directly from you, you will be governed by their privacy policies. We shall not be
-            responsible for the third-party business partner’s privacy practices or the content of their privacy
-            policies, and we request you to read their privacy policies prior to disclosing any information. If you
-            receive an email, a call from a person/association claiming to be 7602308104 seeking any personal data like
-            debit/credit card PIN, net-banking or mobile banking password, we request you to never provide such
-            information. If you have already revealed such information, report it immediately to an appropriate law
-            enforcement agency.
-          </p>
-        </section>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Collection of your Personal Information</h3>
+            <p>In order to better provide you with products and services offered, Xigenis may collect personally identifiable information, such as your:</p>
+            <ul className="list-disc pl-6 space-y-2">
+                <li>First and Last Name</li>
+                <li>Mailing Address</li>
+                <li>E-mail Address</li>
+                <li>Phone Number</li>
+                <li>Employer</li>
+                <li>Job Title</li>
+                <li>LinkedIn profile URL</li>
+            </ul>
+            <p>If you purchase Xigenis products and services, we collect billing and credit card information. This information is used to complete the purchase transaction.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Usage</h3>
-          <p>
-            We use personal data to provide the services you request. To the extent we use your personal data to market
-            to you, we will provide you the ability to opt-out of such uses. We use your personal data to assist sellers
-            and business partners in handling and fulfilling orders; enhancing customer experience; to resolve disputes;
-            troubleshoot problems; inform you about online and offline offers, products, services, and updates;
-            customise your experience; detect and protect us against error, fraud and other criminal activity; enforce
-            our terms and conditions; conduct marketing research, analysis and surveys; and as otherwise described to
-            you at the time of collection of information. You understand that your access to these products/services may
-            be affected in the event permission is not provided to us.
-          </p>
-        </section>
+            <p>We do not collect any personal information about you unless you voluntarily provide it to us. However, you may be required to provide certain personal information to us when you elect to use certain products or services. These may include (a) registering for an account; (b) entering a sweepstakes or contest sponsored by us or one of our partners; (c) signing up for special offers from selected third parties; (d) sending us an email message; (e) submitting your credit card or other payment information when ordering and purchasing products and services. To wit, we will use your information for, but not limited to, communicating with you in relation to services and/or products you have requested from us. We also may gather additional personal or non-personal information in the future.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Sharing</h3>
-          <p>
-            We may share your personal data internally within our group entities, our other corporate entities, and
-            affiliates to provide you access to the services and products offered by them. These entities and affiliates
-            may market to you as a result of such sharing unless you explicitly opt-out. We may disclose personal data
-            to third parties such as sellers, business partners, third party service providers including logistics
-            partners, prepaid payment instrument issuers, third-party reward programs and other payment opted by you.
-            These disclosure may be required for us to provide you access to our services and products offered to you,
-            to comply with our legal obligations, to enforce our user agreement, to facilitate our marketing and
-            advertising activities, to prevent, detect, mitigate, and investigate fraudulent or illegal activities
-            related to our services. We may disclose personal and sensitive personal data to government agencies or
-            other authorised law enforcement agencies if required to do so by law or in the good faith belief that such
-            disclosure is reasonably necessary to respond to subpoenas, court orders, or other legal process. We may
-            disclose personal data to law enforcement offices, third party rights owners, or others in the good faith
-            belief that such disclosure is reasonably necessary to: enforce our Terms of Use or Privacy Policy; respond
-            to claims that an advertisement, posting or other content violates the rights of a third party; or protect
-            the rights, property or personal safety of our users or the general public.
-          </p>
-        </section>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Use of your Personal Information</h3>
+            <p>Xigenis collects and uses your personal information to operate and deliver the services you have requested.</p>
+            <p>Xigenis may also use your personally identifiable information to inform you of other products or services available from Xigenis and its affiliates.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Security Precautions</h3>
-          <p>
-            To protect your personal data from unauthorised access or disclosure, loss or misuse we adopt reasonable
-            security practices and procedures. Once your information is in our possession or whenever you access your
-            account information, we adhere to our security guidelines to protect it against unauthorised access and
-            offer the use of a secure server. However, the transmission of information is not completely secure for
-            reasons beyond our control. By using the Platform, the users accept the security implications of data
-            transmission over the internet and the World Wide Web which cannot always be guaranteed as completely
-            secure, and therefore, there would always remain certain inherent risks regarding use of the Platform. Users
-            are responsible for ensuring the protection of login and password records for their account.
-          </p>
-        </section>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Sharing Information with Third Parties</h3>
+            <p>Xigenis does not sell, rent or lease its customer lists to third parties.</p>
+            <p>Xigenis may, from time to time, contact you on behalf of external business partners about a particular offering that may be of interest to you. In those cases, your unique personally identifiable information (e-mail, name, address, telephone number) is not transferred to the third party. Xigenis may share data with trusted partners to help perform statistical analysis, send you email or postal mail, provide customer support, or arrange for deliveries. All such third parties are prohibited from using your personal information except to provide these services to Xigenis, and they are required to maintain the confidentiality of your information.</p>
+            <p>Xigenis may disclose your personal information, without notice, if required to do so by law or in the good faith belief that such action is necessary to: (a) conform to the edicts of the law or comply with legal process served on Xigenis or the site; (b) protect and defend the rights or property of Xigenis; and/or (c) act under exigent circumstances to protect the personal safety of users of Xigenis, or the public.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Data Deletion and Retention</h3>
-          <p>
-            You have an option to delete your account by visiting your profile and settings on our Platform , this
-            action would result in you losing all information related to your account. You may also write to us at the
-            contact information provided below to assist you with these requests. We may in event of any pending
-            grievance, claims, pending shipments or any other services we may refuse or delay deletion of the account.
-            Once the account is deleted, you will lose access to the account. We retain your personal data information
-            for a period no longer than is required for the purpose for which it was collected or as required under any
-            applicable law. However, we may retain data related to you if we believe it may be necessary to prevent
-            fraud or future abuse or for other legitimate purposes. We may continue to retain your data in anonymised
-            form for analytical and research purposes.
-          </p>
-        </section>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Tracking User Behavior</h3>
+            <p>Xigenis may keep track of the websites and pages our users visit within Xigenis in order to determine what Xigenis services are the most popular. This data is used to deliver customized content and advertising within Xigenis to customers whose behavior indicates that they are interested in a particular subject area.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Your Rights</h3>
-          <p>
-            You may access, rectify, and update your personal data directly through the functionalities provided on the
-            Platform.
-          </p>
-        </section>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Automatically Collected Information</h3>
+            <p>Information about your computer hardware and software may be automatically collected by Xigenis. This information can include: your IP address, browser type, domain names, access times and referring website addresses. This information is used for the operation of the service, to maintain quality of the service, and to provide general statistics regarding use of the Xigenis website.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Consent</h3>
-          <p>
-            By visiting our Platform or by providing your information, you consent to the collection, use, storage,
-            disclosure and otherwise processing of your information on the Platform in accordance with this Privacy
-            Policy. If you disclose to us any personal data relating to other people, you represent that you have the
-            authority to do so and permit us to use the information in accordance with this Privacy Policy. You, while
-            providing your personal data over the Platform or any partner platforms or establishments, consent to us
-            (including our other corporate entities, affiliates, lending partners, technology partners, marketing
-            channels, business partners and other third parties) to contact you through SMS, instant messaging apps,
-            call and/or e-mail for the purposes specified in this Privacy Policy. You have an option to withdraw your
-            consent that you have already provided by writing to the Grievance Officer at the contact information
-            provided below. Please mention “Withdrawal of consent for processing personal data” in your subject line of
-            your communication. We may verify such requests before acting on our request. However, please note that your
-            withdrawal of consent will not be retrospective and will be in accordance with the Terms of Use, this
-            Privacy Policy, and applicable laws. In the event you withdraw consent given to us under this Privacy
-            Policy, we reserve the right to restrict or deny the provision of our services for which we consider such
-            information to be necessary.
-          </p>
-        </section>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Links</h3>
+            <p>This website contains links to other sites. Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.</p>
 
-        <section>
-          <h3 className="text-foreground mb-2 text-xl font-semibold">Changes to this Privacy Policy</h3>
-          <p>
-            Please check our Privacy Policy periodically for changes. We may update this Privacy Policy to reflect
-            changes to our information practices. We may alert / notify you about the significant changes to the Privacy
-            Policy, in the manner as may be required under applicable laws.
-          </p>
-        </section>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Right to Deletion</h3>
+            <p>Subject to certain exceptions set out below, on receipt of a verifiable request from you, we will:</p>
+            <ul className="list-disc pl-6 space-y-2">
+                <li>Delete your personal information from our records; and Direct any service providers to delete your personal information from their records.</li>
+            </ul>
+            <p>Please note that we may not be able to comply with requests to delete your personal information if it is necessary to:</p>
+            <ul className="list-disc pl-6 space-y-2">
+                <li>Complete the transaction for which the personal information was collected, fulfill the terms of a written warranty or product recall conducted in accordance with federal law, provide a good or service requested by you, or reasonably anticipated within the context of our ongoing business relationship with you, or otherwise perform a contract between you and us;</li>
+                <li>Detect security incidents, protect against malicious, deceptive, fraudulent, or illegal activity; or prosecute those responsible for that activity;</li>
+                <li>Debug to identify and repair errors that impair existing intended functionality;</li>
+                <li>Exercise free speech, ensure the right of another consumer to exercise his or her right of free speech, or exercise another right provided for by law;</li>
+                <li>Comply with the California Electronic Communications Privacy Act;</li>
+                <li>Engage in public or peer-reviewed scientific, historical, or statistical research in the public interest that adheres to all other applicable ethics and privacy laws, when our deletion of the information is likely to render impossible or seriously impair the achievement of such research, provided we have obtained your informed consent;</li>
+                <li>Enable solely internal uses that are reasonably aligned with your expectations based on your relationship with us;</li>
+                <li>Comply with an existing legal obligation; or</li>
+                <li>Otherwise use your personal information, internally, in a lawful manner that is compatible with the context in which you provided the information.</li>
+            </ul>
 
-        <section className="bg-muted rounded-lg p-6">
-          <h2 className="text-foreground mb-4 text-2xl font-semibold">Grievance Officer</h2>
-          <div className="space-y-2">
-            <div>
-              <span className="font-semibold">Name of the Office:</span> Megaabyte Software
-            </div>
-            <div>
-              <span className="font-semibold">Designation:</span> CEO
-            </div>
-            <div>
-              <span className="font-semibold">Name and Address of the Company:</span> Megaabyte, kashinathpur, West
-              Bengal, India
-            </div>
-            <div>
-              <span className="font-semibold">Contact us:</span>
-            </div>
-            <div>
-              <span className="font-semibold">Phone: 7602308104</span> Time: Monday - Friday(9:00 - 18:00)
-            </div>
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Children Under Thirteen</h3>
+            <p>Xigenis does not knowingly collect personally identifiable information from children under the age of thirteen. If you are under the age of thirteen, you must ask your parent or guardian for permission to use this website.</p>
+
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">E-mail Communications</h3>
+            <p>From time to time, Xigenis may contact you via email for the purpose of providing announcements, promotional offers, alerts, confirmations, surveys, and/or other general communication. In order to improve our Services, we may receive a notification when you open an email from Xigenis or click on a link therein.</p>
+            <p>If you would like to stop receiving marketing or promotional communications via email from Xigenis, you may opt out of such communications by emailing xigenis.com a request to be removed from marketing communication or by clicking the unsubscribe button.</p>
+
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Changes to this Statement</h3>
+            <p>Xigenis reserves the right to change this Privacy Policy from time to time. We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your account, by placing a prominent notice on our website, and/or by updating any privacy information. Your continued use of the website and/or Services available after such modifications will constitute your: (a) acknowledgment of the modified Privacy Policy; and (b) agreement to abide and be bound by that Policy.</p>
+
+            <h3 className="text-2xl font-serif text-zinc-900 mt-10 mb-4">Contact Information</h3>
+            <p>Xigenis welcomes your questions or comments regarding this Statement of Privacy. If you believe that Xigenis has not adhered to this Statement, please contact Xigenis at hello@xigenis.com.</p>
           </div>
-        </section>
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   )
 }
+

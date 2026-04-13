@@ -19,6 +19,7 @@ const defaultContent = {
   description: "Not another portal. Not a freelancer running random ads. A full pipeline — built, managed, and optimised for one outcome: closed deals in 90 days.",
   descriptionSize: "16",
   btnText: "Build My Pipeline",
+  btnLink: "#",
   card1Title: "Complete Ad-to-Close Funnel", card1Text: "Targeting, nurture, and conversion — fully managed.",
   card2Title: "Qualified Buyers Only", card2Text: "Pre-filtered buyer intent. No fake numbers, no time-wasters.",
   card3Title: "Referral Engine Built In", card3Text: "Past clients become your next pipeline automatically.",
@@ -50,6 +51,7 @@ export default function FixCmsPage() {
             <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange(device, 'btnLink', e.target.value)} /></div>
           </CardContent>
         </Card>
         <div className="space-y-6">

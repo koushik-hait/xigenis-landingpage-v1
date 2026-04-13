@@ -40,6 +40,7 @@ const defaultContent = {
     { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" },
   ],
   footerBtnText: "START YOUR 15 DAYS BUILD",
+  footerBtnLink: "#",
 }
 
 export default function ProcessCmsPage() {
@@ -112,6 +113,7 @@ export default function ProcessCmsPage() {
           <CardHeader><CardTitle>Bottom Footer Area</CardTitle></CardHeader>
           <CardContent className="space-y-4">
             <div><Label>Footer Button Text</Label><Input value={d.footerBtnText} className="mt-2 max-w-xs" onChange={(e) => handleChange(device, "footerBtnText", e.target.value)} /></div>
+            <div><Label>Footer Button Link (URL)</Label><Input value={d.footerBtnLink || ""} className="mt-2 max-w-xs" onChange={(e) => handleChange(device, "footerBtnLink", e.target.value)} /></div>
             <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
               {d.footerHighlights.map((hl, hlIdx) => (
                 <div key={hlIdx} className="bg-muted/20 space-y-2 rounded border p-3">

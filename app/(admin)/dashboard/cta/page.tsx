@@ -18,7 +18,8 @@ const defaultContent = {
   headingSize: "48",
   description: "Discover how our system helps real estate professionals generate qualified leads, increase site visits, and close more deals.",
   descriptionSize: "16",
-  buttonText: "Book Your Strategy Call"
+  buttonText: "Book Your Strategy Call",
+  buttonLink: "#"
 }
 
 export default function CTACmsPage() {
@@ -45,6 +46,7 @@ export default function CTACmsPage() {
             <div className="space-y-2"><Label>Description</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Button Text</Label><Input value={d.buttonText} onChange={e => handleChange(device, 'buttonText', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.buttonLink || ""} onChange={e => handleChange(device, 'buttonLink', e.target.value)} /></div>
           </CardContent>
         </Card>
         <Card>
