@@ -181,7 +181,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
 
           {/* Right Cards Track */}
           <div className="no-scrollbar -mx-6 flex-1 overflow-x-auto px-6 pb-4 lg:mx-0 lg:px-0">
-            <div className="flex h-full min-w-max gap-4 lg:grid lg:min-w-0 lg:grid-cols-4 lg:gap-0">
+            <div className="flex h-full min-w-max gap-4 lg:grid lg:min-w-0 lg:grid-cols-4 lg:gap-10">
               {content.performers.map((p: any, index: number) => (
                 <motion.div
                   key={index}
@@ -189,9 +189,8 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className={`flex w-[200px] flex-1 flex-col items-center px-3 sm:px-3 lg:w-[280px] ${
-                    index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
-                  }`}
+                  className={`flex w-[200px] flex-1 flex-col items-center px-3 sm:px-3 lg:w-[280px] ${index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
+                    }`}
                 >
                   <div className="relative mb-5 flex flex-col items-center">
                     <img
@@ -222,7 +221,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               {/* + More Success Stories Card */}
               <Link
                 href={content.footerCard.link || "#"}
-                className="group relative flex w-[280px] flex-1 flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:w-auto lg:border-l lg:border-gray-100"
+                className="group relative flex w-[280px] flex-1 flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:mx-5 lg:w-auto lg:border-l lg:border-gray-100"
               >
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}

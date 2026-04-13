@@ -10,7 +10,7 @@ const WhyChooseUsFooter = ({ stats, btnText, btnLink }: { stats: any[], btnText:
     <div className="max-w-8xl mx-auto my-10 w-full px-4 overflow-hidden">
       <div className="flex flex-col items-center justify-between gap-8 rounded-2xl bg-[#D9D9D9] p-6 md:flex-row md:gap-4 md:rounded-[2rem] md:p-10">
         {/* Statistics Grid */}
-        <div className="flex flex-row w-full lg:flex-col gap-10 md:w-auto md:flex-row md:gap-20">
+        <div className="flex flex-row w-full gap-10 md:w-auto md:flex-row md:gap-20">
           {stats.map((stat, index) => (
             <div key={index} className="space-y-1">
               <div className="font-serif text-xl tracking-tight text-black md:text-5xl">{stat.value}</div>
