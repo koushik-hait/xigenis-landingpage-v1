@@ -45,7 +45,7 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="max-w-8xl relative container mx-auto flex flex-col px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl relative container mx-auto flex flex-col gap-60 lg:gap-4 px-4 sm:px-6 lg:px-8">
         {/* ROW 1: Top Content: Heading & Description */}
         <div className="relative z-20 mb-12 max-w-xl">
           <div className="mb-4 inline-block rounded-full bg-gray-100 px-4 py-1 text-xs font-bold tracking-widest text-gray-600 uppercase">
@@ -65,7 +65,10 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
           </p>
 
           {/* CTA Button */}
-          <Link href={content.btnLink} className="group flex items-center gap-3 rounded-full bg-black py-2 pr-2 pl-8 text-white transition-transform hover:scale-105">
+          <Link
+            href={content.btnLink}
+            className="group flex items-center gap-3 rounded-full bg-black py-2 pr-2 pl-8 text-white transition-transform hover:scale-105"
+          >
             <span className="text-xs font-bold tracking-widest uppercase">{content.btnText}</span>
             <div className="rounded-full bg-orange-500 p-2">
               <ArrowUpRight className="h-5 w-5 text-white" />
@@ -74,34 +77,34 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
         </div>
 
         {/* ROW 2: Central Visual & Stat Cards */}
-        <div className="relative mt-16 flex w-full items-center justify-between gap-6 lg:gap-12">
+        <div className="relative mt-16 flex w-full flex-col items-center justify-between gap-6 lg:flex-row lg:gap-12">
           {/* Left Stat Card (2X / 4X) */}
-          <div className="z-20 w-56 rounded-[15px] border border-white/20 bg-black/40 p-6 text-white shadow-2xl backdrop-blur-md lg:w-64">
+          <div className="z-20 w-full rounded-[15px] border border-white/20 bg-black/50 p-6 text-white shadow-2xl backdrop-blur-sm lg:w-64">
             <div className="space-y-6">
               <div>
                 <div className="flex items-baseline gap-2">
                   <span className="font-serif text-3xl">{content.stat1Value}</span>
-                  <span className="text-[10px] font-bold tracking-wider text-gray-300 uppercase">
+                  <span className="text-[10px] font-bold tracking-wider text-gray-200 uppercase">
                     {content.stat1Label}
                   </span>
                 </div>
-                <p className="mt-1 text-[9px] text-gray-400 italic">{content.stat1Sub}</p>
+                <p className="mt-1 text-[9px] text-gray-200 italic">{content.stat1Sub}</p>
               </div>
 
               <div className="border-t border-white/10 pt-4">
                 <div className="flex items-baseline gap-2">
                   <span className="font-serif text-3xl">{content.stat2Value}</span>
-                  <span className="text-[10px] font-bold tracking-wider text-gray-300 uppercase">
+                  <span className="text-[10px] font-bold tracking-wider text-gray-200 uppercase">
                     {content.stat2Label}
                   </span>
                 </div>
-                <p className="mt-1 text-[9px] text-gray-400 italic">{content.stat2Sub}</p>
+                <p className="mt-1 text-[9px] text-gray-200 italic">{content.stat2Sub}</p>
               </div>
             </div>
           </div>
 
           {/* Right Stat Card (Grid Layout) */}
-          <div className="z-20 w-full max-w-[250px] rounded-3xl border border-white/20 bg-black/40 p-8 text-white shadow-2xl backdrop-blur-md lg:max-w-[350px]">
+          <div className="z-20 w-full rounded-3xl border border-white/20 bg-black/40 p-8 text-white shadow-2xl backdrop-blur-md lg:max-w-[350px]">
             <div className="grid grid-cols-2 gap-x-8 gap-y-10">
               {/* Stat 1 */}
               <div className="space-y-1">

@@ -13,18 +13,18 @@ interface ProcessFooterProps {
 
 const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText, btnLink }) => {
   return (
-    <div className="max-w-8xl mx-auto mt-12 mb-20 rounded-2xl border border-orange-100 bg-[#FFF5F1] px-6 py-4 shadow-sm md:rounded-full md:px-12">
+    <div className="max-w-8xl mx-auto mt-12 mb-10 lg:mb-20 rounded-2xl border border-orange-100 bg-[#FFF5F1] px-6 py-4 shadow-sm md:rounded-full md:px-12">
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
         {/* Value Highlights */}
         <div className="flex flex-wrap items-center justify-center gap-8 md:justify-start md:gap-12">
           {highlights.map((item, index) => (
             <div key={index} className="flex items-center gap-2 lg:basis-0">
-              <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-orange-500" />
+              {item.sub && <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-orange-500" />}
               <div className="flex flex-wrap items-baseline gap-1">
-                <span className="text-[11px] font-black tracking-tighter whitespace-nowrap text-orange-600 uppercase">
+                <span className="text-[10px] font-black tracking-tighter whitespace-nowrap text-orange-600 uppercase">
                   {item.label}
                 </span>
-                <span className="text-[11px] font-bold tracking-tighter whitespace-nowrap text-gray-800 uppercase">
+                <span className="text-[10px] font-bold tracking-tighter whitespace-nowrap text-gray-800 uppercase">
                   {item.sub}
                 </span>
               </div>
@@ -172,7 +172,7 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
             <div className="flex gap-4" style={{ minWidth: "max-content" }}>
               {content.zones.map((zone: any) => (
                 <div key={zone.id} className="w-[85vw] max-w-md flex-shrink-0 snap-center">
-                  <div className="min-h-[100vh] overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
+                  <div className="min-h-[500px] overflow-hidden rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm">
                     {/* Zone Header */}
                     <div className="bg-[#333] p-6 text-white">
                       <span className="mb-2 inline-block rounded-md bg-orange-500 px-2 py-0.5 text-[9px] font-black">
@@ -193,8 +193,12 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
 
                           <div className="relative z-10">
                             {/* Step circle */}
-                            <div className="absolute top-2 left-0 h-3 w-3 rounded-full border-2 border-white bg-orange-500" />
-
+                            {/* <div className="absolute top-2 left-0 h-3 w-3 rounded-full border-2 border-white bg-orange-500" /> */}
+                            <Image src={`https://i.pravatar.cc/150?u=${zone.owner}`}
+                              className="absolute top-2 right-90 rounded-full border-2 border-white"
+                              alt={step.title}
+                              width={40}
+                              height={40} />
                             <div className="space-y-3 pl-8">
                               <div className="flex items-center gap-2">
                                 <span className="rounded bg-orange-500 px-2 py-0.5 text-[9px] font-bold text-white">
@@ -212,6 +216,29 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
                           </div>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Bottom Owner Footer */}
+            <div className="flex gap-4">
+              {content.zones.map((zone: any) => (
+                <div key={zone.id} className="w-[85vw] max-w-md flex-shrink-0 snap-center">
+                  <div className="overflow-hidden flex items-center gap-4 rounded-xl border border-gray-200 bg-[#F3F4F6] shadow-sm p-4">
+                    <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-gray-300 grayscale">
+                      <Image
+                        src={`https://i.pravatar.cc/150?u=${zone.owner}`}
+                        alt={zone.owner}
+                        width={40}
+                        height={40}
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <span className="block text-[8px] font-black text-gray-400 uppercase">Zone 0{zone.id} Owner</span>
+                      <h5 className="text-[11px] font-bold text-gray-800">{zone.owner}</h5>
+                      <p className="text-[9px] text-gray-500">{zone.title}</p>
                     </div>
                   </div>
                 </div>

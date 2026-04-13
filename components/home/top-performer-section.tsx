@@ -127,7 +127,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                 fontSize: `${content.headingSize}px`,
                 lineHeight: "1.2",
               }}
-              className="mb-5 font-medium tracking-tight max-sm:text-3xl"
+              className="mb-5 font-serif tracking-wide capitalize max-sm:text-3xl"
             >
               <span className="block">{content.headingLine1}</span>
               <span className="block">{content.headingLine2}</span>
@@ -222,7 +222,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               {/* + More Success Stories Card */}
               <Link
                 href={content.footerCard.link || "#"}
-                className="relative flex w-[280px] flex-1 flex-col items-center justify-center px-4 sm:px-6 lg:w-auto lg:border-l lg:border-gray-100 group overflow-hidden"
+                className="group relative flex w-[280px] flex-1 flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:w-auto lg:border-l lg:border-gray-100"
               >
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}

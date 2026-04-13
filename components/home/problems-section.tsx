@@ -50,7 +50,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-20 text-center"
+          className="mb-10 text-center lg:mb-20"
         >
           <span className="mb-5 inline-block rounded-full bg-[#FFF0E6] px-3.5 py-1 text-[11px] font-semibold tracking-[0.1em] text-[#FF5A1F] uppercase">
             {content.pillText}
@@ -85,12 +85,12 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
             <div className="h-full snap-x snap-mandatory overflow-x-auto">
               <div className="flex h-full gap-4" style={{ minWidth: "max-content", padding: "0 1rem" }}>
                 {/* First Screen - Header and Intro */}
-                <div className="flex w-[85vw] flex-shrink-0 snap-center flex-col justify-center py-20">
+                <div className="flex w-[85vw] flex-shrink-0 snap-center flex-col justify-center p-0 lg:p-20">
                   <div className="px-4">
                     <div className="mb-6 inline-block rounded-full bg-gray-800 px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase">
                       {content.introPill}
                     </div>
-                    <h1 className="mb-8 font-serif text-3xl leading-tight text-gray-100 sm:text-4xl">
+                    <h1 className="mb-8 font-serif text-3xl leading-tight text-gray-800 sm:text-4xl">
                       {content.introHeading}
                     </h1>
                     {/* <div className="rounded-3xl bg-white/80 p-6 shadow-lg backdrop-blur-sm"> */}

@@ -32,7 +32,7 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
   }
 
   return (
-    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-black">
+    <section className="relative flex min-h-[400px] w-full items-center overflow-hidden bg-black lg:min-h-screen">
       {/* 1. Background Image with Dark Vignette/Gradient */}
       <div className="absolute inset-0 z-0 opacity-70">
         <div
@@ -43,7 +43,7 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
       </div>
 
-      <div className="max-w-8xl relative z-10 container mx-auto px-4 py-20 sm:px-6 lg:px-8">
+      <div className="max-w-8xl relative z-10 container mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-20">
         <div className="flex flex-col items-center gap-16 lg:flex-row lg:gap-8">
           {/* Left Column: Solution Pitch */}
           <div className="w-full space-y-10 lg:w-1/2">
@@ -66,7 +66,7 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
             </p>
 
             {/* CTA Button */}
-            <Link href={content.btnLink} className="flex items-center gap-4 pt-6 group">
+            <Link href={content.btnLink} className="group flex items-center gap-4 pt-6">
               <span className="rounded-full bg-white px-10 py-5 text-sm font-bold tracking-widest text-black uppercase shadow-2xl shadow-gray-200/20 transition-colors hover:bg-gray-100">
                 {content.btnText}
               </span>

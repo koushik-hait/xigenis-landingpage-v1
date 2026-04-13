@@ -46,7 +46,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
       </div>
 
       {/* Content Container */}
-      <div className="max-w-8xl relative z-20 mx-auto grid grid-cols-1 items-center gap-12 px-6 py-24 md:py-32 lg:grid-cols-2">
+      <div className="max-w-8xl relative z-20 mx-auto grid grid-cols-1 items-center gap-12 px-6 py-10 md:py-32 lg:grid-cols-2">
         {/* Left Side: Text and Content */}
         <div className="w-full max-w-xl">
           {/* Trust Badge */}
@@ -73,10 +73,10 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
           <ul className="mb-12 space-y-4 font-sans">
             {content.valueProps?.map((prop: string, index: number) => (
               <li key={index} className="flex items-center gap-3">
-                <div className="flex items-center justify-center rounded-full bg-[#E4FBF3] p-1.5">
+                <div className="flex items-center justify-center rounded-full bg-[#E4FBF3] p-1">
                   <Check className="h-4 w-4 text-[#35D7A1]" />
                 </div>
-                <span className="text-lg text-gray-700">{prop}</span>
+                <span className="text-sm lg:text-lg text-gray-700">{prop}</span>
               </li>
             ))}
           </ul>

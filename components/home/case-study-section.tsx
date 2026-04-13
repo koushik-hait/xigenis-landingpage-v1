@@ -87,6 +87,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
                     />
 
                     {/* Dark Overlay */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.25)_0%,rgba(0,0,0,0.7)_50%,black_80%)]" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0.25)_60%,transparent_100%)]" />
 
                     {/* Stats Overlay (Frosted Glass Style) */}

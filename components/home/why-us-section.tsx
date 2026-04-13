@@ -10,7 +10,7 @@ const WhyChooseUsFooter = ({ stats, btnText, btnLink }: { stats: any[], btnText:
     <div className="max-w-8xl mx-auto my-10 w-full px-4">
       <div className="flex flex-col items-center justify-between gap-8 rounded-2xl bg-[#D9D9D9] p-6 md:flex-row md:gap-4 md:rounded-[2rem] md:p-10">
         {/* Statistics Grid */}
-        <div className="flex w-full flex-col gap-10 md:w-auto md:flex-row md:gap-20">
+        <div className="flex flex-row w-full lg:flex-col gap-10 md:w-auto md:flex-row md:gap-20">
           {stats.map((stat, index) => (
             <div key={index} className="space-y-1">
               <div className="font-serif text-4xl tracking-tight text-black md:text-5xl">{stat.value}</div>
@@ -22,7 +22,7 @@ const WhyChooseUsFooter = ({ stats, btnText, btnLink }: { stats: any[], btnText:
         </div>
 
         {/* Action Button */}
-        <Link href={btnLink} className="flex items-center gap-3 self-end md:self-center group">
+        <Link href={btnLink} className="flex items-center justify-center gap-3 md:self-end md:self-center group">
           <span className="rounded-full bg-black px-8 py-4 text-[11px] font-black tracking-[0.2em] text-white uppercase shadow-lg transition-all hover:bg-gray-800">
             {btnText}
           </span>
@@ -129,11 +129,10 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
                 return (
                   <div key={index} className="w-[85vw] max-w-md flex-shrink-0 snap-center">
                     <div
-                      className={`relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${
-                        isFeatured
-                          ? "border-transparent bg-black text-white"
-                          : "border-gray-100 bg-white text-gray-900 shadow-sm"
-                      }`}
+                      className={`relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${isFeatured
+                        ? "border-transparent bg-black text-white"
+                        : "border-gray-100 bg-white text-gray-900 shadow-sm"
+                        }`}
                     >
                       {/* Featured Background Image */}
                       {isFeatured && (
@@ -150,9 +149,8 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
 
                       {/* Icon Container */}
                       <div
-                        className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${
-                          isFeatured ? "bg-white text-black" : "bg-gray-100"
-                        }`}
+                        className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${isFeatured ? "bg-white text-black" : "bg-gray-100"
+                          }`}
                       >
                         {defaultIcons[index % defaultIcons.length]}
                       </div>
@@ -160,16 +158,14 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
                       {/* Content */}
                       <div className="relative z-10 flex-grow space-y-4">
                         <h3
-                          className={`text-xl leading-snug font-bold whitespace-pre-line ${
-                            isFeatured ? "text-white" : "text-gray-900"
-                          }`}
+                          className={`text-xl leading-snug font-bold whitespace-pre-line ${isFeatured ? "text-white" : "text-gray-900"
+                            }`}
                         >
                           {feature.title}
                         </h3>
                         <p
-                          className={`text-sm leading-relaxed whitespace-pre-line ${
-                            isFeatured ? "text-gray-300" : "text-gray-500"
-                          }`}
+                          className={`text-sm leading-relaxed whitespace-pre-line ${isFeatured ? "text-gray-300" : "text-gray-500"
+                            }`}
                         >
                           {feature.desc}
                         </p>
@@ -178,11 +174,10 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
                       {/* Bottom Tag */}
                       <div className="relative z-10 mt-8">
                         <span
-                          className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${
-                            isFeatured
-                              ? "border border-white/20 bg-white/10 text-gray-300"
-                              : "bg-gray-100 text-gray-500"
-                          }`}
+                          className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${isFeatured
+                            ? "border border-white/20 bg-white/10 text-gray-300"
+                            : "bg-gray-100 text-gray-500"
+                            }`}
                         >
                           {feature.tag}
                         </span>
@@ -202,11 +197,10 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
             return (
               <div
                 key={index}
-                className={`relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${
-                  isFeatured
-                    ? "border-transparent bg-black text-white"
-                    : "border-gray-100 bg-white text-gray-900 shadow-sm"
-                }`}
+                className={`relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${isFeatured
+                  ? "border-transparent bg-black text-white"
+                  : "border-gray-100 bg-white text-gray-900 shadow-sm"
+                  }`}
               >
                 {/* Featured Background Image */}
                 {isFeatured && (
@@ -223,9 +217,8 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
 
                 {/* Icon Container */}
                 <div
-                  className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${
-                    isFeatured ? "bg-white text-black" : "bg-gray-100"
-                  }`}
+                  className={`relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-full ${isFeatured ? "bg-white text-black" : "bg-gray-100"
+                    }`}
                 >
                   {defaultIcons[index % defaultIcons.length]}
                 </div>
@@ -233,16 +226,14 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
                 {/* Content */}
                 <div className="relative z-10 flex-grow space-y-4">
                   <h3
-                    className={`text-xl leading-snug font-bold whitespace-pre-line ${
-                      isFeatured ? "text-white" : "text-gray-900"
-                    }`}
+                    className={`text-xl leading-snug font-bold whitespace-pre-line ${isFeatured ? "text-white" : "text-gray-900"
+                      }`}
                   >
                     {feature.title}
                   </h3>
                   <p
-                    className={`text-sm leading-relaxed whitespace-pre-line ${
-                      isFeatured ? "text-gray-300" : "text-gray-500"
-                    }`}
+                    className={`text-sm leading-relaxed whitespace-pre-line ${isFeatured ? "text-gray-300" : "text-gray-500"
+                      }`}
                   >
                     {feature.desc}
                   </p>
@@ -251,9 +242,8 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
                 {/* Bottom Tag */}
                 <div className="relative z-10 mt-8">
                   <span
-                    className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${
-                      isFeatured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
-                    }`}
+                    className={`inline-block rounded-md px-3 py-1 text-[9px] font-bold tracking-wider uppercase ${isFeatured ? "border border-white/20 bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"
+                      }`}
                   >
                     {feature.tag}
                   </span>

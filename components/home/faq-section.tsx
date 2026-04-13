@@ -70,7 +70,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
               onClick={() => setActiveIndex(activeIndex === index ? null : index)}
               className="flex w-full items-center justify-between p-6 text-left md:p-8"
             >
-              <span className="text-lg font-medium tracking-tight whitespace-pre-line md:text-xl">
+              <span className="text-sm font-medium tracking-tight whitespace-pre-line md:text-xl">
                 <span className="mr-4 opacity-60">{index + 1}.</span>
                 {faq.question}
               </span>
