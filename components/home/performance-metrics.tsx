@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 import { useIsMobile } from "@/hooks/use-is-mobile"
 
 interface PerformanceMetricsProps {
@@ -77,12 +78,9 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
               </p>
 
               {/* CTA Button */}
-              <Link href={content.btnLink} className="group flex items-center gap-3 rounded-full bg-black px-8 py-3 text-white transition-transform hover:scale-105 w-fit">
+              {/* <ExploreButton href={content.btnLink} className="mx-0">
                 <span className="text-[10px] font-bold tracking-widest uppercase">{content.btnText}</span>
-                <div className="rounded-full bg-orange-500 p-2">
-                  <ArrowUpRight className="h-4 w-4 text-white" />
-                </div>
-              </Link>
+              </ExploreButton> */}
             </div>
 
             <div className="relative col-span-1 mt-12 flex min-h-[200px] flex-col overflow-hidden rounded-[2rem] bg-[#1A1A1A] p-8 md:col-span-1">
@@ -146,7 +144,10 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
 
                   <div className="relative z-10 space-y-3">
                     <h3 className="font-serif text-2xl text-white">{item.title}</h3>
-                    <Link href={item.link || "#"} className="border-b-2 border-orange-500 pb-1 text-[11px] font-bold tracking-widest text-gray-200 uppercase transition-colors hover:text-white w-fit">
+                    <Link
+                      href={item.link || "#"}
+                      className="w-fit border-b-2 border-orange-500 pb-1 text-[11px] font-bold tracking-widest text-gray-200 uppercase transition-colors hover:text-white"
+                    >
                       View Details
                     </Link>
                   </div>

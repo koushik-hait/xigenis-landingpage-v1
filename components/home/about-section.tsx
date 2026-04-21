@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface AboutSectionProps {
   cmsContent?: any
@@ -65,15 +66,9 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
           </p>
 
           {/* CTA Button */}
-          <Link
-            href={content.btnLink}
-            className="group flex items-center gap-3 rounded-full bg-black py-2 pr-2 pl-8 text-white transition-transform hover:scale-105"
-          >
+          <ExploreButton href={content.btnLink} className="mx-0">
             <span className="text-xs font-bold tracking-widest uppercase">{content.btnText}</span>
-            <div className="rounded-full bg-orange-500 p-2">
-              <ArrowUpRight className="h-5 w-5 text-white" />
-            </div>
-          </Link>
+          </ExploreButton>
         </div>
 
         {/* ROW 2: Central Visual & Stat Cards */}

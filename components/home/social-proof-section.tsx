@@ -5,17 +5,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Star } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-is-mobile"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 /* ───────────────────── DATA DEFAULT ───────────────────── */
-
-const avatarDefaults = [
-  { size: 72, top: "8%", left: "12%" },
-  { size: 80, top: "5%", left: "32%" },
-  { size: 76, top: "8%", left: "68%" },
-  { size: 68, top: "4%", left: "86%" },
-  { size: 72, top: "28%", left: "22%" },
-  { size: 64, top: "32%", left: "78%" },
-]
 
 /* ────────────── GOOGLE ICON SVG ────────────── */
 const GoogleIcon = () => (
@@ -105,8 +97,27 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
     ],
     headingSize: "44",
     descriptionSize: "16",
+    avatarConfigs: [] as { size: number; top: string; left: string }[],
     ...cmsContent,
   }
+
+  // Generate dynamic, randomized yet stable positions for avatars
+  const avatarConfigs = React.useMemo(() => {
+    // If CMS provides positions, use them
+    if (content.avatarConfigs && content.avatarConfigs.length > 0) {
+      return content.avatarConfigs
+    }
+
+    // Generate stable pseudo-random positions based on index
+    // We target a distribution that avoids overlapping too much and stays within bounds
+    return Array.from({ length: 10 }).map((_, i) => {
+      // Deterministic "random" values based on index
+      const size = 50 + ((i * 13 + 7) % 25) // 60px to 85px
+      const top = 1 + ((i * 23 + 16) % 80) // 1% to 85%
+      const left = 1 + ((i * 37 + 10) % 90) // 5% to 95%
+      return { size, top: `${top}%`, left: `${left}%` }
+    })
+  }, [content.avatarConfigs])
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const isMobile = useIsMobile()
@@ -162,21 +173,17 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
             {content.description}
           </p>
 
-          {/* CTA Button */}
           <div className="mt-8 flex items-center justify-center gap-3">
-            <Link href={content.btnLink} className="group flex items-center gap-3 rounded-full bg-black py-2.5 pr-2.5 pl-8 text-white transition-transform hover:scale-105">
+            <ExploreButton href={content.btnLink} className="mx-0">
               <span className="text-[10px] font-bold tracking-widest uppercase">{content.btnText}</span>
-              <div className="rounded-full bg-orange-500 p-2 transition-colors group-hover:bg-orange-400">
-                <ArrowUpRight className="h-4 w-4 text-white" />
-              </div>
-            </Link>
+            </ExploreButton>
           </div>
         </div>
 
         {/* ─── FLOATING AVATARS ─── */}
         <div className="relative mx-auto mb-5 hidden h-[220px] max-w-4xl lg:block">
-          {validTestimonials.slice(0, 6).map((testimonial: any, i: number) => {
-            const defPos = avatarDefaults[i % avatarDefaults.length] || avatarDefaults[0]
+          {validTestimonials.map((testimonial: any, i: number) => {
+            const defPos = avatarConfigs[i % avatarConfigs.length]
             return (
               <div
                 key={i}
@@ -188,10 +195,10 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
                 }}
               >
                 <div
-                  className={`overflow-hidden rounded-full shadow-lg transition-all duration-500 ${
+                  className={`overflow-hidden shadow-lg transition-all duration-500 ${
                     !isMobile && i === currentIndex + 1
-                      ? "scale-110 ring-[3px] ring-orange-300 ring-offset-[3px] ring-offset-white"
-                      : "ring-2 ring-white"
+                      ? "scale-110 rounded-full ring-[3px] ring-orange-300 ring-offset-[3px] ring-offset-white"
+                      : "rounded-full ring-[3px] ring-gray-500 ring-offset-[3px] ring-offset-white"
                   }`}
                   style={{
                     width: defPos?.size,
@@ -202,7 +209,7 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
                     src={testimonial.src || "https://via.placeholder.com/200"}
                     alt={testimonial.alt || "Avatar"}
                     fill
-                    className="h-full w-full object-cover"
+                    className="h-full w-full rounded-full object-cover"
                   />
                 </div>
               </div>

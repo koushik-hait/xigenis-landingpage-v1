@@ -182,3 +182,22 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+.explore-btn::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #f98901fc; /* emerald-500 */
+  border-radius: 9999px;
+  left: -100%;
+  z-index: -1;
+  transition:
+    left 0.7s,
+    transform 0.7s;
+}
+
+.explore-btn:hover::before {
+  left: 0;
+  transform: scale(1.5);
+}

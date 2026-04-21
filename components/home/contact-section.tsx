@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 export function ContactSection() {
   return (
@@ -15,17 +15,12 @@ export function ContactSection() {
         </p>
 
         <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
-            Get in Touch
-            <ArrowRight className="ml-2" size={20} />
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-primary text-primary hover:bg-primary/10 bg-transparent"
-          >
-            Schedule a Call
-          </Button>
+          <ExploreButton className="mx-0">
+            <span className="font-semibold">Get in Touch</span>
+          </ExploreButton>
+          <ExploreButton className="mx-0">
+            <span className="font-semibold">Schedule a Call</span>
+          </ExploreButton>
         </div>
 
         <div className="border-border grid gap-8 border-t pt-12 sm:grid-cols-3">

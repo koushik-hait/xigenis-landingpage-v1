@@ -3,6 +3,7 @@
 import React from "react"
 import Link from "next/link"
 import { XCircle, CheckCircle2, ArrowRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface ReferralSectionProps {
   cmsContent?: any
@@ -77,14 +78,9 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
             </div>
 
             {/* CTA Button */}
-            <Link href={content.btnLink} className="flex items-center gap-4 pt-6 group w-fit">
-              <span className="rounded-full bg-black px-8 py-4 text-sm font-bold tracking-widest text-white uppercase transition-colors hover:bg-gray-800">
-                {content.btnText}
-              </span>
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg shadow-orange-200 transition-transform group-hover:translate-x-1">
-                <ArrowRight className="h-6 w-6" />
-              </div>
-            </Link>
+            <ExploreButton href={content.btnLink} className="mx-0">
+              <span className="text-sm font-bold tracking-widest uppercase">{content.btnText}</span>
+            </ExploreButton>
           </div>
 
           {/* Right Column: Visual Component */}

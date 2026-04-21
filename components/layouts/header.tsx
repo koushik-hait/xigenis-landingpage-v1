@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { ArrowUpRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 export function Header() {
   const scrollToSection = (sectionId: string) => {
@@ -28,12 +28,9 @@ export function Header() {
           >
             VISIT SITE <ArrowUpRight className="ml-1 h-4 w-4" />
           </Button> */}
-          <Button
-            className="rounded-full bg-black px-6 py-6 text-xs font-semibold tracking-widest text-white transition-all hover:bg-black/80"
-            onClick={() => scrollToSection("contact")}
-          >
-            GET STARTED <ArrowUpRight className="ml-1 h-4 w-4" />
-          </Button>
+          <ExploreButton onClick={() => scrollToSection("contact")} className="h-12 py-0">
+            <span className="text-[10px] font-semibold tracking-widest">GET STARTED</span>
+          </ExploreButton>
         </div>
       </div>
     </header>

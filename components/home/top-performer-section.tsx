@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface PerformerMetric {
   label: string
@@ -154,28 +155,9 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="mb-8"
             >
-              <Link
-                href={content.ctaLink || "#"}
-                className="group relative inline-flex items-center gap-6 overflow-hidden rounded-full py-2.5 pr-2.5 pl-8 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl active:scale-95"
-                style={{
-                  backgroundColor: content.ctaBgColor,
-                  color: content.ctaTextColor,
-                }}
-              >
+              <ExploreButton href={content.ctaLink || "#"} className="mx-0">
                 <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
-                <div
-                  className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-45"
-                  style={{
-                    backgroundColor: content.ctaArrowBgColor,
-                    color: content.ctaTextColor,
-                  }}
-                >
-                  <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
-                </div>
-
-                {/* Shine effect */}
-                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
-              </Link>
+              </ExploreButton>
             </motion.div>
           </div>
 

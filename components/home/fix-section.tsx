@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Check } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface FixSectionProps {
   cmsContent?: any
@@ -66,14 +67,9 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
             </p>
 
             {/* CTA Button */}
-            <Link href={content.btnLink} className="group flex items-center gap-4 pt-6">
-              <span className="rounded-full bg-white px-10 py-5 text-sm font-bold tracking-widest text-black uppercase shadow-2xl shadow-gray-200/20 transition-colors hover:bg-gray-100">
-                {content.btnText}
-              </span>
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-500 text-white shadow-xl shadow-orange-300/30 transition-transform group-hover:translate-x-1">
-                <ArrowRight className="h-7 w-7" />
-              </div>
-            </Link>
+            <ExploreButton href={content.btnLink} className="mx-0">
+              <span className="text-sm font-bold tracking-widest uppercase">{content.btnText}</span>
+            </ExploreButton>
           </div>
 
           {/* Right Column: Key Feature Cards Overlay */}

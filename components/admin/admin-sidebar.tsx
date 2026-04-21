@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { SignOutButton } from '@clerk/nextjs'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { SignOutButton } from "@clerk/nextjs"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   ChevronDown,
   ChevronRight,
@@ -17,210 +17,207 @@ import {
   Building,
   Shield,
   LogOut,
-} from 'lucide-react'
+} from "lucide-react"
+import Image from "next/image"
 
 interface MenuItem {
   title: string
   href?: string
   icon: React.ReactNode
   children?: MenuItem[]
-  requiredRole?: 'admin' | 'manager' | 'user'
+  requiredRole?: "admin" | "manager" | "user"
 }
 
 const menuItems: MenuItem[] = [
   {
-    title: 'Dashboard',
-    href: '/dashboard',
+    title: "Dashboard",
+    href: "/dashboard",
     icon: <LayoutDashboard className="h-4 w-4" />,
   },
   {
-    title: 'Analytics',
-    href: '/analytics',
+    title: "Analytics",
+    href: "/analytics",
     icon: <BarChart3 className="h-4 w-4" />,
   },
   {
-    title: 'Content',
+    title: "Content",
     icon: <FileText className="h-4 w-4" />,
     children: [
       {
-        title: 'Footer',
-        href: '/dashboard/footer',
+        title: "Footer",
+        href: "/dashboard/footer",
         icon: <FileText className="h-3 w-3" />,
       },
     ],
   },
   {
-    title: 'Users',
+    title: "Users",
     icon: <Users className="h-4 w-4" />,
-    requiredRole: 'admin',
+    requiredRole: "admin",
     children: [
       {
-        title: 'All Users',
-        href: '/users',
+        title: "All Users",
+        href: "/users",
         icon: <Users className="h-3 w-3" />,
       },
       {
-        title: 'Roles & Permissions',
-        href: '/users/roles',
+        title: "Roles & Permissions",
+        href: "/users/roles",
         icon: <Shield className="h-3 w-3" />,
       },
     ],
   },
   {
-    title: 'Projects',
+    title: "Projects",
     icon: <Building className="h-4 w-4" />,
     children: [
       {
-        title: 'All Projects',
-        href: '/projects',
+        title: "All Projects",
+        href: "/projects",
         icon: <Building className="h-3 w-3" />,
       },
       {
-        title: 'Create Project',
-        href: '/projects/create',
+        title: "Create Project",
+        href: "/projects/create",
         icon: <FileText className="h-3 w-3" />,
       },
     ],
   },
   {
-    title: 'Content Settings',
+    title: "Content Settings",
     icon: <FileText className="h-4 w-4" />,
     children: [
       {
-        title: 'Hero Section',
-        href: '/dashboard/hero',
+        title: "Hero Section",
+        href: "/dashboard/hero",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Top Performers',
-        href: '/dashboard/top-performers',
+        title: "Top Performers",
+        href: "/dashboard/top-performers",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Target Audience',
-        href: '/dashboard/target-audience',
+        title: "Target Audience",
+        href: "/dashboard/target-audience",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Transformation',
-        href: '/dashboard/transformation',
+        title: "Transformation",
+        href: "/dashboard/transformation",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Problems',
-        href: '/dashboard/problems',
+        title: "Problems",
+        href: "/dashboard/problems",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Lead Quality',
-        href: '/dashboard/lead-quality',
+        title: "Lead Quality",
+        href: "/dashboard/lead-quality",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Follow Up',
-        href: '/dashboard/follow-up',
+        title: "Follow Up",
+        href: "/dashboard/follow-up",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Ad Spend',
-        href: '/dashboard/adspend',
+        title: "Ad Spend",
+        href: "/dashboard/adspend",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Referral',
-        href: '/dashboard/referral',
+        title: "Referral",
+        href: "/dashboard/referral",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'The Fix',
-        href: '/dashboard/fix',
+        title: "The Fix",
+        href: "/dashboard/fix",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'About Company',
-        href: '/dashboard/about',
+        title: "About Company",
+        href: "/dashboard/about",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Performance',
-        href: '/dashboard/performance',
+        title: "Performance",
+        href: "/dashboard/performance",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Social Proof',
-        href: '/dashboard/social-proof',
+        title: "Social Proof",
+        href: "/dashboard/social-proof",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Reasons',
-        href: '/dashboard/reasons',
+        title: "Reasons",
+        href: "/dashboard/reasons",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'CTA Action',
-        href: '/dashboard/cta',
+        title: "CTA Action",
+        href: "/dashboard/cta",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Process Timeline',
-        href: '/dashboard/process',
+        title: "Process Timeline",
+        href: "/dashboard/process",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Case Studies',
-        href: '/dashboard/case-studies',
+        title: "Case Studies",
+        href: "/dashboard/case-studies",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Why Choose Us',
-        href: '/dashboard/why-us',
+        title: "Why Choose Us",
+        href: "/dashboard/why-us",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Campaign Insights',
-        href: '/dashboard/campaign-insights',
+        title: "Campaign Insights",
+        href: "/dashboard/campaign-insights",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Features',
-        href: '/dashboard/features',
+        title: "Features",
+        href: "/dashboard/features",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'FAQ',
-        href: '/dashboard/faq',
+        title: "FAQ",
+        href: "/dashboard/faq",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Testimonials',
-        href: '/dashboard/testimonial',
+        title: "Testimonials",
+        href: "/dashboard/testimonial",
         icon: <FileText className="h-3 w-3" />,
       },
       {
-        title: 'Bottom Hero',
-        href: '/dashboard/real-estate-hero',
+        title: "Bottom Hero",
+        href: "/dashboard/real-estate-hero",
         icon: <FileText className="h-3 w-3" />,
       },
     ],
   },
   {
-    title: 'Settings',
-    href: '/settings',
+    title: "Settings",
+    href: "/settings",
     icon: <Settings className="h-4 w-4" />,
-    requiredRole: 'admin',
+    requiredRole: "admin",
   },
 ]
 
-export function AdminSidebar({ userRole = 'user' }: { userRole?: 'admin' | 'manager' | 'user' }) {
+export function AdminSidebar({ userRole = "user" }: { userRole?: "admin" | "manager" | "user" }) {
   const pathname = usePathname()
-  const [expandedItems, setExpandedItems] = useState<string[]>(['Users', 'Projects'])
+  const [expandedItems, setExpandedItems] = useState<string[]>(["Content Settings"])
 
   const toggleExpanded = (title: string) => {
-    setExpandedItems(prev =>
-      prev.includes(title)
-        ? prev.filter(item => item !== title)
-        : [...prev, title]
-    )
+    setExpandedItems((prev) => (prev.includes(title) ? prev.filter((item) => item !== title) : [...prev, title]))
   }
 
   const hasPermission = (requiredRole?: string) => {
@@ -240,9 +237,9 @@ export function AdminSidebar({ userRole = 'user' }: { userRole?: 'admin' | 'mana
       <div key={item.title}>
         <div
           className={cn(
-            'flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer',
-            isActive && 'bg-accent text-accent-foreground',
-            level > 0 && 'ml-4'
+            "hover:bg-accent hover:text-accent-foreground flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+            isActive && "bg-accent text-accent-foreground",
+            level > 0 && "ml-4"
           )}
           onClick={() => {
             if (hasChildren) {
@@ -256,35 +253,27 @@ export function AdminSidebar({ userRole = 'user' }: { userRole?: 'admin' | 'mana
             {item.icon}
             <span>{item.title}</span>
           </div>
-          {hasChildren && (
-            isExpanded ? (
-              <ChevronDown className="h-4 w-4" />
-            ) : (
-              <ChevronRight className="h-4 w-4" />
-            )
-          )}
+          {hasChildren && (isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />)}
         </div>
         {hasChildren && isExpanded && (
-          <div className="mt-1">
-            {item.children!.map(child => renderMenuItem(child, level + 1))}
-          </div>
+          <div className="mt-1">{item.children!.map((child) => renderMenuItem(child, level + 1))}</div>
         )}
       </div>
     )
   }
 
   return (
-    <div className="hidden border-r bg-muted/40 md:block w-64">
+    <div className="bg-muted/40 hidden h-full w-full border-r md:block">
       <div className="flex h-full max-h-screen flex-col gap-2">
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
-            <Shield className="h-6 w-6" />
-            <span className="">Xigenis Admin</span>
+            <Image src="/assets/xigenis-logo.png" alt="Logo" width={50} height={50} />
+            <span className="capitalize">Xigenis {userRole}</span>
           </Link>
         </div>
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-            {menuItems.map(item => renderMenuItem(item))}
+            {menuItems.map((item) => renderMenuItem(item))}
           </nav>
         </div>
         <div className="mt-auto p-4">

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface TransformationSectionProps {
   cmsContent?: any
@@ -90,42 +91,44 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col justify-between gap-12 lg:flex-row lg:items-start lg:gap-20">
           {/* Left Column */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl flex-1"
-          >
-            {/* Pill Badge */}
-            <div className="mb-8 inline-flex items-center rounded-full bg-[#F36B2B] px-4 py-1.5">
-              <span className="text-[10px] font-bold tracking-widest text-white uppercase sm:text-xs">
-                {content.pillLabel}
-              </span>
-            </div>
-
-            {/* Heading */}
-            <h2
-              className="mb-10 font-serif text-4xl leading-[1.1] tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
-              style={{ fontSize: `${content.headingSize}px` }}
+          <div className="flex flex-col gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="max-w-2xl flex-1"
             >
-              {content.headingLine1}
-              <br />
-              <span className="mt-2 block">{content.headingLine2}</span>
-            </h2>
-
-            {/* CTA Buttons */}
-            <Link href={content.ctaButtonLink} className="flex items-center gap-3 group">
-              <div className="rounded-full bg-white px-6 py-3.5 shadow-md transition-colors group-hover:bg-gray-50">
-                <span className="text-[11px] font-bold tracking-widest text-gray-900 uppercase">
-                  {content.ctaButtonText}
+              {/* Pill Badge */}
+              <div className="mb-8 inline-flex items-center rounded-full bg-[#F36B2B] px-4 py-1.5">
+                <span className="text-[10px] font-bold tracking-widest text-white uppercase sm:text-xs">
+                  {content.pillLabel}
                 </span>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F36B2B] text-white shadow-md transition-colors group-hover:bg-[#E05A1C]">
-                <ArrowUpRight className="h-5 w-5" />
-              </div>
-            </Link>
-          </motion.div>
+
+              {/* Heading */}
+              <h2
+                className="mb-10 font-serif text-4xl leading-[1.1] tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
+                style={{ fontSize: `${content.headingSize}px` }}
+              >
+                {content.headingLine1}
+                <br />
+                <span className="mt-2 block">{content.headingLine2}</span>
+              </h2>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mb-2"
+            >
+              <ExploreButton href={content.ctaButtonLink} className="mx-0">
+                <span className="text-[11px] font-bold tracking-widest uppercase">{content.ctaButtonText}</span>
+              </ExploreButton>
+            </motion.div>
+          </div>
 
           {/* Right Column */}
           <motion.div
@@ -219,18 +222,12 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                     />
                     <div>
                       <h4 className="text-lg font-bold text-gray-900">{t.name}</h4>
-                      <p className="mb-0.5 text-[11px] font-medium text-gray-500 sm:text-xs">
-                        {t.role}
-                      </p>
-                      <p className="text-[13px] font-bold text-gray-900 sm:text-sm">
-                        {t.revenue}
-                      </p>
+                      <p className="mb-0.5 text-[11px] font-medium text-gray-500 sm:text-xs">{t.role}</p>
+                      <p className="text-[13px] font-bold text-gray-900 sm:text-sm">{t.revenue}</p>
                     </div>
                   </div>
 
-                  <p className="mb-8 text-xs leading-relaxed font-medium text-gray-600 sm:text-[14px]">
-                    {t.text}
-                  </p>
+                  <p className="mb-8 text-xs leading-relaxed font-medium text-gray-600 sm:text-[14px]">{t.text}</p>
 
                   <div>
                     <div className="mb-4 inline-block rounded-full bg-black px-4 py-1.5 text-[9px] font-bold tracking-widest text-white uppercase shadow-md sm:text-[10px]">
@@ -270,9 +267,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                             <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
                               {t.beforeVal}
                               <br />
-                              <span className="text-[10px] font-normal text-gray-500 sm:text-[8px]">
-                                / month
-                              </span>
+                              <span className="text-[10px] font-normal text-gray-500 sm:text-[8px]">/ month</span>
                             </div>
                           </div>
                         </div>
@@ -298,9 +293,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                             <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
                               {t.afterVal}
                               <br />
-                              <span className="text-[10px] font-normal text-gray-700 sm:text-[8px]">
-                                / month
-                              </span>
+                              <span className="text-[10px] font-normal text-gray-700 sm:text-[8px]">/ month</span>
                             </div>
                           </div>
                         </div>
@@ -312,7 +305,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
             ))}
 
             {/* Testimonials Slider Container (Desktop Only) */}
-            <div className="relative hidden flex-1 lg:block [--card-width:300px] [--gap:24px] md:[--card-width:450px] md:[--gap:32px]">
+            <div className="relative hidden flex-1 [--card-width:300px] [--gap:24px] md:[--card-width:450px] md:[--gap:32px] lg:block">
               <div className="overflow-hidden px-2 py-4">
                 <motion.div
                   className="flex gap-[var(--gap)]"
@@ -327,8 +320,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                       className="relative flex w-[var(--card-width)] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/50 bg-white/90 p-8 shadow-xl backdrop-blur-md transition-all duration-500 sm:p-10"
                       style={{
                         opacity: idx >= activeIndex && idx < activeIndex + 2 ? 1 : 0.4,
-                        transform:
-                          idx >= activeIndex && idx < activeIndex + 2 ? "scale(1)" : "scale(0.95)",
+                        transform: idx >= activeIndex && idx < activeIndex + 2 ? "scale(1)" : "scale(0.95)",
                       }}
                     >
                       {/* Transparent Overlay for First Visible Card */}
@@ -345,12 +337,8 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                           />
                           <div>
                             <h4 className="text-lg font-bold text-gray-900">{t.name}</h4>
-                            <p className="mb-0.5 text-[11px] font-medium text-gray-500 sm:text-xs">
-                              {t.role}
-                            </p>
-                            <p className="text-[13px] font-bold text-gray-900 sm:text-sm">
-                              {t.revenue}
-                            </p>
+                            <p className="mb-0.5 text-[11px] font-medium text-gray-500 sm:text-xs">{t.role}</p>
+                            <p className="text-[13px] font-bold text-gray-900 sm:text-sm">{t.revenue}</p>
                           </div>
                         </div>
 
@@ -396,9 +384,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                                   <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
                                     {t.beforeVal}
                                     <br />
-                                    <span className="text-[10px] font-normal text-gray-500 sm:text-[8px]">
-                                      / month
-                                    </span>
+                                    <span className="text-[10px] font-normal text-gray-500 sm:text-[8px]">/ month</span>
                                   </div>
                                 </div>
                               </div>
@@ -424,9 +410,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                                   <div className="text-[10px] leading-tight font-bold text-gray-700 sm:text-[9px]">
                                     {t.afterVal}
                                     <br />
-                                    <span className="text-[10px] font-normal text-gray-700 sm:text-[8px]">
-                                      / month
-                                    </span>
+                                    <span className="text-[10px] font-normal text-gray-700 sm:text-[8px]">/ month</span>
                                   </div>
                                 </div>
                               </div>

@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Check, Star, ArrowUpRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface RealEstateHeroProps {
   cmsContent?: any
@@ -82,12 +83,9 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
           </ul>
 
           {/* Call To Action Button */}
-          <Link href={content.buttonLink} className="group inline-flex items-center gap-3 rounded-full bg-black px-8 py-4 font-sans text-lg font-bold text-white transition-colors hover:bg-gray-800">
-            {content.buttonText}
-            <span className="rounded-full bg-[#F67C46] p-1.5 text-white transition-transform duration-300 group-hover:rotate-45">
-              <ArrowUpRight className="h-5 w-5" />
-            </span>
-          </Link>
+          <ExploreButton href={content.buttonLink} className="mx-0">
+            <span className="font-sans text-lg font-bold">{content.buttonText}</span>
+          </ExploreButton>
         </div>
 
         {/* Right Side: Spacer for large screens */}

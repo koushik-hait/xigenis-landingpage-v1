@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { Plus, Minus, ArrowUpRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface FAQSectionProps {
   cmsContent?: any
@@ -51,12 +52,9 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
           {content.heading}
         </h2>
 
-        <Link href={content.buttonLink} className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-gray-200">
-          {content.buttonText}
-          <span className="rounded-full bg-[#FF5C35] p-1 text-white transition-transform duration-300 group-hover:rotate-45">
-            <ArrowUpRight className="h-4 w-4" />
-          </span>
-        </Link>
+        <ExploreButton href={content.buttonLink} className="mx-auto">
+          <span className="text-sm font-semibold uppercase">{content.buttonText}</span>
+        </ExploreButton>
       </div>
 
       {/* Accordion Container */}

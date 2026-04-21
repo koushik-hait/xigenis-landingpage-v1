@@ -4,6 +4,7 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowDown, ArrowUpRight, Check, CircleCheck, Star, StarHalf } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 // Dynamically import LogoMarquee to reduce initial bundle size
 const LogoMarquee = dynamic(() => import("./logo-marquee").then((mod) => ({ default: mod.LogoMarquee })), {
@@ -30,7 +31,7 @@ interface HeroSectionProps {
     backgroundImageUrl: string
     avatars: string[]
     checkmarks: string[]
-    marqueeLogos: { image: string, alt: string }[]
+    marqueeLogos: { image: string; alt: string }[]
     marqueeSpeed: string
   }
 }
@@ -65,8 +66,8 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       { image: "/assets/xigenis-logo.png", alt: "The Umansky Team" },
       { image: "/assets/xigenis-logo.png", alt: "EST" },
       { image: "/assets/xigenis-logo.png", alt: "FF" },
-      { image: "/assets/xigenis-logo.png", alt: "Godrej" }
-    ]
+      { image: "/assets/xigenis-logo.png", alt: "Godrej" },
+    ],
   }
 
   // Merge CMS data with defaults to handle partial objects correctly
@@ -164,26 +165,9 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mb-2"
           >
-            <Link
-              href={content.ctaLink}
-              className="group relative isolation-auto z-10 mx-auto flex items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-gray-50 px-4 py-2 text-lg shadow-xl backdrop-blur-md before:absolute before:-left-full before:-z-10 before:aspect-square before:w-full before:rounded-full before:bg-emerald-500 before:transition-all before:duration-700 hover:text-gray-50 before:hover:left-0 before:hover:w-full before:hover:scale-150 before:hover:duration-700 lg:font-semibold"
-              style={{
-                backgroundColor: content.ctaBgColor,
-                color: content.ctaTextColor,
-                borderColor: content.ctaTextColor,
-              }}
-            >
-              <span className="text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
-              <div
-                className="relative rounded-full p-2.5 transition-all duration-300 ease-linear group-hover:scale-110 group-hover:rotate-90"
-                style={{
-                  backgroundColor: content.ctaArrowBgColor,
-                  color: content.ctaTextColor,
-                }}
-              >
-                <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
-              </div>
-            </Link>
+            <ExploreButton href={content.ctaLink} className="mx-0">
+              <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
+            </ExploreButton>
           </motion.div>
 
           {/* Checkmarks */}

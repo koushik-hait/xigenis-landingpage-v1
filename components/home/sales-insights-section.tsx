@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight, Eye } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 const categories = [
   {
@@ -37,10 +38,9 @@ export function SalesInsightsSection() {
               <p className="mb-8 text-lg text-gray-500">
                 Turning property insights into measurable success across every segment.
               </p>
-              <button className="group mb-12 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-emerald-700">
-                SEE HOW IT WORKS
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              <ExploreButton className="mx-0 mb-12">
+                <span className="text-sm font-semibold">SEE HOW IT WORKS</span>
+              </ExploreButton>
             </motion.div>
 
             {/* Categories List */}

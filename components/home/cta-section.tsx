@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface CTASectionProps {
   cmsContent?: any
@@ -51,12 +52,9 @@ const CTASection = ({ cmsContent }: CTASectionProps) => {
 
           {/* Action Button */}
           <div className="pt-4">
-            <Link href={content.buttonLink} className="group flex items-center gap-4 rounded-full bg-white py-3 pr-3 pl-10 shadow-2xl transition-all duration-300 hover:bg-gray-100 w-fit">
-              <span className="text-sm font-bold tracking-widest text-black uppercase">{content.buttonText}</span>
-              <div className="rounded-full bg-orange-500 p-3 transition-transform duration-300 group-hover:rotate-45">
-                <ArrowUpRight className="h-6 w-6 text-white" />
-              </div>
-            </Link>
+            <ExploreButton href={content.buttonLink} className="mx-0">
+              <span className="text-sm font-bold tracking-widest uppercase">{content.buttonText}</span>
+            </ExploreButton>
           </div>
         </div>
       </div>

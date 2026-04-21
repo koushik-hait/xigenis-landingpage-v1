@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { CheckCircle2, ArrowUpRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 interface ProcessFooterProps {
   highlights: { label: string; sub: string }[]
@@ -33,14 +34,9 @@ const ProcessFooter: React.FC<ProcessFooterProps> = ({ highlights, btnText, btnL
         </div>
 
         {/* Action Button */}
-        <Link href={btnLink} className="flex flex-shrink-0 items-center gap-2 group">
-          <span className="rounded-full bg-black px-8 py-3 text-[11px] font-black tracking-widest text-white uppercase transition-colors hover:bg-gray-800">
-            {btnText}
-          </span>
-          <div className="rounded-full bg-orange-500 p-3 shadow-lg shadow-orange-200 transition-transform group-hover:scale-105">
-            <ArrowUpRight className="h-5 w-5 text-white" />
-          </div>
-        </Link>
+        <ExploreButton href={btnLink} className="mx-0">
+          <span className="text-[11px] font-black tracking-widest uppercase">{btnText}</span>
+        </ExploreButton>
       </div>
     </div>
   )

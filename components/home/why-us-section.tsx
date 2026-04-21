@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Building2, BarChart3, ShieldCheck, UserCheck, CalendarDays, Zap, ArrowUpRight } from "lucide-react"
+import { ExploreButton } from "@/components/ui/explore-button"
 
 const WhyChooseUsFooter = ({ stats, btnText, btnLink }: { stats: any[], btnText: string, btnLink: string }) => {
   return (
@@ -22,14 +23,9 @@ const WhyChooseUsFooter = ({ stats, btnText, btnLink }: { stats: any[], btnText:
         </div>
 
         {/* Action Button */}
-        <Link href={btnLink} className="flex items-center justify-center gap-3 md:self-end md:self-center group">
-          <span className="rounded-full bg-black px-8 py-4 text-[11px] font-black tracking-[0.2em] text-white uppercase shadow-lg transition-all hover:bg-gray-800">
-            {btnText}
-          </span>
-          <div className="rounded-full bg-[#FF6B35] p-4 shadow-lg shadow-orange-200 transition-transform duration-300 group-hover:rotate-45">
-            <ArrowUpRight className="h-6 w-6 text-white" />
-          </div>
-        </Link>
+        <ExploreButton href={btnLink} className="mx-0">
+          <span className="text-[11px] font-black tracking-[0.2em] uppercase">{btnText}</span>
+        </ExploreButton>
       </div>
     </div>
   )
