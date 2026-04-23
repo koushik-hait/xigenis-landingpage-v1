@@ -6,8 +6,31 @@ const isDashboardRoute = createRouteMatcher(["/dashboard(.*)", "/projects(.*)", 
 const isAdminOnlyRoute = createRouteMatcher(["/admin(.*)", "/users(.*)", "/settings(.*)"]);
 
 export default clerkMiddleware(async (auth, request) => {
+  const url = request.nextUrl;
+  const hostname = request.headers.get("host") || "";
+
+  // Get the path and query parameters
+  const searchParams = url.searchParams.toString();
+  const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
+
+  // Paths we DO NOT want to rewrite to /[domain]/...
+  const isExcludedPath = 
+    url.pathname.startsWith("/dashboard") ||
+    url.pathname.startsWith("/admin") ||
+    url.pathname.startsWith("/api") ||
+    url.pathname.startsWith("/sign-in") ||
+    url.pathname.startsWith("/sign-up") ||
+    url.pathname.startsWith("/_next");
+
+  let rewriteUrl: URL | null = null;
+  if (!isExcludedPath) {
+    // Rewrite non-excluded paths to our dynamic /[domain] route
+    rewriteUrl = new URL(`/${hostname}${path}`, request.url);
+  }
+
   // Allow public routes
   if (isPublicRoute(request)) {
+    if (rewriteUrl) return NextResponse.rewrite(rewriteUrl);
     return NextResponse.next();
   }
 
@@ -24,9 +47,13 @@ export default clerkMiddleware(async (auth, request) => {
   // Restrict admin-only routes to 'admin' role
   if (isAdminOnlyRoute(request)) {
     if (role === "admin") {
-      const url = new URL("/dashboard", request.url);
-      return NextResponse.redirect(url);
+      const dashboardUrl = new URL("/dashboard", request.url);
+      return NextResponse.redirect(dashboardUrl);
     }
+  }
+
+  if (rewriteUrl) {
+    return NextResponse.rewrite(rewriteUrl);
   }
 });
 

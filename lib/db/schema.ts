@@ -15,6 +15,7 @@ export const users = sqliteTable("users", {
 // CMS Content table for managing pages and sections
 export const cmsContent = sqliteTable("cms_content", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  domain: text("domain").notNull().default("default"),
   sequence: integer("sequence").notNull().default(0),
   page: text("page").notNull(),
   section: text("section").notNull(),

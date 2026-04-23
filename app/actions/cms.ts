@@ -4,11 +4,19 @@ import { db } from '@/lib/db'
 import { cmsContent } from '@/lib/db/schema'
 import { eq, and } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 
-export async function getCmsContent(page: string, section: string) {
+export async function getCmsContent(page: string, section: string, domainOverride?: string) {
   try {
+    const cookieStore = await cookies();
+    const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'default';
+    
     const data = await db.select().from(cmsContent)
-      .where(and(eq(cmsContent.page, page), eq(cmsContent.section, section)))
+      .where(and(
+        eq(cmsContent.domain, domain),
+        eq(cmsContent.page, page), 
+        eq(cmsContent.section, section)
+      ))
       .limit(1)
 
     const [firstRecord] = data
@@ -23,10 +31,17 @@ export async function getCmsContent(page: string, section: string) {
   }
 }
 
-export async function upsertCmsContent(page: string, section: string, contentData: any) {
+export async function upsertCmsContent(page: string, section: string, contentData: any, domainOverride?: string) {
   try {
+    const cookieStore = await cookies();
+    const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'default';
+
     const existing = await db.select().from(cmsContent)
-      .where(and(eq(cmsContent.page, page), eq(cmsContent.section, section)))
+      .where(and(
+        eq(cmsContent.domain, domain),
+        eq(cmsContent.page, page), 
+        eq(cmsContent.section, section)
+      ))
       .limit(1)
     
     const [existingRecord] = existing
@@ -40,6 +55,7 @@ export async function upsertCmsContent(page: string, section: string, contentDat
         .where(eq(cmsContent.id, existingRecord.id))
     } else {
       await db.insert(cmsContent).values({
+        domain,
         page,
         section,
         content: JSON.stringify(contentData),
@@ -53,4 +69,9 @@ export async function upsertCmsContent(page: string, section: string, contentDat
     console.error('Failed to upsert CMS content:', error)
     return { success: false, error: 'Failed to update content' }
   }
+}
+
+export async function setAdminDomain(domain: string) {
+  const cookieStore = await cookies()
+  cookieStore.set('admin_domain', domain, { maxAge: 60 * 60 * 24 * 365, path: '/' })
 }

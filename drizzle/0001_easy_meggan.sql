@@ -1,0 +1,1 @@
+ALTER TABLE `cms_content` ADD `domain` text DEFAULT 'default' NOT NULL;
