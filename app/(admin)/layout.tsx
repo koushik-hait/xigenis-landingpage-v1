@@ -8,7 +8,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const { sessionClaims } = await auth()
   const role = sessionClaims?.metadata?.role || "user"
   const cookieStore = await cookies()
-  const currentDomain = cookieStore.get('admin_domain')?.value || 'default'
+  const currentDomain = cookieStore.get('admin_domain')?.value || 'ca.xigenis.com'
 
   return (
     <div className="flex min-h-screen w-full overflow-hidden">

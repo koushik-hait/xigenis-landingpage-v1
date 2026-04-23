@@ -6,16 +6,15 @@ import { setAdminDomain } from "@/app/actions/cms"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // These could be dynamic from the DB, but for now we list the common ones
-// plus 'default' which is the main fallback.
+// plus ca.xigenis.com which is the main fallback.
 const AVAILABLE_DOMAINS = [
-  { id: "default", label: "Main Site (Default)" },
-  { id: "ca.xigenis.com", label: "CA" },
+  { id: "ca.xigenis.com", label: "Main Site (CA)" },
   { id: "cd.xigenis.com", label: "CD" },
   { id: "wa.xigenis.com", label: "WA" },
   { id: "wd.xigenis.com", label: "WD" },
 ]
 
-export function DomainSelector({ initialDomain = "default" }: { initialDomain?: string }) {
+export function DomainSelector({ initialDomain = "ca.xigenis.com" }: { initialDomain?: string }) {
   const router = useRouter()
   const [domain, setDomain] = useState(initialDomain)
 

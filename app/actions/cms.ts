@@ -9,7 +9,7 @@ import { cookies } from 'next/headers'
 export async function getCmsContent(page: string, section: string, domainOverride?: string) {
   try {
     const cookieStore = await cookies();
-    const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'default';
+    const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'ca.xigenis.com';
     
     const data = await db.select().from(cmsContent)
       .where(and(
@@ -34,7 +34,7 @@ export async function getCmsContent(page: string, section: string, domainOverrid
 export async function upsertCmsContent(page: string, section: string, contentData: any, domainOverride?: string) {
   try {
     const cookieStore = await cookies();
-    const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'default';
+    const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'ca.xigenis.com';
 
     const existing = await db.select().from(cmsContent)
       .where(and(
