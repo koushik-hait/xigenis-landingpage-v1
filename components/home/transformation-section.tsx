@@ -159,10 +159,10 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
           {/* We break out of the container padding on the right for elegant scroll on mobile/desktop */}
           <div className="no-scrollbar -mx-6 flex snap-x gap-6 overflow-x-auto px-6 pb-8 sm:-mx-8 sm:gap-8 sm:px-8 lg:-mx-12 lg:overflow-hidden lg:px-12">
             {/* CARD 1: Timeline Tracker */}
-            <div className="relative h-[380px] w-[300px] shrink-0 snap-start rounded-[2rem] bg-white p-4 shadow-xl sm:w-[380px] sm:px-8 sm:py-5">
-              <div className="relative z-10 flex flex-col space-y-4">
+            <div className="relative w-[300px] shrink-0 snap-start rounded-[2rem] bg-white p-4 shadow-xl sm:w-[380px] sm:px-8 sm:py-5">
+              <div className="relative z-10 mt-8 flex flex-col space-y-5">
                 {content.timelineSteps.map((step: any, idx: number) => (
-                  <div key={idx} className="relative flex items-start gap-2 sm:gap-3">
+                  <div key={idx} className="relative flex items-start gap-5 sm:gap-3">
                     {/* Dotted line connecting steps */}
                     {idx !== content.timelineSteps.length - 1 && (
                       <div className="absolute top-8 bottom-[-1rem] left-[1rem] w-px border-l-[3px] border-dotted border-gray-300 sm:left-[1.25rem]" />

@@ -104,7 +104,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
 
   return (
     <section className="border-t border-gray-100 bg-white py-10 sm:py-10 lg:py-10">
-      <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+      <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-8">
           {/* Left Content */}
           <div className="flex flex-1 flex-col items-start justify-center pr-4 lg:max-w-[400px] xl:max-w-[480px]">
@@ -171,8 +171,9 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className={`flex w-[200px] flex-1 flex-col items-center px-3 sm:px-3 lg:w-[280px] ${index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
-                    }`}
+                  className={`flex w-[200px] flex-1 flex-col items-center px-3 sm:px-3 lg:w-[280px] ${
+                    index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
+                  }`}
                 >
                   <div className="relative mb-5 flex flex-col items-center">
                     <img

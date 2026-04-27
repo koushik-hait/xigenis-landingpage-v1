@@ -1,5 +1,6 @@
 import Footer from "@/components/layouts/footer"
 import { Header } from "@/components/layouts/header"
+import { StickyCountdownBar } from "@/components/layouts/sticky-countdown-bar"
 // import { WhatsAppButton } from "@/components/layouts/whatsapp-button"
 import { WebVitals } from "@/components/analytics/web-vitals"
 import type { Metadata } from "next"
@@ -56,6 +57,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <WebVitals />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
+        <StickyCountdownBar />
         <Header />
         <Suspense fallback={null}>{children}</Suspense>
         <Footer />

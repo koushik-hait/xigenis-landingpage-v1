@@ -138,7 +138,7 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
                   {index === content.points.length - 1 ? (
                     <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   ) : (
-                    <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
+                    <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   )}
                   <span className="text-sm font-medium text-gray-700 sm:text-base">{text}</span>
                 </li>

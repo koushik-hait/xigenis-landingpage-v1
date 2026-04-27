@@ -64,7 +64,7 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
                   {index === content.points.length - 1 ? (
                     <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   ) : (
-                    <XCircle className="mt-1 h-5 w-5 flex-shrink-0 fill-red-100 text-red-500" />
+                    <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   )}
                   <span className="font-medium text-gray-700">{text}</span>
                 </li>
@@ -103,7 +103,7 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
                   {/* Card 1: Missing CRM */}
                   <div className="relative z-30 -ml-12 flex w-[110%] items-center justify-between rounded-2xl border border-gray-100 bg-white p-4 shadow-xl">
                     <div className="flex items-center gap-3">
-                      <XCircle className="h-8 w-8 fill-red-100 text-red-500" />
+                      <CheckCircle2 className="h-8 w-8 fill-emerald-100 text-emerald-500" />
                       <p className="text-[13px] leading-tight font-bold whitespace-pre-line text-gray-700">
                         {content.card1Title}
                       </p>
@@ -114,7 +114,7 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
                   {/* Card 2: Past Clients */}
                   <div className="relative z-20 ml-6 flex w-[100%] items-center justify-between rounded-2xl border border-gray-100 bg-white p-4 shadow-lg">
                     <div className="flex items-center gap-3">
-                      <XCircle className="h-8 w-8 fill-red-100 text-red-500" />
+                      <CheckCircle2 className="h-8 w-8 fill-emerald-100 text-emerald-500" />
                       <p className="text-[13px] leading-tight font-bold whitespace-pre-line text-gray-700">
                         {content.card2Title}
                       </p>

@@ -20,6 +20,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
       "Do you spend ₹30K to ₹1L on ads and still get 80% fake numbers?",
       "Are you chasing 100 leads a month but can't get 4 site visits a week?",
       "Have you tried portals, freelancers, and cold calls and NOTHING worked consistently?",
+      "Do you want 250+ qualified buyers and 10-15 verified site visits per month?",
     ],
     introPara:
       "You're not bad at sales. You're using a broken system in a market that rewards speed, follow-up, and qualified traffic — not volume.",
@@ -32,7 +33,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
     stat4Value: "60%",
     stat4Label: "Of leads die because no one follows up after Day 2",
     bgImage: "/assets/problems-bg.png",
-    mainImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop",
+    mainImage: "/assets/problems-bg.jpeg",
     headingSize: "48",
     descriptionSize: "16",
     ...cmsContent,
@@ -70,18 +71,19 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
         </motion.div>
 
         {/* lead problem  */}
-        <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-gradient-to-r from-white to-orange-50 py-10">
+        <section className="relative flex w-full items-center overflow-hidden py-10">
           {/* Background Image */}
-          <div className="absolute inset-0 z-0 opacity-100">
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-green-100/5 via-emerald-50/70 to-white/60" />
+          {/* <div className="absolute inset-0 z-0 opacity-100">
             <div
               className="h-[90%] w-full bg-cover bg-center object-cover"
               style={{ backgroundImage: `url('${content.bgImage}')` }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 via-50% to-transparent"></div>
-          </div>
+          </div> */}
 
           {/* Mobile Horizontal Scroll Layout */}
-          <div className="absolute inset-0 z-10 lg:hidden">
+          <div className="relative inset-0 z-10 lg:hidden">
             <div className="h-full snap-x snap-mandatory overflow-x-auto">
               <div className="flex h-full gap-4" style={{ minWidth: "max-content", padding: "0 1rem" }}>
                 {/* First Screen - Header and Intro */}
@@ -175,9 +177,14 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
 
               {/* Right Column: Image and Floating Cards */}
               <div className="relative mt-12 flex min-h-[600px] w-full items-end justify-center lg:mt-0 lg:min-h-[700px] lg:w-1/2">
-                {/* <div className="relative z-10 h-[500px] w-[300px] sm:h-[600px] sm:w-[400px] lg:hidden lg:w-[450px]">
-                  <Image src={content.mainImage} alt="Smiling Professional" fill className="object-cover" />
-                </div> */}
+                <div className="relative z-10 h-[500px] w-[300px] sm:h-[600px] sm:w-[400px] lg:w-[450px]">
+                  <Image
+                    src={content.mainImage || "/assets/problems-bg.jpeg"}
+                    alt="Smiling Professional"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
                 {/* Floating Cards Container */}
                 <div className="pointer-events-none absolute inset-0 z-20">
@@ -194,7 +201,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                   </div>
 
                   {/* White Card 1 (Bottom Left) */}
-                  <div className="pointer-events-auto absolute top-[60%] left-0 h-[100px] max-w-[180px] transform rounded-3xl border border-gray-100 bg-white p-5 text-center text-gray-900 shadow-lg transition hover:scale-105 sm:left-8 lg:bottom-24 lg:left-0">
+                  <div className="pointer-events-auto absolute top-[60%] left-0 h-[100px] max-w-[180px] transform rounded-3xl border border-gray-100 bg-white p-5 text-center text-gray-900 shadow-lg transition hover:scale-105 sm:left-8 lg:bottom-24 lg:left-0 xl:h-auto xl:w-auto">
                     <h3 className="mb-2 font-serif text-3xl text-[#D97706]">{content.stat3Value}</h3>
                     <p className="text-[11px] leading-tight font-semibold tracking-wide text-gray-500 uppercase">
                       {content.stat3Label}
@@ -202,7 +209,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                   </div>
 
                   {/* White Card 2 (Bottom Right) */}
-                  <div className="pointer-events-auto absolute top-[60%] -right-4 h-[100px] max-w-[180px] transform rounded-3xl border border-gray-100 bg-white p-5 text-center text-gray-900 shadow-lg transition hover:scale-105 sm:right-8 lg:-right-4 lg:bottom-12">
+                  <div className="pointer-events-auto absolute top-[60%] -right-4 h-[100px] max-w-[180px] transform rounded-3xl border border-gray-100 bg-white p-5 text-center text-gray-900 shadow-lg transition hover:scale-105 sm:right-8 lg:-right-4 lg:bottom-12 xl:h-auto xl:w-auto">
                     <h3 className="mb-2 font-serif text-3xl text-[#D97706]">{content.stat4Value}</h3>
                     <p className="text-[11px] leading-tight font-semibold tracking-wide text-gray-500 uppercase">
                       {content.stat4Label}

@@ -2,7 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
-import { XCircle, CheckCircle2, PhoneOff, Frown, Building2 } from "lucide-react"
+import { CheckCircle2, PhoneOff, Frown, Building2 } from "lucide-react"
 
 interface LeadQualitySectionProps {
   cmsContent?: any
@@ -156,7 +156,7 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
                   {index === content.points.length - 1 ? (
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   ) : (
-                    <XCircle className="mt-0.5 h-5 w-5 flex-shrink-0 fill-red-100 text-red-500" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   )}
                   <span
                     className="text-gray-800"
