@@ -212,7 +212,7 @@ const menuItems: MenuItem[] = [
     children: [
       {
         title: "Duplicate Content",
-        href: "/duplicate/data",
+        href: "/dashboard/duplicate",
         icon: <Copy className="h-3 w-3" />,
       },
     ],
