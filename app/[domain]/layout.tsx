@@ -61,7 +61,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Header />
         <Suspense fallback={null}>{children}</Suspense>
         <Footer />
-        {/* <WhatsAppButton /> */}
       </div>
     </>
   )

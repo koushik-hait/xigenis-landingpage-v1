@@ -17,6 +17,7 @@ import {
   Building,
   Shield,
   LogOut,
+  Copy,
 } from "lucide-react"
 import Image from "next/image"
 
@@ -205,6 +206,18 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
+    title: "Tools",
+    icon: <Copy className="h-4 w-4" />,
+    requiredRole: "admin",
+    children: [
+      {
+        title: "Duplicate Content",
+        href: "/duplicate/data",
+        icon: <Copy className="h-3 w-3" />,
+      },
+    ],
+  },
+  {
     title: "Settings",
     href: "/settings",
     icon: <Settings className="h-4 w-4" />,
@@ -214,7 +227,7 @@ const menuItems: MenuItem[] = [
 
 export function AdminSidebar({ userRole = "user" }: { userRole?: "admin" | "manager" | "user" }) {
   const pathname = usePathname()
-  const [expandedItems, setExpandedItems] = useState<string[]>(["Content Settings"])
+  const [expandedItems, setExpandedItems] = useState<string[]>(["Content Settings", "Tools"])
 
   const toggleExpanded = (title: string) => {
     setExpandedItems((prev) => (prev.includes(title) ? prev.filter((item) => item !== title) : [...prev, title]))
