@@ -37,19 +37,8 @@ const menuItems: MenuItem[] = [
   },
   {
     title: "Analytics",
-    href: "/analytics",
+    href: "https://umami.xigenis.com",
     icon: <BarChart3 className="h-4 w-4" />,
-  },
-  {
-    title: "Content",
-    icon: <FileText className="h-4 w-4" />,
-    children: [
-      {
-        title: "Footer",
-        href: "/dashboard/footer",
-        icon: <FileText className="h-3 w-3" />,
-      },
-    ],
   },
   {
     title: "Users",
@@ -68,24 +57,9 @@ const menuItems: MenuItem[] = [
       },
     ],
   },
+
   {
-    title: "Projects",
-    icon: <Building className="h-4 w-4" />,
-    children: [
-      {
-        title: "All Projects",
-        href: "/projects",
-        icon: <Building className="h-3 w-3" />,
-      },
-      {
-        title: "Create Project",
-        href: "/projects/create",
-        icon: <FileText className="h-3 w-3" />,
-      },
-    ],
-  },
-  {
-    title: "Content Settings",
+    title: "CMS Settings",
     icon: <FileText className="h-4 w-4" />,
     children: [
       {
@@ -201,6 +175,11 @@ const menuItems: MenuItem[] = [
       {
         title: "Bottom Hero",
         href: "/dashboard/real-estate-hero",
+        icon: <FileText className="h-3 w-3" />,
+      },
+      {
+        title: "Footer",
+        href: "/dashboard/footer",
         icon: <FileText className="h-3 w-3" />,
       },
     ],

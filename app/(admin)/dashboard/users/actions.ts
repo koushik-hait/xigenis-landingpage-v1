@@ -11,6 +11,7 @@ export type ClerkUser = {
   createdAt: number
   lastSignInAt: number | null
   banned: boolean
+  role: 'admin' | 'user' | null
   publicMetadata: Record<string, unknown>
 }
 
@@ -53,9 +54,48 @@ export async function getUsers(
       createdAt: u.createdAt,
       lastSignInAt: u.lastSignInAt,
       banned: u.banned,
+      role: (u.publicMetadata?.role as 'admin' | 'user') ?? null,
       publicMetadata: u.publicMetadata as Record<string, unknown>,
     })),
     totalCount,
     totalPages: Math.ceil(totalCount / limit),
   }
+}
+
+
+export async function deleteUser(targetUserId: string): Promise<void> {
+  const { userId } = await auth()
+  if (!userId) throw new Error('Unauthorized')
+
+  const client = await clerkClient()
+  const requestingUser = await client.users.getUser(userId)
+  if (requestingUser.publicMetadata?.role !== 'admin') {
+    throw new Error('Forbidden')
+  }
+
+  // Prevent self-deletion
+  if (targetUserId === userId) throw new Error('Cannot delete your own account')
+
+  await client.users.deleteUser(targetUserId)
+}
+
+export async function updateUserRole(
+  targetUserId: string,
+  role: 'admin' | 'user'
+): Promise<void> {
+  const { userId } = await auth()
+  if (!userId) throw new Error('Unauthorized')
+
+  const client = await clerkClient()
+  const requestingUser = await client.users.getUser(userId)
+  if (requestingUser.publicMetadata?.role !== 'admin') {
+    throw new Error('Forbidden')
+  }
+
+  // Prevent self-demotion
+  if (targetUserId === userId) throw new Error('Cannot change your own role')
+
+  await client.users.updateUserMetadata(targetUserId, {
+    publicMetadata: { role },
+  })
 }
