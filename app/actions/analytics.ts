@@ -147,7 +147,11 @@ export async function getTopPages(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  if (!res.ok) throw new Error(`Umami metrics API failed: ${res.status}`)
+  if (!res.ok) {
+    const errorText = await res.text()
+    console.error(`Umami topPages API 400: ${errorText}, URL: ${UMAMI_URL}, websiteId: ${UMAMI_WEBSITE_ID?.slice(0, 8)}...`)
+    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+  }
   const data = (await res.json()) as PageStats[]
   return Array.isArray(data) ? data : []
 }
@@ -173,7 +177,13 @@ export async function getReferrers(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  return res.json() as Promise<ReferrerStats[]>
+  if (!res.ok) {
+    const errorText = await res.text()
+    console.error(`Umami referrers API 400: ${errorText}`)
+    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+  }
+  const data = (await res.json()) as ReferrerStats[]
+  return Array.isArray(data) ? data : []
 }
 
 // ─── Devices ─────────────────────────────────────────────────────────────────
@@ -195,7 +205,11 @@ export async function getDevices(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  if (!res.ok) throw new Error(`Umami device API failed: ${res.status}`)
+  if (!res.ok) {
+    const errorText = await res.text()
+    console.error(`Umami device API 400: ${errorText}`)
+    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+  }
   const data = (await res.json()) as DeviceStats[]
   return Array.isArray(data) ? data : []
 }
@@ -219,7 +233,11 @@ export async function getCountries(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  if (!res.ok) throw new Error(`Umami country API failed: ${res.status}`)
+  if (!res.ok) {
+    const errorText = await res.text()
+    console.error(`Umami country API 400: ${errorText}`)
+    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+  }
   const data = (await res.json()) as CountryStats[]
   return Array.isArray(data) ? data : []
 }
