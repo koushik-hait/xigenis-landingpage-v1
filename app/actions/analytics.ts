@@ -82,8 +82,6 @@ export async function getAnalyticsSummary(
   await assertAdmin()
   const token = await getUmamiToken()
 
-  console.log('Umami Token', token)
-
   const params = new URLSearchParams({
     startAt: String(startAt),
     endAt: String(endAt),

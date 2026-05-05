@@ -48,6 +48,8 @@ export default function AnalyticsDashboard({
     const [devices, setDevices] = useState(initialDevices)
     const [isPending, startTransition] = useTransition()
 
+    console.log('Summary', summary, 'series', series, 'topPages', topPages, 'referrers', referrers, 'devices', devices)
+
     function switchRange(newRange: Range) {
         setRange(newRange)
         const endAt = Date.now()
