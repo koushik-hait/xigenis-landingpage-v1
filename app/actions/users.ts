@@ -1,11 +1,23 @@
 'use server'
 
+import { auth } from '@clerk/nextjs/server'
 import { db } from '@/lib/db'
 import { users } from '@/lib/db/schema'
 import { desc, eq } from 'drizzle-orm'
 
 export async function getAllUsers() {
   try {
+    const { userId, sessionClaims } = await auth()
+
+    if (!userId) {
+      return { success: false, error: 'Unauthorized', users: [] }
+    }
+
+    const role = sessionClaims?.metadata?.role || 'user'
+    if (role !== 'admin' && role !== 'manager') {
+      return { success: false, error: 'Forbidden: Admin or Manager access required', users: [] }
+    }
+
     const data = await db.select().from(users).orderBy(desc(users.createdAt))
     return { success: true, users: data }
   } catch (error) {
