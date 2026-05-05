@@ -7,6 +7,12 @@ const UMAMI_USERNAME = process.env.UMAMI_USERNAME!     // your Umami login
 const UMAMI_PASSWORD = process.env.UMAMI_PASSWORD!     // your Umami password
 const UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!
 
+// Validate website ID is a proper UUID
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+if (!UUID_REGEX.test(UMAMI_WEBSITE_ID)) {
+  console.error(`[Umami] WARNING: Website ID "${UMAMI_WEBSITE_ID}" is not a valid UUID format. Expected: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
+}
+
 // ─── Auth helper ────────────────────────────────────────────────────────────
 
 async function getUmamiToken(): Promise<string> {
@@ -149,7 +155,10 @@ export async function getTopPages(
   )
   if (!res.ok) {
     const errorText = await res.text()
-    console.error(`Umami topPages API 400: ${errorText}, URL: ${UMAMI_URL}, websiteId: ${UMAMI_WEBSITE_ID?.slice(0, 8)}...`)
+    const requestUrl = `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`
+    console.error(`Umami topPages API 400: ${errorText}`)
+    console.error(`Request URL: ${requestUrl}`)
+    console.error(`Website ID length: ${UMAMI_WEBSITE_ID?.length}, ID: ${UMAMI_WEBSITE_ID}`)
     throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
   }
   const data = (await res.json()) as PageStats[]
