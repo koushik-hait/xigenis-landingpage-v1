@@ -16,7 +16,9 @@ async function getUmamiToken(): Promise<string> {
     body: JSON.stringify({ username: UMAMI_USERNAME, password: UMAMI_PASSWORD }),
     cache: 'no-store',
   })
+  if (!res.ok) throw new Error(`Umami auth failed: ${res.status}`)
   const data = (await res.json()) as { token: string }
+  if (!data.token) throw new Error('Umami auth returned no token')
   return data.token
 }
 
@@ -83,6 +85,7 @@ export async function getAnalyticsSummary(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/stats?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
+  if (!res.ok) throw new Error(`Umami stats API failed: ${res.status}`)
   return res.json() as Promise<AnalyticsSummary>
 }
 
@@ -108,15 +111,18 @@ export async function getPageviewSeries(
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
   const data = (await res.json()) as {
-    pageviews: { x: string; y: number }[]
-    sessions: { x: string; y: number }[]
+    pageviews?: { x: string; y: number }[]
+    sessions?: { x: string; y: number }[]
   }
 
+  const pageviews = Array.isArray(data.pageviews) ? data.pageviews : []
+  const sessions = Array.isArray(data.sessions) ? data.sessions : []
+
   // Merge pageviews + sessions arrays into one series
-  return data.pageviews.map((pv: { x: string; y: number }, i: number) => ({
+  return pageviews.map((pv: { x: string; y: number }, i: number) => ({
     date: pv.x,
     pageviews: pv.y,
-    sessions: data.sessions[i]?.y ?? 0,
+    sessions: sessions[i]?.y ?? 0,
   }))
 }
 
@@ -141,7 +147,9 @@ export async function getTopPages(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  return res.json() as Promise<PageStats[]>
+  if (!res.ok) throw new Error(`Umami metrics API failed: ${res.status}`)
+  const data = (await res.json()) as PageStats[]
+  return Array.isArray(data) ? data : []
 }
 
 // ─── Referrers ───────────────────────────────────────────────────────────────
@@ -187,7 +195,9 @@ export async function getDevices(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  return res.json() as Promise<DeviceStats[]>
+  if (!res.ok) throw new Error(`Umami device API failed: ${res.status}`)
+  const data = (await res.json()) as DeviceStats[]
+  return Array.isArray(data) ? data : []
 }
 
 // ─── Countries ───────────────────────────────────────────────────────────────
@@ -209,5 +219,7 @@ export async function getCountries(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  return res.json() as Promise<CountryStats[]>
+  if (!res.ok) throw new Error(`Umami country API failed: ${res.status}`)
+  const data = (await res.json()) as CountryStats[]
+  return Array.isArray(data) ? data : []
 }
