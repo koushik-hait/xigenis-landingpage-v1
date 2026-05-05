@@ -39,11 +39,11 @@ async function assertAdmin() {
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type AnalyticsSummary = {
-  pageviews: { value: number; change: number }
-  visitors: { value: number; change: number }
-  visits: { value: number; change: number }
-  bounces: { value: number; change: number }
-  totalTime: { value: number; change: number }
+  pageviews: number
+  visitors: number
+  visits: number
+  bounces: number
+  totaltime: number
 }
 
 export type PageStats = {

@@ -48,8 +48,6 @@ export default function AnalyticsDashboard({
     const [devices, setDevices] = useState(initialDevices)
     const [isPending, startTransition] = useTransition()
 
-    console.log('Summary', summary, 'series', series, 'topPages', topPages, 'referrers', referrers, 'devices', devices)
-
     function switchRange(newRange: Range) {
         setRange(newRange)
         const endAt = Date.now()
@@ -94,10 +92,10 @@ export default function AnalyticsDashboard({
 
             {/* Summary cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <StatCard label="Pageviews" value={summary.pageviews.value} change={summary.pageviews.change} />
-                <StatCard label="Visitors" value={summary.visitors.value} change={summary.visitors.change} />
-                <StatCard label="Visits" value={summary.visits.value} change={summary.visits.change} />
-                <StatCard label="Bounce rate" value={`${summary.bounces.value}%`} change={summary.bounces.change} />
+                <StatCard label="Pageviews" value={summary.pageviews} change={0} />
+                <StatCard label="Visitors" value={summary.visitors} change={0} />
+                <StatCard label="Visits" value={summary.visits} change={0} />
+                <StatCard label="Bounce rate" value={`${summary.bounces}%`} change={0} />
             </div>
 
             {/* Pageview chart */}
