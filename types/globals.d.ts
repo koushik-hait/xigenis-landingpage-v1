@@ -6,4 +6,10 @@ declare global {
       role?: "admin" | "manager" | "user";
     };
   }
+
+  interface Window {
+    umami?: {
+      track: (eventName: string, eventData?: Record<string, unknown>) => void;
+    };
+  }
 }

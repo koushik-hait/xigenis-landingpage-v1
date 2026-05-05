@@ -31,6 +31,14 @@ const nextConfig: NextConfig = {
         source: '/stats/api/send',
         destination: 'https://umami.xigenis.com/api/send',
       },
+      {
+        source: '/stats/api/send/',
+        destination: 'https://umami.xigenis.com/api/send/',
+      },
+      {
+        source: '/stats/api/health',
+        destination: 'https://umami.xigenis.com/api/health',
+      },
   ],
   images: {
     formats: ['image/webp', 'image/avif'],

@@ -1,7 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-const isPublicRoute = createRouteMatcher(["/", "/api/webhooks(.*)", "/sign-in(.*)", "/sign-up(.*)", "/privacy-policy", "/terms-and-conditions", '/refund-policy']);
+const isPublicRoute = createRouteMatcher(["/", "/api/webhooks(.*)", "/sign-in(.*)", "/sign-up(.*)", "/privacy-policy", "/terms-and-conditions", '/refund-policy', '/stats(.*)']);
 const isDashboardRoute = createRouteMatcher(["/dashboard(.*)", "/projects(.*)", "/analytics(.*)"]);
 const isAdminOnlyRoute = createRouteMatcher(["/admin(.*)", "/users(.*)", "/settings(.*)"]);
 
@@ -20,7 +20,8 @@ export default clerkMiddleware(async (auth, request) => {
     url.pathname.startsWith("/api") ||
     url.pathname.startsWith("/sign-in") ||
     url.pathname.startsWith("/sign-up") ||
-    url.pathname.startsWith("/_next");
+    url.pathname.startsWith("/_next") ||
+    url.pathname.startsWith("/stats");
 
   let rewriteUrl: URL | null = null;
   if (!isExcludedPath) {
