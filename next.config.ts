@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
     { source: "/api/healthz", destination: "/api/health" },
     { source: "/health", destination: "/api/health" },
     { source: "/ping", destination: "/api/health" },
+    {
+        source: '/stats/script.js',
+        destination: 'https://analytics.yourdomain.com/script.js',
+      },
+      {
+        source: '/stats/api/send',
+        destination: 'https://analytics.yourdomain.com/api/send',
+      },
   ],
   images: {
     formats: ['image/webp', 'image/avif'],

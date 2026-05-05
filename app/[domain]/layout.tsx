@@ -7,6 +7,7 @@ import type { Metadata } from "next"
 import { Montserrat, Poppins } from "next/font/google"
 import type React from "react"
 import { Suspense } from "react"
+import UmamiAnalytics from "@/components/analytics/umami-analytics"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <WebVitals />
+      <UmamiAnalytics />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
         <StickyCountdownBar />
         <Header />
