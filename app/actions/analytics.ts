@@ -149,7 +149,7 @@ export async function getTopPages(
   const params = new URLSearchParams({
     startAt: String(startAt),
     endAt: String(endAt),
-    type: 'url',
+    type: 'path',
     limit: String(limit),
   })
 
