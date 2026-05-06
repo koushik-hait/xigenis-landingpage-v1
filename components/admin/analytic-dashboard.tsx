@@ -7,11 +7,13 @@ import {
     getTopPages,
     getReferrers,
     getDevices,
+    getEvents,
     type AnalyticsSummary,
     type PageviewSeries,
     type PageStats,
     type ReferrerStats,
     type DeviceStats,
+    type EventStats,
 } from '../../app/actions/analytics'
 
 const RANGES = {
@@ -29,6 +31,7 @@ type Props = {
     topPages: PageStats[]
     referrers: ReferrerStats[]
     devices: DeviceStats[]
+    events?: EventStats[]
     initialRange: Range
 }
 
@@ -38,6 +41,7 @@ export default function AnalyticsDashboard({
     topPages: initialPages,
     referrers: initialReferrers,
     devices: initialDevices,
+    events: initialEvents = [],
     initialRange,
 }: Props) {
     const [range, setRange] = useState<Range>(initialRange)
@@ -46,6 +50,7 @@ export default function AnalyticsDashboard({
     const [topPages, setTopPages] = useState(initialPages)
     const [referrers, setReferrers] = useState(initialReferrers)
     const [devices, setDevices] = useState(initialDevices)
+    const [events, setEvents] = useState<EventStats[]>(initialEvents)
     const [isPending, startTransition] = useTransition()
 
     function switchRange(newRange: Range) {
@@ -55,18 +60,20 @@ export default function AnalyticsDashboard({
         const unit = newRange === '24h' ? 'hour' : 'day'
 
         startTransition(async () => {
-            const [s, pv, pages, refs, devs] = await Promise.all([
+            const [s, pv, pages, refs, devs, evts] = await Promise.all([
                 getAnalyticsSummary(startAt, endAt),
                 getPageviewSeries(startAt, endAt, unit),
                 getTopPages(startAt, endAt),
                 getReferrers(startAt, endAt),
                 getDevices(startAt, endAt),
+                getEvents(startAt, endAt, 'admin_action', 20),
             ])
             setSummary(s)
             setSeries(pv)
             setTopPages(pages)
             setReferrers(refs)
             setDevices(devs)
+            setEvents(evts)
         })
     }
 
@@ -109,6 +116,15 @@ export default function AnalyticsDashboard({
                 <MetricList title="Top Pages" items={topPages} />
                 <MetricList title="Referrers" items={referrers} />
                 <MetricList title="Devices" items={devices} />
+            </div>
+
+            {/* Admin Events List */}
+            <div className="border rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-sm font-semibold text-gray-600">Admin Activity Log</h2>
+                    <span className="text-xs text-gray-500">{events.length} recent events</span>
+                </div>
+                <EventsList events={events} />
             </div>
         </div>
     )
@@ -191,5 +207,78 @@ function SimpleLineChart({ data }: { data: PageviewSeries[] }) {
                 )
             })}
         </svg>
+    )
+}
+
+function EventsList({ events }: { events: EventStats[] }) {
+    if (!events.length) {
+        return <p className="text-sm text-gray-400">No admin activity recorded for this period.</p>
+    }
+
+    const getActionColor = (action: string) => {
+        switch (action) {
+            case 'create': return 'bg-green-100 text-green-700'
+            case 'update': return 'bg-blue-100 text-blue-700'
+            case 'delete': return 'bg-red-100 text-red-700'
+            case 'upload': return 'bg-purple-100 text-purple-700'
+            case 'save': return 'bg-orange-100 text-orange-700'
+            default: return 'bg-gray-100 text-gray-700'
+        }
+    }
+
+    const formatTime = (timestamp: number) => {
+        return new Date(timestamp).toLocaleString('en-IN', {
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+        })
+    }
+
+    return (
+        <div className="max-h-80 overflow-y-auto">
+            <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-white border-b">
+                    <tr className="text-left text-xs text-gray-500">
+                        <th className="pb-2 pr-2">Time</th>
+                        <th className="pb-2 pr-2">User</th>
+                        <th className="pb-2 pr-2">Action</th>
+                        <th className="pb-2 pr-2">Section</th>
+                        <th className="pb-2">Details</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y">
+                    {events.map((event) => {
+                        const data = event.data || {}
+                        const action = data.action as string || 'unknown'
+                        const section = data.section as string || '-'
+                        const username = data.username as string || 'Unknown'
+                        const details = data.details as string || ''
+
+                        return (
+                            <tr key={event.id} className="text-xs">
+                                <td className="py-2 pr-2 text-gray-500 whitespace-nowrap">
+                                    {formatTime(event.createdAt)}
+                                </td>
+                                <td className="py-2 pr-2 font-medium text-gray-700">
+                                    {username}
+                                </td>
+                                <td className="py-2 pr-2">
+                                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${getActionColor(action)}`}>
+                                        {action}
+                                    </span>
+                                </td>
+                                <td className="py-2 pr-2 text-gray-600">
+                                    {section}
+                                </td>
+                                <td className="py-2 text-gray-500 truncate max-w-xs" title={details}>
+                                    {details || '-'}
+                                </td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     )
 }

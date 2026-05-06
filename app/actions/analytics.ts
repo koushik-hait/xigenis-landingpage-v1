@@ -66,6 +66,32 @@ export type CountryStats = {
   y: number
 }
 
+export type EventStats = {
+  id: string
+  websiteId: string
+  sessionId: string
+  createdAt: number
+  urlPath: string
+  urlQuery?: string
+  referrerPath?: string
+  referrerQuery?: string
+  referrerDomain?: string
+  pageTitle?: string
+  eventType: number
+  eventName: string
+  hostname: string
+  browser: string
+  os: string
+  device: string
+  screen?: string
+  language?: string
+  country?: string
+  subdivision1?: string
+  subdivision2?: string
+  city?: string
+  data?: Record<string, string | number | boolean>
+}
+
 export type PageviewSeries = {
   date: string
   pageviews: number
@@ -252,5 +278,39 @@ export async function getCountries(
     throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
   }
   const data = (await res.json()) as CountryStats[]
+  return Array.isArray(data) ? data : []
+}
+
+// ─── Events ─────────────────────────────────────────────────────────────────
+
+export async function getEvents(
+  startAt: number,
+  endAt: number,
+  eventName?: string,
+  limit = 50
+): Promise<EventStats[]> {
+  await assertAdmin()
+  const token = await getUmamiToken()
+
+  const params = new URLSearchParams({
+    startAt: String(startAt),
+    endAt: String(endAt),
+    limit: String(limit),
+  })
+
+  if (eventName) {
+    params.append('eventName', eventName)
+  }
+
+  const res = await fetch(
+    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/events?${params}`,
+    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+  )
+  if (!res.ok) {
+    const errorText = await res.text()
+    console.error(`Umami events API error: ${errorText}`)
+    throw new Error(`Umami events API failed: ${res.status} - ${errorText}`)
+  }
+  const data = (await res.json()) as EventStats[]
   return Array.isArray(data) ? data : []
 }

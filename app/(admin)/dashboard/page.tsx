@@ -4,6 +4,7 @@ import {
   getTopPages,
   getReferrers,
   getDevices,
+  getEvents,
 } from '../../actions/analytics'
 import AnalyticsDashboard from '../../../components/admin/analytic-dashboard'
 
@@ -12,12 +13,13 @@ export default async function AnalyticsPage() {
   const endAt = Date.now()
   const startAt = endAt - 30 * 24 * 60 * 60 * 1000
 
-  const [summary, series, topPages, referrers, devices] = await Promise.all([
+  const [summary, series, topPages, referrers, devices, events] = await Promise.all([
     getAnalyticsSummary(startAt, endAt),
     getPageviewSeries(startAt, endAt, 'day'),
     getTopPages(startAt, endAt),
     getReferrers(startAt, endAt),
     getDevices(startAt, endAt),
+    getEvents(startAt, endAt, 'admin_action', 20),
   ])
 
   return (
@@ -27,6 +29,7 @@ export default async function AnalyticsPage() {
       topPages={topPages}
       referrers={referrers}
       devices={devices}
+      events={events}
       initialRange="30d"
     />
   )
