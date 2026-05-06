@@ -168,7 +168,7 @@ export async function getTopPages(
   await assertAdmin()
   const token = await getUmamiToken()
 
-  console.log('Umami Token', token)
+  // console.log('Umami Token', token)
 
   const params = new URLSearchParams({
     startAt: String(startAt),
@@ -182,7 +182,7 @@ export async function getTopPages(
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
 
-  console.log('Umami Response', res);
+  // console.log('Umami Response', res);
   if (!res.ok) {
     const errorText = await res.text()
     const requestUrl = `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`
@@ -306,6 +306,7 @@ export async function getEvents(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/events?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
+  console.log("events res", res)
   if (!res.ok) {
     const errorText = await res.text()
     console.error(`Umami events API error: ${errorText}`)
