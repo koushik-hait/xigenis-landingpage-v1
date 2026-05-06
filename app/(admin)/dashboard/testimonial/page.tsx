@@ -1,17 +1,18 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Plus, Trash2, Save, ImageIcon, Loader2 } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
-import Image from "next/image"
 import { getCmsContent, upsertCmsContent } from "@/app/actions/cms"
 import { uploadFile } from "@/app/actions/upload"
+import { Loader2, Plus, Trash2, Save, ImageIcon } from "lucide-react"
+import Image from "next/image"
 import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
   pillText: "Testimonials", heading: "Trusted by Real Estate Professionals",
@@ -30,23 +31,24 @@ export default function TestimonialAdmin() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [uploadState, setUploadState] = useState<{ [key: number]: boolean }>({})
+  const { trackSave, trackCreate, trackDelete, trackUpload } = useAdminTracking()
 
   useEffect(() => { async function loadData() { try { const data = await getCmsContent("home", "testimonial"); if (data && Object.keys(data).length > 0) { setContent(migrateToDeviceStructure(data, defaultContent)) } } catch (error) { console.error("Failed to load:", error) } finally { setLoading(false) } } loadData() }, [])
 
   const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
 
-  const handleSave = async () => { setSaving(true); try { await upsertCmsContent("home", "testimonial", content); toast.success("Testimonial updated successfully") } catch (error) { console.error("Failed to save:", error); toast.error("Failed to save changes") } finally { setSaving(false) } }
+  const handleSave = async () => { setSaving(true); try { await upsertCmsContent("home", "testimonial", content); trackSave('testimonial', `Saved testimonial section content`, { device: 'all', testimonialCount: content.desktop.testimonials.length }); toast.success("Testimonial updated successfully") } catch (error) { console.error("Failed to save:", error); toast.error("Failed to save changes") } finally { setSaving(false) } }
 
   const handleTestimonialChange = (device: 'desktop' | 'mobile', index: number, field: string, value: string) => {
     const newItems = [...content[device].testimonials]; newItems[index] = { ...newItems[index], [field]: value } as any; handleChange(device, 'testimonials', newItems)
   }
-  const addTestimonial = (device: 'desktop' | 'mobile') => { handleChange(device, 'testimonials', [...content[device].testimonials, { name: "", role: "", image: "", text: "" }]) }
-  const removeTestimonial = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'testimonials', content[device].testimonials.filter((_: any, i: number) => i !== index)) }
+  const addTestimonial = (device: 'desktop' | 'mobile') => { handleChange(device, 'testimonials', [...content[device].testimonials, { name: "", role: "", image: "", text: "" }]); trackCreate('testimonial', `Added new testimonial`, { device, testimonialCount: content[device].testimonials.length + 1 }) }
+  const removeTestimonial = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'testimonials', content[device].testimonials.filter((_: any, i: number) => i !== index)); trackDelete('testimonial', `Removed testimonial ${index + 1}`, { device, testimonialIndex: index }) }
 
   const handleImageUpload = async (device: 'desktop' | 'mobile', index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; if (!file) return
     setUploadState({ ...uploadState, [index]: true })
-    try { const formData = new FormData(); formData.append("file", file); const url = await uploadFile(formData); handleTestimonialChange(device, index, "image", url.toString()); toast.success("Image uploaded successfully") } catch (error) { console.error("Upload failed:", error); toast.error("Failed to upload image") } finally { setUploadState({ ...uploadState, [index]: false }) }
+    try { const formData = new FormData(); formData.append("file", file); const url = await uploadFile(formData); handleTestimonialChange(device, index, "image", url.toString()); trackUpload('testimonial', `Testimonial ${index + 1} image upload`, { device, testimonialIndex: index }); toast.success("Image uploaded successfully") } catch (error) { console.error("Upload failed:", error); toast.error("Failed to upload image") } finally { setUploadState({ ...uploadState, [index]: false }) }
   }
 
   if (loading) return (<div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin text-gray-500" /></div>)

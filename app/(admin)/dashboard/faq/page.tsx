@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
   heading: 'Answers To Your Most Important\nQuestions',
@@ -28,18 +29,19 @@ export default function FAQAdmin() {
   const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({ desktop: { ...defaultContent }, mobile: { ...defaultContent } })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const { trackSave, trackCreate, trackDelete } = useAdminTracking()
 
   useEffect(() => { async function loadData() { try { const data = await getCmsContent('home', 'faq'); if (data && Object.keys(data).length > 0) { setContent(migrateToDeviceStructure(data, defaultContent)) } } catch (error) { console.error('Failed to load FAQ data:', error) } finally { setLoading(false) } } loadData() }, [])
 
   const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
 
-  const handleSave = async () => { setSaving(true); try { await upsertCmsContent('home', 'faq', content); toast.success('FAQ updated successfully') } catch (error) { console.error('Failed to save:', error); toast.error('Failed to save changes') } finally { setSaving(false) } }
+  const handleSave = async () => { setSaving(true); try { await upsertCmsContent('home', 'faq', content); trackSave('faq', `Saved FAQ section content`, { device: 'all', faqCount: content.desktop.faqs.length }); toast.success('FAQ updated successfully') } catch (error) { console.error('Failed to save:', error); toast.error('Failed to save changes') } finally { setSaving(false) } }
 
   const handleFaqChange = (device: 'desktop' | 'mobile', index: number, field: string, value: string) => {
     const newFaqs = [...content[device].faqs]; newFaqs[index] = { ...newFaqs[index], [field]: value } as any; handleChange(device, 'faqs', newFaqs)
   }
-  const addFaq = (device: 'desktop' | 'mobile') => { handleChange(device, 'faqs', [...content[device].faqs, { question: '', answer: '' }]) }
-  const removeFaq = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'faqs', content[device].faqs.filter((_: any, i: number) => i !== index)) }
+  const addFaq = (device: 'desktop' | 'mobile') => { handleChange(device, 'faqs', [...content[device].faqs, { question: '', answer: '' }]); trackCreate('faq', `Added new FAQ item`, { device, faqCount: content[device].faqs.length + 1 }) }
+  const removeFaq = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'faqs', content[device].faqs.filter((_: any, i: number) => i !== index)); trackDelete('faq', `Removed FAQ item ${index + 1}`, { device, faqIndex: index }) }
 
   if (loading) return <div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin text-gray-500" /></div>
 

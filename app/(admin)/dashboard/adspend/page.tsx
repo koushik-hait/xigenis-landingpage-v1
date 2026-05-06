@@ -11,6 +11,7 @@ import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Upload } from 'lucide-react'
 import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
   pillText: "PROBLEM 03 • LEAD QUALITY",
@@ -33,11 +34,12 @@ export default function AdSpendCmsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+  const { trackSave, trackUpload } = useAdminTracking()
 
   useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'adspend'); if (data) setContent(migrateToDeviceStructure(data, defaultContent)); setIsLoading(false) } fetchInitial() }, [])
   const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile') => { const file = e.target.files?.[0]; if (!file) return; setIsUploading(true); try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleChange(device, 'mainImage', finalUrl); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setIsUploading(false) } }
-  const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'adspend', content); if (success) toast.success("Saved successfully"); else toast.error("Failed to save"); setIsSaving(false) }
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile') => { const file = e.target.files?.[0]; if (!file) return; setIsUploading(true); try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleChange(device, 'mainImage', finalUrl); trackUpload('adspend', `Ad spend section image upload`, { device }); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setIsUploading(false) } }
+  const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'adspend', content); if (success) { trackSave('adspend', `Saved adspend section content`, { device: 'all' }); toast.success("Saved successfully") } else toast.error("Failed to save"); setIsSaving(false) }
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
   const renderForm = (device: 'desktop' | 'mobile') => {
@@ -54,31 +56,31 @@ export default function AdSpendCmsPage() {
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Bullet Points (One per line)</Label><Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} /></div>
             <div className="border-t pt-4 space-y-4">
-                <div className="space-y-2"><Label>Footer Stat Box Value</Label><Input value={d.mainStatValue} onChange={e => handleChange(device, 'mainStatValue', e.target.value)} /></div>
-                <div className="space-y-2"><Label>Footer Stat Box Text</Label><Textarea value={d.mainStatText} onChange={e => handleChange(device, 'mainStatText', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Footer Stat Box Value</Label><Input value={d.mainStatValue} onChange={e => handleChange(device, 'mainStatValue', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Footer Stat Box Text</Label><Textarea value={d.mainStatText} onChange={e => handleChange(device, 'mainStatText', e.target.value)} /></div>
             </div>
           </CardContent>
         </Card>
         <div className="space-y-6">
-            <Card>
+          <Card>
             <CardHeader><CardTitle>Floating Cards (Left side)</CardTitle></CardHeader>
             <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 border-b pb-4"><div className="space-y-2"><Label>Card 1 Value</Label><Input value={d.card1Value} onChange={e => handleChange(device, 'card1Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 1 Label</Label><Input value={d.card1Label} onChange={e => handleChange(device, 'card1Label', e.target.value)} /></div></div>
-                <div className="grid grid-cols-2 gap-4 border-b pb-4"><div className="space-y-2"><Label>Card 2 Value</Label><Input value={d.card2Value} onChange={e => handleChange(device, 'card2Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 2 Label</Label><Input value={d.card2Label} onChange={e => handleChange(device, 'card2Label', e.target.value)} /></div></div>
-                <div className="grid grid-cols-2 gap-4 border-b pb-4"><div className="space-y-2"><Label>Card 3 Value</Label><Input value={d.card3Value} onChange={e => handleChange(device, 'card3Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 3 Label</Label><Input value={d.card3Label} onChange={e => handleChange(device, 'card3Label', e.target.value)} /></div></div>
-                <div className="grid grid-cols-2 gap-4"><div className="space-y-2"><Label>Card 4 Value</Label><Input value={d.card4Value} onChange={e => handleChange(device, 'card4Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 4 Label</Label><Input value={d.card4Label} className="mb-2" onChange={e => handleChange(device, 'card4Label', e.target.value)} /><Label>Card 4 Subtext</Label><Input value={d.card4SubText} onChange={e => handleChange(device, 'card4SubText', e.target.value)} /></div></div>
+              <div className="grid grid-cols-2 gap-4 border-b pb-4"><div className="space-y-2"><Label>Card 1 Value</Label><Input value={d.card1Value} onChange={e => handleChange(device, 'card1Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 1 Label</Label><Input value={d.card1Label} onChange={e => handleChange(device, 'card1Label', e.target.value)} /></div></div>
+              <div className="grid grid-cols-2 gap-4 border-b pb-4"><div className="space-y-2"><Label>Card 2 Value</Label><Input value={d.card2Value} onChange={e => handleChange(device, 'card2Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 2 Label</Label><Input value={d.card2Label} onChange={e => handleChange(device, 'card2Label', e.target.value)} /></div></div>
+              <div className="grid grid-cols-2 gap-4 border-b pb-4"><div className="space-y-2"><Label>Card 3 Value</Label><Input value={d.card3Value} onChange={e => handleChange(device, 'card3Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 3 Label</Label><Input value={d.card3Label} onChange={e => handleChange(device, 'card3Label', e.target.value)} /></div></div>
+              <div className="grid grid-cols-2 gap-4"><div className="space-y-2"><Label>Card 4 Value</Label><Input value={d.card4Value} onChange={e => handleChange(device, 'card4Value', e.target.value)} /></div><div className="space-y-2"><Label>Card 4 Label</Label><Input value={d.card4Label} className="mb-2" onChange={e => handleChange(device, 'card4Label', e.target.value)} /><Label>Card 4 Subtext</Label><Input value={d.card4SubText} onChange={e => handleChange(device, 'card4SubText', e.target.value)} /></div></div>
             </CardContent>
-            </Card>
-            <Card>
+          </Card>
+          <Card>
             <CardHeader><CardTitle>Main Subject Image</CardTitle></CardHeader>
             <CardContent className="space-y-4 text-center">
-                <div className="relative mx-auto w-48 h-64 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden group">
+              <div className="relative mx-auto w-48 h-64 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden group">
                 {d.mainImage ? (<img src={d.mainImage} className="w-full h-full object-cover" />) : (<Upload className="opacity-20 w-8 h-8" />)}
                 <Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => handleFileUpload(e, device)} />
                 {isUploading && (<div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin" /></div>)}
-                </div>
+              </div>
             </CardContent>
-            </Card>
+          </Card>
         </div>
       </div>
     )

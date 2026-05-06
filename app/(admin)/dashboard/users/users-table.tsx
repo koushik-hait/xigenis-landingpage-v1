@@ -8,6 +8,7 @@ import {
     type ClerkUser,
     type GetUsersResult,
 } from './actions'
+import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 export default function UsersTable({ initialData }: { initialData: GetUsersResult }) {
     const [data, setData] = useState(initialData)
@@ -16,6 +17,7 @@ export default function UsersTable({ initialData }: { initialData: GetUsersResul
     const [isPending, startTransition] = useTransition()
     const [actionPendingId, setActionPendingId] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
+    const { trackDelete, trackUpdate } = useAdminTracking()
 
     function fetchUsers(newPage: number, newQuery: string) {
         startTransition(async () => {
@@ -33,6 +35,7 @@ export default function UsersTable({ initialData }: { initialData: GetUsersResul
         startTransition(async () => {
             try {
                 await deleteUser(user.id)
+                trackDelete('users', `Deleted user ${user.firstName} ${user.lastName} (${user.email})`, { userId: user.id, email: user.email })
                 // Refresh current page (step back if last item on page)
                 const newPage = data.users.length === 1 && page > 1 ? page - 1 : page
                 const result = await getUsers(newPage, query)
@@ -52,6 +55,7 @@ export default function UsersTable({ initialData }: { initialData: GetUsersResul
         startTransition(async () => {
             try {
                 await updateUserRole(user.id, role)
+                trackUpdate('users', `Changed role for ${user.firstName} ${user.lastName} to ${role}`, { userId: user.id, email: user.email, newRole: role, previousRole: user.role || 'none' })
                 // Optimistically update the row
                 setData((prev) => ({
                     ...prev,

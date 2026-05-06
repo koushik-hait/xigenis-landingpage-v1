@@ -10,6 +10,7 @@ import { toast } from "sonner"
 import { getCmsContent, upsertCmsContent } from "@/app/actions/cms"
 import { Loader2 } from "lucide-react"
 import { DeviceTabsWrapper, migrateToDeviceStructure } from "@/components/admin/device-tabs-wrapper"
+import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
   pillText: "OUR PROCESS",
@@ -110,6 +111,7 @@ export default function ProcessCmsPage() {
   })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
+  const { trackSave } = useAdminTracking()
 
   useEffect(() => {
     async function fetchInitial() {
@@ -144,7 +146,7 @@ export default function ProcessCmsPage() {
   const handleSave = async () => {
     setIsSaving(true)
     const { success } = await upsertCmsContent("home", "process", content)
-    if (success) toast.success("Saved successfully")
+    if (success) { trackSave('process', `Saved process section content`, { device: 'all' }); toast.success("Saved successfully") }
     else toast.error("Failed to save")
     setIsSaving(false)
   }

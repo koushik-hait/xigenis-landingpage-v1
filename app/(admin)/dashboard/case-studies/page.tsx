@@ -11,6 +11,7 @@ import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Plus, Trash, Upload } from 'lucide-react'
 import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
   pillText: "LOREM IPSUM DOLOR SIT",
@@ -31,6 +32,7 @@ export default function CaseStudiesCmsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null)
+  const { trackSave, trackCreate, trackDelete, trackUpload } = useAdminTracking()
 
   useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'case-studies'); if (data) setContent(migrateToDeviceStructure(data, defaultContent)); setIsLoading(false) } fetchInitial() }, [])
   const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
@@ -39,12 +41,12 @@ export default function CaseStudiesCmsPage() {
     const newProjects = [...content[device].projects]; newProjects[index] = { ...newProjects[index], [key]: value } as any; handleChange(device, 'projects', newProjects)
   }
   const handleFileUpload = async (device: 'desktop' | 'mobile', index: number, file: File) => {
-    setUploadingIndex(index); try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleProjectChange(device, index, 'image', finalUrl); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setUploadingIndex(null) }
+    setUploadingIndex(index); try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleProjectChange(device, index, 'image', finalUrl); trackUpload('case-studies', `Project ${index + 1} image upload`, { device, projectIndex: index }); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setUploadingIndex(null) }
   }
-  const addProject = (device: 'desktop' | 'mobile') => { handleChange(device, 'projects', [...content[device].projects, { title: "New Project", leads: "0+", rate: "0%", requests: "0+", image: "", link: "#" }]) }
-  const removeProject = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'projects', content[device].projects.filter((_: any, i: number) => i !== index)) }
+  const addProject = (device: 'desktop' | 'mobile') => { handleChange(device, 'projects', [...content[device].projects, { title: "New Project", leads: "0+", rate: "0%", requests: "0+", image: "", link: "#" }]); trackCreate('case-studies', `Added new project`, { device, projectCount: content[device].projects.length + 1 }) }
+  const removeProject = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'projects', content[device].projects.filter((_: any, i: number) => i !== index)); trackDelete('case-studies', `Removed project ${index + 1}`, { device, projectIndex: index }) }
 
-  const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'case-studies', content); if (success) toast.success("Saved successfully"); else toast.error("Failed to save"); setIsSaving(false) }
+  const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'case-studies', content); if (success) { trackSave('case-studies', `Saved case studies content`, { desktopProjects: content.desktop.projects.length, mobileProjects: content.mobile.projects.length }); toast.success("Saved successfully") } else toast.error("Failed to save"); setIsSaving(false) }
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
   const renderForm = (device: 'desktop' | 'mobile') => {
@@ -63,30 +65,30 @@ export default function CaseStudiesCmsPage() {
           </CardContent>
         </Card>
         <div className="space-y-6">
-          <div className="flex items-center justify-between"><h3 className="text-xl font-bold">Projects Grid</h3><Button size="sm" onClick={() => addProject(device)}><Plus className="w-4 h-4 mr-2"/>Add Project</Button></div>
+          <div className="flex items-center justify-between"><h3 className="text-xl font-bold">Projects Grid</h3><Button size="sm" onClick={() => addProject(device)}><Plus className="w-4 h-4 mr-2" />Add Project</Button></div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {d.projects.map((project, i) => (
+            {d.projects.map((project, i) => (
               <Card key={i} className="relative">
-                  <Button variant="ghost" size="icon" className="absolute top-2 right-2 text-red-500 hover:text-red-700 z-10" onClick={() => removeProject(device, i)}><Trash className="w-4 h-4" /></Button>
-                  <CardHeader><CardTitle className="text-base mt-2">Project #{i+1}</CardTitle></CardHeader>
-                  <CardContent className="space-y-4">
-                      <div className="space-y-1"><Label className="text-xs">Project Title</Label><Input value={project.title} onChange={e => handleProjectChange(device, i, 'title', e.target.value)} /></div>
-                      <div className="grid grid-cols-2 gap-2">
-                          <div className="space-y-1"><Label className="text-xs">Leads Value</Label><Input value={project.leads} onChange={e => handleProjectChange(device, i, 'leads', e.target.value)} /></div>
-                          <div className="space-y-1"><Label className="text-xs">Rate Value</Label><Input value={project.rate} onChange={e => handleProjectChange(device, i, 'rate', e.target.value)} /></div>
-                      </div>
-                      <div className="space-y-1"><Label className="text-xs">Requests Value</Label><Input value={project.requests} onChange={e => handleProjectChange(device, i, 'requests', e.target.value)} /></div>
-                      <div className="space-y-1"><Label className="text-xs">Project Link (URL)</Label><Input value={project.link || ""} onChange={e => handleProjectChange(device, i, 'link', e.target.value)} /></div>
-                      <div className="space-y-2 pt-2"><Label className="text-xs">Project Background</Label>
-                          <div className="relative w-full h-32 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden group">
-                          {project.image ? (<img src={project.image} className="w-full h-full object-cover opacity-80" />) : (<Upload className="opacity-20 w-8 h-8" />)}
-                          <Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => { if (e.target.files?.[0]) handleFileUpload(device, i, e.target.files[0]) }} />
-                          {uploadingIndex === i && (<div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin w-8 h-8" /></div>)}
-                          </div>
-                      </div>
-                  </CardContent>
+                <Button variant="ghost" size="icon" className="absolute top-2 right-2 text-red-500 hover:text-red-700 z-10" onClick={() => removeProject(device, i)}><Trash className="w-4 h-4" /></Button>
+                <CardHeader><CardTitle className="text-base mt-2">Project #{i + 1}</CardTitle></CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-1"><Label className="text-xs">Project Title</Label><Input value={project.title} onChange={e => handleProjectChange(device, i, 'title', e.target.value)} /></div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-1"><Label className="text-xs">Leads Value</Label><Input value={project.leads} onChange={e => handleProjectChange(device, i, 'leads', e.target.value)} /></div>
+                    <div className="space-y-1"><Label className="text-xs">Rate Value</Label><Input value={project.rate} onChange={e => handleProjectChange(device, i, 'rate', e.target.value)} /></div>
+                  </div>
+                  <div className="space-y-1"><Label className="text-xs">Requests Value</Label><Input value={project.requests} onChange={e => handleProjectChange(device, i, 'requests', e.target.value)} /></div>
+                  <div className="space-y-1"><Label className="text-xs">Project Link (URL)</Label><Input value={project.link || ""} onChange={e => handleProjectChange(device, i, 'link', e.target.value)} /></div>
+                  <div className="space-y-2 pt-2"><Label className="text-xs">Project Background</Label>
+                    <div className="relative w-full h-32 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden group">
+                      {project.image ? (<img src={project.image} className="w-full h-full object-cover opacity-80" />) : (<Upload className="opacity-20 w-8 h-8" />)}
+                      <Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => { if (e.target.files?.[0]) handleFileUpload(device, i, e.target.files[0]) }} />
+                      {uploadingIndex === i && (<div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin w-8 h-8" /></div>)}
+                    </div>
+                  </div>
+                </CardContent>
               </Card>
-              ))}
+            ))}
           </div>
         </div>
       </div>

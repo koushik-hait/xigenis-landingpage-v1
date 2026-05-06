@@ -1,17 +1,18 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Trash2, Save, ImageIcon, Loader2 } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
-import Image from 'next/image'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
+import { Loader2, Plus, Save, Trash2, Image as ImageIcon } from 'lucide-react'
+import Image from 'next/image'
 import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
   pillText: 'Our Commitment', heading: 'Why Trust Us With Your Growth',
@@ -34,23 +35,24 @@ export default function FeaturesAdmin() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
+  const { trackSave, trackCreate, trackDelete, trackUpload } = useAdminTracking()
 
   useEffect(() => { async function loadData() { try { const data = await getCmsContent('home', 'features'); if (data && Object.keys(data).length > 0) { setContent(migrateToDeviceStructure(data, defaultContent)) } } catch (error) { console.error('Failed to load Features data:', error) } finally { setLoading(false) } } loadData() }, [])
 
   const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
 
-  const handleSave = async () => { setSaving(true); try { await upsertCmsContent('home', 'features', content); toast.success('Features updated successfully') } catch (error) { console.error('Failed to save:', error); toast.error('Failed to save changes') } finally { setSaving(false) } }
+  const handleSave = async () => { setSaving(true); try { await upsertCmsContent('home', 'features', content); trackSave('features', `Saved features section content`, { device: 'all' }); toast.success('Features updated successfully') } catch (error) { console.error('Failed to save:', error); toast.error('Failed to save changes') } finally { setSaving(false) } }
 
   const handleFeatureChange = (device: 'desktop' | 'mobile', index: number, field: string, value: string) => {
     const newFeatures = [...content[device].features]; newFeatures[index] = { ...newFeatures[index], [field]: value } as any; handleChange(device, 'features', newFeatures)
   }
-  const addFeature = (device: 'desktop' | 'mobile') => { handleChange(device, 'features', [...content[device].features, { title: '', description: '', tag: '' }]) }
-  const removeFeature = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'features', content[device].features.filter((_: any, i: number) => i !== index)) }
+  const addFeature = (device: 'desktop' | 'mobile') => { handleChange(device, 'features', [...content[device].features, { title: '', description: '', tag: '' }]); trackCreate('features', `Added new feature item`, { device, featureCount: content[device].features.length + 1 }) }
+  const removeFeature = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'features', content[device].features.filter((_: any, i: number) => i !== index)); trackDelete('features', `Removed feature item ${index + 1}`, { device, featureIndex: index }) }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile') => {
     const file = e.target.files?.[0]; if (!file) return
     setUploadingImage(true)
-    try { const formData = new FormData(); formData.append('file', file); const url = await uploadFile(formData); handleChange(device, 'image', url); toast.success('Image uploaded successfully') } catch (error) { console.error('Upload failed:', error); toast.error('Failed to upload image') } finally { setUploadingImage(false) }
+    try { const formData = new FormData(); formData.append('file', file); const url = await uploadFile(formData); handleChange(device, 'image', url); trackUpload('features', `Features section image upload`, { device }); toast.success('Image uploaded successfully') } catch (error) { console.error('Upload failed:', error); toast.error('Failed to upload image') } finally { setUploadingImage(false) }
   }
 
   if (loading) return <div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin text-gray-500" /></div>
