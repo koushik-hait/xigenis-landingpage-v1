@@ -66,7 +66,7 @@ export default function AnalyticsDashboard({
                 getTopPages(startAt, endAt),
                 getReferrers(startAt, endAt),
                 getDevices(startAt, endAt),
-                getEvents(startAt, endAt, 'admin_action', 20),
+                getEvents(startAt, endAt, undefined, 50),
             ])
             setSummary(s)
             setSeries(pv)
@@ -214,7 +214,7 @@ function SimpleLineChart({ data }: { data: PageviewSeries[] }) {
 
 function EventsList({ events }: { events: EventStats[] }) {
     if (!events.length) {
-        return <p className="text-sm text-gray-400">No admin activity recorded for this period.</p>
+        return <p className="text-sm text-gray-400">No events recorded for this period.</p>
     }
 
     const getActionColor = (action: string) => {
@@ -243,6 +243,7 @@ function EventsList({ events }: { events: EventStats[] }) {
                 <thead className="sticky top-0 bg-white border-b">
                     <tr className="text-left text-xs text-gray-500">
                         <th className="pb-2 pr-2">Time</th>
+                        <th className="pb-2 pr-2">Event Name</th>
                         <th className="pb-2 pr-2">User</th>
                         <th className="pb-2 pr-2">Action</th>
                         <th className="pb-2 pr-2">Section</th>
@@ -261,6 +262,9 @@ function EventsList({ events }: { events: EventStats[] }) {
                             <tr key={event.id} className="text-xs">
                                 <td className="py-2 pr-2 text-gray-500 whitespace-nowrap">
                                     {formatTime(event.createdAt)}
+                                </td>
+                                <td className="py-2 pr-2 font-mono text-gray-600">
+                                    {event.eventName}
                                 </td>
                                 <td className="py-2 pr-2 font-medium text-gray-700">
                                     {username}

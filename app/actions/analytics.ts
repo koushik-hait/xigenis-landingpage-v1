@@ -306,12 +306,12 @@ export async function getEvents(
     `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/events?${params}`,
     { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
   )
-  console.log("events res", res)
   if (!res.ok) {
     const errorText = await res.text()
     console.error(`Umami events API error: ${errorText}`)
     throw new Error(`Umami events API failed: ${res.status} - ${errorText}`)
   }
-  const data = (await res.json()) as EventStats[]
-  return Array.isArray(data) ? data : []
+  const result = (await res.json()) as { data: EventStats[]; count: number; page: number; pageSize: number }
+  console.log("events result:", JSON.stringify(result, null, 2))
+  return Array.isArray(result.data) ? result.data : []
 }
