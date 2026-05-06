@@ -312,6 +312,50 @@ export async function getEvents(
     throw new Error(`Umami events API failed: ${res.status} - ${errorText}`)
   }
   const result = (await res.json()) as { data: EventStats[]; count: number; page: number; pageSize: number }
-  console.log("events result:", JSON.stringify(result, null, 2))
+  return Array.isArray(result.data) ? result.data : []
+}
+
+// ─── Event Data ─────────────────────────────────────────────────────────────
+
+export type EventProperty = {
+  dataKey: string
+  stringValue: string | null
+  numberValue: number | null
+  dateValue: string | null
+  dataType: number
+  createdAt: string
+}
+
+export type EventDataItem = {
+  websiteId: string
+  eventId: string
+  eventName: string
+  eventProperties: EventProperty[]
+}
+
+export async function getEventData(
+  startAt: number,
+  endAt: number,
+  limit = 100
+): Promise<EventDataItem[]> {
+  await assertAdmin()
+  const token = await getUmamiToken()
+
+  const params = new URLSearchParams({
+    startAt: String(startAt),
+    endAt: String(endAt),
+    pageSize: String(limit),
+  })
+
+  const res = await fetch(
+    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/event-data?${params}`,
+    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+  )
+  if (!res.ok) {
+    const errorText = await res.text()
+    console.error(`Umami event-data API error: ${errorText}`)
+    throw new Error(`Umami event-data API failed: ${res.status} - ${errorText}`)
+  }
+  const result = (await res.json()) as { data: EventDataItem[]; count: number; page: number; pageSize: number }
   return Array.isArray(result.data) ? result.data : []
 }

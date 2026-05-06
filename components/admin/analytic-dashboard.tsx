@@ -3,17 +3,19 @@
 import { useState, useTransition } from 'react'
 import {
     getAnalyticsSummary,
-    getPageviewSeries,
-    getTopPages,
-    getReferrers,
     getDevices,
+    getEventData,
     getEvents,
+    getPageviewSeries,
+    getReferrers,
+    getTopPages,
     type AnalyticsSummary,
-    type PageviewSeries,
-    type PageStats,
-    type ReferrerStats,
     type DeviceStats,
+    type EventDataItem,
     type EventStats,
+    type PageStats,
+    type PageviewSeries,
+    type ReferrerStats,
 } from '../../app/actions/analytics'
 
 const RANGES = {
@@ -32,6 +34,7 @@ type Props = {
     referrers: ReferrerStats[]
     devices: DeviceStats[]
     events?: EventStats[]
+    eventData?: EventDataItem[]
     initialRange: Range
 }
 
@@ -42,6 +45,7 @@ export default function AnalyticsDashboard({
     referrers: initialReferrers,
     devices: initialDevices,
     events: initialEvents = [],
+    eventData: initialEventData = [],
     initialRange,
 }: Props) {
     const [range, setRange] = useState<Range>(initialRange)
@@ -51,6 +55,7 @@ export default function AnalyticsDashboard({
     const [referrers, setReferrers] = useState(initialReferrers)
     const [devices, setDevices] = useState(initialDevices)
     const [events, setEvents] = useState<EventStats[]>(initialEvents)
+    const [eventData, setEventData] = useState<EventDataItem[]>(initialEventData)
     const [isPending, startTransition] = useTransition()
 
     function switchRange(newRange: Range) {
@@ -60,13 +65,14 @@ export default function AnalyticsDashboard({
         const unit = newRange === '24h' ? 'hour' : 'day'
 
         startTransition(async () => {
-            const [s, pv, pages, refs, devs, evts] = await Promise.all([
+            const [s, pv, pages, refs, devs, evts, evtData] = await Promise.all([
                 getAnalyticsSummary(startAt, endAt),
                 getPageviewSeries(startAt, endAt, unit),
                 getTopPages(startAt, endAt),
                 getReferrers(startAt, endAt),
                 getDevices(startAt, endAt),
                 getEvents(startAt, endAt, undefined, 50),
+                getEventData(startAt, endAt, 50),
             ])
             setSummary(s)
             setSeries(pv)
@@ -74,6 +80,7 @@ export default function AnalyticsDashboard({
             setReferrers(refs)
             setDevices(devs)
             setEvents(evts)
+            setEventData(evtData)
         })
     }
 
@@ -127,6 +134,15 @@ export default function AnalyticsDashboard({
                     <span className="text-xs text-gray-500">{events.length} recent events</span>
                 </div>
                 <EventsList events={events} />
+            </div>
+
+            {/* Event Data Summary */}
+            <div className="border rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-sm font-semibold text-gray-600">Event Data Summary</h2>
+                    <span className="text-xs text-gray-500">{eventData.length} event types</span>
+                </div>
+                <EventDataList eventData={eventData} />
             </div>
         </div>
     )
@@ -209,6 +225,53 @@ function SimpleLineChart({ data }: { data: PageviewSeries[] }) {
                 )
             })}
         </svg>
+    )
+}
+
+function EventDataList({ eventData }: { eventData: EventDataItem[] }) {
+    if (!eventData.length) {
+        return <p className="text-sm text-gray-400">No event data recorded for this period.</p>
+    }
+
+    return (
+        <div className="max-h-80 overflow-y-auto">
+            <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-white border-b">
+                    <tr className="text-left text-xs text-gray-500">
+                        <th className="pb-2 pr-2">Event Name</th>
+                        <th className="pb-2 pr-2">Properties</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y">
+                    {eventData.map((item) => (
+                        <tr key={item.eventId} className="text-xs">
+                            <td className="py-2 pr-2 font-mono text-gray-700">
+                                {item.eventName || '(pageview)'}
+                            </td>
+                            <td className="py-2">
+                                {item.eventProperties.length > 0 ? (
+                                    <ul className="space-y-1">
+                                        {item.eventProperties.slice(0, 5).map((prop, idx) => (
+                                            <li key={idx} className="text-gray-600">
+                                                <span className="font-medium">{prop.dataKey}:</span>{' '}
+                                                {prop.stringValue || prop.numberValue || prop.dateValue || '-'}
+                                            </li>
+                                        ))}
+                                        {item.eventProperties.length > 5 && (
+                                            <li className="text-gray-400 italic">
+                                                +{item.eventProperties.length - 5} more properties
+                                            </li>
+                                        )}
+                                    </ul>
+                                ) : (
+                                    <span className="text-gray-400">-</span>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
 
