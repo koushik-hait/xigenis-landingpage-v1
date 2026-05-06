@@ -287,7 +287,7 @@ export async function getEvents(
   startAt: number,
   endAt: number,
   eventName?: string,
-  limit = 50
+  limit = 100
 ): Promise<EventStats[]> {
   await assertAdmin()
   const token = await getUmamiToken()
@@ -295,11 +295,11 @@ export async function getEvents(
   const params = new URLSearchParams({
     startAt: String(startAt),
     endAt: String(endAt),
-    limit: String(limit),
+    pageSize: String(limit),
   })
 
   if (eventName) {
-    params.append('eventName', eventName)
+    params.append('search', eventName)
   }
 
   const res = await fetch(
