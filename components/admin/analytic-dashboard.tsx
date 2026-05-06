@@ -77,6 +77,8 @@ export default function AnalyticsDashboard({
         })
     }
 
+    console.log("events", events)
+
     return (
         <div className={`p-6 space-y-6 ${isPending ? 'opacity-60' : ''}`}>
 

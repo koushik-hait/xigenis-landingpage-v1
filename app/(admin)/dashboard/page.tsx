@@ -19,7 +19,7 @@ export default async function AnalyticsPage() {
     getTopPages(startAt, endAt),
     getReferrers(startAt, endAt),
     getDevices(startAt, endAt),
-    getEvents(startAt, endAt, 'admin_action', 20),
+    getEvents(startAt, endAt, "admin_action", 20),
   ])
 
   return (
