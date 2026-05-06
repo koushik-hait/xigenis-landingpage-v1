@@ -3,6 +3,7 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar"
 import { auth } from "@clerk/nextjs/server"
 import { cookies } from "next/headers"
 import { DomainSelector } from "@/components/admin/domain-selector"
+import UmamiAnalytics from "@/components/analytics/umami-analytics"
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const { sessionClaims } = await auth()
@@ -27,6 +28,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <p>© {new Date().getFullYear()} Xigenis. All rights reserved.</p>
         </footer>
       </div>
+      <UmamiAnalytics />
     </div>
   )
 }
