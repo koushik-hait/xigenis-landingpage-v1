@@ -89,6 +89,7 @@ export type EventStats = {
   subdivision1?: string
   subdivision2?: string
   city?: string
+  hasData?: boolean
   data?: Record<string, string | number | boolean>
 }
 
@@ -315,9 +316,12 @@ export async function getEvents(
   return Array.isArray(result.data) ? result.data : []
 }
 
-// ─── Event Data ─────────────────────────────────────────────────────────────
+// ─── Event Data Details ───────────────────────────────────────────────────
 
-export type EventProperty = {
+export type EventDataDetail = {
+  websiteId: string
+  eventId: string
+  eventName: string
   dataKey: string
   stringValue: string | null
   numberValue: number | null
@@ -326,46 +330,32 @@ export type EventProperty = {
   createdAt: string
 }
 
-export type EventDataItem = {
-  websiteId: string
-  eventId: string
-  eventName: string
-  eventProperties: EventProperty[]
-}
-
-export async function getEventData(
+export async function getEventDataDetails(
+  eventId: string,
   startAt: number,
   endAt: number,
-  limit = 100
-): Promise<EventDataItem[]> {
+  unit: 'hour' | 'day' = 'hour',
+  timezone: string = 'Asia/Kolkata'
+): Promise<EventDataDetail[]> {
   await assertAdmin()
   const token = await getUmamiToken()
 
   const params = new URLSearchParams({
     startAt: String(startAt),
     endAt: String(endAt),
-    pageSize: String(limit),
+    unit,
+    timezone,
   })
 
-  try {
-    const res = await fetch(
-      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/event-data?${params}`,
-      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-    )
-    if (!res.ok) {
-      // Gracefully handle 404 or other errors - endpoint may not exist in this Umami version
-      if (res.status === 404) {
-        console.warn('[Analytics] event-data endpoint not available (404)')
-        return []
-      }
-      const errorText = await res.text()
-      console.error(`Umami event-data API error: ${errorText}`)
-      return []
-    }
-    const result = (await res.json()) as { data: EventDataItem[]; count: number; page: number; pageSize: number }
-    return Array.isArray(result.data) ? result.data : []
-  } catch (error) {
-    console.error('[Analytics] Failed to fetch event-data:', error)
-    return []
+  const res = await fetch(
+    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/event-data/${eventId}?${params}`,
+    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+  )
+  if (!res.ok) {
+    const errorText = await res.text()
+    console.error(`Umami event-data details API error: ${errorText}`)
+    throw new Error(`Umami event-data details API failed: ${res.status} - ${errorText}`)
   }
+  const data = (await res.json()) as EventDataDetail[]
+  return Array.isArray(data) ? data : []
 }

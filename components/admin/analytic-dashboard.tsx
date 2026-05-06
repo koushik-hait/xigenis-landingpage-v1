@@ -1,17 +1,17 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useCallback, useState, useTransition } from 'react'
 import {
     getAnalyticsSummary,
     getDevices,
-    getEventData,
+    getEventDataDetails,
     getEvents,
     getPageviewSeries,
     getReferrers,
     getTopPages,
     type AnalyticsSummary,
     type DeviceStats,
-    type EventDataItem,
+    type EventDataDetail,
     type EventStats,
     type PageStats,
     type PageviewSeries,
@@ -34,7 +34,6 @@ type Props = {
     referrers: ReferrerStats[]
     devices: DeviceStats[]
     events?: EventStats[]
-    eventData?: EventDataItem[]
     initialRange: Range
 }
 
@@ -45,7 +44,6 @@ export default function AnalyticsDashboard({
     referrers: initialReferrers,
     devices: initialDevices,
     events: initialEvents = [],
-    eventData: initialEventData = [],
     initialRange,
 }: Props) {
     const [range, setRange] = useState<Range>(initialRange)
@@ -55,7 +53,6 @@ export default function AnalyticsDashboard({
     const [referrers, setReferrers] = useState(initialReferrers)
     const [devices, setDevices] = useState(initialDevices)
     const [events, setEvents] = useState<EventStats[]>(initialEvents)
-    const [eventData, setEventData] = useState<EventDataItem[]>(initialEventData)
     const [isPending, startTransition] = useTransition()
 
     function switchRange(newRange: Range) {
@@ -65,14 +62,13 @@ export default function AnalyticsDashboard({
         const unit = newRange === '24h' ? 'hour' : 'day'
 
         startTransition(async () => {
-            const [s, pv, pages, refs, devs, evts, evtData] = await Promise.all([
+            const [s, pv, pages, refs, devs, evts] = await Promise.all([
                 getAnalyticsSummary(startAt, endAt),
                 getPageviewSeries(startAt, endAt, unit),
                 getTopPages(startAt, endAt),
                 getReferrers(startAt, endAt),
                 getDevices(startAt, endAt),
                 getEvents(startAt, endAt, undefined, 50),
-                getEventData(startAt, endAt, 50),
             ])
             setSummary(s)
             setSeries(pv)
@@ -80,11 +76,10 @@ export default function AnalyticsDashboard({
             setReferrers(refs)
             setDevices(devs)
             setEvents(evts)
-            setEventData(evtData)
         })
     }
 
-    console.log("events", events)
+    // console.log("events", events)
 
     return (
         <div className={`p-6 space-y-6 ${isPending ? 'opacity-60' : ''}`}>
@@ -136,14 +131,6 @@ export default function AnalyticsDashboard({
                 <EventsList events={events} />
             </div>
 
-            {/* Event Data Summary */}
-            <div className="border rounded-lg p-4">
-                <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-sm font-semibold text-gray-600">Event Data Summary</h2>
-                    <span className="text-xs text-gray-500">{eventData.length} event types</span>
-                </div>
-                <EventDataList eventData={eventData} />
-            </div>
         </div>
     )
 }
@@ -228,54 +215,110 @@ function SimpleLineChart({ data }: { data: PageviewSeries[] }) {
     )
 }
 
-function EventDataList({ eventData }: { eventData: EventDataItem[] }) {
-    if (!eventData.length) {
-        return <p className="text-sm text-gray-400">No event data recorded for this period.</p>
-    }
+
+function EventDataModal({
+    isOpen,
+    onClose,
+    eventData,
+    isLoading,
+}: {
+    isOpen: boolean
+    onClose: () => void
+    eventData: EventDataDetail[]
+    isLoading: boolean
+}) {
+    if (!isOpen) return null
 
     return (
-        <div className="max-h-80 overflow-y-auto">
-            <table className="w-full text-sm">
-                <thead className="sticky top-0 bg-white border-b">
-                    <tr className="text-left text-xs text-gray-500">
-                        <th className="pb-2 pr-2">Event Name</th>
-                        <th className="pb-2 pr-2">Properties</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y">
-                    {eventData.map((item) => (
-                        <tr key={item.eventId} className="text-xs">
-                            <td className="py-2 pr-2 font-mono text-gray-700">
-                                {item.eventName || '(pageview)'}
-                            </td>
-                            <td className="py-2">
-                                {item.eventProperties.length > 0 ? (
-                                    <ul className="space-y-1">
-                                        {item.eventProperties.slice(0, 5).map((prop, idx) => (
-                                            <li key={idx} className="text-gray-600">
-                                                <span className="font-medium">{prop.dataKey}:</span>{' '}
-                                                {prop.stringValue || prop.numberValue || prop.dateValue || '-'}
-                                            </li>
-                                        ))}
-                                        {item.eventProperties.length > 5 && (
-                                            <li className="text-gray-400 italic">
-                                                +{item.eventProperties.length - 5} more properties
-                                            </li>
-                                        )}
-                                    </ul>
-                                ) : (
-                                    <span className="text-gray-400">-</span>
-                                )}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+            <div className="max-h-[80vh] w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-xl">
+                <div className="flex items-center justify-between border-b px-4 py-3">
+                    <h3 className="text-lg font-semibold">Event Data Details</h3>
+                    <button
+                        onClick={onClose}
+                        className="text-gray-400 hover:text-gray-600"
+                    >
+                        ✕
+                    </button>
+                </div>
+                <div className="max-h-[60vh] overflow-y-auto p-4">
+                    {isLoading ? (
+                        <p className="text-gray-500">Loading...</p>
+                    ) : eventData.length === 0 ? (
+                        <p className="text-gray-500">No data available</p>
+                    ) : (
+                        <table className="w-full text-sm">
+                            <thead className="sticky top-0 bg-gray-50">
+                                <tr className="text-left text-xs text-gray-500">
+                                    <th className="pb-2 pr-2">Property</th>
+                                    <th className="pb-2 pr-2">Value</th>
+                                    <th className="pb-2 pr-2">Created</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y">
+                                {eventData.map((item, idx) => (
+                                    <tr key={idx} className="text-xs">
+                                        <td className="py-2 pr-2 font-medium text-gray-700">
+                                            {item.dataKey}
+                                        </td>
+                                        <td className="py-2 pr-2 text-gray-600">
+                                            {item.stringValue || item.numberValue || item.dateValue || '-'}
+                                        </td>
+                                        <td className="py-2 text-gray-400 whitespace-nowrap">
+                                            {new Date(item.createdAt).toLocaleString('en-IN')}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+            </div>
         </div>
     )
 }
 
 function EventsList({ events }: { events: EventStats[] }) {
+    const [selectedEvent, setSelectedEvent] = useState<EventStats | null>(null)
+    const [eventDataDetails, setEventDataDetails] = useState<EventDataDetail[]>([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleViewData = useCallback(async (event: EventStats) => {
+        if (!event.hasData || !event.id) return
+
+        setSelectedEvent(event)
+        setIsModalOpen(true)
+        setIsLoading(true)
+
+        try {
+            // Calculate time range (same day as event)
+            const eventTime = event.createdAt
+            const startAt = new Date(eventTime).setHours(0, 0, 0, 0)
+            const endAt = new Date(eventTime).setHours(23, 59, 59, 999)
+
+            const data = await getEventDataDetails(
+                event.id,
+                startAt,
+                endAt,
+                'hour',
+                'Asia/Kolkata'
+            )
+            setEventDataDetails(data)
+        } catch (error) {
+            console.error('Failed to fetch event data details:', error)
+            setEventDataDetails([])
+        } finally {
+            setIsLoading(false)
+        }
+    }, [])
+
+    const handleCloseModal = useCallback(() => {
+        setIsModalOpen(false)
+        setSelectedEvent(null)
+        setEventDataDetails([])
+    }, [])
+
     if (!events.length) {
         return <p className="text-sm text-gray-400">No events recorded for this period.</p>
     }
@@ -301,53 +344,54 @@ function EventsList({ events }: { events: EventStats[] }) {
     }
 
     return (
-        <div className="max-h-80 overflow-y-auto">
-            <table className="w-full text-sm">
-                <thead className="sticky top-0 bg-white border-b">
-                    <tr className="text-left text-xs text-gray-500">
-                        <th className="pb-2 pr-2">Time</th>
-                        <th className="pb-2 pr-2">Event Name</th>
-                        <th className="pb-2 pr-2">User</th>
-                        <th className="pb-2 pr-2">Action</th>
-                        <th className="pb-2 pr-2">Section</th>
-                        <th className="pb-2">Details</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y">
-                    {events.map((event) => {
-                        const data = event.data || {}
-                        const action = data.action as string || 'unknown'
-                        const section = data.section as string || '-'
-                        const username = data.username as string || 'Unknown'
-                        const details = data.details as string || ''
+        <>
+            <div className="max-h-80 overflow-y-auto">
+                <table className="w-full text-sm">
+                    <thead className="sticky top-0 bg-white border-b">
+                        <tr className="text-left text-xs text-gray-500">
+                            <th className="pb-2 pr-2">Time</th>
+                            <th className="pb-2 pr-2">Event</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                        {events.map((event) => {
+                            const data = event.data || {}
+                            const action = data.action as string || 'unknown'
 
-                        return (
-                            <tr key={event.id} className="text-xs">
-                                <td className="py-2 pr-2 text-gray-500 whitespace-nowrap">
-                                    {formatTime(event.createdAt)}
-                                </td>
-                                <td className="py-2 pr-2 font-mono text-gray-600">
-                                    {event.eventName}
-                                </td>
-                                <td className="py-2 pr-2 font-medium text-gray-700">
-                                    {username}
-                                </td>
-                                <td className="py-2 pr-2">
-                                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${getActionColor(action)}`}>
-                                        {action}
-                                    </span>
-                                </td>
-                                <td className="py-2 pr-2 text-gray-600">
-                                    {section}
-                                </td>
-                                <td className="py-2 text-gray-500 truncate max-w-xs" title={details}>
-                                    {details || '-'}
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-        </div>
+                            return (
+                                <tr key={event.id} className="text-xs">
+                                    <td className="py-2 pr-2 text-gray-500 whitespace-nowrap">
+                                        {formatTime(event.createdAt)}
+                                    </td>
+                                    <td className="py-2 pr-2 font-mono text-gray-600">
+                                        {event.eventType == 1 ? "Viewed page" : "Triggered event"} {event.eventName} {event.urlPath}
+                                    </td>
+                                    <td className="py-2 pr-2">
+                                        {event?.hasData ? (
+                                            <button
+                                                onClick={() => handleViewData(event)}
+                                                className={`px-2 py-0.5 rounded text-xs font-medium cursor-pointer hover:opacity-80 ${getActionColor(action)}`}
+                                            >
+                                                View data
+                                            </button>
+                                        ) : (
+                                            <span className="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-500">
+                                                No data
+                                            </span>
+                                        )}
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            <EventDataModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                eventData={eventDataDetails}
+                isLoading={isLoading}
+            />
+        </>
     )
 }
