@@ -1,6 +1,7 @@
 import withBundleAnalyzer from "@next/bundle-analyzer"
 import createMDX from "@next/mdx"
 import { type NextConfig } from "next"
+import { withSentryConfig } from "@sentry/nextjs"
 
 import { env } from "./env.mjs"
 
@@ -68,5 +69,28 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
 })
 
-// Merge MDX config with Next.js config
-export default env.ANALYZE ? withBundleAnalyzer({ enabled: env.ANALYZE })(withMDX(nextConfig)) : withMDX(nextConfig)
+// Sentry webpack plugin options
+const sentryWebpackPluginOptions = {
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options
+  org: "xigenis",
+  project: "xigenis-landingpage",
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  silent: true, // Suppresses all logs
+  widenClientFileUpload: true,
+  transpileClientSDK: true,
+  tunnelRoute: "/monitoring",
+  hideSourceMaps: true,
+  disableLogger: true,
+  automaticVercelMonitors: false,
+}
+
+let finalConfig = withMDX(nextConfig)
+
+// Wrap with Sentry
+finalConfig = withSentryConfig(finalConfig, sentryWebpackPluginOptions)
+
+// Wrap with Bundle Analyzer if enabled
+export default env.ANALYZE 
+  ? withBundleAnalyzer({ enabled: env.ANALYZE })(finalConfig) 
+  : finalConfig

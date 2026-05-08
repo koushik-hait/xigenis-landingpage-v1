@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -56,6 +56,7 @@ export default function TopPerformersCmsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null)
+  const fileInputRefs = useRef<Map<string, HTMLInputElement | null>>(new Map())
 
   useEffect(() => {
     async function fetchInitial() {
@@ -153,7 +154,18 @@ export default function TopPerformersCmsPage() {
       toast.error("Upload failed")
     } finally {
       setUploadingIdx(null)
+      // Reset file input so same file can be selected again
+      const inputKey = `${device}-${index}`
+      const inputRef = fileInputRefs.current.get(inputKey)
+      if (inputRef) {
+        inputRef.value = ''
+      }
     }
+  }
+
+  const removeImage = (device: "desktop" | "mobile", index: number) => {
+    handlePerformerChange(device, index, "image", "")
+    toast.success("Image removed")
   }
 
   const handleSave = async () => {
@@ -302,7 +314,7 @@ export default function TopPerformersCmsPage() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-destructive absolute top-2 right-2"
+                  className="text-destructive absolute top-2 right-2 z-30"
                   onClick={() => removePerformer(device, idx)}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -314,20 +326,38 @@ export default function TopPerformersCmsPage() {
                       {p.image ? (
                         <img src={p.image} className="h-full w-full object-cover" />
                       ) : (
-                        <div className="z-20 flex h-full w-full items-center justify-center">
-                          <Upload className="h-10 w-10 cursor-pointer text-white opacity-100" />
+                        <div className="z-20 flex h-full w-full items-center justify-center bg-gray-100">
+                          <Upload className="h-10 w-10 text-gray-400" />
                         </div>
                       )}
                     </div>
                     {p.image && (
-                      <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
-                        <Upload className="h-10 w-10 cursor-pointer text-white" />
-                      </div>
+                      <>
+                        <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                          <Upload className="h-10 w-10 cursor-pointer text-white" />
+                        </div>
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          className="absolute -top-1 -right-1 z-30 h-6 w-6"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            removeImage(device, idx)
+                          }}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      </>
                     )}
                     <Input
                       type="file"
+                      accept="image/*"
                       className="absolute inset-0 z-10 cursor-pointer opacity-0"
                       onChange={(e) => handleFileUpload(e, device, idx)}
+                      ref={(el) => {
+                        const key = `${device}-${idx}`
+                        if (el) fileInputRefs.current.set(key, el)
+                      }}
                     />
                     {uploadingIdx === idx && (
                       <div className="bg-background/50 absolute inset-0 flex items-center justify-center rounded-full">
