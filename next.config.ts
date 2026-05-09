@@ -9,11 +9,11 @@ const nextConfig: NextConfig = {
   output: "standalone",
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  
+
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  
+
   logging: {
     fetches: {
       fullUrl: true,
@@ -25,24 +25,24 @@ const nextConfig: NextConfig = {
     { source: "/health", destination: "/api/health" },
     { source: "/ping", destination: "/api/health" },
     {
-        source: '/stats/script.js',
-        destination: 'https://umami.xigenis.com/script.js',
-      },
-      {
-        source: '/stats/api/send',
-        destination: 'https://umami.xigenis.com/api/send',
-      },
-      {
-        source: '/stats/api/send/',
-        destination: 'https://umami.xigenis.com/api/send/',
-      },
-      {
-        source: '/stats/api/health',
-        destination: 'https://umami.xigenis.com/api/health',
-      },
+      source: "/stats/script.js",
+      destination: "https://umami.xigenis.com/script.js",
+    },
+    {
+      source: "/stats/api/send",
+      destination: "https://umami.xigenis.com/api/send",
+    },
+    {
+      source: "/stats/api/send/",
+      destination: "https://umami.xigenis.com/api/send/",
+    },
+    {
+      source: "/stats/api/health",
+      destination: "https://umami.xigenis.com/api/health",
+    },
   ],
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ["image/webp", "image/avif"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
@@ -73,16 +73,21 @@ const withMDX = createMDX({
 const sentryWebpackPluginOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
-  org: "xigenis",
+  org: "xigenis-landing-page",
   project: "xigenis-landingpage",
+  sentryUrl: "https://glitchtip.xigenis.com/",
   authToken: process.env.SENTRY_AUTH_TOKEN,
-  silent: true, // Suppresses all logs
+  silent: true, //!process.env.CI Suppresses all logs
   widenClientFileUpload: true,
   transpileClientSDK: true,
   tunnelRoute: "/monitoring",
   hideSourceMaps: true,
-  disableLogger: true,
-  automaticVercelMonitors: false,
+  webpack: {
+    treeshake: {
+      removeDebugLogging: true,
+    },
+    automaticVercelMonitors: false,
+  },
 }
 
 let finalConfig = withMDX(nextConfig)
@@ -91,6 +96,4 @@ let finalConfig = withMDX(nextConfig)
 finalConfig = withSentryConfig(finalConfig, sentryWebpackPluginOptions)
 
 // Wrap with Bundle Analyzer if enabled
-export default env.ANALYZE 
-  ? withBundleAnalyzer({ enabled: env.ANALYZE })(finalConfig) 
-  : finalConfig
+export default env.ANALYZE ? withBundleAnalyzer({ enabled: env.ANALYZE })(finalConfig) : finalConfig
