@@ -19,6 +19,7 @@ export default function Page() {
     Sentry.logger.info("Sentry example page loaded")
     async function checkConnectivity() {
       const result = await Sentry.diagnoseSdkConnectivity()
+      console.log(result)
       setIsConnected(result !== "sentry-unreachable")
     }
     checkConnectivity()
