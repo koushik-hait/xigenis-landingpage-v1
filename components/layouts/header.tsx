@@ -12,12 +12,9 @@ export function Header() {
   }
 
   return (
-    <header className="relative top-0 right-0 left-0 z-50 p-4 bg-inherit">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/10 to-transparent" aria-hidden="true" />
-      {/* Warm dark overlays to match the aesthetic */}
-      <div className="absolute inset-0 bg-[#352F28]/10 mix-blend-multiply" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#17110B]/90 via-[#17110B]/60 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0705] via-transparent to-[#0A0705]/30 opacity-90" />
+    <header className="absolute top-20 right-0 left-0 z-50 bg-transparent p-4">
+      {/* Warm glow matching sticky countdown bar */}
+
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-4">
         {/* Logo */}
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-black">
