@@ -59,7 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <WebVitals />
       <UmamiAnalytics />
-      <RandomToast />
+      <RandomToast enabled={true} />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
         <StickyCountdownBar />
         <Header />

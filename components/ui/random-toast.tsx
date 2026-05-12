@@ -19,18 +19,19 @@ export function RandomToast({ enabled = true }: RandomToastProps) {
       const randomIndex = Math.floor(Math.random() * messagesRef.current.length)
       const randomMessage = messagesRef.current[randomIndex]
 
-      toast(randomMessage, {
+      toast.info(randomMessage, {
         duration: 4000,
-        position: 'bottom-right',
+        position: 'bottom-left',
       })
     }
 
     // Show first toast immediately
     showRandomToast()
 
-    // Set up recurring timer with random interval between 1-5 minutes
+
+    // Set up recurring timer with random interval between 1-3 minutes
     const scheduleNextToast = () => {
-      const randomInterval = Math.floor(Math.random() * 4 + 1) * 60 * 1000 // 1-5 minutes in milliseconds
+      const randomInterval = Math.floor(Math.random() * 2 + 1) * 60 * 1000 // 1-3 minutes in milliseconds
 
       intervalRef.current = setTimeout(() => {
         showRandomToast()
