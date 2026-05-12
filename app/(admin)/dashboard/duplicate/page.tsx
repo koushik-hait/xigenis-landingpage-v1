@@ -5,10 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
-import { 
-  getDomainsWithContent, 
-  getAllUniqueSections, 
-  duplicateContent 
+import {
+  getDomainsWithContent,
+  getAllUniqueSections,
+  duplicateContent
 } from '@/app/actions/cms'
 import { Loader2, Copy, AlertTriangle, CheckCircle2, ArrowRightLeft } from 'lucide-react'
 import {
@@ -39,14 +39,16 @@ export default function DuplicateDataPage() {
   const [sections, setSections] = useState<SectionInfo[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isDuplicating, setIsDuplicating] = useState(false)
-  
+
   // Form state
   const [sourceDomain, setSourceDomain] = useState('')
   const [destinationDomain, setDestinationDomain] = useState('')
   const [selectedPage, setSelectedPage] = useState('')
   const [selectedSection, setSelectedSection] = useState('')
+  const [sourceScreen, setSourceScreen] = useState('desktop')
+  const [destinationScreen, setDestinationScreen] = useState('desktop')
   const [overwrite, setOverwrite] = useState(false)
-  
+
   // Result state
   const [result, setResult] = useState<{
     success: boolean
@@ -79,7 +81,7 @@ export default function DuplicateDataPage() {
 
   // Get unique pages from sections
   const uniquePages = Array.from(new Set(sections.map(s => s.page)))
-  
+
   // Get sections for selected page
   const sectionsForPage = sections.filter(s => s.page === selectedPage)
 
@@ -111,7 +113,11 @@ export default function DuplicateDataPage() {
         destinationDomain,
         selectedPage,
         selectedSection,
-        { overwrite }
+        {
+          overwrite,
+          sourceScreen,
+          destinationScreen
+        }
       )
 
       setResult(response)
@@ -190,6 +196,23 @@ export default function DuplicateDataPage() {
               </p>
             </div>
 
+            {/* Source Screen */}
+            <div className="space-y-2">
+              <Label htmlFor="source-screen">Source Screen</Label>
+              <Select value={sourceScreen} onValueChange={(value) => { setSourceScreen(value); setResult(null); }}>
+                <SelectTrigger id="source-screen">
+                  <SelectValue placeholder="Select source screen" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="desktop">Desktop</SelectItem>
+                  <SelectItem value="mobile">Mobile</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">
+                Screen type to copy content from
+              </p>
+            </div>
+
             {/* Destination Domain */}
             <div className="space-y-2">
               <Label htmlFor="destination-domain">Destination Domain</Label>
@@ -207,6 +230,23 @@ export default function DuplicateDataPage() {
               </Select>
               <p className="text-xs text-muted-foreground">
                 Domain to copy content to
+              </p>
+            </div>
+
+            {/* Destination Screen */}
+            <div className="space-y-2">
+              <Label htmlFor="destination-screen">Destination Screen</Label>
+              <Select value={destinationScreen} onValueChange={(value) => { setDestinationScreen(value); setResult(null); }}>
+                <SelectTrigger id="destination-screen">
+                  <SelectValue placeholder="Select destination screen" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="desktop">Desktop</SelectItem>
+                  <SelectItem value="mobile">Mobile</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">
+                Screen type to copy content to
               </p>
             </div>
           </div>
@@ -236,8 +276,8 @@ export default function DuplicateDataPage() {
             {/* Section Selection */}
             <div className="space-y-2">
               <Label htmlFor="section-select">Section</Label>
-              <Select 
-                value={selectedSection} 
+              <Select
+                value={selectedSection}
                 onValueChange={(value) => { setSelectedSection(value); setResult(null); }}
                 disabled={!selectedPage}
               >
@@ -247,7 +287,7 @@ export default function DuplicateDataPage() {
                 <SelectContent>
                   {sectionsForPage.map((section) => (
                     <SelectItem key={section.section} value={section.section}>
-                      {section.section.split('-').map(word => 
+                      {section.section.split('-').map(word =>
                         word.charAt(0).toUpperCase() + word.slice(1)
                       ).join(' ')}
                     </SelectItem>
@@ -332,13 +372,13 @@ export default function DuplicateDataPage() {
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Source:</span>
                 <span className="font-medium">
-                  {sourceDomain ? getDomainLabel(sourceDomain) : '-'}
+                  {sourceDomain ? `${getDomainLabel(sourceDomain)} (${sourceScreen})` : '-'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Destination:</span>
                 <span className="font-medium">
-                  {destinationDomain ? getDomainLabel(destinationDomain) : '-'}
+                  {destinationDomain ? `${getDomainLabel(destinationDomain)} (${destinationScreen})` : '-'}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -350,8 +390,8 @@ export default function DuplicateDataPage() {
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Section:</span>
                 <span className="font-medium">
-                  {selectedSection 
-                    ? selectedSection.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') 
+                  {selectedSection
+                    ? selectedSection.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
                     : '-'}
                 </span>
               </div>
