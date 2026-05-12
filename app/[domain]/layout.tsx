@@ -3,6 +3,7 @@ import { Header } from "@/components/layouts/header"
 import { StickyCountdownBar } from "@/components/layouts/sticky-countdown-bar"
 // import { WhatsAppButton } from "@/components/layouts/whatsapp-button"
 import { WebVitals } from "@/components/analytics/web-vitals"
+import { RandomToast } from "@/components/ui/random-toast"
 import type { Metadata } from "next"
 import { Montserrat, Poppins } from "next/font/google"
 import type React from "react"
@@ -58,6 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <WebVitals />
       <UmamiAnalytics />
+      <RandomToast />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
         <StickyCountdownBar />
         <Header />
