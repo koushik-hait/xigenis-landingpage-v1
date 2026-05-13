@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { toast } from 'sonner'
-import toastMessages from '@/data/toast-messages.json'
+import toastMessages from '@/data/toast-notifications.json'
 
 interface RandomToastProps {
   enabled?: boolean
@@ -10,7 +10,7 @@ interface RandomToastProps {
 
 export function RandomToast({ enabled = true }: RandomToastProps) {
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const messagesRef = useRef<string[]>(toastMessages)
+  const messagesRef = useRef<{ name: string, city: string, state: string, message: string, time: string }[]>(toastMessages)
 
   useEffect(() => {
     if (!enabled) return
@@ -19,9 +19,10 @@ export function RandomToast({ enabled = true }: RandomToastProps) {
       const randomIndex = Math.floor(Math.random() * messagesRef.current.length)
       const randomMessage = messagesRef.current[randomIndex]
 
-      toast.info(randomMessage, {
+      toast.info(`${randomMessage?.name} from ${randomMessage?.city}, ${randomMessage?.state}`, {
         duration: 4000,
         position: 'bottom-left',
+        description: randomMessage?.message,
       })
     }
 

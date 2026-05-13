@@ -1,0 +1,709 @@
+[
+  {
+    "name": "Arjun",
+    "city": "Mumbai",
+    "state": "MH",
+    "message": "Booked a Pipeline Growth Call",
+    "time": "15 hr ago"
+  },
+  {
+    "name": "Rahul",
+    "city": "Bengaluru",
+    "state": "KA",
+    "message": "Scheduled a Buyer Acquisition Call",
+    "time": "58 min ago"
+  },
+  {
+    "name": "Soham",
+    "city": "Kolkata",
+    "state": "WB",
+    "message": "Applied for a Strategy Session",
+    "time": "30 min ago"
+  },
+  {
+    "name": "Vikram",
+    "city": "Hyderabad",
+    "state": "TS",
+    "message": "Booked a Real Estate Growth Call",
+    "time": "18 hr ago"
+  },
+  {
+    "name": "Aman",
+    "city": "Pune",
+    "state": "MH",
+    "message": "Scheduled a Consultation Call",
+    "time": "14 min ago"
+  },
+  {
+    "name": "Rohan",
+    "city": "Gurugram",
+    "state": "HR",
+    "message": "Applied for a Deal Growth Session",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Karan",
+    "city": "Ahmedabad",
+    "state": "GJ",
+    "message": "Booked a Buyer Pipeline Call",
+    "time": "9 hr ago"
+  },
+  {
+    "name": "Aditya",
+    "city": "Chennai",
+    "state": "TN",
+    "message": "Scheduled a Property Growth Consultation",
+    "time": "2 hr ago"
+  },
+  {
+    "name": "Manish",
+    "city": "Noida",
+    "state": "UP",
+    "message": "Booked a Qualified Buyer Strategy Call",
+    "time": "5 hr ago"
+  },
+  {
+    "name": "Neel",
+    "city": "Kolkata",
+    "state": "WB",
+    "message": "Applied for a Pipeline Optimization Call",
+    "time": "4 hr ago"
+  },
+  {
+    "name": "Suresh",
+    "city": "Jaipur",
+    "state": "RJ",
+    "message": "Booked a Sales Acceleration Call",
+    "time": "18 min ago"
+  },
+  {
+    "name": "Deepak",
+    "city": "Surat",
+    "state": "GJ",
+    "message": "Scheduled a Lead Generation Session",
+    "time": "17 hr ago"
+  },
+  {
+    "name": "Ankit",
+    "city": "Lucknow",
+    "state": "UP",
+    "message": "Applied for a Revenue Growth Call",
+    "time": "10 hr ago"
+  },
+  {
+    "name": "Vivek",
+    "city": "Indore",
+    "state": "MP",
+    "message": "Booked a Listing Strategy Call",
+    "time": "41 min ago"
+  },
+  {
+    "name": "Gaurav",
+    "city": "Nagpur",
+    "state": "MH",
+    "message": "Scheduled a Market Expansion Session",
+    "time": "14 hr ago"
+  },
+  {
+    "name": "Sachin",
+    "city": "Vadodara",
+    "state": "GJ",
+    "message": "Booked a Closing Acceleration Call",
+    "time": "22 hr ago"
+  },
+  {
+    "name": "Mohit",
+    "city": "Coimbatore",
+    "state": "TN",
+    "message": "Applied for a Developer Growth Session",
+    "time": "55 min ago"
+  },
+  {
+    "name": "Tarun",
+    "city": "Kochi",
+    "state": "KL",
+    "message": "Scheduled a Channel Partner Strategy Call",
+    "time": "6 hr ago"
+  },
+  {
+    "name": "Varun",
+    "city": "Visakhapatnam",
+    "state": "AP",
+    "message": "Booked a Premium Buyer Acquisition Call",
+    "time": "12 min ago"
+  },
+  {
+    "name": "Harsh",
+    "city": "Bhubaneswar",
+    "state": "OD",
+    "message": "Applied for a Real Estate Scale Session",
+    "time": "5 hr ago"
+  },
+  {
+    "name": "Dev",
+    "city": "Patna",
+    "state": "BR",
+    "message": "Booked a Portfolio Growth Call",
+    "time": "13 hr ago"
+  },
+  {
+    "name": "Piyush",
+    "city": "Ranchi",
+    "state": "JH",
+    "message": "Scheduled a Broker Success Session",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Ravi",
+    "city": "Raipur",
+    "state": "CG",
+    "message": "Applied for a High-Value Deal Strategy Call",
+    "time": "17 min ago"
+  },
+  {
+    "name": "Akash",
+    "city": "Guwahati",
+    "state": "AS",
+    "message": "Booked a Property Sales Strategy Call",
+    "time": "31 min ago"
+  },
+  {
+    "name": "Sumit",
+    "city": "Dehradun",
+    "state": "UK",
+    "message": "Scheduled a Business Growth Consultation",
+    "time": "14 hr ago"
+  },
+  {
+    "name": "Nitin",
+    "city": "Amritsar",
+    "state": "PB",
+    "message": "Booked a Referral Growth Call",
+    "time": "17 hr ago"
+  },
+  {
+    "name": "Shubham",
+    "city": "Ludhiana",
+    "state": "PB",
+    "message": "Applied for a Site Visit Conversion Call",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Ajay",
+    "city": "Faridabad",
+    "state": "HR",
+    "message": "Scheduled a Digital Lead Strategy Session",
+    "time": "19 hr ago"
+  },
+  {
+    "name": "Vijay",
+    "city": "Agra",
+    "state": "UP",
+    "message": "Booked a Conversion Optimization Call",
+    "time": "17 min ago"
+  },
+  {
+    "name": "Dinesh",
+    "city": "Varanasi",
+    "state": "UP",
+    "message": "Applied for a Real Estate Positioning Call",
+    "time": "19 min ago"
+  },
+  {
+    "name": "Lalit",
+    "city": "Nashik",
+    "state": "MH",
+    "message": "Booked a Client Acquisition Strategy Call",
+    "time": "3 min ago"
+  },
+  {
+    "name": "Hemant",
+    "city": "Rajkot",
+    "state": "GJ",
+    "message": "Scheduled a Project Growth Consultation",
+    "time": "1 hr ago"
+  },
+  {
+    "name": "Kamal",
+    "city": "Jabalpur",
+    "state": "MP",
+    "message": "Applied for a Deal Closing Strategy Call",
+    "time": "22 hr ago"
+  },
+  {
+    "name": "Sunil",
+    "city": "Madurai",
+    "state": "TN",
+    "message": "Booked a Brokerage Scaling Call",
+    "time": "7 hr ago"
+  },
+  {
+    "name": "Yash",
+    "city": "Mysuru",
+    "state": "KA",
+    "message": "Scheduled a Mandate Growth Session",
+    "time": "21 hr ago"
+  },
+  {
+    "name": "Jay",
+    "city": "Mangaluru",
+    "state": "KA",
+    "message": "Applied for a Inventory Conversion Call",
+    "time": "12 hr ago"
+  },
+  {
+    "name": "Hardik",
+    "city": "Hubli",
+    "state": "KA",
+    "message": "Booked a Site Conversion Strategy Call",
+    "time": "22 min ago"
+  },
+  {
+    "name": "Dhruv",
+    "city": "Thane",
+    "state": "MH",
+    "message": "Scheduled a Listing Growth Consultation",
+    "time": "27 min ago"
+  },
+  {
+    "name": "Siddharth",
+    "city": "Delhi",
+    "state": "DL",
+    "message": "Applied for a Property Pipeline Call",
+    "time": "5 hr ago"
+  },
+  {
+    "name": "Pranav",
+    "city": "Pune",
+    "state": "MH",
+    "message": "Booked a Revenue Acceleration Call",
+    "time": "13 hr ago"
+  },
+  {
+    "name": "Chirag",
+    "city": "Ahmedabad",
+    "state": "GJ",
+    "message": "Scheduled a Premium Project Strategy Call",
+    "time": "12 min ago"
+  },
+  {
+    "name": "Parag",
+    "city": "Surat",
+    "state": "GJ",
+    "message": "Applied for a Sales Funnel Growth Session",
+    "time": "7 hr ago"
+  },
+  {
+    "name": "Parth",
+    "city": "Mumbai",
+    "state": "MH",
+    "message": "Booked a Qualified Lead Strategy Call",
+    "time": "50 min ago"
+  },
+  {
+    "name": "Bhavik",
+    "city": "Vadodara",
+    "state": "GJ",
+    "message": "Scheduled a Buyer Conversion Session",
+    "time": "11 hr ago"
+  },
+  {
+    "name": "Nilesh",
+    "city": "Nagpur",
+    "state": "MH",
+    "message": "Applied for a Real Estate Growth Consultation",
+    "time": "34 min ago"
+  },
+  {
+    "name": "Tejas",
+    "city": "Bengaluru",
+    "state": "KA",
+    "message": "Booked a Developer Pipeline Call",
+    "time": "58 min ago"
+  },
+  {
+    "name": "Rupesh",
+    "city": "Hyderabad",
+    "state": "TS",
+    "message": "Scheduled a Broker Growth Session",
+    "time": "20 min ago"
+  },
+  {
+    "name": "Hitesh",
+    "city": "Chennai",
+    "state": "TN",
+    "message": "Applied for a Mandate Conversion Call",
+    "time": "13 hr ago"
+  },
+  {
+    "name": "Mitesh",
+    "city": "Jaipur",
+    "state": "RJ",
+    "message": "Booked a High-Ticket Sales Strategy Call",
+    "time": "34 min ago"
+  },
+  {
+    "name": "Bhavesh",
+    "city": "Indore",
+    "state": "MP",
+    "message": "Scheduled a Resale Growth Consultation",
+    "time": "1 hr ago"
+  },
+  {
+    "name": "Jayesh",
+    "city": "Lucknow",
+    "state": "UP",
+    "message": "Applied for a Luxury Project Sales Call",
+    "time": "18 hr ago"
+  },
+  {
+    "name": "Mahesh",
+    "city": "Gurugram",
+    "state": "HR",
+    "message": "Booked a Channel Partner Growth Call",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Rakesh",
+    "city": "Noida",
+    "state": "UP",
+    "message": "Scheduled a Referral Pipeline Session",
+    "time": "1 hr ago"
+  },
+  {
+    "name": "Yogesh",
+    "city": "Kolkata",
+    "state": "WB",
+    "message": "Applied for a Buyer Intent Strategy Call",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Naresh",
+    "city": "Bhopal",
+    "state": "MP",
+    "message": "Booked a Real Estate Business Audit Call",
+    "time": "24 min ago"
+  },
+  {
+    "name": "Jignesh",
+    "city": "Rajkot",
+    "state": "GJ",
+    "message": "Scheduled a Closing Ratio Growth Session",
+    "time": "22 hr ago"
+  },
+  {
+    "name": "Alpesh",
+    "city": "Ahmedabad",
+    "state": "GJ",
+    "message": "Applied for a Project Positioning Call",
+    "time": "1 min ago"
+  },
+  {
+    "name": "Dipesh",
+    "city": "Surat",
+    "state": "GJ",
+    "message": "Booked a Lead Nurturing Strategy Call",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Rushil",
+    "city": "Mumbai",
+    "state": "MH",
+    "message": "Scheduled a Pre-Launch Sales Strategy Call",
+    "time": "1 hr ago"
+  },
+  {
+    "name": "Smit",
+    "city": "Vadodara",
+    "state": "GJ",
+    "message": "Applied for a Brokerage Growth Session",
+    "time": "19 hr ago"
+  },
+  {
+    "name": "Maulik",
+    "city": "Bengaluru",
+    "state": "KA",
+    "message": "Booked a Buyer Readiness Strategy Call",
+    "time": "56 min ago"
+  },
+  {
+    "name": "Kushal",
+    "city": "Hyderabad",
+    "state": "TS",
+    "message": "Scheduled a Property Investment Call",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Kundan",
+    "city": "Patna",
+    "state": "BR",
+    "message": "Applied for a Team Expansion Strategy Call",
+    "time": "9 hr ago"
+  },
+  {
+    "name": "Tushar",
+    "city": "Pune",
+    "state": "MH",
+    "message": "Booked a Listing-to-Closing Strategy Call",
+    "time": "3 hr ago"
+  },
+  {
+    "name": "Mayur",
+    "city": "Indore",
+    "state": "MP",
+    "message": "Scheduled a Digital Sales Acceleration Session",
+    "time": "35 min ago"
+  },
+  {
+    "name": "Vishal",
+    "city": "Jaipur",
+    "state": "RJ",
+    "message": "Applied for a Builder Tie-Up Strategy Call",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Prashant",
+    "city": "Nashik",
+    "state": "MH",
+    "message": "Booked a Real Estate Funnel Call",
+    "time": "6 min ago"
+  },
+  {
+    "name": "Shivam",
+    "city": "Lucknow",
+    "state": "UP",
+    "message": "Scheduled a Inventory Sales Growth Call",
+    "time": "20 min ago"
+  },
+  {
+    "name": "Kartik",
+    "city": "Chennai",
+    "state": "TN",
+    "message": "Applied for a Deal Acceleration Session",
+    "time": "6 hr ago"
+  },
+  {
+    "name": "Abhinav",
+    "city": "Delhi",
+    "state": "DL",
+    "message": "Booked a Sales Team Strategy Call",
+    "time": "17 hr ago"
+  },
+  {
+    "name": "Ashish",
+    "city": "Gurugram",
+    "state": "HR",
+    "message": "Scheduled a Premium Segment Growth Call",
+    "time": "8 hr ago"
+  },
+  {
+    "name": "Alok",
+    "city": "Noida",
+    "state": "UP",
+    "message": "Applied for a Mandate Growth Consultation",
+    "time": "17 hr ago"
+  },
+  {
+    "name": "Saurabh",
+    "city": "Faridabad",
+    "state": "HR",
+    "message": "Booked a Buyer Segment Strategy Call",
+    "time": "21 hr ago"
+  },
+  {
+    "name": "Sandeep",
+    "city": "Bhubaneswar",
+    "state": "OD",
+    "message": "Scheduled a Property Launch Growth Call",
+    "time": "15 hr ago"
+  },
+  {
+    "name": "Sanket",
+    "city": "Thane",
+    "state": "MH",
+    "message": "Applied for a Builder Relations Strategy Call",
+    "time": "7 hr ago"
+  },
+  {
+    "name": "Sameer",
+    "city": "Kochi",
+    "state": "KL",
+    "message": "Booked a Buyer Outreach Strategy Call",
+    "time": "41 min ago"
+  },
+  {
+    "name": "Nishant",
+    "city": "Ghaziabad",
+    "state": "UP",
+    "message": "Scheduled a Conversion Rate Growth Session",
+    "time": "10 min ago"
+  },
+  {
+    "name": "Rishabh",
+    "city": "Chandigarh",
+    "state": "CH",
+    "message": "Applied for a Site Activation Call",
+    "time": "48 min ago"
+  },
+  {
+    "name": "Akshat",
+    "city": "Dehradun",
+    "state": "UK",
+    "message": "Booked a Real Estate Revenue Strategy Call",
+    "time": "1 hr ago"
+  },
+  {
+    "name": "Anurag",
+    "city": "Raipur",
+    "state": "CG",
+    "message": "Scheduled a Channel Partner Activation Call",
+    "time": "23 min ago"
+  },
+  {
+    "name": "Nikhil",
+    "city": "Vijayawada",
+    "state": "AP",
+    "message": "Applied for a Buyer Follow-Up Strategy Call",
+    "time": "4 hr ago"
+  },
+  {
+    "name": "Rajesh",
+    "city": "Coimbatore",
+    "state": "TN",
+    "message": "Booked a Property Pipeline Audit Call",
+    "time": "9 hr ago"
+  },
+  {
+    "name": "Amit",
+    "city": "Agra",
+    "state": "UP",
+    "message": "Scheduled a Growth Roadmap Session",
+    "time": "1 day ago"
+  },
+  {
+    "name": "Sanjay",
+    "city": "Varanasi",
+    "state": "UP",
+    "message": "Applied for a Residential Sales Strategy Call",
+    "time": "12 hr ago"
+  },
+  {
+    "name": "Girish",
+    "city": "Bengaluru",
+    "state": "KA",
+    "message": "Booked a Commission Growth Strategy Call",
+    "time": "3 min ago"
+  },
+  {
+    "name": "Pratik",
+    "city": "Mumbai",
+    "state": "MH",
+    "message": "Scheduled a NRI Sales Strategy Call",
+    "time": "39 min ago"
+  },
+  {
+    "name": "Lokesh",
+    "city": "Jaipur",
+    "state": "RJ",
+    "message": "Applied for a Real Estate Brand Session",
+    "time": "37 min ago"
+  },
+  {
+    "name": "Kedar",
+    "city": "Pune",
+    "state": "MH",
+    "message": "Booked a Inventory Liquidation Call",
+    "time": "54 min ago"
+  },
+  {
+    "name": "Omkar",
+    "city": "Nashik",
+    "state": "MH",
+    "message": "Scheduled a Luxury Segment Buyer Call",
+    "time": "37 min ago"
+  },
+  {
+    "name": "Prasad",
+    "city": "Hyderabad",
+    "state": "TS",
+    "message": "Applied for a Real Estate Scaling Session",
+    "time": "30 min ago"
+  },
+  {
+    "name": "Jayant",
+    "city": "Surat",
+    "state": "GJ",
+    "message": "Booked a Lead Conversion Strategy Call",
+    "time": "21 hr ago"
+  },
+  {
+    "name": "Viral",
+    "city": "Vadodara",
+    "state": "GJ",
+    "message": "Scheduled a Site Revenue Growth Call",
+    "time": "3 hr ago"
+  },
+  {
+    "name": "Keval",
+    "city": "Ahmedabad",
+    "state": "GJ",
+    "message": "Applied for a Referral System Strategy Call",
+    "time": "13 hr ago"
+  },
+  {
+    "name": "Niral",
+    "city": "Rajkot",
+    "state": "GJ",
+    "message": "Booked a Developer Sales Strategy Call",
+    "time": "17 hr ago"
+  },
+  {
+    "name": "Dhruvil",
+    "city": "Indore",
+    "state": "MP",
+    "message": "Scheduled a Pre-Sales Growth Session",
+    "time": "12 hr ago"
+  },
+  {
+    "name": "Yuvraj",
+    "city": "Chandigarh",
+    "state": "CH",
+    "message": "Applied for a Buyer Pool Strategy Call",
+    "time": "9 hr ago"
+  },
+  {
+    "name": "Tanmay",
+    "city": "Kolkata",
+    "state": "WB",
+    "message": "Booked a Real Estate Monetization Call",
+    "time": "23 hr ago"
+  },
+  {
+    "name": "Ishan",
+    "city": "Guwahati",
+    "state": "AS",
+    "message": "Scheduled a Property Network Growth Call",
+    "time": "1 hr ago"
+  },
+  {
+    "name": "Aryan",
+    "city": "Delhi",
+    "state": "DL",
+    "message": "Applied for a Closing Strategy Session",
+    "time": "11 hr ago"
+  },
+  {
+    "name": "Siddhant",
+    "city": "Noida",
+    "state": "UP",
+    "message": "Booked a Performance Growth Consultation",
+    "time": "12 min ago"
+  },
+  {
+    "name": "Kush",
+    "city": "Gurugram",
+    "state": "HR",
+    "message": "Scheduled a Broker Business Strategy Call",
+    "time": "18 hr ago"
+  }
+]

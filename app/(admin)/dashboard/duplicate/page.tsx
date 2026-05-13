@@ -99,10 +99,10 @@ export default function DuplicateDataPage() {
       return
     }
 
-    if (sourceDomain === destinationDomain) {
-      toast.error('Source and destination domains must be different')
-      return
-    }
+    // if (sourceDomain === destinationDomain) {
+    //   toast.error('Source and destination domains must be different')
+    //   return
+    // }
 
     setIsDuplicating(true)
     setResult(null)
