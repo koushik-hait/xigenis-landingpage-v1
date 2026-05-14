@@ -22,7 +22,12 @@ export function RandomToast({ enabled = true }: RandomToastProps) {
       toast.info(`${randomMessage?.name} from ${randomMessage?.city}, ${randomMessage?.state}`, {
         duration: 4000,
         position: 'bottom-left',
-        description: randomMessage?.message,
+        description: (
+          <div className="flex flex-col gap-1">
+            <span>{randomMessage?.message}</span>
+            <span className="text-[11px] opacity-50 font-medium">{randomMessage?.time}</span>
+          </div>
+        ),
       })
     }
 
