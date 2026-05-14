@@ -24,7 +24,7 @@ export function RandomToast({ enabled = true }: RandomToastProps) {
       toast.custom(
         () => (
           <div
-            className="flex items-start gap-3 rounded-xl border border-white/15 bg-white/10 px-4 py-3 shadow-lg backdrop-blur-xl"
+            className="flex items-start gap-3 rounded-xl border border-white/10 bg-black/40 px-4 py-3 shadow-lg backdrop-blur-xl"
             style={{ minWidth: 320, maxWidth: 380 }}
           >
             {/* Calendar icon */}
@@ -53,7 +53,7 @@ export function RandomToast({ enabled = true }: RandomToastProps) {
         {
           duration: 4000,
           position: "bottom-left",
-        },
+        }
       )
     }
 
@@ -62,7 +62,7 @@ export function RandomToast({ enabled = true }: RandomToastProps) {
 
     // Set up recurring timer with random interval between 1-13 seconds
     const scheduleNextToast = () => {
-      const randomInterval = Math.floor(Math.random() * 13 + 1) * 1000 // 1-13 seconds
+      const randomInterval = Math.floor(Math.random() * 20 + 5) * 1000 // 1-13 seconds
 
       intervalRef.current = setTimeout(() => {
         showRandomToast()
