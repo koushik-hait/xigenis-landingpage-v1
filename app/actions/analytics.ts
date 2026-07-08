@@ -36,6 +36,19 @@ async function assertAdmin() {
   if (user.publicMetadata?.role !== 'admin') throw new Error('Forbidden')
 }
 
+function handleAnalyticsError<T>(error: unknown, fallback: T): T {
+  if (
+    error &&
+    typeof error === 'object' &&
+    'digest' in error &&
+    error.digest === 'DYNAMIC_SERVER_USAGE'
+  ) {
+    throw error
+  }
+  console.error('[Umami] Analytics API failed:', error)
+  return fallback
+}
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type AnalyticsSummary = {
@@ -106,20 +119,30 @@ export async function getAnalyticsSummary(
   startAt: number,
   endAt: number
 ): Promise<AnalyticsSummary> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+    })
 
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/stats?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
-  if (!res.ok) throw new Error(`Umami stats API failed: ${res.status}`)
-  return res.json() as Promise<AnalyticsSummary>
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/stats?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
+    if (!res.ok) throw new Error(`Umami stats API failed: ${res.status}`)
+    return await res.json() as AnalyticsSummary
+  } catch (error) {
+    return handleAnalyticsError(error, {
+      pageviews: 0,
+      visitors: 0,
+      visits: 0,
+      bounces: 0,
+      totaltime: 0,
+    })
+  }
 }
 
 // ─── Pageview time series ────────────────────────────────────────────────────
@@ -129,34 +152,38 @@ export async function getPageviewSeries(
   endAt: number,
   unit: 'day' | 'hour' = 'day'
 ): Promise<PageviewSeries[]> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-    unit,
-    timezone: 'Asia/Kolkata',   // change to your timezone
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+      unit,
+      timezone: 'Asia/Kolkata',   // change to your timezone
+    })
 
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/pageviews?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
-  const data = (await res.json()) as {
-    pageviews?: { x: string; y: number }[]
-    sessions?: { x: string; y: number }[]
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/pageviews?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
+    const data = (await res.json()) as {
+      pageviews?: { x: string; y: number }[]
+      sessions?: { x: string; y: number }[]
+    }
+
+    const pageviews = Array.isArray(data.pageviews) ? data.pageviews : []
+    const sessions = Array.isArray(data.sessions) ? data.sessions : []
+
+    // Merge pageviews + sessions arrays into one series
+    return pageviews.map((pv: { x: string; y: number }, i: number) => ({
+      date: pv.x,
+      pageviews: pv.y,
+      sessions: sessions[i]?.y ?? 0,
+    }))
+  } catch (error) {
+    return handleAnalyticsError(error, [])
   }
-
-  const pageviews = Array.isArray(data.pageviews) ? data.pageviews : []
-  const sessions = Array.isArray(data.sessions) ? data.sessions : []
-
-  // Merge pageviews + sessions arrays into one series
-  return pageviews.map((pv: { x: string; y: number }, i: number) => ({
-    date: pv.x,
-    pageviews: pv.y,
-    sessions: sessions[i]?.y ?? 0,
-  }))
 }
 
 // ─── Top pages ───────────────────────────────────────────────────────────────
@@ -166,34 +193,38 @@ export async function getTopPages(
   endAt: number,
   limit = 10
 ): Promise<PageStats[]> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  // console.log('Umami Token', token)
+    // console.log('Umami Token', token)
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-    type: 'path',
-    limit: String(limit),
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+      type: 'path',
+      limit: String(limit),
+    })
 
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
 
-  // console.log('Umami Response', res);
-  if (!res.ok) {
-    const errorText = await res.text()
-    const requestUrl = `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`
-    console.error(`Umami topPages API 400: ${errorText}`)
-    console.error(`Request URL: ${requestUrl}`)
-    console.error(`Website ID length: ${UMAMI_WEBSITE_ID?.length}, ID: ${UMAMI_WEBSITE_ID}`)
-    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    // console.log('Umami Response', res);
+    if (!res.ok) {
+      const errorText = await res.text()
+      const requestUrl = `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`
+      console.error(`Umami topPages API 400: ${errorText}`)
+      console.error(`Request URL: ${requestUrl}`)
+      console.error(`Website ID length: ${UMAMI_WEBSITE_ID?.length}, ID: ${UMAMI_WEBSITE_ID}`)
+      throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    }
+    const data = (await res.json()) as PageStats[]
+    return Array.isArray(data) ? data : []
+  } catch (error) {
+    return handleAnalyticsError(error, [])
   }
-  const data = (await res.json()) as PageStats[]
-  return Array.isArray(data) ? data : []
 }
 
 // ─── Referrers ───────────────────────────────────────────────────────────────
@@ -203,27 +234,31 @@ export async function getReferrers(
   endAt: number,
   limit = 10
 ): Promise<ReferrerStats[]> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-    type: 'referrer',
-    limit: String(limit),
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+      type: 'referrer',
+      limit: String(limit),
+    })
 
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
-  if (!res.ok) {
-    const errorText = await res.text()
-    console.error(`Umami referrers API 400: ${errorText}`)
-    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error(`Umami referrers API 400: ${errorText}`)
+      throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    }
+    const data = (await res.json()) as ReferrerStats[]
+    return Array.isArray(data) ? data : []
+  } catch (error) {
+    return handleAnalyticsError(error, [])
   }
-  const data = (await res.json()) as ReferrerStats[]
-  return Array.isArray(data) ? data : []
 }
 
 // ─── Devices ─────────────────────────────────────────────────────────────────
@@ -232,26 +267,30 @@ export async function getDevices(
   startAt: number,
   endAt: number
 ): Promise<DeviceStats[]> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-    type: 'device',
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+      type: 'device',
+    })
 
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
-  if (!res.ok) {
-    const errorText = await res.text()
-    console.error(`Umami device API 400: ${errorText}`)
-    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error(`Umami device API 400: ${errorText}`)
+      throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    }
+    const data = (await res.json()) as DeviceStats[]
+    return Array.isArray(data) ? data : []
+  } catch (error) {
+    return handleAnalyticsError(error, [])
   }
-  const data = (await res.json()) as DeviceStats[]
-  return Array.isArray(data) ? data : []
 }
 
 // ─── Countries ───────────────────────────────────────────────────────────────
@@ -260,26 +299,30 @@ export async function getCountries(
   startAt: number,
   endAt: number
 ): Promise<CountryStats[]> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-    type: 'country',
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+      type: 'country',
+    })
 
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
-  if (!res.ok) {
-    const errorText = await res.text()
-    console.error(`Umami country API 400: ${errorText}`)
-    throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/metrics?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error(`Umami country API 400: ${errorText}`)
+      throw new Error(`Umami metrics API failed: ${res.status} - ${errorText}`)
+    }
+    const data = (await res.json()) as CountryStats[]
+    return Array.isArray(data) ? data : []
+  } catch (error) {
+    return handleAnalyticsError(error, [])
   }
-  const data = (await res.json()) as CountryStats[]
-  return Array.isArray(data) ? data : []
 }
 
 // ─── Events ─────────────────────────────────────────────────────────────────
@@ -290,30 +333,34 @@ export async function getEvents(
   eventName?: string,
   limit = 100
 ): Promise<EventStats[]> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-    pageSize: String(limit),
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+      pageSize: String(limit),
+    })
 
-  if (eventName) {
-    params.append('search', eventName)
+    if (eventName) {
+      params.append('search', eventName)
+    }
+
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/events?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error(`Umami events API error: ${errorText}`)
+      throw new Error(`Umami events API failed: ${res.status} - ${errorText}`)
+    }
+    const result = (await res.json()) as { data: EventStats[]; count: number; page: number; pageSize: number }
+    return Array.isArray(result.data) ? result.data : []
+  } catch (error) {
+    return handleAnalyticsError(error, [])
   }
-
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/events?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
-  if (!res.ok) {
-    const errorText = await res.text()
-    console.error(`Umami events API error: ${errorText}`)
-    throw new Error(`Umami events API failed: ${res.status} - ${errorText}`)
-  }
-  const result = (await res.json()) as { data: EventStats[]; count: number; page: number; pageSize: number }
-  return Array.isArray(result.data) ? result.data : []
 }
 
 // ─── Event Data Details ───────────────────────────────────────────────────
@@ -337,25 +384,29 @@ export async function getEventDataDetails(
   unit: 'hour' | 'day' = 'hour',
   timezone: string = 'Asia/Kolkata'
 ): Promise<EventDataDetail[]> {
-  await assertAdmin()
-  const token = await getUmamiToken()
+  try {
+    await assertAdmin()
+    const token = await getUmamiToken()
 
-  const params = new URLSearchParams({
-    startAt: String(startAt),
-    endAt: String(endAt),
-    unit,
-    timezone,
-  })
+    const params = new URLSearchParams({
+      startAt: String(startAt),
+      endAt: String(endAt),
+      unit,
+      timezone,
+    })
 
-  const res = await fetch(
-    `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/event-data/${eventId}?${params}`,
-    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
-  )
-  if (!res.ok) {
-    const errorText = await res.text()
-    console.error(`Umami event-data details API error: ${errorText}`)
-    throw new Error(`Umami event-data details API failed: ${res.status} - ${errorText}`)
+    const res = await fetch(
+      `${UMAMI_URL}/api/websites/${UMAMI_WEBSITE_ID}/event-data/${eventId}?${params}`,
+      { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+    )
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error(`Umami event-data details API error: ${errorText}`)
+      throw new Error(`Umami event-data details API failed: ${res.status} - ${errorText}`)
+    }
+    const data = (await res.json()) as EventDataDetail[]
+    return Array.isArray(data) ? data : []
+  } catch (error) {
+    return handleAnalyticsError(error, [])
   }
-  const data = (await res.json()) as EventDataDetail[]
-  return Array.isArray(data) ? data : []
 }
