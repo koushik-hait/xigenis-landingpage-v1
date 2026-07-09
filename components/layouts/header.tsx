@@ -12,7 +12,7 @@ export function Header() {
   }
 
   return (
-    <header className="absolute top-20 right-0 left-0 z-50 bg-transparent p-4">
+    <header className="absolute top-20 right-0 left-0 z-50 bg-transparent p-4 hidden md:block">
       {/* Warm glow matching sticky countdown bar */}
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-4">

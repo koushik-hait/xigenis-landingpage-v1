@@ -182,6 +182,11 @@ const menuItems: MenuItem[] = [
         href: "/dashboard/footer",
         icon: <FileText className="h-3 w-3" />,
       },
+      {
+        title: "Countdown Bar",
+        href: "/dashboard/countdown",
+        icon: <FileText className="h-3 w-3" />,
+      },
     ],
   },
   {

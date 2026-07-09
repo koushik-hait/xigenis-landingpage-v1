@@ -91,13 +91,13 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20">
-        <div className="mt-4 flex max-w-2xl flex-col items-start lg:max-w-4xl">
+        <div className="mt-4 flex w-full flex-col items-center justify-center text-center mx-auto max-w-4xl">
           {/* Trust Badge Area */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6 flex items-center gap-10"
+            className="mb-6 flex items-center gap-10 justify-center mx-auto"
           >
             {/* Avatars */}
             <div className="flex -space-x-3">
@@ -137,7 +137,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               fontSize: `${content.headlineSize}px`,
               lineHeight: "1.05",
             }}
-            className="mb-4 space-y-1 font-serif tracking-wide drop-shadow-lg"
+            className="mb-4 space-y-1 font-serif tracking-wide drop-shadow-lg text-center mx-auto"
           >
             <span className="block">{content.headlineLine1}</span>
             <span className="block">{content.headlineLine2}</span>
@@ -153,7 +153,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               fontSize: `${content.subtitleSize}px`,
               // lineHeight: "1.05",
             }}
-            className="mb-6 max-w-4xl"
+            className="mb-6 max-w-4xl text-center mx-auto"
           >
             {content.subtitle}
           </motion.p>
@@ -163,9 +163,9 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-2"
+            className="mb-2 flex justify-center w-full"
           >
-            <ExploreButton href={content.ctaLink} className="mx-0">
+            <ExploreButton href={content.ctaLink} className="mx-auto">
               <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
             </ExploreButton>
           </motion.div>
@@ -175,7 +175,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3"
+            className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mx-auto"
           >
             {content.checkmarks.map((text: string, i: number) => (
               <div key={i} className="flex items-center gap-2">
@@ -199,7 +199,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
         initial={{ opacity: 0, height: 0 }}
         animate={{ opacity: 1, height: "auto" }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute right-1/4 bottom-20 z-20 flex flex-col items-center lg:right-[35%]"
+        className="absolute left-1/2 bottom-20 z-20 flex -translate-x-1/2 flex-col items-center"
       >
         <div className="mb-[-1px] h-32 w-px bg-gradient-to-b from-transparent to-white/40" />
         <div className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/10 text-white/50 backdrop-blur-sm">

@@ -1,43 +1,92 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
+import { getCmsContent } from "@/app/actions/cms"
 
-const DURATION = 5 * 60 // 5 minutes in seconds
-
-export function StickyCountdownBar() {
-  const [remaining, setRemaining] = useState(DURATION)
+export function StickyCountdownBar({ domain }: { domain?: string }) {
+  const [content, setContent] = useState({
+    enabled: true,
+    slotsCount: 3,
+    countdownDuration: 300,
+    btnText: "Claim My Slot",
+    btnLink: "#contact",
+    text: "Only {slots} strategy call slots remaining this week"
+  })
+  
+  const [remaining, setRemaining] = useState(300)
   const [slotsCount, setSlotsCount] = useState(3)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-
-    // Read from sessionStorage so the countdown persists on refresh
-    const stored = sessionStorage.getItem("cdStart")
-    if (stored) {
-      const elapsed = Math.floor((Date.now() - parseInt(stored)) / 1000)
-      setRemaining(DURATION - (elapsed % DURATION))
-    } else {
-      sessionStorage.setItem("cdStart", Date.now().toString())
-    }
   }, [])
 
   useEffect(() => {
-    if (!mounted) return
+    async function loadCms() {
+      try {
+        const raw = await getCmsContent('home', 'countdown', domain)
+        if (raw) {
+          const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768
+          const deviceContent = isMobileDevice ? (raw.mobile || raw.desktop || raw) : (raw.desktop || raw)
+          
+          const duration = parseInt(deviceContent.countdownDuration) || 300
+          
+          setContent({
+            enabled: deviceContent.enabled ?? true,
+            slotsCount: parseInt(deviceContent.slotsCount) || 3,
+            countdownDuration: duration,
+            btnText: deviceContent.btnText || "Claim My Slot",
+            btnLink: deviceContent.btnLink || "#contact",
+            text: deviceContent.text || "Only {slots} strategy call slots remaining this week"
+          })
+          
+          setSlotsCount(parseInt(deviceContent.slotsCount) || 3)
+          
+          // Read from sessionStorage so the countdown persists on refresh
+          const stored = sessionStorage.getItem("cdStart")
+          if (stored) {
+            const elapsed = Math.floor((Date.now() - parseInt(stored)) / 1000)
+            setRemaining(duration - (elapsed % duration))
+          } else {
+            sessionStorage.setItem("cdStart", Date.now().toString())
+            setRemaining(duration)
+          }
+        } else {
+          // If no CMS config exists, set defaults based on state
+          const stored = sessionStorage.getItem("cdStart")
+          if (stored) {
+            const elapsed = Math.floor((Date.now() - parseInt(stored)) / 1000)
+            setRemaining(300 - (elapsed % 300))
+          } else {
+            sessionStorage.setItem("cdStart", Date.now().toString())
+            setRemaining(300)
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load countdown CMS content:", e)
+      }
+    }
+    if (mounted) {
+      loadCms()
+    }
+  }, [mounted, domain])
+
+  useEffect(() => {
+    if (!mounted || !content.enabled) return
 
     const interval = setInterval(() => {
       setRemaining((prev) => {
         if (prev <= 1) {
           sessionStorage.setItem("cdStart", Date.now().toString())
           setSlotsCount(Math.random() > 0.5 ? 2 : 3)
-          return DURATION
+          return content.countdownDuration
         }
         return prev - 1
       })
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [mounted])
+  }, [mounted, content.enabled, content.countdownDuration])
 
   const pad = useCallback((n: number) => String(n).padStart(2, "0"), [])
 
@@ -46,9 +95,15 @@ export function StickyCountdownBar() {
   const seconds = remaining % 60
 
   const scrollToCTA = () => {
-    const el = document.getElementById("contact")
-    if (el) el.scrollIntoView({ behavior: "smooth" })
+    if (content.btnLink.startsWith("#")) {
+      const el = document.getElementById(content.btnLink.substring(1))
+      if (el) el.scrollIntoView({ behavior: "smooth" })
+    } else {
+      window.location.href = content.btnLink
+    }
   }
+
+  if (!mounted || !content.enabled) return null
 
   return (
     <div className="sticky-countdown-bar" role="banner" aria-label="Limited time offer">
@@ -63,7 +118,11 @@ export function StickyCountdownBar() {
 
       {/* Slots Message */}
       <div className="scb-slots">
-        Only <strong>{slotsCount}</strong> strategy call slots remaining this week
+        {content.text.includes("{slots}") ? (
+          <span dangerouslySetInnerHTML={{ __html: content.text.replace("{slots}", `<strong>${slotsCount}</strong>`) }} />
+        ) : (
+          content.text
+        )}
       </div>
 
       {/* Countdown */}
@@ -78,7 +137,7 @@ export function StickyCountdownBar() {
 
       {/* CTA Button */}
       <button className="scb-cta" onClick={scrollToCTA}>
-        Claim My Slot
+        {content.btnText}
         <svg
           width="12"
           height="12"
