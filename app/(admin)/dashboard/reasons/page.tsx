@@ -68,7 +68,7 @@ export default function ReasonsCmsPage() {
           <CardHeader className="flex flex-row justify-between items-center"><CardTitle>Reasons Cards</CardTitle><Button size="sm" onClick={() => addReason(device)}><Plus className="w-4 h-4 mr-2"/>Add Card</Button></CardHeader>
           <CardContent className="space-y-6">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {d.reasons.map((reason, i) => (
+              {(d.reasons as any[]).map((reason: any, i) => (
                 <div key={i} className="p-4 border rounded relative space-y-3 bg-muted/20">
                   <Button variant="ghost" size="icon" className="absolute top-2 right-2 text-red-500 hover:text-red-700" onClick={() => removeReason(device, i)}><Trash className="w-4 h-4" /></Button>
                   <p className="font-bold text-sm">Reason #{i+1}</p>
