@@ -174,6 +174,9 @@ export default function Footer() {
                 </a>
               )}
             </div>
+            <p className="max-w-3xl text-[10px] leading-relaxed text-gray-400">
+            This site is not part of the Facebook or Instagram website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook or Instagram in any way. Facebook is a trademark of FACEBOOK, Inc.
+          </p>
           </div>
         </div>
       </div>
@@ -191,9 +194,7 @@ export default function Footer() {
               </span>
             ))}
           </p>
-          <p className="max-w-3xl text-[10px] leading-relaxed text-gray-400">
-            This site is not part of the Facebook or Instagram website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook or Instagram in any way. Facebook is a trademark of FACEBOOK, Inc.
-          </p>
+          
         </div>
       </div>
     </footer>
