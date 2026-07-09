@@ -14,6 +14,7 @@ const LogoMarquee = dynamic(() => import("./logo-marquee").then((mod) => ({ defa
 
 interface HeroSectionProps {
   cmsContent?: {
+    pillText?: string
     headlineLine1: string
     headlineLine2: string
     headlineSize: string
@@ -33,12 +34,14 @@ interface HeroSectionProps {
     checkmarks: string[]
     marqueeLogos: { image: string; alt: string }[]
     marqueeSpeed: string
+    videoUrl?: string
   }
 }
 
 export function HeroSection({ cmsContent }: HeroSectionProps) {
   // Default hardcoded state
   const defaultValues = {
+    pillText: "AI LEAD GENERATION SYSTEM",
     headlineLine1: "LEAD",
     headlineLine2: "DOMINANCE",
     headlineSize: "100",
@@ -68,6 +71,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       { image: "/assets/xigenis-logo.png", alt: "FF" },
       { image: "/assets/xigenis-logo.png", alt: "Godrej" },
     ],
+    videoUrl: "",
   }
 
   // Merge CMS data with defaults to handle partial objects correctly
@@ -90,8 +94,20 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20">
+      <div className="relative z-10 mx-auto w-full max-w-8xl px-6 pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20 flex flex-col items-center">
         <div className="mt-4 flex w-full flex-col items-center justify-center text-center mx-auto max-w-4xl">
+          {/* Centered Pill Bar Badge */}
+          {content.pillText && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-6 inline-block rounded-full bg-orange-700/10 border border-orange-700/20 px-4 py-1.5 text-xs font-bold tracking-widest text-orange-500 uppercase mx-auto"
+            >
+              {content.pillText}
+            </motion.div>
+          )}
+
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -195,6 +211,25 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             ))}
           </motion.div>
         </div>
+
+        {/* VSL / Demo Video Box */}
+        {content.videoUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="mt-12 w-full max-w-8xl px-4 sm:px-6 lg:px-8 mx-auto"
+          >
+            <div className="relative aspect-video w-full overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+              <video
+                src={content.videoUrl}
+                controls
+                playsInline
+                className="h-full w-full object-contain"
+              />
+            </div>
+          </motion.div>
+        )}
       </div>
 
       {/* Down Arrow Indicator */}

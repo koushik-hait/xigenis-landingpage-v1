@@ -15,6 +15,7 @@ import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 // Default template structure
 const defaultContentInner = {
+  pillText: "AI LEAD GENERATION SYSTEM",
   headlineLine1: "LEAD",
   headlineLine2: "DOMINANCE",
   headlineSize: "100", // in px for desktop
@@ -43,7 +44,8 @@ const defaultContentInner = {
     { image: "/assets/xigenis-logo.png", alt: "EST" },
     { image: "/assets/xigenis-logo.png", alt: "FF" },
     { image: "/assets/xigenis-logo.png", alt: "Godrej" }
-  ]
+  ],
+  videoUrl: ""
 }
 
 const defaultContent = {
@@ -125,6 +127,31 @@ export default function HeroCmsPage() {
       toast.success(`Background image (${device}) uploaded successfully!`)
     } catch (err: any) {
       toast.error(err.message || "Failed to upload file")
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
+  const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile') => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setIsUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const { success, finalUrl, error } = await uploadFile(formData)
+
+      if (!success || !finalUrl) {
+        throw new Error(error || "Failed to upload video")
+      }
+
+      handleChange(device, 'videoUrl', finalUrl)
+      trackUpload('hero', `VSL video upload`, { device })
+      toast.success(`VSL Video (${device}) uploaded successfully!`)
+    } catch (err: any) {
+      toast.error(err.message || "Failed to upload video")
     } finally {
       setIsUploading(false)
     }
@@ -212,6 +239,10 @@ export default function HeroCmsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2 col-span-2">
+                <Label>Centered Pill Bar Text</Label>
+                <Input value={deviceContent.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} />
+              </div>
               <div className="space-y-2 col-span-2">
                 <Label>Headline Line 1</Label>
                 <Input value={deviceContent.headlineLine1} onChange={e => handleChange(device, 'headlineLine1', e.target.value)} />
@@ -315,6 +346,43 @@ export default function HeroCmsPage() {
                   accept="image/*"
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   onChange={e => handleFileUpload(e, device)}
+                  disabled={isUploading}
+                />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="md:col-span-1">
+          <CardHeader>
+            <CardTitle>VSL / Demo Video</CardTitle>
+            <CardDescription>Upload a VSL video directly to Cloudflare R2 or paste URL</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <Label>Video URL</Label>
+              <Input
+                value={deviceContent.videoUrl || ""}
+                placeholder="https://example.com/vsl.mp4"
+                onChange={e => handleChange(device, 'videoUrl', e.target.value)}
+              />
+            </div>
+
+            {deviceContent.videoUrl && (
+              <div className="relative aspect-video w-full overflow-hidden rounded-md border bg-black">
+                <video src={deviceContent.videoUrl} controls className="w-full h-full object-contain" />
+              </div>
+            )}
+
+            <div className="flex items-center gap-4">
+              <Button variant="outline" className="relative w-full" disabled={isUploading}>
+                {isUploading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
+                {isUploading ? 'Uploading...' : 'Upload Video File'}
+                <input
+                  type="file"
+                  accept="video/*"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  onChange={e => handleVideoUpload(e, device)}
                   disabled={isUploading}
                 />
               </Button>
