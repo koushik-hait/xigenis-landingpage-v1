@@ -107,7 +107,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto w-full max-w-8xl px-6 pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20 flex flex-col items-center">
+      <div className="relative z-10 mx-auto w-full max-w-8xl px-6 pt-6 lg:pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20 flex flex-col items-center">
         <div className="mt-4 flex w-full flex-col items-center justify-center text-center mx-auto max-w-4xl">
           {/* Centered Pill Bar Badge */}
           {content.pillText && (
@@ -251,7 +251,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
         initial={{ opacity: 0, height: 0 }}
         animate={{ opacity: 1, height: "auto" }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute left-1/2 bottom-20 z-0 flex -translate-x-1/2 flex-col items-center pointer-events-none"
+        className="absolute left-1/2 bottom-10 z-0 flex -translate-x-1/2 flex-col items-center pointer-events-none"
       >
         <div className="mb-[-1px] h-32 w-px bg-gradient-to-b from-transparent to-white/40" />
         <div className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/10 text-white/50 backdrop-blur-sm">
