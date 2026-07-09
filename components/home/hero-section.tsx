@@ -218,7 +218,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-12 w-full max-w-8xl px-4 sm:px-6 lg:px-8 mx-auto"
+            className="mt-12 w-full max-w-lg px-4 sm:px-6 lg:px-8 mx-auto"
           >
             <div className="relative aspect-video w-full overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
               <video
