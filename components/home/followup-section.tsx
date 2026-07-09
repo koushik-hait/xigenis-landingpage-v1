@@ -28,11 +28,14 @@ const FollowUpSection = ({ cmsContent }: FollowUpSectionProps) => {
     mobileImage: "/assets/follow-up-mobile.png",
     headingSize: "48",
     descriptionSize: "16",
+    pointsSize: "16",
+    statValueSize: "30",
+    statTextSize: "14",
     ...cmsContent,
   }
 
   return (
-    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F3F4F6] py-10">
+    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F3F4F6] py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 lg:flex-row-reverse lg:gap-4">
           {/* Right Column: Mobile Device Mockup */}
@@ -116,15 +119,15 @@ const FollowUpSection = ({ cmsContent }: FollowUpSectionProps) => {
                   ) : (
                     <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   )}
-                  <span className="font-medium text-gray-700">{text}</span>
+                  <span className="font-medium text-gray-700" style={{ fontSize: content.pointsSize ? `${content.pointsSize}px` : undefined }}>{text}</span>
                 </li>
               ))}
             </ul>
 
             {/* Gray Stat Box */}
             <div className="mt-8 rounded-xl border border-gray-300 bg-transparent p-6">
-              <h3 className="mb-1 font-serif text-3xl text-gray-900">{content.mainStatValue}</h3>
-              <p className="text-sm leading-relaxed text-gray-500">{content.mainStatText}</p>
+              <h3 className="mb-1 font-serif text-3xl text-gray-900" style={{ fontSize: content.statValueSize ? `${content.statValueSize}px` : undefined }}>{content.mainStatValue}</h3>
+              <p className="text-sm leading-relaxed text-gray-500" style={{ fontSize: content.statTextSize ? `${content.statTextSize}px` : undefined }}>{content.mainStatText}</p>
             </div>
           </div>
         </div>

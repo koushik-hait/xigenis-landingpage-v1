@@ -57,7 +57,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
   }
 
   return (
-    <section className="max-w-8xl mx-auto bg-white px-6 py-10 font-sans">
+    <section className="max-w-8xl mx-auto bg-white px-6 py-6 font-sans lg:py-12">
       <div className="flex flex-col items-center gap-16 lg:flex-row">
         {/* Left Side: Creative Image */}
         <div className="relative flex w-full justify-center lg:w-1/2">
@@ -73,10 +73,9 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
           </div>
         </div>
 
-        {/* Right Side: Content */}
         <div className="w-full lg:w-1/2">
-          <div className="mb-8">
-            <span className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1 text-xs font-bold tracking-widest text-orange-600 uppercase">
+          <div className="mb-4 lg:mb-6">
+            <span className="mb-3 inline-block rounded-full bg-orange-100 px-4 py-1 text-xs font-bold tracking-widest text-orange-600 uppercase">
               {content.pillText}
             </span>
             <h2
@@ -132,7 +131,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
             {content.features.map((f: any, index: number) => (
               <div
                 key={index}
-                className="flex flex-col justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                className="flex h-full flex-col justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
                 <div>
                   <div className="mb-4 flex items-start justify-between">

@@ -90,14 +90,14 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-20 pb-30 sm:px-8 lg:px-12">
-        <div className="mt-8 flex max-w-2xl flex-col items-start lg:max-w-4xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20">
+        <div className="mt-4 flex max-w-2xl flex-col items-start lg:max-w-4xl">
           {/* Trust Badge Area */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-10 flex items-center gap-10"
+            className="mb-6 flex items-center gap-10"
           >
             {/* Avatars */}
             <div className="flex -space-x-3">
@@ -137,7 +137,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               fontSize: `${content.headlineSize}px`,
               lineHeight: "1.05",
             }}
-            className="mb-8 space-y-1 font-serif tracking-wide drop-shadow-lg"
+            className="mb-4 space-y-1 font-serif tracking-wide drop-shadow-lg"
           >
             <span className="block">{content.headlineLine1}</span>
             <span className="block">{content.headlineLine2}</span>
@@ -153,7 +153,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               fontSize: `${content.subtitleSize}px`,
               // lineHeight: "1.05",
             }}
-            className="mb-10 max-w-4xl"
+            className="mb-6 max-w-4xl"
           >
             {content.subtitle}
           </motion.p>

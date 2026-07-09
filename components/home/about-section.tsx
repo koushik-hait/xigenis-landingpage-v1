@@ -38,7 +38,7 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
 
   return (
     <section
-      className="relative flex min-h-screen w-full items-center overflow-hidden bg-white py-10"
+      className="relative flex min-h-screen w-full items-center overflow-hidden bg-white py-6 lg:py-12"
       style={{
         backgroundImage: `url('${content.bgImage}')`,
         backgroundSize: "contain",
@@ -46,9 +46,9 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="max-w-8xl relative container mx-auto flex flex-col gap-60 lg:gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl relative container mx-auto flex flex-col gap-16 lg:gap-8 px-4 sm:px-6 lg:px-8">
         {/* ROW 1: Top Content: Heading & Description */}
-        <div className="relative z-20 mb-12 max-w-xl">
+        <div className="relative z-20 mb-8 max-w-xl">
           <div className="mb-4 inline-block rounded-full bg-gray-100 px-4 py-1 text-xs font-bold tracking-widest text-gray-600 uppercase">
             {content.pillText}
           </div>

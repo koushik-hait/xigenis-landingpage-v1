@@ -105,14 +105,14 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
   return (
     <section className="border-t border-gray-100 bg-white py-10 sm:py-10 lg:py-10">
       <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex flex-col gap-12 lg:flex-row lg:gap-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
           {/* Left Content */}
           <div className="flex flex-1 flex-col items-start justify-center pr-4 lg:max-w-[400px] xl:max-w-[480px]">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-6 inline-flex items-center justify-center rounded-l-md rounded-r-none bg-[#DCDCDC] px-3 py-1 text-[8px] font-bold tracking-widest text-black/70 uppercase"
+              className="mb-4 inline-flex items-center justify-center rounded-l-md rounded-r-none bg-[#DCDCDC] px-3 py-1 text-[8px] font-bold tracking-widest text-black/70 uppercase"
               style={{ borderRadius: "0.5rem" }}
             >
               {content.tag}
@@ -128,7 +128,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                 fontSize: `${content.headingSize}px`,
                 lineHeight: "1.2",
               }}
-              className="mb-5 font-serif tracking-wide capitalize max-sm:text-3xl"
+              className="mb-3 font-serif tracking-wide capitalize max-sm:text-3xl"
             >
               <span className="block">{content.headingLine1}</span>
               <span className="block">{content.headingLine2}</span>
@@ -143,7 +143,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                 color: content.descriptionColor,
                 fontSize: `${content.descriptionSize || 10}px`,
               }}
-              className="mb-8 max-w-[380px] leading-relaxed"
+              className="mb-4 max-w-[380px] leading-relaxed"
             >
               {content.description}
             </motion.p>
@@ -153,7 +153,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="mb-8"
+              className="mb-4"
             >
               <ExploreButton href={content.ctaLink || "#"} className="mx-0">
                 <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
@@ -171,27 +171,27 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className={`flex w-[200px] flex-1 flex-col items-center px-3 sm:px-3 lg:w-[280px] ${
-                    index !== content.performers.length - 1 ? "lg:border-r lg:border-gray-100" : ""
-                  }`}
+                  className="flex h-full w-[200px] flex-col items-center justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md transition-all lg:w-auto"
                 >
-                  <div className="relative mb-5 flex flex-col items-center">
-                    <img
-                      src={
-                        p.image || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop"
-                      }
-                      alt={p.name}
-                      className="h-16 w-16 rounded-full border border-gray-200 object-cover sm:h-20 sm:w-20"
-                    />
-                    <div className="absolute -bottom-2.5 rounded-full bg-black px-3 py-1 text-[9px] font-bold tracking-widest whitespace-nowrap text-white uppercase">
-                      {p.badge}
+                  <div className="flex flex-col items-center w-full">
+                    <div className="relative mb-5 flex flex-col items-center">
+                      <img
+                        src={
+                          p.image || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop"
+                        }
+                        alt={p.name}
+                        className="h-16 w-16 rounded-full border border-gray-200 object-cover sm:h-20 sm:w-20"
+                      />
+                      <div className="absolute -bottom-2.5 rounded-full bg-black px-3 py-1 text-[9px] font-bold tracking-widest whitespace-nowrap text-white uppercase">
+                        {p.badge}
+                      </div>
                     </div>
+
+                    <h3 className="mb-0.5 text-sm font-bold text-gray-900">{p.name}</h3>
+                    <p className="mb-6 text-[10px] font-medium text-gray-500">{p.role}</p>
                   </div>
 
-                  <h3 className="mb-0.5 text-sm font-bold text-gray-900">{p.name}</h3>
-                  <p className="mb-6 text-[10px] font-medium text-gray-500">{p.role}</p>
-
-                  <div className="flex w-full flex-col items-center gap-1.5 text-center">
+                  <div className="flex w-full flex-col items-center gap-1.5 text-center mt-auto">
                     {p.metrics.map((m: any, mIdx: number) => (
                       <p key={mIdx} className="text-[9.5px] leading-tight text-gray-600 sm:text-[10px]">
                         <span className="font-bold text-black">{m.value}</span> {m.label}
@@ -204,7 +204,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
               {/* + More Success Stories Card */}
               <Link
                 href={content.footerCard.link || "#"}
-                className="group relative flex w-[280px] flex-1 flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:mx-5 lg:w-auto lg:border-l lg:border-gray-100"
+                className="group relative flex h-full w-[200px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md transition-all lg:w-auto"
               >
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}

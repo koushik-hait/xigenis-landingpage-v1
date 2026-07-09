@@ -86,10 +86,10 @@ const CampaignInsights = ({ cmsContent }: CampaignInsightsProps) => {
   if (!slides || slides.length === 0) return null;
 
   return (
-    <section className="w-full overflow-hidden bg-white py-10">
+    <section className="w-full overflow-hidden bg-white py-6 lg:py-12">
       <div className="container mx-auto max-w-7xl px-4">
         {/* Header Section */}
-        <div className="mb-16 space-y-5 text-center">
+        <div className="mb-8 space-y-5 text-center lg:mb-12">
           <div className="inline-block rounded-full border border-orange-200 bg-[#FFF5F1] px-6 py-1.5 text-[10px] font-bold tracking-[0.2em] text-[#FF6B35] uppercase">
             {content.pillText}
           </div>

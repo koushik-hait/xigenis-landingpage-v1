@@ -18,8 +18,11 @@ const defaultContent = {
   description: "After closing, most agents disappear. No CRM, no structured referral process means every month is a fresh hunt — with no compounding momentum.",
   descriptionSize: "16",
   points: ["Happy clients forget you exist without a system to stay top-of-mind.", "Zero referral pipeline means 100% dependence on paid ads forever.", "AI Algo-Plex automates referral nurture so every deal spawns the next."],
+  pointsSize: "16",
   statBoxValue: "3x",
+  statValueSize: "36",
   statBoxText: "Agents with automated referral systems close 3× more deals than those relying on portals alone.",
+  statTextSize: "14",
   btnText: "Build My Own Pipeline",
   btnLink: "#",
   headBoxValue: "0", headBoxTitle: "Referrals this month",
@@ -51,9 +54,12 @@ export default function ReferralCmsPage() {
             <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Bullet Points (One per line)</Label><Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} /></div>
+            <div className="space-y-2"><Label>Bullet Points Font Size (px)</Label><Input type="number" value={d.pointsSize} onChange={e => handleChange(device, 'pointsSize', e.target.value)} /></div>
             <div className="border-t pt-4 space-y-4">
                 <div className="space-y-2"><Label>Stat Box Value</Label><Input value={d.statBoxValue} onChange={e => handleChange(device, 'statBoxValue', e.target.value)} /></div>
+                <div className="space-y-2"><Label>Stat Box Value Font Size (px)</Label><Input type="number" value={d.statValueSize} onChange={e => handleChange(device, 'statValueSize', e.target.value)} /></div>
                 <div className="space-y-2"><Label>Stat Box Text</Label><Textarea value={d.statBoxText} onChange={e => handleChange(device, 'statBoxText', e.target.value)} /></div>
+                <div className="space-y-2"><Label>Stat Box Text Font Size (px)</Label><Input type="number" value={d.statTextSize} onChange={e => handleChange(device, 'statTextSize', e.target.value)} /></div>
             </div>
             <div className="border-t pt-4 space-y-4">
                 <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>

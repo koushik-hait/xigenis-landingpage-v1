@@ -36,13 +36,14 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
     mainImage: "/assets/problems-bg.jpeg",
     headingSize: "48",
     descriptionSize: "16",
+    introPointsSize: "18",
     ...cmsContent,
   }
 
   return (
     <section
       id="problems"
-      className="relative overflow-hidden border-b border-gray-100 bg-[#FAFAFA] px-4 py-10 sm:px-6 lg:px-8"
+      className="relative overflow-hidden border-b border-gray-100 bg-[#FAFAFA] px-4 py-6 sm:px-6 lg:px-8 lg:py-10"
     >
       <div className="relative z-10 mx-auto w-full">
         {/* Section Header */}
@@ -51,13 +52,13 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-10 text-center lg:mb-20"
+          className="mb-6 text-center lg:mb-10"
         >
-          <span className="mb-5 inline-block rounded-full bg-[#FFF0E6] px-3.5 py-1 text-[11px] font-semibold tracking-[0.1em] text-[#FF5A1F] uppercase">
+          <span className="mb-3 inline-block rounded-full bg-[#FFF0E6] px-3.5 py-1 text-[11px] font-semibold tracking-[0.1em] text-[#FF5A1F] uppercase">
             {content.pillText}
           </span>
           <h2
-            className="mb-5 font-serif text-[32px] leading-[1.1] font-normal tracking-[-0.02em] text-[#111] sm:text-[40px] md:text-[46px]"
+            className="mb-3 font-serif text-[32px] leading-[1.1] font-normal tracking-[-0.02em] text-[#111] sm:text-[40px] md:text-[46px]"
             style={{ fontSize: `${content.headingSize}px` }}
           >
             {content.heading}
@@ -71,7 +72,7 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
         </motion.div>
 
         {/* lead problem  */}
-        <section className="relative flex w-full items-center overflow-hidden py-10">
+        <section className="relative flex w-full items-center overflow-hidden py-4 lg:py-6">
           {/* Background Image */}
           <div className="absolute inset-0 z-0 bg-gradient-to-r from-green-100/5 via-emerald-50/70 to-white/60" />
           {/* <div className="absolute inset-0 z-0 opacity-100">
@@ -167,7 +168,12 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                   {content.introPoints.map((text: string, index: number) => (
                     <li key={index} className="flex items-start gap-3">
                       <XCircle className="mt-0.5 h-6 w-6 flex-shrink-0 fill-red-100 text-red-500" />
-                      <span className="text-lg leading-snug font-medium text-gray-900">{text}</span>
+                      <span
+                        className="text-lg leading-snug font-medium text-gray-900"
+                        style={{ fontSize: content.introPointsSize ? `${content.introPointsSize}px` : undefined }}
+                      >
+                        {text}
+                      </span>
                     </li>
                   ))}
                 </ul>

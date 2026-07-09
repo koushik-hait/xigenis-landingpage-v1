@@ -141,10 +141,10 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
   }
 
   return (
-    <section className="w-full overflow-hidden bg-white py-10">
+    <section className="w-full overflow-hidden bg-white py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4">
         {/* Header Section */}
-        <div className="mb-20 space-y-4 text-center">
+        <div className="mb-8 space-y-4 text-center lg:mb-12">
           <div className="inline-block rounded-full border border-gray-300 px-6 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
             {content.pillText}
           </div>

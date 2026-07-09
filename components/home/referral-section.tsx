@@ -34,11 +34,14 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
     card3Tag: "+30%",
     headingSize: "48",
     descriptionSize: "16",
+    pointsSize: "16",
+    statValueSize: "36",
+    statTextSize: "14",
     ...cmsContent,
   }
 
   return (
-    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F9FAFB] py-10">
+    <section className="flex min-h-screen w-full items-center overflow-hidden bg-[#F9FAFB] py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-16 lg:flex-row">
           {/* Left Column: Text & CTA */}
@@ -66,15 +69,15 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
                   ) : (
                     <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   )}
-                  <span className="font-medium text-gray-700">{text}</span>
+                  <span className="font-medium text-gray-700" style={{ fontSize: content.pointsSize ? `${content.pointsSize}px` : undefined }}>{text}</span>
                 </li>
               ))}
             </ul>
 
             {/* 3x Stats Box */}
             <div className="mt-8 max-w-md rounded-2xl bg-[#CCCCCC] p-6">
-              <h3 className="mb-2 font-serif text-4xl text-gray-900">{content.statBoxValue}</h3>
-              <p className="text-sm leading-snug font-medium text-gray-800">{content.statBoxText}</p>
+              <h3 className="mb-2 font-serif text-4xl text-gray-900" style={{ fontSize: content.statValueSize ? `${content.statValueSize}px` : undefined }}>{content.statBoxValue}</h3>
+              <p className="text-sm leading-snug font-medium text-gray-800" style={{ fontSize: content.statTextSize ? `${content.statTextSize}px` : undefined }}>{content.statBoxText}</p>
             </div>
 
             {/* CTA Button */}

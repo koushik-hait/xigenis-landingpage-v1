@@ -24,8 +24,11 @@ const defaultContent = {
     "Manual follow-up burns 20–30 hrs every single week.",
     "Our system auto-responds in under 5 minutes. Always."
   ],
+  pointsSize: "16",
   mainStatValue: "60%",
+  statValueSize: "30",
   mainStatText: "of leads are never followed up after Day 2. Deals you already paid for, silently slipping away.",
+  statTextSize: "14",
   agentRespValue: "24h",
   agentRespText: "Avg. agent response",
   aiRespValue: "5m",
@@ -65,9 +68,12 @@ export default function FollowUpCmsPage() {
             <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Bullet Points (One per line)</Label><Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} /></div>
+            <div className="space-y-2"><Label>Bullet Points Font Size (px)</Label><Input type="number" value={d.pointsSize} onChange={e => handleChange(device, 'pointsSize', e.target.value)} /></div>
             <div className="border-t pt-4 space-y-4">
               <div className="space-y-2"><Label>Main Stat Box Value</Label><Input value={d.mainStatValue} onChange={e => handleChange(device, 'mainStatValue', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Main Stat Box Value Font Size (px)</Label><Input type="number" value={d.statValueSize} onChange={e => handleChange(device, 'statValueSize', e.target.value)} /></div>
               <div className="space-y-2"><Label>Main Stat Box Text</Label><Textarea value={d.mainStatText} onChange={e => handleChange(device, 'mainStatText', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Main Stat Box Text Font Size (px)</Label><Input type="number" value={d.statTextSize} onChange={e => handleChange(device, 'statTextSize', e.target.value)} /></div>
             </div>
           </CardContent>
         </Card>

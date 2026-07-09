@@ -19,6 +19,7 @@ const defaultContent = {
   descriptionSize: "16",
   introPill: "Sound Familiar?", introHeading: "Your Lead Problem Is Not What You Think",
   introPoints: ["Do you spend ₹30K to ₹1L on ads and still get 80% fake numbers?", "Are you chasing 100 leads a month but can't get 4 site visits a week?", "Have you tried portals, freelancers, and cold calls and NOTHING worked consistently?"],
+  introPointsSize: "18",
   introPara: "You're not bad at sales. You're using a broken system in a market that rewards speed, follow-up, and qualified traffic — not volume.",
   stat1Value: "900%", stat1Label: "Higher conversion when you respond within 5 minutes",
   stat2Value: "72%", stat2Label: "Agents say unqualified leads are their #1 problem",
@@ -56,6 +57,7 @@ export default function ProblemsCmsPage() {
             <div className="space-y-2"><Label>Intro Heading</Label><Input value={d.introHeading} onChange={e => handleChange(device, 'introHeading', e.target.value)} /></div>
             <div className="space-y-2 md:col-span-2"><Label>Intro Paragraph</Label><Textarea value={d.introPara} onChange={e => handleChange(device, 'introPara', e.target.value)} /></div>
             <div className="space-y-2 md:col-span-2"><Label>Intro Points (One per line)</Label><Textarea rows={4} value={d.introPoints.join('\n')} onChange={e => handleChange(device, 'introPoints', e.target.value.split('\n'))} /></div>
+            <div className="space-y-2"><Label>Intro Points Font Size (px)</Label><Input type="number" value={d.introPointsSize} onChange={e => handleChange(device, 'introPointsSize', e.target.value)} /></div>
           </CardContent>
         </Card>
         <Card>

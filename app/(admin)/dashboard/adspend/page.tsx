@@ -20,8 +20,11 @@ const defaultContent = {
   description: "Running ads yourself or with a cheap freelancer? Poor targeting and zero funnel follow-up kill your ROI before a single visit happens.",
   descriptionSize: "16",
   points: ["Wrong audience targeting means paying to reach non-buyers.", "No nurture funnel means leads evaporate after the first click.", "AI Algo-Plex runs a complete paid acquisition system end-to-end."],
+  pointsSize: "15",
   mainStatValue: "83%",
+  statValueSize: "36",
   mainStatText: "of Meta real estate campaigns fail due to poor targeting and no follow-up funnel.",
+  statTextSize: "12",
   card1Value: "₹80K", card1Label: "Ad Spend / Month",
   card2Value: "94", card2Label: "Leads Generated",
   card3Value: "0—1", card3Label: "Deals Closed",
@@ -55,9 +58,12 @@ export default function AdSpendCmsPage() {
             <div className="space-y-2"><Label>Description Paragraph</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
             <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
             <div className="space-y-2"><Label>Bullet Points (One per line)</Label><Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} /></div>
+            <div className="space-y-2"><Label>Bullet Points Font Size (px)</Label><Input type="number" value={d.pointsSize} onChange={e => handleChange(device, 'pointsSize', e.target.value)} /></div>
             <div className="border-t pt-4 space-y-4">
               <div className="space-y-2"><Label>Footer Stat Box Value</Label><Input value={d.mainStatValue} onChange={e => handleChange(device, 'mainStatValue', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Footer Stat Box Value Font Size (px)</Label><Input type="number" value={d.statValueSize} onChange={e => handleChange(device, 'statValueSize', e.target.value)} /></div>
               <div className="space-y-2"><Label>Footer Stat Box Text</Label><Textarea value={d.mainStatText} onChange={e => handleChange(device, 'mainStatText', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Footer Stat Box Text Font Size (px)</Label><Input type="number" value={d.statTextSize} onChange={e => handleChange(device, 'statTextSize', e.target.value)} /></div>
             </div>
           </CardContent>
         </Card>

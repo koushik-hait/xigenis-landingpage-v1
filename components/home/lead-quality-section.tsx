@@ -34,11 +34,14 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
     auditSiteValue: "4% of leads converted into site visits",
     headingSize: "48",
     descriptionSize: "16",
+    pointsSize: "10",
+    statValueSize: "36",
+    statTextSize: "14",
     ...cmsContent,
   }
 
   return (
-    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-[#fafafa] py-5 lg:py-20">
+    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-[#fafafa] py-5 lg:py-12">
       <div className="max-w-8xl relative container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-16 lg:flex-row lg:gap-8">
           {/* Left Column: UI Card Element */}
@@ -161,7 +164,7 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
                   <span
                     className="text-gray-800"
                     style={{
-                      fontSize: "10px",
+                      fontSize: content.pointsSize ? `${content.pointsSize}px` : "10px",
                     }}
                   >
                     {text}
@@ -173,9 +176,9 @@ const LeadQualitySection = ({ cmsContent }: LeadQualitySectionProps) => {
             {/* Statistic Box */}
             <div className="rounded-2xl border border-gray-200 bg-[#EEEEEE] p-4">
               <div className="mb-1 flex items-baseline gap-2">
-                <span className="font-serif text-4xl text-gray-900">{content.mainStatValue}</span>
+                <span className="font-serif text-4xl text-gray-900" style={{ fontSize: content.statValueSize ? `${content.statValueSize}px` : undefined }}>{content.mainStatValue}</span>
               </div>
-              <p className="text-sm leading-snug text-gray-600">
+              <p className="text-sm leading-snug text-gray-600" style={{ fontSize: content.statTextSize ? `${content.statTextSize}px` : undefined }}>
                 {content.mainStatText}
                 <br />
                 <span className="mt-1 inline-block text-gray-400">{content.mainStatSource}</span>

@@ -55,9 +55,9 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
   }
 
   return (
-    <section className="flex w-full items-center overflow-hidden bg-white py-10">
+    <section className="flex w-full items-center overflow-hidden bg-white py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-start gap-12 lg:flex-row lg:gap-8">
+        <div className="flex flex-col items-start gap-6 lg:flex-row lg:gap-8">
           {/* Left Column: Heading & Intro */}
           <div className="flex w-full flex-col lg:w-[35%]">
             <div className="col-span-1 w-full space-y-8 lg:sticky lg:top-10">
@@ -132,7 +132,7 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
                 <div
                   key={index}
                   className={`group relative flex flex-col justify-end overflow-hidden rounded-[2rem] border border-gray-100 bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-2xl ${
-                    isMobile ? "h-[250px] min-w-[280px] snap-center" : "col-span-1 min-h-[250px]"
+                    isMobile ? "h-[250px] min-w-[280px] snap-center" : "col-span-1 min-h-[250px] h-full"
                   }`}
                 >
                   {/* Background image with hover zoom */}

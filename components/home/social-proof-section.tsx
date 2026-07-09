@@ -153,11 +153,11 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
   if (validTestimonials.length === 0) return null
 
   return (
-    <section className="relative w-full overflow-hidden bg-white py-10 lg:py-10">
+    <section className="relative w-full overflow-hidden bg-white py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ─── HEADER ─── */}
-        <div className="mx-auto mb-16 max-w-7xl text-center lg:mb-20">
-          <div className="mb-5 inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-1.5 text-[11px] font-bold tracking-widest text-orange-500 uppercase">
+        <div className="mx-auto mb-8 max-w-7xl text-center lg:mb-12">
+          <div className="mb-4 inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-1.5 text-[11px] font-bold tracking-widest text-orange-500 uppercase">
             {content.pillText}
           </div>
           <h2

@@ -33,11 +33,14 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
     mainImage: "/assets/man.png",
     headingSize: "48",
     descriptionSize: "16",
+    pointsSize: "15",
+    statValueSize: "36",
+    statTextSize: "12",
     ...cmsContent,
   }
 
   return (
-    <section className="flex min-h-screen w-full items-center overflow-hidden bg-white py-10">
+    <section className="flex min-h-screen w-full items-center overflow-hidden bg-white py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-16 lg:flex-row lg:gap-4">
           {/* Left Column: Visual Composition */}
@@ -140,15 +143,15 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
                   ) : (
                     <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 fill-emerald-100 text-emerald-500" />
                   )}
-                  <span className="text-sm font-medium text-gray-700 sm:text-base">{text}</span>
+                  <span className="text-sm font-medium text-gray-700 sm:text-base" style={{ fontSize: content.pointsSize ? `${content.pointsSize}px` : undefined }}>{text}</span>
                 </li>
               ))}
             </ul>
 
             {/* Large Gray Footer Box */}
             <div className="mt-10 rounded-2xl border border-gray-200 bg-[#D9D9D9]/50 p-8">
-              <span className="mb-2 block font-serif text-4xl text-gray-900">{content.mainStatValue}</span>
-              <p className="text-xs leading-normal font-bold tracking-tight text-gray-600 uppercase">
+              <span className="mb-2 block font-serif text-4xl text-gray-900" style={{ fontSize: content.statValueSize ? `${content.statValueSize}px` : undefined }}>{content.mainStatValue}</span>
+              <p className="text-xs leading-normal font-bold tracking-tight text-gray-600 uppercase" style={{ fontSize: content.statTextSize ? `${content.statTextSize}px` : undefined }}>
                 {content.mainStatText}
               </p>
             </div>

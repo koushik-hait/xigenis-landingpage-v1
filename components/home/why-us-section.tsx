@@ -94,10 +94,10 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
   }
 
   return (
-    <section className="w-full bg-white py-10">
+    <section className="w-full bg-white py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4">
         {/* Header */}
-        <div className="mb-16 space-y-4 text-center">
+        <div className="mb-8 space-y-4 text-center lg:mb-12">
           <div className="inline-block rounded-full border border-orange-200 bg-orange-50 px-5 py-1 text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase">
             {content.pillText}
           </div>
@@ -193,7 +193,7 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
             return (
               <div
                 key={index}
-                className={`relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${isFeatured
+                className={`relative flex h-full min-h-[250px] flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:shadow-xl ${isFeatured
                   ? "border-transparent bg-black text-white"
                   : "border-gray-100 bg-white text-gray-900 shadow-sm"
                   }`}

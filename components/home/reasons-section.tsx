@@ -56,14 +56,15 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
     ],
     headingSize: "48",
     descriptionSize: "16",
+    guaranteedTagText: "1 client per city zone — guaranteed",
     ...cmsContent,
   }
 
   return (
-    <section className="w-full bg-[#f8f8f8] py-24">
+    <section className="w-full bg-[#f8f8f8] py-12 lg:py-16">
       <div className="max-w-8xl container mx-auto px-4">
         {/* Header Section */}
-        <div className="mb-16 space-y-4 text-center">
+        <div className="mb-8 space-y-4 text-center lg:mb-12">
           <div className="inline-block rounded-full border border-gray-400 px-6 py-1 text-[10px] font-bold tracking-[0.2em] text-gray-600 uppercase">
             {content.pillText}
           </div>
@@ -111,7 +112,7 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
                       {/* Bottom Guaranteed Tag */}
                       <div className="mt-auto">
                         <span className="rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold tracking-widest text-orange-500 uppercase">
-                          1 client per city zone — guaranteed
+                          {content.guaranteedTagText}
                         </span>
                       </div>
                     </div>
@@ -127,7 +128,7 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
           {content.reasons.map((reason: any, index: number) => (
             <div
               key={index}
-              className="group relative flex min-h-[250px] flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
+              className="group relative flex h-full min-h-[250px] flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
             >
               {/* Large Background Number */}
               <span className="font text-outline pointer-events-none absolute top-4 right-4 font-serif text-9xl text-gray-50 transition-colors select-none group-hover:text-gray-200">
@@ -151,7 +152,7 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
                 {/* Bottom Guaranteed Tag */}
                 <div className="mt-auto">
                   <span className="rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold tracking-widest text-orange-500 uppercase">
-                    1 client per city zone — guaranteed
+                    {content.guaranteedTagText}
                   </span>
                 </div>
               </div>

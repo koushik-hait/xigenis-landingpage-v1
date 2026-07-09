@@ -23,8 +23,11 @@ const defaultContent = {
     "Every month feels like starting from scratch.",
     "AI Algo-Plex delivers pre-qualified buyer intent only."
   ],
+  pointsSize: "10",
   mainStatValue: "72%",
+  statValueSize: "36",
   mainStatText: "of Indian agents say unqualified inquiries is their #1 problem.",
+  statTextSize: "14",
   mainStatSource: "Source: 99acres Agent Survey 2024.",
   auditTotalLabel: "Total Leads This Month",
   auditTotalValue: "112 inquiries received",
@@ -85,10 +88,13 @@ export default function LeadQualityCmsPage() {
               <Label>Bullet Points (One per line)</Label>
               <Textarea rows={4} value={d.points.join('\n')} onChange={e => handleChange(device, 'points', e.target.value.split('\n'))} />
             </div>
+            <div className="space-y-2"><Label>Bullet Points Font Size (px)</Label><Input type="number" value={d.pointsSize} onChange={e => handleChange(device, 'pointsSize', e.target.value)} /></div>
             <div className="grid grid-cols-2 gap-4 border-t pt-4">
                 <div className="space-y-2"><Label>Main Stat Value</Label><Input value={d.mainStatValue} onChange={e => handleChange(device, 'mainStatValue', e.target.value)} /></div>
-                <div className="space-y-2"><Label>Main Stat Source</Label><Input value={d.mainStatSource} onChange={e => handleChange(device, 'mainStatSource', e.target.value)} /></div>
+                <div className="space-y-2"><Label>Main Stat Value Font Size (px)</Label><Input type="number" value={d.statValueSize} onChange={e => handleChange(device, 'statValueSize', e.target.value)} /></div>
+                <div className="space-y-2 col-span-2"><Label>Main Stat Source</Label><Input value={d.mainStatSource} onChange={e => handleChange(device, 'mainStatSource', e.target.value)} /></div>
                 <div className="space-y-2 col-span-2"><Label>Main Stat Text</Label><Textarea value={d.mainStatText} onChange={e => handleChange(device, 'mainStatText', e.target.value)} /></div>
+                <div className="space-y-2 col-span-2"><Label>Main Stat Text Font Size (px)</Label><Input type="number" value={d.statTextSize} onChange={e => handleChange(device, 'statTextSize', e.target.value)} /></div>
             </div>
           </CardContent>
         </Card>

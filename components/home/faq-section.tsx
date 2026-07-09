@@ -42,9 +42,9 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
   }
 
   return (
-    <section className="max-w-8xl mx-auto flex flex-col items-center bg-black px-5 py-10 text-white md:px-6 lg:px-20">
+    <section className="max-w-8xl mx-auto flex flex-col items-center bg-black px-5 py-6 text-white md:px-6 lg:px-20 lg:py-12">
       {/* Header Section */}
-      <div className="mb-12 text-center">
+      <div className="mb-6 text-center lg:mb-8">
         <h2
           className="mb-8 font-serif text-4xl leading-tight font-medium whitespace-pre-line md:text-5xl"
           style={{ fontSize: `${content.headingSize}px` }}
