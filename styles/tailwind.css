@@ -188,7 +188,7 @@
   position: absolute;
   width: 100%;
   aspect-ratio: 1;
-  background-color: #f98901fc; /* emerald-500 */
+  background-color: #9a3412; /* orange-800 */
   border-radius: 9999px;
   left: -100%;
   z-index: -1;
@@ -317,8 +317,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #c9a84c;
-  color: #0c0b09;
+  background: #c2410c; /* orange-700 */
+  color: #ffffff;
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -334,7 +334,7 @@
     transform 0.12s;
 }
 .scb-cta:hover {
-  background: #e8c96a;
+  background: #9a3412; /* orange-800 */
   transform: translateY(-1px);
 }
 

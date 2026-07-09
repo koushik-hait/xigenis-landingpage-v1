@@ -92,41 +92,6 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       {/* Main Content */}
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20">
         <div className="mt-4 flex w-full flex-col items-center justify-center text-center mx-auto max-w-4xl">
-          {/* Trust Badge Area */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6 flex items-center gap-10 justify-center mx-auto"
-          >
-            {/* Avatars */}
-            <div className="flex -space-x-3">
-              {content.avatars.map((src: string, i: number) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt={`Avatar ${i}`}
-                  className="relative h-10 w-10 rounded-full border-2 border-[#1A1A1A] object-cover"
-                  style={{ zIndex: 4 - i }}
-                />
-              ))}
-            </div>
-
-            {/* Ratings Text */}
-            <div className="flex flex-col gap-0.5" style={{ color: content.subtitleColor }}>
-              <div className="flex items-center gap-4">
-                <div className="flex text-[#FF9529]">
-                  {[1, 2, 3, 4].map((star) => (
-                    <Star key={star} className="h-3.5 w-3.5 fill-current" />
-                  ))}
-                  <StarHalf className="h-3.5 w-3.5 fill-current" />
-                </div>
-                <span className="text-[11px] font-medium tracking-wider opacity-70">{content.ratingConfig}</span>
-              </div>
-              <span className="mt-0.5 text-[10px] font-bold tracking-widest uppercase">{content.trustedByText}</span>
-            </div>
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -158,17 +123,55 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             {content.subtitle}
           </motion.p>
 
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-2 flex justify-center w-full"
-          >
-            <ExploreButton href={content.ctaLink} className="mx-auto">
-              <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
-            </ExploreButton>
-          </motion.div>
+          {/* CTA & Trust Badge Row */}
+          <div className="mb-6 mt-4 flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-8 lg:gap-10">
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex justify-center"
+            >
+              <ExploreButton href={content.ctaLink} className="mx-auto">
+                <span className="relative z-10 text-[11px] font-bold tracking-widest uppercase">{content.ctaText}</span>
+              </ExploreButton>
+            </motion.div>
+
+            {/* Trust Badge Area */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-4 text-left justify-start"
+            >
+              {/* Avatars */}
+              <div className="flex -space-x-3">
+                {content.avatars.map((src: string, i: number) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`Avatar ${i}`}
+                    className="relative h-10 w-10 rounded-full border-2 border-[#1A1A1A] object-cover"
+                    style={{ zIndex: 4 - i }}
+                  />
+                ))}
+              </div>
+
+              {/* Ratings Text */}
+              <div className="flex flex-col gap-0.5" style={{ color: content.subtitleColor }}>
+                <div className="flex items-center gap-4">
+                  <div className="flex text-[#FF9529]">
+                    {[1, 2, 3, 4].map((star) => (
+                      <Star key={star} className="h-3.5 w-3.5 fill-current" />
+                    ))}
+                    <StarHalf className="h-3.5 w-3.5 fill-current" />
+                  </div>
+                  <span className="text-[11px] font-medium tracking-wider opacity-70">{content.ratingConfig}</span>
+                </div>
+                <span className="mt-0.5 text-[10px] font-bold tracking-widest uppercase">{content.trustedByText}</span>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Checkmarks */}
           <motion.div
