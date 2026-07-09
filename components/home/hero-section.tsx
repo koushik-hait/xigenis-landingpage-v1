@@ -74,10 +74,23 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
     videoUrl: "",
   }
 
-  // Merge CMS data with defaults to handle partial objects correctly
-  const content = { ...defaultValues, ...cmsContent }
+  const formatTitleWithHashtags = (text: string) => {
+    if (!text) return ""
+    const words = text.split(" ")
+    return words.map((word, i) => {
+      if (word.startsWith("#")) {
+        const cleanWord = word.substring(1)
+        return (
+          <span key={i} className="text-orange-700">
+            {cleanWord}{" "}
+          </span>
+        )
+      }
+      return word + " "
+    })
+  }
 
-  console.log(content)
+  const content = { ...defaultValues, ...cmsContent }
 
   return (
     <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
@@ -102,7 +115,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-6 inline-block rounded-full bg-orange-700/10 border border-orange-700/20 px-4 py-1.5 text-xs font-bold tracking-widest text-orange-500 uppercase mx-auto"
+              className="mb-6 inline-block rounded-full bg-orange-700 border border-orange-700 px-4 py-1.5 text-xs font-bold tracking-widest text-white uppercase mx-auto"
             >
               {content.pillText}
             </motion.div>
@@ -120,8 +133,8 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             }}
             className="mb-4 space-y-1 font-serif tracking-wide drop-shadow-lg text-center mx-auto"
           >
-            <span className="block">{content.headlineLine1}</span>
-            <span className="block">{content.headlineLine2}</span>
+            <span className="block">{formatTitleWithHashtags(content.headlineLine1)}</span>
+            <span className="block">{formatTitleWithHashtags(content.headlineLine2)}</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -218,9 +231,9 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-12 w-full max-w-lg px-4 sm:px-6 lg:px-8 mx-auto"
+            className="mt-12 mb-10 w-full max-w-lg px-4 sm:px-6 lg:px-8 mx-auto"
           >
-            <div className="relative aspect-video w-full overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+            <div className="relative aspect-video w-full overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-[0_0_40px_rgba(194,65,12,0.6)]">
               <video
                 src={content.videoUrl}
                 controls
