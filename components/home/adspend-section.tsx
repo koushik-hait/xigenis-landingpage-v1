@@ -108,11 +108,11 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
               </div>
 
               {/* Card 4 */}
-              <div className="pointer-events-auto absolute bottom-4 -left-4 w-80 rounded-[2rem] bg-white p-4 shadow-2xl sm:left-4">
+              <div className="pointer-events-auto absolute bottom-4 -left-4 w-40 rounded-xl border border-gray-50 bg-white p-4 text-center shadow-xl sm:left-4">
                 <span className="font-serif text-2xl text-gray-900">{content.card4Value}</span>
-                <p className="mt-1 text-sm font-bold text-gray-800">{content.card4Label}</p>
-                <div className="mt-4 rounded-full bg-gray-100 px-4 py-2">
-                  <p className="text-[8px] font-bold text-gray-500 uppercase">{content.card4SubText}</p>
+                <p className="mt-2 text-xs font-bold text-gray-400 uppercase">{content.card4Label}</p>
+                <div className="mt-2 rounded-lg bg-gray-100 p-1">
+                  <p className="text-[7.5px] leading-normal font-bold text-gray-500 uppercase">{content.card4SubText}</p>
                 </div>
               </div>
             </div>

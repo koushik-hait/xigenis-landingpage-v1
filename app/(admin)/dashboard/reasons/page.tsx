@@ -75,6 +75,7 @@ export default function ReasonsCmsPage() {
                   <div className="space-y-1"><Label className="text-xs">Tag</Label><Input value={reason.tag} onChange={e => handleReasonChange(device, i, 'tag', e.target.value)} /></div>
                   <div className="space-y-1"><Label className="text-xs">Title</Label><Textarea value={reason.title} onChange={e => handleReasonChange(device, i, 'title', e.target.value)} /></div>
                   <div className="space-y-1"><Label className="text-xs">Description</Label><Textarea rows={3} value={reason.desc} onChange={e => handleReasonChange(device, i, 'desc', e.target.value)} /></div>
+                  <div className="space-y-1"><Label className="text-xs">Guaranteed Tag Text</Label><Input value={reason.guaranteedTagText || ""} onChange={e => handleReasonChange(device, i, 'guaranteedTagText', e.target.value)} /></div>
                 </div>
               ))}
             </div>

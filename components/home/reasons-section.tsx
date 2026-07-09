@@ -112,7 +112,7 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
                       {/* Bottom Guaranteed Tag */}
                       <div className="mt-auto">
                         <span className="rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold tracking-widest text-orange-500 uppercase">
-                          {content.guaranteedTagText}
+                          {reason.guaranteedTagText || content.guaranteedTagText}
                         </span>
                       </div>
                     </div>
@@ -152,7 +152,7 @@ const ReasonsSection = ({ cmsContent }: ReasonsSectionProps) => {
                 {/* Bottom Guaranteed Tag */}
                 <div className="mt-auto">
                   <span className="rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold tracking-widest text-orange-500 uppercase">
-                    {content.guaranteedTagText}
+                    {reason.guaranteedTagText || content.guaranteedTagText}
                   </span>
                 </div>
               </div>
