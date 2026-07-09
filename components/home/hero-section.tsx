@@ -81,7 +81,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       if (word.startsWith("#")) {
         const cleanWord = word.substring(1)
         return (
-          <span key={i} className="text-orange-700">
+          <span key={i} style={{ color: "rgb(230, 168, 21)" }}>
             {cleanWord}{" "}
           </span>
         )
@@ -130,8 +130,9 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               color: content.headlineColor,
               fontSize: `${content.headlineSize}px`,
               lineHeight: "1.05",
+              fontWeight: "800",
             }}
-            className="mb-4 space-y-1 font-serif tracking-wide drop-shadow-lg text-center mx-auto"
+            className="mb-4 space-y-1 font-serif font-extrabold tracking-wide drop-shadow-lg text-center mx-auto"
           >
             <span className="block">{formatTitleWithHashtags(content.headlineLine1)}</span>
             <span className="block">{formatTitleWithHashtags(content.headlineLine2)}</span>
@@ -250,7 +251,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
         initial={{ opacity: 0, height: 0 }}
         animate={{ opacity: 1, height: "auto" }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute left-1/2 bottom-20 z-20 flex -translate-x-1/2 flex-col items-center"
+        className="absolute left-1/2 bottom-20 z-0 flex -translate-x-1/2 flex-col items-center pointer-events-none"
       >
         <div className="mb-[-1px] h-32 w-px bg-gradient-to-b from-transparent to-white/40" />
         <div className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/10 text-white/50 backdrop-blur-sm">
