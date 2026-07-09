@@ -84,7 +84,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
 
           {/* Call To Action Button */}
           <ExploreButton href={content.buttonLink} className="mx-0">
-            <span className="font-sans text-lg font-bold">{content.buttonText}</span>
+            <span className="font-sans text-[11px] font-semibold">{content.buttonText}</span>
           </ExploreButton>
         </div>
 

@@ -92,7 +92,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
             </p>
 
             <ExploreButton href={content.buttonLink} className="mx-0">
-              <span className="font-bold">{content.buttonText}</span>
+              <span className="text-[11px] font-semibold">{content.buttonText}</span>
             </ExploreButton>
           </div>
 

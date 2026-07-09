@@ -53,7 +53,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
         </h2>
 
         <ExploreButton href={content.buttonLink} className="mx-auto">
-          <span className="text-[11px] uppercase">{content.buttonText}</span>
+          <span className="text-[11px] font-semibold uppercase">{content.buttonText}</span>
         </ExploreButton>
       </div>
 

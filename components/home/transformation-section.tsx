@@ -91,7 +91,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col justify-between gap-12 lg:flex-row lg:items-start lg:gap-20">
           {/* Left Column */}
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-6 lg:gap-12">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
