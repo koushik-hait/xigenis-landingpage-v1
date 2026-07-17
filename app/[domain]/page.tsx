@@ -1,28 +1,30 @@
+import dynamic from "next/dynamic"
 import {
   HeroSection,
   TopPerformerSection,
   AboutSection,
-  ProblemsSection,
   TargetAudienceSection,
+  ProblemsSection,
   TransformationSection,
-  LeadQualitySection,
-  FollowUpSection,
-  AdSpendSection,
-  ReferralSection,
-  FixSection,
-  PerformanceMetrics,
-  SocialProofSection,
-  ReasonsSection,
-  CTASection,
-  ProcessTimeline,
-  CaseStudies,
-  WhyChooseUs,
-  FeaturesSection,
-  CampaignInsights,
-  FAQSection,
-  TestimonialSection,
-  RealEstateHero,
 } from "@/components/home"
+
+const LeadQualitySection = dynamic(() => import("@/components/home/lead-quality-section").then(mod => mod.LeadQualitySection))
+const FollowUpSection = dynamic(() => import("@/components/home/followup-section").then(mod => mod.FollowUpSection))
+const AdSpendSection = dynamic(() => import("@/components/home/adspend-section").then(mod => mod.AdSpendSection))
+const ReferralSection = dynamic(() => import("@/components/home/referral-section").then(mod => mod.ReferralSection))
+const FixSection = dynamic(() => import("@/components/home/fix-section").then(mod => mod.FixSection))
+const PerformanceMetrics = dynamic(() => import("@/components/home/performance-metrics").then(mod => mod.PerformanceMetrics))
+const SocialProofSection = dynamic(() => import("@/components/home/social-proof-section").then(mod => mod.SocialProofSection))
+const ReasonsSection = dynamic(() => import("@/components/home/reasons-section").then(mod => mod.ReasonsSection))
+const CTASection = dynamic(() => import("@/components/home/cta-section").then(mod => mod.CTASection))
+const ProcessTimeline = dynamic(() => import("@/components/home/process-section").then(mod => mod.ProcessTimeline))
+const CaseStudies = dynamic(() => import("@/components/home/case-study-section").then(mod => mod.CaseStudies))
+const WhyChooseUs = dynamic(() => import("@/components/home/why-us-section").then(mod => mod.WhyChooseUs))
+const CampaignInsights = dynamic(() => import("@/components/home/campaign-insights").then(mod => mod.CampaignInsights))
+const FeaturesSection = dynamic(() => import("@/components/home/features-section").then(mod => mod.FeaturesSection))
+const FAQSection = dynamic(() => import("@/components/home/faq-section").then(mod => mod.FAQSection))
+const TestimonialSection = dynamic(() => import("@/components/home/testimonials-section").then(mod => mod.TestimonialSection))
+const RealEstateHero = dynamic(() => import("@/components/home/realestate-hero").then(mod => mod.RealEstateHero))
 import { getCmsContent } from "@/app/actions/cms"
 import { Suspense } from "react"
 import { 
@@ -82,7 +84,7 @@ function CmsContentSection({
   )
 }
 
-export default async function Web({ params }: { params: Promise<{ domain: string }> | { domain: string } }) {
+export default async function Web({ params }: { params: Promise<{ domain: string }> }) {
   // In Next.js 15+ params is a Promise. We await it to extract domain safely.
   const resolvedParams = await params;
   // Fallback to "default" if no domain parameter is provided

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { ExploreButton } from "@/components/ui/explore-button"
 
 interface PerformerMetric {
@@ -175,11 +176,13 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
                 >
                   <div className="flex flex-col items-center w-full">
                     <div className="relative mb-5 flex flex-col items-center">
-                      <img
+                      <Image
                         src={
                           p.image || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop"
                         }
                         alt={p.name}
+                        width={80}
+                        height={80}
                         className="h-16 w-16 rounded-full border border-gray-200 object-cover sm:h-20 sm:w-20"
                       />
                       <div className="absolute -bottom-2.5 rounded-full bg-black px-3 py-1 text-[9px] font-bold tracking-widest whitespace-nowrap text-white uppercase">

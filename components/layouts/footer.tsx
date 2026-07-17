@@ -1,6 +1,6 @@
-"use client"
-
-import { useState, useEffect } from "react"
+import { db } from "@/lib/db"
+import { cmsContent } from "@/lib/db/schema"
+import { eq } from "drizzle-orm"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Facebook, Instagram, Linkedin, Mail, Phone, Twitter } from "lucide-react"
@@ -36,8 +36,8 @@ interface FooterContent {
   }
 }
 
-export default function Footer() {
-  const [content, setContent] = useState<FooterContent>({
+export default async function Footer() {
+  const content: FooterContent = {
     description: 'At Xigenis, we help real estate professionals build a predictable pipeline of qualified property buyers. Our system combines AI-driven lead generation, targeted campaigns, and smart follow-up automation to attract serious buyers and close more deals consistently.',
     companyInfo: {
       name: 'Xigenis',
@@ -68,26 +68,46 @@ export default function Footer() {
       description: 'Subscribe to our newsletter for the latest updates',
       placeholder: 'Enter your email'
     }
-  })
-
-  useEffect(() => {
-    fetchFooterContent()
-  }, [])
-
-  const fetchFooterContent = async () => {
-    try {
-      const response = await fetch('/api/footer')
-      if (response.ok) {
-        const data = await response.json()
-        // Check if data is a valid object and not an error response
-        if (data && typeof data === 'object' && !('error' in data)) {
-          setContent(prev => ({ ...prev, ...data }))
-        }
-      }
-    } catch (error) {
-      console.error('Failed to fetch footer content:', error)
-    }
   }
+
+  try {
+    const footerData = await db
+      .select()
+      .from(cmsContent)
+      .where(eq(cmsContent.page, 'footer'))
+
+    footerData.forEach(item => {
+      try {
+        const parsedContent = JSON.parse(item.content) as any
+        
+        switch (item.section) {
+          case 'description':
+            content.description = parsedContent.text || ''
+            break
+          case 'companyInfo':
+            content.companyInfo = { ...content.companyInfo, ...parsedContent }
+            break
+          case 'socialLinks':
+            content.socialLinks = { ...content.socialLinks, ...parsedContent }
+            break
+          case 'quickLinks':
+            content.quickLinks = { ...content.quickLinks, ...parsedContent }
+            break
+          case 'legalLinks':
+            content.legalLinks = { ...content.legalLinks, ...parsedContent }
+            break
+          case 'newsletter':
+            content.newsletter = { ...content.newsletter, ...parsedContent }
+            break
+        }
+      } catch (error) {
+        console.error('Error parsing content:', error)
+      }
+    })
+  } catch (error) {
+    console.error('Failed to fetch footer content:', error)
+  }
+
   return (
     <footer className="bg-[#f0f0f0] pt-16 text-sm text-gray-700">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

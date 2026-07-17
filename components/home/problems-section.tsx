@@ -93,9 +93,9 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                     <div className="mb-6 inline-block rounded-full bg-gray-800 px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase">
                       {content.introPill}
                     </div>
-                    <h1 className="mb-8 font-serif text-3xl leading-tight text-gray-800 sm:text-4xl">
+                    <h2 className="mb-8 font-serif text-3xl leading-tight text-gray-800 sm:text-4xl">
                       {content.introHeading}
-                    </h1>
+                    </h2>
                     {/* <div className="rounded-3xl bg-white/80 p-6 shadow-lg backdrop-blur-sm"> */}
                     <ul className="mb-6 space-y-4">
                       {content.introPoints.map((text: string, index: number) => (
@@ -160,9 +160,9 @@ export function ProblemsSection({ cmsContent }: ProblemsSectionProps) {
                   {content.introPill}
                 </div>
 
-                <h1 className="max-w-7xl font-serif text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+                <h2 className="max-w-7xl font-serif text-4xl leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
                   {content.introHeading}
-                </h1>
+                </h2>
 
                 <ul className="space-y-5">
                   {content.introPoints.map((text: string, index: number) => (

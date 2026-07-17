@@ -67,7 +67,7 @@ export default async function Layout({
   return (
     <>
       <WebVitals />
-      <UmamiAnalytics />
+      {/* <UmamiAnalytics /> */}
       <RandomToast enabled={true} />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
         <StickyCountdownBar domain={domain} />

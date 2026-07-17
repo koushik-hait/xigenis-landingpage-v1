@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react"
 import { ExploreButton } from "@/components/ui/explore-button"
+import Image from "next/image"
 
 export function Header() {
   const scrollToSection = (sectionId: string) => {
@@ -18,7 +19,7 @@ export function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-4">
         {/* Logo */}
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-black">
-          <img src="/assets/xigenis-logo.png" alt="Logo" className="h-10 w-10" />
+          <Image src="/assets/xigenis-logo.png" alt="Logo" width={40} height={40} className="h-10 w-10" />
         </div>
 
         {/* Action Buttons */}

@@ -28,7 +28,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <p>© {new Date().getFullYear()} Xigenis. All rights reserved.</p>
         </footer>
       </div>
-      <UmamiAnalytics />
+      {/* <UmamiAnalytics /> */}
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { ExploreButton } from "@/components/ui/explore-button"
+import Image from "next/image"
 
 interface TransformationSectionProps {
   cmsContent?: any
@@ -215,9 +216,11 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
               >
                 <div className="relative z-10 flex h-full flex-col justify-between">
                   <div className="mb-6 flex items-center gap-4">
-                    <img
+                    <Image
                       src={t.image || "/assets/man.png"}
                       alt={t.name}
+                      width={64}
+                      height={64}
                       className="h-14 w-14 rounded-full object-cover shadow-sm sm:h-16 sm:w-16"
                     />
                     <div>
@@ -330,9 +333,11 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
 
                       <div className="relative z-10 flex h-full flex-col justify-between">
                         <div className="mb-6 flex items-center gap-4">
-                          <img
+                          <Image
                             src={t.image || "/assets/man.png"}
                             alt={t.name}
+                            width={64}
+                            height={64}
                             className="h-14 w-14 rounded-full object-cover shadow-sm sm:h-16 sm:w-16"
                           />
                           <div>
@@ -427,6 +432,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
               <div className="mt-8 flex items-center justify-center gap-4 lg:justify-start">
                 <button
                   onClick={prevTestimonial}
+                  aria-label="Previous testimonial"
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-colors hover:bg-gray-50"
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -436,6 +442,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                   {content.testimonials.map((_: any, idx: number) => (
                     <button
                       key={idx}
+                      aria-label={`Go to testimonial ${idx + 1}`}
                       onClick={() => setActiveIndex(idx)}
                       className={`h-2 rounded-full transition-all duration-300 ${
                         idx === activeIndex ? "w-8 bg-[#F36B2B]" : "w-2 bg-gray-300"
@@ -446,6 +453,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
 
                 <button
                   onClick={nextTestimonial}
+                  aria-label="Next testimonial"
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-colors hover:bg-gray-50"
                 >
                   <ChevronRight className="h-5 w-5" />

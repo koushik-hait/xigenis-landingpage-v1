@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowDown, ArrowUpRight, Check, CircleCheck, Star, StarHalf } from "lucide-react"
 import { ExploreButton } from "@/components/ui/explore-button"
@@ -177,10 +178,12 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
               {/* Avatars */}
               <div className="flex -space-x-3">
                 {content.avatars.map((src: string, i: number) => (
-                  <img
+                  <Image
                     key={i}
                     src={src}
                     alt={`Avatar ${i}`}
+                    width={40}
+                    height={40}
                     className="relative h-10 w-10 rounded-full border-2 border-[#1A1A1A] object-cover"
                     style={{ zIndex: 4 - i }}
                   />
