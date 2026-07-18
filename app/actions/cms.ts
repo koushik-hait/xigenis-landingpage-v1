@@ -31,6 +31,27 @@ export async function getCmsContent(page: string, section: string, domainOverrid
   }
 }
 
+export async function getPageContent(page: string, domainOverride?: string) {
+  try {
+    const cookieStore = await cookies();
+    const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'ca.xigenis.com';
+    
+    const data = await db.select().from(cmsContent)
+      .where(and(
+        eq(cmsContent.domain, domain),
+        eq(cmsContent.page, page)
+      ))
+
+    return data.reduce((acc, record) => {
+      acc[record.section] = JSON.parse(record.content)
+      return acc
+    }, {} as Record<string, any>)
+  } catch (error) {
+    console.error('Failed to get page CMS content:', error)
+    return {}
+  }
+}
+
 export async function upsertCmsContent(page: string, section: string, contentData: any, domainOverride?: string) {
   try {
     const cookieStore = await cookies();

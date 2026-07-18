@@ -10,7 +10,7 @@ interface AboutSectionProps {
 
 export function AboutSection({ cmsContent }: AboutSectionProps) {
   const content = {
-    bgImage: "/assets/about-bg.png",
+    bgImage: "/assets/about-bg.webp",
     pillText: "About Us",
     heading: "About Company",
     description:

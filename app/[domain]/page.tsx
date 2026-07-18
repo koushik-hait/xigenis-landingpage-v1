@@ -25,7 +25,7 @@ const FeaturesSection = dynamic(() => import("@/components/home/features-section
 const FAQSection = dynamic(() => import("@/components/home/faq-section").then(mod => mod.FAQSection))
 const TestimonialSection = dynamic(() => import("@/components/home/testimonials-section").then(mod => mod.TestimonialSection))
 const RealEstateHero = dynamic(() => import("@/components/home/realestate-hero").then(mod => mod.RealEstateHero))
-import { getCmsContent } from "@/app/actions/cms"
+import { getPageContent } from "@/app/actions/cms"
 import { Suspense } from "react"
 import { 
   HeroSkeleton, 
@@ -53,33 +53,18 @@ function ResponsiveSection({ Component, cmsData }: { Component: any, cmsData?: a
   return <Component cmsContent={cmsData} />
 }
 
-async function CmsDataLinker({ 
+function SectionWrapper({ 
   component, 
-  section,
-  domain
+  cmsData, 
+  skeleton
 }: { 
   component: any, 
-  section: string,
-  domain: string
-}) {
-  const cmsData = await getCmsContent('home', section, domain)
-  return <ResponsiveSection Component={component} cmsData={cmsData} />
-}
-
-function CmsContentSection({ 
-  component, 
-  section, 
-  skeleton,
-  domain
-}: { 
-  component: any, 
-  section: string, 
-  skeleton: React.ReactNode,
-  domain: string
+  cmsData: any, 
+  skeleton: React.ReactNode
 }) {
   return (
     <Suspense fallback={skeleton}>
-      <CmsDataLinker component={component} section={section} domain={domain} />
+      <ResponsiveSection Component={component} cmsData={cmsData} />
     </Suspense>
   )
 }
@@ -90,76 +75,79 @@ export default async function Web({ params }: { params: Promise<{ domain: string
   // Fallback to "default" if no domain parameter is provided
   const domain = resolvedParams?.domain || "default";
 
+  // Fetch all CMS content for the page in a single request to avoid N+1 queries
+  const pageContent = await getPageContent('home', domain);
+
   return (
     <div className="bg-background text-foreground min-h-screen">
       {/* Hero - Dark with background image */}
-      <CmsContentSection domain={domain} component={HeroSection} section="hero" skeleton={<HeroSkeleton />} />
+      <SectionWrapper component={HeroSection} cmsData={pageContent['hero']} skeleton={<HeroSkeleton />} />
 
       {/* Top Performers Section */}
-      <CmsContentSection domain={domain} component={TopPerformerSection} section="top-performers" skeleton={<GridSkeleton />} />
+      <SectionWrapper component={TopPerformerSection} cmsData={pageContent['top-performers']} skeleton={<GridSkeleton />} />
 
       {/* Target Audience - For you / Not for you */}
-      <CmsContentSection domain={domain} component={TargetAudienceSection} section="target-audience" skeleton={<ListSkeleton />} />
+      <SectionWrapper component={TargetAudienceSection} cmsData={pageContent['target-audience']} skeleton={<ListSkeleton />} />
 
       {/* The 90-Day Transformation */}
-      <CmsContentSection domain={domain} component={TransformationSection} section="transformation" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={TransformationSection} cmsData={pageContent['transformation']} skeleton={<SectionSkeleton />} />
 
       {/* The Real Problems - Dark section */}
-      <CmsContentSection domain={domain} component={ProblemsSection} section="problems" skeleton={<ListSkeleton />} />
+      <SectionWrapper component={ProblemsSection} cmsData={pageContent['problems']} skeleton={<ListSkeleton />} />
 
       {/* Lead Quality Section */}
-      <CmsContentSection domain={domain} component={LeadQualitySection} section="lead-quality" skeleton={<ListSkeleton />} />
+      <SectionWrapper component={LeadQualitySection} cmsData={pageContent['lead-quality']} skeleton={<ListSkeleton />} />
 
       {/* Follow Up Section */}
-      <CmsContentSection domain={domain} component={FollowUpSection} section="follow-up" skeleton={<ListSkeleton />} />
+      <SectionWrapper component={FollowUpSection} cmsData={pageContent['follow-up']} skeleton={<ListSkeleton />} />
 
       {/* Ad Spend Section */}
-      <CmsContentSection domain={domain} component={AdSpendSection} section="adspend" skeleton={<ListSkeleton />} />
+      <SectionWrapper component={AdSpendSection} cmsData={pageContent['adspend']} skeleton={<ListSkeleton />} />
 
       {/* Referral Section */}
-      <CmsContentSection domain={domain} component={ReferralSection} section="referral" skeleton={<ListSkeleton />} />
+      <SectionWrapper component={ReferralSection} cmsData={pageContent['referral']} skeleton={<ListSkeleton />} />
 
       {/* Fix Section */}
-      <CmsContentSection domain={domain} component={FixSection} section="fix" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={FixSection} cmsData={pageContent['fix']} skeleton={<SectionSkeleton />} />
 
       {/* About Company */}
-      <CmsContentSection domain={domain} component={AboutSection} section="about" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={AboutSection} cmsData={pageContent['about']} skeleton={<SectionSkeleton />} />
 
       {/* Performance Metrics */}
-      <CmsContentSection domain={domain} component={PerformanceMetrics} section="performance" skeleton={<GridSkeleton />} />
+      <SectionWrapper component={PerformanceMetrics} cmsData={pageContent['performance']} skeleton={<GridSkeleton />} />
 
       {/* Social Proof / Testimonials */}
-      <CmsContentSection domain={domain} component={SocialProofSection} section="social-proof" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={SocialProofSection} cmsData={pageContent['social-proof']} skeleton={<SectionSkeleton />} />
 
       {/* Reasons Section */}
-      <CmsContentSection domain={domain} component={ReasonsSection} section="reasons" skeleton={<GridSkeleton />} />
+      <SectionWrapper component={ReasonsSection} cmsData={pageContent['reasons']} skeleton={<GridSkeleton />} />
 
       {/* Cta Section */}
-      <CmsContentSection domain={domain} component={CTASection} section="cta" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={CTASection} cmsData={pageContent['cta']} skeleton={<SectionSkeleton />} />
 
       {/* Process Section */}
-      <CmsContentSection domain={domain} component={ProcessTimeline} section="process" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={ProcessTimeline} cmsData={pageContent['process']} skeleton={<SectionSkeleton />} />
 
       {/* Case Studies */}
-      <CmsContentSection domain={domain} component={CaseStudies} section="case-studies" skeleton={<GridSkeleton />} />
+      <SectionWrapper component={CaseStudies} cmsData={pageContent['case-studies']} skeleton={<GridSkeleton />} />
 
       {/* WhyChooseUs section */}
-      <CmsContentSection domain={domain} component={WhyChooseUs} section="why-us" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={WhyChooseUs} cmsData={pageContent['why-us']} skeleton={<SectionSkeleton />} />
 
       {/* Campaign Insights */}
-      <CmsContentSection domain={domain} component={CampaignInsights} section="campaign-insights" skeleton={<GridSkeleton />} />
+      <SectionWrapper component={CampaignInsights} cmsData={pageContent['campaign-insights']} skeleton={<GridSkeleton />} />
 
       {/* Features Section */}
-      <CmsContentSection domain={domain} component={FeaturesSection} section="features" skeleton={<CardSkeleton />} />
+      <SectionWrapper component={FeaturesSection} cmsData={pageContent['features']} skeleton={<CardSkeleton />} />
 
       {/* FAQ Section */}
-      <CmsContentSection domain={domain} component={FAQSection} section="faq" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={FAQSection} cmsData={pageContent['faq']} skeleton={<SectionSkeleton />} />
 
       {/* Testimonial Section */}
-      <CmsContentSection domain={domain} component={TestimonialSection} section="testimonial" skeleton={<SectionSkeleton />} />
+      <SectionWrapper component={TestimonialSection} cmsData={pageContent['testimonial']} skeleton={<SectionSkeleton />} />
 
       {/* Real Estate Hero */}
-      <CmsContentSection domain={domain} component={RealEstateHero} section="real-estate-hero" skeleton={<HeroSkeleton />} />
+      <SectionWrapper component={RealEstateHero} cmsData={pageContent['real-estate-hero']} skeleton={<HeroSkeleton />} />
     </div>
   )
 }
