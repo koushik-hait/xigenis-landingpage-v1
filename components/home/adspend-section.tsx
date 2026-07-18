@@ -30,7 +30,7 @@ const AdSpendSection = ({ cmsContent }: AdSpendSectionProps) => {
     card4Value: "3—4",
     card4Label: "Site Visits Booked",
     card4SubText: "83% of Meta campaigns end here",
-    mainImage: "/assets/man.png",
+    mainImage: "/assets/man.webp",
     headingSize: "48",
     descriptionSize: "16",
     pointsSize: "15",

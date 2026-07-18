@@ -9,7 +9,13 @@ import { ExploreButton } from "@/components/ui/explore-button"
 
 // Dynamically import LogoMarquee to reduce initial bundle size
 const LogoMarquee = dynamic(() => import("./logo-marquee").then((mod) => ({ default: mod.LogoMarquee })), {
-  loading: () => <div className="h-20 animate-pulse bg-gray-100" />,
+  loading: () => (
+    <div className="absolute right-0 bottom-0 left-0 z-20 border-t border-white/5 bg-gradient-to-r from-black/80 via-[#1A1613]/80 to-black/80 py-5 opacity-80 backdrop-blur-md sm:py-6">
+      <div className="mx-auto flex max-w-[1400px] shrink-0 items-center justify-between overflow-hidden px-6 text-white/80 opacity-80">
+        <div className="h-8 w-full animate-pulse bg-white/10 sm:h-10" />
+      </div>
+    </div>
+  ),
   ssr: false,
 })
 
@@ -97,9 +103,12 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
     <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('${content.backgroundImageUrl}')` }}
+        <Image
+          src={content.backgroundImageUrl}
+          alt="Hero Background"
+          fill
+          priority
+          className="object-cover object-center"
         />
         {/* Warm dark overlays to match the aesthetic */}
         <div className="absolute inset-0 bg-[#352F28]/10 mix-blend-multiply" />

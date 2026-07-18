@@ -3,8 +3,21 @@
 import { db } from '@/lib/db'
 import { cmsContent } from '@/lib/db/schema'
 import { eq, and } from 'drizzle-orm'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache'
 import { cookies } from 'next/headers'
+
+const getCachedPageContent = unstable_cache(
+  async (domain: string, page: string) => {
+    const data = await db.select().from(cmsContent)
+      .where(and(
+        eq(cmsContent.domain, domain),
+        eq(cmsContent.page, page)
+      ))
+    return data
+  },
+  ['cms-content'],
+  { tags: ['cms'], revalidate: 31536000 } // 1 year cache TTL as requested
+)
 
 export async function getCmsContent(page: string, section: string, domainOverride?: string) {
   try {
@@ -36,11 +49,7 @@ export async function getPageContent(page: string, domainOverride?: string) {
     const cookieStore = await cookies();
     const domain = domainOverride || cookieStore.get('admin_domain')?.value || 'ca.xigenis.com';
     
-    const data = await db.select().from(cmsContent)
-      .where(and(
-        eq(cmsContent.domain, domain),
-        eq(cmsContent.page, page)
-      ))
+    const data = await getCachedPageContent(domain, page)
 
     return data.reduce((acc, record) => {
       acc[record.section] = JSON.parse(record.content)
@@ -85,6 +94,7 @@ export async function upsertCmsContent(page: string, section: string, contentDat
     }
     
     revalidatePath('/')
+    revalidateTag('cms', {})
     return { success: true }
   } catch (error) {
     console.error('Failed to upsert CMS content:', error)
@@ -238,6 +248,7 @@ export async function duplicateContent(
 
     revalidatePath('/')
     revalidatePath('/dashboard')
+    revalidateTag('cms', {})
     
     return { 
       success: true, 

@@ -12,7 +12,7 @@ interface FixSectionProps {
 
 const FixSection = ({ cmsContent }: FixSectionProps) => {
   const content = {
-    bgImage: "/assets/fix-bg.png",
+    bgImage: "/assets/fix-bg.jpeg",
     pillText: "THE FIX • AI ALGO-PLEX SYSTEM",
     heading: "You Don't Need More Leads.\n You Need a System That Closes.",
     description:
