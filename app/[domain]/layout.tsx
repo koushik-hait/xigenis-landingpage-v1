@@ -9,6 +9,7 @@ import { Montserrat, Poppins } from "next/font/google"
 import type React from "react"
 import { Suspense } from "react"
 import UmamiAnalytics from "@/components/analytics/umami-analytics"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -67,6 +68,7 @@ export default async function Layout({
   return (
     <>
       <WebVitals />
+      <SpeedInsights />
       {/* <UmamiAnalytics /> */}
       <RandomToast enabled={true} />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
