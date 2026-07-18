@@ -121,21 +121,15 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
         <div className="mt-4 flex w-full flex-col items-center justify-center text-center mx-auto max-w-4xl">
           {/* Centered Pill Bar Badge */}
           {content.pillText && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <div
               className="mb-6 inline-block rounded-full bg-orange-700 border border-orange-700 px-4 py-1.5 text-xs font-bold tracking-widest text-white uppercase mx-auto"
             >
               {content.pillText}
-            </motion.div>
+            </div>
           )}
 
           {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <h1
             style={{
               color: content.headlineColor,
               fontSize: `${content.headlineSize}px`,
@@ -146,13 +140,10 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
           >
             <span className="block">{formatTitleWithHashtags(content.headlineLine1)}</span>
             <span className="block">{formatTitleWithHashtags(content.headlineLine2)}</span>
-          </motion.h1>
+          </h1>
 
           {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+          <p
             style={{
               color: content.subtitleColor,
               fontSize: `${content.subtitleSize}px`,
@@ -161,7 +152,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             className="mb-6 max-w-4xl text-center mx-auto"
           >
             {content.subtitle}
-          </motion.p>
+          </p>
 
           {/* CTA & Trust Badge Row */}
           <div className="mb-6 mt-4 flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-8 lg:gap-10">
