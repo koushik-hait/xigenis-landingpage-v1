@@ -1,5 +1,3 @@
-"use client"
-
 export { ProcessTimeline } from "./process-section"
 export { HeroSection } from "./hero-section"
 export { TransformationSection } from "./transformation-section"

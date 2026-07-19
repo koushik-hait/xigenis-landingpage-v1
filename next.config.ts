@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
+  experimental: {
+    optimizePackageImports: ["framer-motion", "lucide-react"],
+  },
 
   logging: {
     fetches: {

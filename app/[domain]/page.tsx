@@ -1,12 +1,11 @@
 import dynamic from "next/dynamic"
-import {
-  HeroSection,
-  TopPerformerSection,
-  AboutSection,
-  TargetAudienceSection,
-  ProblemsSection,
-  TransformationSection,
-} from "@/components/home"
+import { HeroSection } from "@/components/home"
+
+const TopPerformerSection = dynamic(() => import("@/components/home/top-performer-section").then(mod => mod.TopPerformerSection))
+const AboutSection = dynamic(() => import("@/components/home/about-section").then(mod => mod.AboutSection))
+const TargetAudienceSection = dynamic(() => import("@/components/home/target-audience-section").then(mod => mod.TargetAudienceSection))
+const ProblemsSection = dynamic(() => import("@/components/home/problems-section").then(mod => mod.ProblemsSection))
+const TransformationSection = dynamic(() => import("@/components/home/transformation-section").then(mod => mod.TransformationSection))
 
 const LeadQualitySection = dynamic(() => import("@/components/home/lead-quality-section").then(mod => mod.LeadQualitySection))
 const FollowUpSection = dynamic(() => import("@/components/home/followup-section").then(mod => mod.FollowUpSection))
@@ -36,21 +35,8 @@ import {
 } from "@/components/home/skeletons"
 
 function ResponsiveSection({ Component, cmsData }: { Component: any, cmsData?: any }) {
-  if (cmsData && cmsData.desktop && cmsData.mobile) {
-    return (
-      <div className="relative w-full">
-        <div className="block md:hidden">
-          <Component cmsContent={cmsData.mobile} />
-        </div>
-        <div className="hidden md:block">
-          <Component cmsContent={cmsData.desktop} />
-        </div>
-      </div>
-    )
-  }
-
-  // Fallback for flat structure
-  return <Component cmsContent={cmsData} />
+  const content = cmsData?.desktop || cmsData
+  return <Component cmsContent={content} />
 }
 
 function SectionWrapper({ 

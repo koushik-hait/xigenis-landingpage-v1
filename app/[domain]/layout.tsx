@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-montserrat",
   display: "swap",
 })
@@ -74,7 +75,7 @@ export default async function Layout({
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
         <StickyCountdownBar domain={domain} />
         <Header />
-        <Suspense fallback={null}>{children}</Suspense>
+        {children}
         <Footer />
       </div>
     </>

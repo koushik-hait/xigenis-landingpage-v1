@@ -178,8 +178,9 @@
   },
   "packageManager": "pnpm@10.0.0",
   "browserslist": [
-    ">0.3%",
-    "not dead",
-    "not op_mini all"
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
   ]
 }
