@@ -52,7 +52,7 @@ export default function FeaturesAdmin() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile') => {
     const file = e.target.files?.[0]; if (!file) return
     setUploadingImage(true)
-    try { const formData = new FormData(); formData.append('file', file); const url = await uploadFile(formData); handleChange(device, 'image', url); trackUpload('features', `Features section image upload`, { device }); toast.success('Image uploaded successfully') } catch (error) { console.error('Upload failed:', error); toast.error('Failed to upload image') } finally { setUploadingImage(false) }
+    try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleChange(device, 'image', finalUrl); trackUpload('features', `Features section image upload`, { device }); toast.success('Image uploaded successfully') } else { toast.error('Failed to upload image') } } catch (error) { console.error('Upload failed:', error); toast.error('Failed to upload image') } finally { setUploadingImage(false) }
   }
 
   if (loading) return <div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin text-gray-500" /></div>

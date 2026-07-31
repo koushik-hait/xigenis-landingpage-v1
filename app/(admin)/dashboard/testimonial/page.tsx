@@ -48,7 +48,7 @@ export default function TestimonialAdmin() {
   const handleImageUpload = async (device: 'desktop' | 'mobile', index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; if (!file) return
     setUploadState({ ...uploadState, [index]: true })
-    try { const formData = new FormData(); formData.append("file", file); const url = await uploadFile(formData); handleTestimonialChange(device, index, "image", url.toString()); trackUpload('testimonial', `Testimonial ${index + 1} image upload`, { device, testimonialIndex: index }); toast.success("Image uploaded successfully") } catch (error) { console.error("Upload failed:", error); toast.error("Failed to upload image") } finally { setUploadState({ ...uploadState, [index]: false }) }
+    try { const formData = new FormData(); formData.append("file", file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleTestimonialChange(device, index, "image", finalUrl); trackUpload('testimonial', `Testimonial ${index + 1} image upload`, { device, testimonialIndex: index }); toast.success("Image uploaded successfully") } else { toast.error("Failed to upload image") } } catch (error) { console.error("Upload failed:", error); toast.error("Failed to upload image") } finally { setUploadState({ ...uploadState, [index]: false }) }
   }
 
   if (loading) return (<div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin text-gray-500" /></div>)

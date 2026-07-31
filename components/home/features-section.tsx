@@ -24,7 +24,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
     description: "We don't hide behind dashboards or vanity metrics. What you see is exactly what is happening.",
     buttonText: "BOOK A FREE STRATEGY CALL",
     buttonLink: "#",
-    image: "/assets/man-on-house.png",
+    image: "/assets/man-on-house.webp",
     features: [
       {
         title: "Limited Partners Per City",
@@ -56,6 +56,8 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
     ...cmsContent,
   }
 
+
+
   return (
     <section className="max-w-8xl mx-auto bg-white px-6 py-6 font-sans lg:py-12">
       <div className="flex flex-col items-center gap-16 lg:flex-row">
@@ -64,7 +66,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
           <div className="relative h-[350px] w-[300px] lg:h-[500px] lg:w-[400px]">
             {/* Replace with your actual asset path */}
             <Image
-              src={content.image || "/assets/man-on-house.png"}
+              src={content.image ? content.image : "/assets/man-on-house.webp"}
               alt="Expert support for your real estate growth"
               fill
               className="object-cover"
