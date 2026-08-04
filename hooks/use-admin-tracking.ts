@@ -41,7 +41,6 @@ export function useAdminTracking() {
     }
 
     window.umami.track('admin_action', eventData)
-    console.log('[AdminTracking] Tracked:', eventData)
   }, [user, isLoaded])
 
   const trackCreate = useCallback((section: string, details?: string, metadata?: Record<string, string | number | boolean>) => {

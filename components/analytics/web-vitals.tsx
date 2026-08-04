@@ -6,11 +6,16 @@ export function WebVitals() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       import('web-vitals').then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
-        onCLS(console.log)
-        onINP(console.log)
-        onFCP(console.log)
-        onLCP(console.log)
-        onTTFB(console.log)
+        const sendToAnalytics = (metric: any) => {
+          if (window.umami) {
+            window.umami.track(metric.name, { value: metric.value, rating: metric.rating })
+          }
+        }
+        onCLS(sendToAnalytics)
+        onINP(sendToAnalytics)
+        onFCP(sendToAnalytics)
+        onLCP(sendToAnalytics)
+        onTTFB(sendToAnalytics)
       })
     }
   }, [])

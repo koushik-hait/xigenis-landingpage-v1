@@ -9,7 +9,6 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ cmsContent }: AboutSectionProps) {
-  console.log(cmsContent)
   const content = {
     bgImage: "assets/about-bg.webp",
     pillText: "About Us",

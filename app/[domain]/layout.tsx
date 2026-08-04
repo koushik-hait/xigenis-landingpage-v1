@@ -1,14 +1,11 @@
 import Footer from "@/components/layouts/footer"
 import { Header } from "@/components/layouts/header"
 import { StickyCountdownBar } from "@/components/layouts/sticky-countdown-bar"
-// import { WhatsAppButton } from "@/components/layouts/whatsapp-button"
 import { WebVitals } from "@/components/analytics/web-vitals"
 import { RandomToast } from "@/components/ui/random-toast"
 import type { Metadata } from "next"
 import { Montserrat, Poppins } from "next/font/google"
 import type React from "react"
-import { Suspense } from "react"
-import UmamiAnalytics from "@/components/analytics/umami-analytics"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const montserrat = Montserrat({
@@ -70,7 +67,6 @@ export default async function Layout({
     <>
       <WebVitals />
       <SpeedInsights />
-      {/* <UmamiAnalytics /> */}
       <RandomToast enabled={true} />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
         <StickyCountdownBar domain={domain} />
