@@ -150,10 +150,9 @@ export async function duplicateContent(
   destinationDomain: string,
   page: string,
   section: string,
-  options?: { overwrite?: boolean; sourceScreen?: string; destinationScreen?: string }
+  options?: { overwrite?: boolean }
 ) {
   try {
-    // Parse source content to get screen-specific data
     const sourceData = await db.select().from(cmsContent)
       .where(and(
         eq(cmsContent.domain, sourceDomain),
@@ -168,42 +167,7 @@ export async function duplicateContent(
       return { success: false, error: 'Source content not found' }
     }
 
-    // Parse JSON content to extract screen-specific data
-    let sourceContent = JSON.parse(sourceRecord.content)
-    
-    // Extract screen-specific content if specified
-    if (options?.sourceScreen && sourceContent && typeof sourceContent === 'object') {
-      sourceContent = (sourceContent as Record<string, any>)[options.sourceScreen] || sourceContent
-    }
-
-    // Prepare final content for destination
-    let finalContent = sourceContent
-    if (options?.destinationScreen && typeof finalContent === 'object') {
-      // If destination has existing structure, merge screen-specific content
-      const existingDest = await db.select().from(cmsContent)
-        .where(and(
-          eq(cmsContent.domain, destinationDomain),
-          eq(cmsContent.page, page),
-          eq(cmsContent.section, section)
-        ))
-        .limit(1)
-
-      const [existingRecord] = existingDest
-      
-      if (existingRecord) {
-        const existingContent = JSON.parse(existingRecord.content)
-        if (typeof existingContent === 'object') {
-          // Merge with existing structure, updating only the target screen
-          finalContent = { ...existingContent, [options.destinationScreen]: finalContent }
-        } else {
-          // Create new structure with screen-specific content
-          finalContent = { [options.destinationScreen]: finalContent }
-        }
-      } else {
-        // Create new structure with screen-specific content
-        finalContent = { [options.destinationScreen]: finalContent }
-      }
-    }
+    let finalContent = JSON.parse(sourceRecord.content)
 
     // Check if destination already has content for this section
     const existingDest = await db.select().from(cmsContent)

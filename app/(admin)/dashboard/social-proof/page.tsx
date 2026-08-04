@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Plus, Trash2, Upload } from 'lucide-react'
-import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+
 
 // Hardcoded default positions for avatar visually floating overlay effect
 const avatarDefaults = [
@@ -41,46 +41,46 @@ const defaultContent = {
 }
 
 export default function SocialProofCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({ desktop: { ...defaultContent }, mobile: { ...defaultContent } })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isUploadingValue, setIsUploadingValue] = useState<number | null>(null) 
 
-  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'social-proof'); if (data) setContent(migrateToDeviceStructure(data, defaultContent)); setIsLoading(false) } fetchInitial() }, [])
-  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
+  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'social-proof'); if (data) { const flatData = data.desktop || data; setContent({ ...defaultContent, ...flatData }) }; setIsLoading(false) } fetchInitial() }, [])
+  const handleChange = (key: string, value: any) => { setContent(prev => ({ ...prev, [key]: value })) }
 
-  const handleTestimonialChange = (device: 'desktop' | 'mobile', index: number, key: string, value: string) => {
-    const newData = [...content[device].testimonials]
+  const handleTestimonialChange = (index: number, key: string, value: string) => {
+    const newData = [...content.testimonials]
     newData[index] = { ...newData[index], [key]: value } as any
-    handleChange(device, 'testimonials', newData)
+    handleChange( 'testimonials', newData)
   }
-  const addTestimonial = (device: 'desktop' | 'mobile') => { handleChange(device, 'testimonials', [...content[device].testimonials, { name: "New Person", src: "", alt: "Role", rating: "5", quote: "New Quote" }]) }
-  const removeTestimonial = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'testimonials', content[device].testimonials.filter((_: any, i: number) => i !== index)) }
+  const addTestimonial = () => { handleChange( 'testimonials', [...content.testimonials, { name: "New Person", src: "", alt: "Role", rating: "5", quote: "New Quote" }]) }
+  const removeTestimonial = (index: number) => { handleChange( 'testimonials', content.testimonials.filter((_: any, i: number) => i !== index)) }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile', arrayIndex: number) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, arrayIndex: number) => {
     const file = e.target.files?.[0]; if (!file) return
     setIsUploadingValue(arrayIndex)
-    try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleTestimonialChange(device, arrayIndex, 'src', finalUrl); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setIsUploadingValue(null) }
+    try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleTestimonialChange( arrayIndex, 'src', finalUrl); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setIsUploadingValue(null) }
   }
 
   const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'social-proof', content); if (success) toast.success("Saved successfully"); else toast.error("Failed to save"); setIsSaving(false) }
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
-  const renderForm = (device: 'desktop' | 'mobile') => {
-    const d = content[device]
+  const renderForm = () => {
+    const d = content
     return (
       <div className="grid gap-6 md:grid-cols-2 mt-4">
         <div className="space-y-6 md:col-span-2 lg:col-span-1">
             <Card>
                 <CardHeader><CardTitle>Text Content Header</CardTitle></CardHeader>
                 <CardContent className="space-y-4">
-                    <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
-                    <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
-                    <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
-                    <div className="space-y-2"><Label>Description paragraph</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
-                    <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
-                    <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
-                    <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange(device, 'btnLink', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange( 'pillText', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange( 'heading', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange( 'headingSize', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Description paragraph</Label><Textarea rows={3} value={d.description} onChange={e => handleChange( 'description', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange( 'descriptionSize', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange( 'btnText', e.target.value)} /></div>
+                    <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange( 'btnLink', e.target.value)} /></div>
                 </CardContent>
             </Card>
         </div>
@@ -88,28 +88,28 @@ export default function SocialProofCmsPage() {
             <Card>
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                     <div className="space-y-1"><CardTitle>Testimonials Array</CardTitle><CardDescription>First 6 avatars will be used for the floating background effect. All are part of the slider.</CardDescription></div>
-                    <Button variant="outline" size="sm" onClick={() => addTestimonial(device)}><Plus className="w-4 h-4 mr-1" /> Add</Button>
+                    <Button variant="outline" size="sm" onClick={() => addTestimonial()}><Plus className="w-4 h-4 mr-1" /> Add</Button>
                 </CardHeader>
                 <CardContent className="space-y-4 max-h-[70vh] overflow-y-auto pt-4">
                     {d.testimonials.map((item, index) => (
                         <div key={index} className="p-4 border rounded-md relative space-y-4 bg-muted/10 shadow-sm">
                             <div className="absolute right-2 top-2 flex items-center justify-center gap-2">
                                 <span className="text-xs text-muted-foreground mr-2 font-mono">#{index + 1}</span>
-                                <Button type="button" variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10 h-8 w-8" onClick={() => removeTestimonial(device, index)}><Trash2 className="w-4 h-4" /></Button>
+                                <Button type="button" variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10 h-8 w-8" onClick={() => removeTestimonial( index)}><Trash2 className="w-4 h-4" /></Button>
                             </div>
                             <div className="grid grid-cols-2 gap-4 pr-16">
-                                <div className="space-y-2"><Label>Name</Label><Input value={item.name} onChange={e => handleTestimonialChange(device, index, 'name', e.target.value)} /></div>
-                                <div className="space-y-2"><Label>Rating (1-5)</Label><Input type="number" min="1" max="5" value={item.rating} onChange={e => handleTestimonialChange(device, index, 'rating', e.target.value)} /></div>
+                                <div className="space-y-2"><Label>Name</Label><Input value={item.name} onChange={e => handleTestimonialChange( index, 'name', e.target.value)} /></div>
+                                <div className="space-y-2"><Label>Rating (1-5)</Label><Input type="number" min="1" max="5" value={item.rating} onChange={e => handleTestimonialChange( index, 'rating', e.target.value)} /></div>
                             </div>
-                            <div className="grid grid-cols-2 gap-4"><div className="space-y-2 col-span-2"><Label>Quote</Label><Textarea value={item.quote} onChange={e => handleTestimonialChange(device, index, 'quote', e.target.value)} /></div></div>
+                            <div className="grid grid-cols-2 gap-4"><div className="space-y-2 col-span-2"><Label>Quote</Label><Textarea value={item.quote} onChange={e => handleTestimonialChange( index, 'quote', e.target.value)} /></div></div>
                             <div className="space-y-2">
                                 <Label>Avatar Image ({item.alt})</Label>
                                 <div className="flex gap-4 items-center">
                                     {item.src && <img src={item.src} className="w-10 h-10 rounded-full object-cover border" />}
-                                    <Input value={item.src} onChange={e => handleTestimonialChange(device, index, 'src', e.target.value)} className="flex-1" />
+                                    <Input value={item.src} onChange={e => handleTestimonialChange( index, 'src', e.target.value)} className="flex-1" />
                                     <div className="relative overflow-hidden shrink-0">
                                         <Button type="button" variant="outline" disabled={isUploadingValue === index}>{isUploadingValue === index ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}Upload</Button>
-                                        <Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, device, index)} />
+                                        <Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, index)} />
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@ export default function SocialProofCmsPage() {
         <h2 className="text-3xl font-bold">Social Proof / Testimonials CMS</h2>
         <Button onClick={handleSave} disabled={isSaving}>{isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes</Button>
       </div>
-      <DeviceTabsWrapper renderForm={renderForm} />
+      {renderForm()}
     </div>
   )
 }

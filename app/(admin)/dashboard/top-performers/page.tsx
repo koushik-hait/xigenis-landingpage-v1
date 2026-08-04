@@ -9,18 +9,17 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
 import { getCmsContent, upsertCmsContent } from "@/app/actions/cms"
 import { uploadFile } from "@/app/actions/upload"
-import { Loader2, Upload, Plus, Trash2, ArrowUp, ArrowDown } from "lucide-react"
-import { DeviceTabsWrapper, migrateToDeviceStructure } from "@/components/admin/device-tabs-wrapper"
+import { Loader2, Upload, Plus, Trash2 } from "lucide-react"
 
 const defaultContent = {
   tag: "AI ALGO-PLEX - VERIFIED RESULTS",
   headingLine1: "How we change their",
   headingLine2: "business",
-  headingSize: "48", // in px
+  headingSize: "48",
   headingColor: "#000000",
   description:
     "Real success stories from agents who generated qualified buyer leads, increased site visits, and closed high-value property deals using our proven system.",
-  descriptionSize: "14", // in px
+  descriptionSize: "14",
   descriptionColor: "#6B7280",
   ctaText: "Apply for Strategy Call",
   ctaLink: "#",
@@ -49,10 +48,7 @@ const defaultContent = {
 }
 
 export default function TopPerformersCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({
-    desktop: { ...defaultContent },
-    mobile: { ...defaultContent },
-  })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null)
@@ -62,42 +58,41 @@ export default function TopPerformersCmsPage() {
     async function fetchInitial() {
       const data = await getCmsContent("home", "top-performers")
       if (data) {
-        setContent(migrateToDeviceStructure(data, defaultContent))
+        const flatData = data.desktop || data
+        setContent({ ...defaultContent, ...flatData })
       }
       setIsLoading(false)
     }
     fetchInitial()
   }, [])
 
-  const handleChange = (device: "desktop" | "mobile", key: string, value: any) => {
+  const handleChange = (key: string, value: any) => {
     setContent((prev) => ({
       ...prev,
-      [device]: { ...prev[device], [key]: value },
+      [key]: value,
     }))
   }
 
   const handlePerformerChange = (
-    device: "desktop" | "mobile",
     index: number,
     field: "name" | "role" | "image" | "badge",
     value: string
   ) => {
-    const newPerformers = [...content[device].performers]
+    const newPerformers = [...content.performers]
     const performer = newPerformers[index]
     if (!performer) return
 
     newPerformers[index] = { ...performer, [field]: value }
-    handleChange(device, "performers", newPerformers)
+    handleChange("performers", newPerformers)
   }
 
   const handleMetricChange = (
-    device: "desktop" | "mobile",
     perIdx: number,
     metIdx: number,
     field: "label" | "value",
     value: string
   ) => {
-    const newPerformers = [...content[device].performers]
+    const newPerformers = [...content.performers]
     const performer = newPerformers[perIdx]
     if (!performer) return
 
@@ -107,10 +102,10 @@ export default function TopPerformersCmsPage() {
 
     newMetrics[metIdx] = { ...metric, [field]: value }
     newPerformers[perIdx] = { ...performer, metrics: newMetrics }
-    handleChange(device, "performers", newPerformers)
+    handleChange("performers", newPerformers)
   }
 
-  const addPerformer = (device: "desktop" | "mobile") => {
+  const addPerformer = () => {
     const newPerformer = {
       name: "New Performer",
       role: "Role | City",
@@ -122,20 +117,18 @@ export default function TopPerformersCmsPage() {
         { label: "metric label", value: "0" },
       ],
     }
-    handleChange(device, "performers", [...content[device].performers, newPerformer])
+    handleChange("performers", [...content.performers, newPerformer])
   }
 
-  const removePerformer = (device: "desktop" | "mobile", index: number) => {
+  const removePerformer = (index: number) => {
     handleChange(
-      device,
       "performers",
-      content[device].performers.filter((_: any, i: number) => i !== index)
+      content.performers.filter((_: any, i: number) => i !== index)
     )
   }
 
   const handleFileUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    device: "desktop" | "mobile",
     index: number
   ) => {
     const file = e.target.files?.[0]
@@ -147,15 +140,14 @@ export default function TopPerformersCmsPage() {
       formData.append("file", file)
       const { success, finalUrl } = await uploadFile(formData)
       if (success && finalUrl) {
-        handlePerformerChange(device, index, "image", finalUrl)
+        handlePerformerChange(index, "image", finalUrl)
         toast.success("Image uploaded")
       }
     } catch (err) {
       toast.error("Upload failed")
     } finally {
       setUploadingIdx(null)
-      // Reset file input so same file can be selected again
-      const inputKey = `${device}-${index}`
+      const inputKey = `input-${index}`
       const inputRef = fileInputRefs.current.get(inputKey)
       if (inputRef) {
         inputRef.value = ''
@@ -163,8 +155,8 @@ export default function TopPerformersCmsPage() {
     }
   }
 
-  const removeImage = (device: "desktop" | "mobile", index: number) => {
-    handlePerformerChange(device, index, "image", "")
+  const removeImage = (index: number) => {
+    handlePerformerChange(index, "image", "")
     toast.success("Image removed")
   }
 
@@ -183,9 +175,16 @@ export default function TopPerformersCmsPage() {
       </div>
     )
 
-  const renderForm = (device: "desktop" | "mobile") => {
-    const deviceContent = content[device]
-    return (
+  return (
+    <div className="space-y-6 p-4 md:p-8">
+      <div className="flex items-center justify-between">
+        <h2 className="text-3xl font-bold">Top Performers CMS</h2>
+        <Button onClick={handleSave} disabled={isSaving}>
+          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Save Changes
+        </Button>
+      </div>
+
       <div className="mt-4 grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
@@ -194,45 +193,45 @@ export default function TopPerformersCmsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>Badge Tag</Label>
-              <Input value={deviceContent.tag} onChange={(e) => handleChange(device, "tag", e.target.value)} />
+              <Input value={content.tag} onChange={(e) => handleChange("tag", e.target.value)} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2 space-y-2">
                 <Label>Heading Line 1</Label>
                 <Input
-                  value={deviceContent.headingLine1}
-                  onChange={(e) => handleChange(device, "headingLine1", e.target.value)}
+                  value={content.headingLine1}
+                  onChange={(e) => handleChange("headingLine1", e.target.value)}
                 />
               </div>
               <div className="col-span-2 space-y-2">
                 <Label>Heading Line 2</Label>
                 <Input
-                  value={deviceContent.headingLine2}
-                  onChange={(e) => handleChange(device, "headingLine2", e.target.value)}
+                  value={content.headingLine2}
+                  onChange={(e) => handleChange("headingLine2", e.target.value)}
                 />
               </div>
               <div className="space-y-2">
                 <Label>Heading Size (px)</Label>
                 <Input
                   type="number"
-                  value={deviceContent.headingSize}
-                  onChange={(e) => handleChange(device, "headingSize", e.target.value)}
+                  value={content.headingSize}
+                  onChange={(e) => handleChange("headingSize", e.target.value)}
                 />
               </div>
               <div className="space-y-2">
                 <Label>Heading Color</Label>
                 <Input
                   type="color"
-                  value={deviceContent.headingColor}
-                  onChange={(e) => handleChange(device, "headingColor", e.target.value)}
+                  value={content.headingColor}
+                  onChange={(e) => handleChange("headingColor", e.target.value)}
                 />
               </div>
             </div>
             <div className="space-y-2 border-t pt-4">
               <Label>Description</Label>
               <Textarea
-                value={deviceContent.description}
-                onChange={(e) => handleChange(device, "description", e.target.value)}
+                value={content.description}
+                onChange={(e) => handleChange("description", e.target.value)}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -240,16 +239,16 @@ export default function TopPerformersCmsPage() {
                 <Label>Description Size (px)</Label>
                 <Input
                   type="number"
-                  value={deviceContent.descriptionSize}
-                  onChange={(e) => handleChange(device, "descriptionSize", e.target.value)}
+                  value={content.descriptionSize}
+                  onChange={(e) => handleChange("descriptionSize", e.target.value)}
                 />
               </div>
               <div className="space-y-2">
                 <Label>Description Color</Label>
                 <Input
                   type="color"
-                  value={deviceContent.descriptionColor}
-                  onChange={(e) => handleChange(device, "descriptionColor", e.target.value)}
+                  value={content.descriptionColor}
+                  onChange={(e) => handleChange("descriptionColor", e.target.value)}
                 />
               </div>
             </div>
@@ -263,35 +262,35 @@ export default function TopPerformersCmsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>Button Text</Label>
-              <Input value={deviceContent.ctaText} onChange={(e) => handleChange(device, "ctaText", e.target.value)} />
+              <Input value={content.ctaText} onChange={(e) => handleChange("ctaText", e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>Button Link (URL)</Label>
-              <Input value={deviceContent.ctaLink || ""} onChange={(e) => handleChange(device, "ctaLink", e.target.value)} />
+              <Input value={content.ctaLink || ""} onChange={(e) => handleChange("ctaLink", e.target.value)} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Bg Color</Label>
                 <Input
                   type="color"
-                  value={deviceContent.ctaBgColor}
-                  onChange={(e) => handleChange(device, "ctaBgColor", e.target.value)}
+                  value={content.ctaBgColor}
+                  onChange={(e) => handleChange("ctaBgColor", e.target.value)}
                 />
               </div>
               <div className="space-y-2">
                 <Label>Text Color</Label>
                 <Input
                   type="color"
-                  value={deviceContent.ctaTextColor}
-                  onChange={(e) => handleChange(device, "ctaTextColor", e.target.value)}
+                  value={content.ctaTextColor}
+                  onChange={(e) => handleChange("ctaTextColor", e.target.value)}
                 />
               </div>
               <div className="col-span-2 space-y-2">
                 <Label>Arrow Wrapper Color</Label>
                 <Input
                   type="color"
-                  value={deviceContent.ctaArrowBgColor}
-                  onChange={(e) => handleChange(device, "ctaArrowBgColor", e.target.value)}
+                  value={content.ctaArrowBgColor}
+                  onChange={(e) => handleChange("ctaArrowBgColor", e.target.value)}
                 />
               </div>
             </div>
@@ -304,18 +303,18 @@ export default function TopPerformersCmsPage() {
               <CardTitle>Performer Cards</CardTitle>
               <CardDescription>Configure the individual success story cards</CardDescription>
             </div>
-            <Button variant="default" size="sm" onClick={() => addPerformer(device)}>
+            <Button variant="default" size="sm" onClick={addPerformer}>
               <Plus className="mr-2 h-4 w-4" /> Add Card
             </Button>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-3">
-            {deviceContent.performers.map((p: any, idx: number) => (
+            {content.performers.map((p: any, idx: number) => (
               <div key={idx} className="bg-muted/30 relative space-y-4 rounded-lg border p-4">
                 <Button
                   variant="ghost"
                   size="icon"
                   className="text-destructive absolute top-2 right-2 z-30"
-                  onClick={() => removePerformer(device, idx)}
+                  onClick={() => removePerformer(idx)}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -342,7 +341,7 @@ export default function TopPerformersCmsPage() {
                           className="absolute -top-1 -right-1 z-30 h-6 w-6"
                           onClick={(e) => {
                             e.stopPropagation()
-                            removeImage(device, idx)
+                            removeImage(idx)
                           }}
                         >
                           <Trash2 className="h-3 w-3" />
@@ -353,9 +352,9 @@ export default function TopPerformersCmsPage() {
                       type="file"
                       accept="image/*"
                       className="absolute inset-0 z-10 cursor-pointer opacity-0"
-                      onChange={(e) => handleFileUpload(e, device, idx)}
+                      onChange={(e) => handleFileUpload(e, idx)}
                       ref={(el) => {
-                        const key = `${device}-${idx}`
+                        const key = `input-${idx}`
                         if (el) fileInputRefs.current.set(key, el)
                       }}
                     />
@@ -369,17 +368,17 @@ export default function TopPerformersCmsPage() {
                     <Input
                       placeholder="Name"
                       value={p.name}
-                      onChange={(e) => handlePerformerChange(device, idx, "name", e.target.value)}
+                      onChange={(e) => handlePerformerChange(idx, "name", e.target.value)}
                     />
                     <Input
                       placeholder="Role/City"
                       value={p.role}
-                      onChange={(e) => handlePerformerChange(device, idx, "role", e.target.value)}
+                      onChange={(e) => handlePerformerChange(idx, "role", e.target.value)}
                     />
                     <Input
                       placeholder="Badge"
                       value={p.badge}
-                      onChange={(e) => handlePerformerChange(device, idx, "badge", e.target.value)}
+                      onChange={(e) => handlePerformerChange(idx, "badge", e.target.value)}
                     />
                   </div>
                 </div>
@@ -392,13 +391,13 @@ export default function TopPerformersCmsPage() {
                         className="col-span-1 text-xs"
                         placeholder="Value"
                         value={m.value}
-                        onChange={(e) => handleMetricChange(device, idx, mIdx, "value", e.target.value)}
+                        onChange={(e) => handleMetricChange(idx, mIdx, "value", e.target.value)}
                       />
                       <Input
                         className="col-span-2 text-xs"
                         placeholder="Label"
                         value={m.label}
-                        onChange={(e) => handleMetricChange(device, idx, mIdx, "label", e.target.value)}
+                        onChange={(e) => handleMetricChange(idx, mIdx, "label", e.target.value)}
                       />
                     </div>
                   ))}
@@ -416,19 +415,19 @@ export default function TopPerformersCmsPage() {
             <div className="space-y-2">
               <Label>Number</Label>
               <Input
-                value={deviceContent.footerCard.number}
+                value={content.footerCard.number}
                 onChange={(e) =>
-                  handleChange(device, "footerCard", { ...deviceContent.footerCard, number: e.target.value })
+                  handleChange("footerCard", { ...content.footerCard, number: e.target.value })
                 }
               />
             </div>
             <div className="space-y-2">
               <Label>Vertical Labels (One per line)</Label>
               <Textarea
-                value={deviceContent.footerCard.labels.join("\n")}
+                value={content.footerCard.labels.join("\n")}
                 onChange={(e) =>
-                  handleChange(device, "footerCard", {
-                    ...deviceContent.footerCard,
+                  handleChange("footerCard", {
+                    ...content.footerCard,
                     labels: e.target.value.split("\n"),
                   })
                 }
@@ -437,38 +436,24 @@ export default function TopPerformersCmsPage() {
             <div className="space-y-2">
               <Label>Secondary Sub-labels</Label>
               <Input
-                value={deviceContent.footerCard.subLabels}
+                value={content.footerCard.subLabels}
                 onChange={(e) =>
-                  handleChange(device, "footerCard", { ...deviceContent.footerCard, subLabels: e.target.value })
+                  handleChange("footerCard", { ...content.footerCard, subLabels: e.target.value })
                 }
               />
             </div>
             <div className="space-y-2">
               <Label>Footer Card Link (URL)</Label>
               <Input
-                value={deviceContent.footerCard.link || ""}
+                value={content.footerCard.link || ""}
                 onChange={(e) =>
-                  handleChange(device, "footerCard", { ...deviceContent.footerCard, link: e.target.value })
+                  handleChange("footerCard", { ...content.footerCard, link: e.target.value })
                 }
               />
             </div>
           </CardContent>
         </Card>
       </div>
-    )
-  }
-
-  return (
-    <div className="space-y-6 p-4 md:p-8">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold">Top Performers CMS</h2>
-        <Button onClick={handleSave} disabled={isSaving}>
-          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Save Changes
-        </Button>
-      </div>
-
-      <DeviceTabsWrapper renderForm={renderForm} />
     </div>
   )
 }

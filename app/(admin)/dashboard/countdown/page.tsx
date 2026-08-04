@@ -9,7 +9,7 @@ import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { Loader2 } from 'lucide-react'
-import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+
 
 const defaultContent = {
   enabled: true,
@@ -21,25 +21,20 @@ const defaultContent = {
 }
 
 export default function CountdownCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({
-    desktop: { ...defaultContent },
-    mobile: { ...defaultContent }
-  })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     async function fetchInitial() {
       const data = await getCmsContent('home', 'countdown')
-      if (data) setContent(migrateToDeviceStructure(data, defaultContent))
+      if (data) { const flatData = data.desktop || data; setContent({ ...defaultContent, ...flatData }) }
       setIsLoading(false)
     }
     fetchInitial()
   }, [])
 
-  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => {
-    setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } }))
-  }
+  const handleChange = (key: string, value: any) => { setContent(prev => ({ ...prev, [key]: value })) }
 
   const handleSave = async () => {
     setIsSaving(true)
@@ -51,8 +46,8 @@ export default function CountdownCmsPage() {
 
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
-  const renderForm = (device: 'desktop' | 'mobile') => {
-    const d = content[device]
+  const renderForm = () => {
+    const d = content
     return (
       <div className="grid gap-6 md:grid-cols-2 mt-4">
         <Card className="md:col-span-2">
@@ -63,32 +58,32 @@ export default function CountdownCmsPage() {
                 <Label>Enable Countdown Bar</Label>
                 <p className="text-xs text-muted-foreground">Show or hide the countdown bar globally at the top of the page</p>
               </div>
-              <Switch checked={d.enabled} onCheckedChange={checked => handleChange(device, 'enabled', checked)} />
+              <Switch checked={d.enabled} onCheckedChange={checked => handleChange( 'enabled', checked)} />
             </div>
             
             <div className="space-y-2">
               <Label>Slots Count (e.g., 3)</Label>
-              <Input type="number" value={d.slotsCount} onChange={e => handleChange(device, 'slotsCount', e.target.value)} />
+              <Input type="number" value={d.slotsCount} onChange={e => handleChange( 'slotsCount', e.target.value)} />
             </div>
 
             <div className="space-y-2">
               <Label>Countdown Duration (Seconds, e.g., 300 for 5 minutes)</Label>
-              <Input type="number" value={d.countdownDuration} onChange={e => handleChange(device, 'countdownDuration', e.target.value)} />
+              <Input type="number" value={d.countdownDuration} onChange={e => handleChange( 'countdownDuration', e.target.value)} />
             </div>
 
             <div className="space-y-2">
               <Label>Message Text (Use {`{slots}`} as placeholder for slots count)</Label>
-              <Input value={d.text} onChange={e => handleChange(device, 'text', e.target.value)} />
+              <Input value={d.text} onChange={e => handleChange( 'text', e.target.value)} />
             </div>
 
             <div className="space-y-2">
               <Label>Button Text</Label>
-              <Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} />
+              <Input value={d.btnText} onChange={e => handleChange( 'btnText', e.target.value)} />
             </div>
 
             <div className="space-y-2">
               <Label>Button Link (e.g., #contact or external URL)</Label>
-              <Input value={d.btnLink} onChange={e => handleChange(device, 'btnLink', e.target.value)} />
+              <Input value={d.btnLink} onChange={e => handleChange( 'btnLink', e.target.value)} />
             </div>
           </CardContent>
         </Card>
@@ -104,7 +99,7 @@ export default function CountdownCmsPage() {
           {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes
         </Button>
       </div>
-      <DeviceTabsWrapper renderForm={renderForm} />
+      {renderForm()}
     </div>
   )
 }

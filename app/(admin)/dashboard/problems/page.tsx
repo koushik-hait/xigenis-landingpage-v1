@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Upload } from 'lucide-react'
-import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+
 
 const defaultContent = {
   pillText: "The Real Problem", heading: "You're not failing. Your pipeline has a leak.",
@@ -30,50 +30,50 @@ const defaultContent = {
 }
 
 export default function ProblemsCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({ desktop: { ...defaultContent }, mobile: { ...defaultContent } })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [uploadingImage, setUploadingImage] = useState<'bg' | 'main' | null>(null)
 
-  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'problems'); if (data) setContent(migrateToDeviceStructure(data, defaultContent)); setIsLoading(false) } fetchInitial() }, [])
-  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile', type: 'bgImage' | 'mainImage') => { const file = e.target.files?.[0]; if (!file) return; setUploadingImage(type === 'bgImage' ? 'bg' : 'main'); try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleChange(device, type, finalUrl); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setUploadingImage(null) } }
+  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'problems'); if (data) { const flatData = data.desktop || data; setContent({ ...defaultContent, ...flatData }) }; setIsLoading(false) } fetchInitial() }, [])
+  const handleChange = (key: string, value: any) => { setContent(prev => ({ ...prev, [key]: value })) }
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'bgImage' | 'mainImage') => { const file = e.target.files?.[0]; if (!file) return; setUploadingImage(type === 'bgImage' ? 'bg' : 'main'); try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { handleChange( type, finalUrl); toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setUploadingImage(null) } }
   const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'problems', content); if (success) toast.success("Saved successfully"); else toast.error("Failed to save"); setIsSaving(false) }
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
-  const renderForm = (device: 'desktop' | 'mobile') => {
-    const d = content[device]
+  const renderForm = () => {
+    const d = content
     return (
       <div className="grid gap-6 md:grid-cols-2 mt-4">
         <Card className="md:col-span-2">
           <CardHeader><CardTitle>Main Section Content</CardTitle></CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2"><Label>Section Pill</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Section Heading</Label><Input value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
-            <div className="space-y-2 md:col-span-2"><Label>Section Description</Label><Textarea value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Intro Pill</Label><Input value={d.introPill} onChange={e => handleChange(device, 'introPill', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Intro Heading</Label><Input value={d.introHeading} onChange={e => handleChange(device, 'introHeading', e.target.value)} /></div>
-            <div className="space-y-2 md:col-span-2"><Label>Intro Paragraph</Label><Textarea value={d.introPara} onChange={e => handleChange(device, 'introPara', e.target.value)} /></div>
-            <div className="space-y-2 md:col-span-2"><Label>Intro Points (One per line)</Label><Textarea rows={4} value={d.introPoints.join('\n')} onChange={e => handleChange(device, 'introPoints', e.target.value.split('\n'))} /></div>
-            <div className="space-y-2"><Label>Intro Points Font Size (px)</Label><Input type="number" value={d.introPointsSize} onChange={e => handleChange(device, 'introPointsSize', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Section Pill</Label><Input value={d.pillText} onChange={e => handleChange( 'pillText', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Section Heading</Label><Input value={d.heading} onChange={e => handleChange( 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange( 'headingSize', e.target.value)} /></div>
+            <div className="space-y-2 md:col-span-2"><Label>Section Description</Label><Textarea value={d.description} onChange={e => handleChange( 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange( 'descriptionSize', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Intro Pill</Label><Input value={d.introPill} onChange={e => handleChange( 'introPill', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Intro Heading</Label><Input value={d.introHeading} onChange={e => handleChange( 'introHeading', e.target.value)} /></div>
+            <div className="space-y-2 md:col-span-2"><Label>Intro Paragraph</Label><Textarea value={d.introPara} onChange={e => handleChange( 'introPara', e.target.value)} /></div>
+            <div className="space-y-2 md:col-span-2"><Label>Intro Points (One per line)</Label><Textarea rows={4} value={d.introPoints.join('\n')} onChange={e => handleChange( 'introPoints', e.target.value.split('\n'))} /></div>
+            <div className="space-y-2"><Label>Intro Points Font Size (px)</Label><Input type="number" value={d.introPointsSize} onChange={e => handleChange( 'introPointsSize', e.target.value)} /></div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader><CardTitle>Floating Stats</CardTitle></CardHeader>
           <CardContent className="grid gap-4">
-            <div className="grid grid-cols-3 gap-2 border-b pb-4"><div className="col-span-1"><Label>Stat 1 Value</Label><Input value={d.stat1Value} onChange={e => handleChange(device, 'stat1Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 1 Label</Label><Input value={d.stat1Label} onChange={e => handleChange(device, 'stat1Label', e.target.value)} /></div></div>
-            <div className="grid grid-cols-3 gap-2 border-b pb-4"><div className="col-span-1"><Label>Stat 2 Value</Label><Input value={d.stat2Value} onChange={e => handleChange(device, 'stat2Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 2 Label</Label><Input value={d.stat2Label} onChange={e => handleChange(device, 'stat2Label', e.target.value)} /></div></div>
-            <div className="grid grid-cols-3 gap-2 border-b pb-4"><div className="col-span-1"><Label>Stat 3 Value</Label><Input value={d.stat3Value} onChange={e => handleChange(device, 'stat3Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 3 Label</Label><Input value={d.stat3Label} onChange={e => handleChange(device, 'stat3Label', e.target.value)} /></div></div>
-            <div className="grid grid-cols-3 gap-2"><div className="col-span-1"><Label>Stat 4 Value</Label><Input value={d.stat4Value} onChange={e => handleChange(device, 'stat4Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 4 Label</Label><Input value={d.stat4Label} onChange={e => handleChange(device, 'stat4Label', e.target.value)} /></div></div>
+            <div className="grid grid-cols-3 gap-2 border-b pb-4"><div className="col-span-1"><Label>Stat 1 Value</Label><Input value={d.stat1Value} onChange={e => handleChange( 'stat1Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 1 Label</Label><Input value={d.stat1Label} onChange={e => handleChange( 'stat1Label', e.target.value)} /></div></div>
+            <div className="grid grid-cols-3 gap-2 border-b pb-4"><div className="col-span-1"><Label>Stat 2 Value</Label><Input value={d.stat2Value} onChange={e => handleChange( 'stat2Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 2 Label</Label><Input value={d.stat2Label} onChange={e => handleChange( 'stat2Label', e.target.value)} /></div></div>
+            <div className="grid grid-cols-3 gap-2 border-b pb-4"><div className="col-span-1"><Label>Stat 3 Value</Label><Input value={d.stat3Value} onChange={e => handleChange( 'stat3Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 3 Label</Label><Input value={d.stat3Label} onChange={e => handleChange( 'stat3Label', e.target.value)} /></div></div>
+            <div className="grid grid-cols-3 gap-2"><div className="col-span-1"><Label>Stat 4 Value</Label><Input value={d.stat4Value} onChange={e => handleChange( 'stat4Value', e.target.value)} /></div><div className="col-span-2"><Label>Stat 4 Label</Label><Input value={d.stat4Label} onChange={e => handleChange( 'stat4Label', e.target.value)} /></div></div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader><CardTitle>Images</CardTitle></CardHeader>
           <CardContent className="space-y-6">
-            <div className="space-y-2"><Label>Background Image</Label><div className="relative w-full h-32 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden">{d.bgImage ? <img src={d.bgImage} className="w-full h-full object-cover" /> : <Upload className="opacity-20" />}<Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => handleFileUpload(e, device, 'bgImage')} />{uploadingImage === 'bg' && <div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin" /></div>}</div></div>
-            <div className="space-y-2"><Label>Main Subject Image</Label><div className="relative w-full h-48 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden">{d.mainImage ? <img src={d.mainImage} className="w-full h-full object-cover" /> : <Upload className="opacity-20" />}<Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => handleFileUpload(e, device, 'mainImage')} />{uploadingImage === 'main' && <div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin" /></div>}</div></div>
+            <div className="space-y-2"><Label>Background Image</Label><div className="relative w-full h-32 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden">{d.bgImage ? <img src={d.bgImage} className="w-full h-full object-cover" /> : <Upload className="opacity-20" />}<Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => handleFileUpload(e, 'bgImage')} />{uploadingImage === 'bg' && <div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin" /></div>}</div></div>
+            <div className="space-y-2"><Label>Main Subject Image</Label><div className="relative w-full h-48 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted/30 overflow-hidden">{d.mainImage ? <img src={d.mainImage} className="w-full h-full object-cover" /> : <Upload className="opacity-20" />}<Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={e => handleFileUpload(e, 'mainImage')} />{uploadingImage === 'main' && <div className="absolute inset-0 bg-background/50 flex items-center justify-center"><Loader2 className="animate-spin" /></div>}</div></div>
           </CardContent>
         </Card>
       </div>
@@ -86,7 +86,7 @@ export default function ProblemsCmsPage() {
         <h2 className="text-3xl font-bold">Problems Overview CMS</h2>
         <Button onClick={handleSave} disabled={isSaving}>{isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes</Button>
       </div>
-      <DeviceTabsWrapper renderForm={renderForm} />
+      {renderForm()}
     </div>
   )
 }

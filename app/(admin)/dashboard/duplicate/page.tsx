@@ -114,9 +114,7 @@ export default function DuplicateDataPage() {
         selectedPage,
         selectedSection,
         {
-          overwrite,
-          sourceScreen,
-          destinationScreen
+          overwrite
         }
       )
 
@@ -196,23 +194,6 @@ export default function DuplicateDataPage() {
               </p>
             </div>
 
-            {/* Source Screen */}
-            <div className="space-y-2">
-              <Label htmlFor="source-screen">Source Screen</Label>
-              <Select value={sourceScreen} onValueChange={(value) => { setSourceScreen(value); setResult(null); }}>
-                <SelectTrigger id="source-screen">
-                  <SelectValue placeholder="Select source screen" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="desktop">Desktop</SelectItem>
-                  <SelectItem value="mobile">Mobile</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground">
-                Screen type to copy content from
-              </p>
-            </div>
-
             {/* Destination Domain */}
             <div className="space-y-2">
               <Label htmlFor="destination-domain">Destination Domain</Label>
@@ -233,22 +214,7 @@ export default function DuplicateDataPage() {
               </p>
             </div>
 
-            {/* Destination Screen */}
-            <div className="space-y-2">
-              <Label htmlFor="destination-screen">Destination Screen</Label>
-              <Select value={destinationScreen} onValueChange={(value) => { setDestinationScreen(value); setResult(null); }}>
-                <SelectTrigger id="destination-screen">
-                  <SelectValue placeholder="Select destination screen" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="desktop">Desktop</SelectItem>
-                  <SelectItem value="mobile">Mobile</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground">
-                Screen type to copy content to
-              </p>
-            </div>
+
           </div>
 
           {/* Page and Section Row */}

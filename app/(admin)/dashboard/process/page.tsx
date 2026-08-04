@@ -9,7 +9,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
 import { getCmsContent, upsertCmsContent } from "@/app/actions/cms"
 import { Loader2 } from "lucide-react"
-import { DeviceTabsWrapper, migrateToDeviceStructure } from "@/components/admin/device-tabs-wrapper"
 import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
@@ -105,10 +104,7 @@ const defaultContent = {
 }
 
 export default function ProcessCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({
-    desktop: { ...defaultContent },
-    mobile: { ...defaultContent },
-  })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const { trackSave } = useAdminTracking()
@@ -116,50 +112,68 @@ export default function ProcessCmsPage() {
   useEffect(() => {
     async function fetchInitial() {
       const data = await getCmsContent("home", "process")
-      if (data) setContent(migrateToDeviceStructure(data, defaultContent))
+      if (data) {
+        const flatData = data.desktop || data
+        setContent({ ...defaultContent, ...flatData })
+      }
       setIsLoading(false)
     }
     fetchInitial()
   }, [])
-  const handleChange = (device: "desktop" | "mobile", key: string, value: any) => {
-    setContent((prev) => ({ ...prev, [device]: { ...prev[device], [key]: value } }))
+
+  const handleChange = (key: string, value: any) => {
+    setContent((prev) => ({ ...prev, [key]: value }))
   }
 
-  const handleZoneChange = (device: "desktop" | "mobile", zIndex: number, key: string, value: any) => {
-    const newZones = [...content[device].zones]
+  const handleZoneChange = (zIndex: number, key: string, value: any) => {
+    const newZones = [...content.zones]
     newZones[zIndex] = { ...newZones[zIndex], [key]: value } as any
-    handleChange(device, "zones", newZones)
+    handleChange("zones", newZones)
   }
-  const handleStepChange = (device: "desktop" | "mobile", zIndex: number, sIndex: number, key: string, value: any) => {
-    const newZones = [...content[device].zones]
+
+  const handleStepChange = (zIndex: number, sIndex: number, key: string, value: any) => {
+    const newZones = [...content.zones]
     const newSteps = [...(newZones[zIndex]?.steps || [])]
     newSteps[sIndex] = { ...newSteps[sIndex], [key]: value } as any
     newZones[zIndex]!.steps = newSteps
-    handleChange(device, "zones", newZones)
+    handleChange("zones", newZones)
   }
-  const handleHighlightChange = (device: "desktop" | "mobile", index: number, key: string, value: any) => {
-    const newHighlights = [...content[device].footerHighlights]
+
+  const handleHighlightChange = (index: number, key: string, value: any) => {
+    const newHighlights = [...content.footerHighlights]
     newHighlights[index] = { ...newHighlights[index], [key]: value } as any
-    handleChange(device, "footerHighlights", newHighlights)
+    handleChange("footerHighlights", newHighlights)
   }
 
   const handleSave = async () => {
     setIsSaving(true)
     const { success } = await upsertCmsContent("home", "process", content)
-    if (success) { trackSave('process', `Saved process section content`, { device: 'all' }); toast.success("Saved successfully") }
-    else toast.error("Failed to save")
+    if (success) {
+      trackSave('process', `Saved process section content`)
+      toast.success("Saved successfully")
+    } else {
+      toast.error("Failed to save")
+    }
     setIsSaving(false)
   }
-  if (isLoading)
+
+  if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
         <Loader2 className="animate-spin" />
       </div>
     )
+  }
 
-  const renderForm = (device: "desktop" | "mobile") => {
-    const d = content[device]
-    return (
+  return (
+    <div className="space-y-6 p-4 md:p-8">
+      <div className="flex items-center justify-between">
+        <h2 className="text-3xl font-bold">Process Section CMS</h2>
+        <Button onClick={handleSave} disabled={isSaving}>
+          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes
+        </Button>
+      </div>
+
       <div className="mt-4 grid gap-6">
         <Card>
           <CardHeader>
@@ -169,31 +183,31 @@ export default function ProcessCmsPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Pill Label</Label>
-                <Input value={d.pillText} onChange={(e) => handleChange(device, "pillText", e.target.value)} />
+                <Input value={content.pillText} onChange={(e) => handleChange("pillText", e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Heading</Label>
-                <Input value={d.heading} onChange={(e) => handleChange(device, "heading", e.target.value)} />
+                <Input value={content.heading} onChange={(e) => handleChange("heading", e.target.value)} />
               </div>
             </div>
             <div className="space-y-2">
               <Label>Heading Font Size (px)</Label>
               <Input
                 type="number"
-                value={d.headingSize}
-                onChange={(e) => handleChange(device, "headingSize", e.target.value)}
+                value={content.headingSize}
+                onChange={(e) => handleChange("headingSize", e.target.value)}
               />
             </div>
             <div className="space-y-2">
               <Label>Description</Label>
-              <Textarea value={d.description} onChange={(e) => handleChange(device, "description", e.target.value)} />
+              <Textarea value={content.description} onChange={(e) => handleChange("description", e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>Description Font Size (px)</Label>
               <Input
                 type="number"
-                value={d.descriptionSize}
-                onChange={(e) => handleChange(device, "descriptionSize", e.target.value)}
+                value={content.descriptionSize}
+                onChange={(e) => handleChange("descriptionSize", e.target.value)}
               />
             </div>
           </CardContent>
@@ -202,28 +216,28 @@ export default function ProcessCmsPage() {
         <div className="space-y-6 rounded-md border bg-gray-800 p-6 shadow-sm">
           <h3 className="mb-4 text-xl font-bold">Timeline Zones & Steps</h3>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {d.zones.map((zone, zIndex) => (
+            {content.zones.map((zone, zIndex) => (
               <div key={zIndex} className="bg-muted/20 space-y-4 border p-4">
                 <Label className="mb-2 block border-b pb-2 font-bold text-orange-600">Zone {zone.id}</Label>
                 <div className="space-y-2">
                   <Label className="text-xs">Title</Label>
                   <Input
                     value={zone.title}
-                    onChange={(e) => handleZoneChange(device, zIndex, "title", e.target.value)}
+                    onChange={(e) => handleZoneChange(zIndex, "title", e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-xs">Subtitle</Label>
                   <Input
                     value={zone.subtitle}
-                    onChange={(e) => handleZoneChange(device, zIndex, "subtitle", e.target.value)}
+                    onChange={(e) => handleZoneChange(zIndex, "subtitle", e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-xs">Owner Role</Label>
                   <Input
                     value={zone.owner}
-                    onChange={(e) => handleZoneChange(device, zIndex, "owner", e.target.value)}
+                    onChange={(e) => handleZoneChange(zIndex, "owner", e.target.value)}
                   />
                 </div>
                 <div className="mt-4 space-y-4 border-t pt-4">
@@ -235,14 +249,14 @@ export default function ProcessCmsPage() {
                           <Label className="text-[10px]">Step Tag</Label>
                           <Input
                             value={step.id}
-                            onChange={(e) => handleStepChange(device, zIndex, sIndex, "id", e.target.value)}
+                            onChange={(e) => handleStepChange(zIndex, sIndex, "id", e.target.value)}
                           />
                         </div>
                         <div>
                           <Label className="text-[10px]">Days</Label>
                           <Input
                             value={step.days}
-                            onChange={(e) => handleStepChange(device, zIndex, sIndex, "days", e.target.value)}
+                            onChange={(e) => handleStepChange(zIndex, sIndex, "days", e.target.value)}
                           />
                         </div>
                       </div>
@@ -250,7 +264,7 @@ export default function ProcessCmsPage() {
                         <Label className="text-[10px]">Title</Label>
                         <Input
                           value={step.title}
-                          onChange={(e) => handleStepChange(device, zIndex, sIndex, "title", e.target.value)}
+                          onChange={(e) => handleStepChange(zIndex, sIndex, "title", e.target.value)}
                         />
                       </div>
                       <div>
@@ -259,14 +273,14 @@ export default function ProcessCmsPage() {
                           rows={2}
                           className="text-xs"
                           value={step.desc}
-                          onChange={(e) => handleStepChange(device, zIndex, sIndex, "desc", e.target.value)}
+                          onChange={(e) => handleStepChange(zIndex, sIndex, "desc", e.target.value)}
                         />
                       </div>
                       <div>
                         <Label className="text-[10px]">Small Tagline</Label>
                         <Input
                           value={step.tag}
-                          onChange={(e) => handleStepChange(device, zIndex, sIndex, "tag", e.target.value)}
+                          onChange={(e) => handleStepChange(zIndex, sIndex, "tag", e.target.value)}
                         />
                       </div>
                     </div>
@@ -285,47 +299,35 @@ export default function ProcessCmsPage() {
             <div>
               <Label>Footer Button Text</Label>
               <Input
-                value={d.footerBtnText}
+                value={content.footerBtnText}
                 className="mt-2 max-w-xs"
-                onChange={(e) => handleChange(device, "footerBtnText", e.target.value)}
+                onChange={(e) => handleChange("footerBtnText", e.target.value)}
               />
             </div>
             <div>
               <Label>Footer Button Link (URL)</Label>
               <Input
-                value={d.footerBtnLink || ""}
+                value={content.footerBtnLink || ""}
                 className="mt-2 max-w-xs"
-                onChange={(e) => handleChange(device, "footerBtnLink", e.target.value)}
+                onChange={(e) => handleChange("footerBtnLink", e.target.value)}
               />
             </div>
             <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
-              {d.footerHighlights.map((hl, hlIdx) => (
+              {content.footerHighlights.map((hl, hlIdx) => (
                 <div key={hlIdx} className="bg-muted/20 space-y-2 rounded border p-3">
                   <Label className="text-xs">Highlight {hlIdx + 1} Top</Label>
                   <Input
                     value={hl.label}
-                    onChange={(e) => handleHighlightChange(device, hlIdx, "label", e.target.value)}
+                    onChange={(e) => handleHighlightChange(hlIdx, "label", e.target.value)}
                   />
                   <Label className="mt-2 inline-block text-xs">Highlight {hlIdx + 1} Bottom</Label>
-                  <Input value={hl.sub} onChange={(e) => handleHighlightChange(device, hlIdx, "sub", e.target.value)} />
+                  <Input value={hl.sub} onChange={(e) => handleHighlightChange(hlIdx, "sub", e.target.value)} />
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
       </div>
-    )
-  }
-
-  return (
-    <div className="space-y-6 p-4 md:p-8">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold">Process Section CMS</h2>
-        <Button onClick={handleSave} disabled={isSaving}>
-          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes
-        </Button>
-      </div>
-      <DeviceTabsWrapper renderForm={renderForm} />
     </div>
   )
 }

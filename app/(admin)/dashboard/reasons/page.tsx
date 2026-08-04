@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { Loader2, Plus, Trash } from 'lucide-react'
-import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+
 
 const defaultContent = {
   pillText: "LOREM IPSUM DOLOR SIT",
@@ -31,51 +31,51 @@ const defaultContent = {
 }
 
 export default function ReasonsCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({ desktop: { ...defaultContent }, mobile: { ...defaultContent } })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
 
-  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'reasons'); if (data) setContent(migrateToDeviceStructure(data, defaultContent)); setIsLoading(false) } fetchInitial() }, [])
-  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
+  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'reasons'); if (data) { const flatData = data.desktop || data; setContent({ ...defaultContent, ...flatData }) }; setIsLoading(false) } fetchInitial() }, [])
+  const handleChange = (key: string, value: any) => { setContent(prev => ({ ...prev, [key]: value })) }
 
-  const handleReasonChange = (device: 'desktop' | 'mobile', index: number, key: string, value: string) => {
-    const newReasons = [...content[device].reasons]
+  const handleReasonChange = (index: number, key: string, value: string) => {
+    const newReasons = [...content.reasons]
     newReasons[index] = { ...newReasons[index], [key]: value } as any
-    handleChange(device, 'reasons', newReasons)
+    handleChange( 'reasons', newReasons)
   }
-  const addReason = (device: 'desktop' | 'mobile') => { handleChange(device, 'reasons', [...content[device].reasons, { tag: "NEW TAG", title: "New Reason", desc: "Description here" }]) }
-  const removeReason = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'reasons', content[device].reasons.filter((_: any, i: number) => i !== index)) }
+  const addReason = () => { handleChange( 'reasons', [...content.reasons, { tag: "NEW TAG", title: "New Reason", desc: "Description here" }]) }
+  const removeReason = (index: number) => { handleChange( 'reasons', content.reasons.filter((_: any, i: number) => i !== index)) }
 
   const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'reasons', content); if (success) toast.success("Saved successfully"); else toast.error("Failed to save"); setIsSaving(false) }
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
-  const renderForm = (device: 'desktop' | 'mobile') => {
-    const d = content[device]
+  const renderForm = () => {
+    const d = content
     return (
       <div className="grid gap-6 mt-4">
         <Card>
           <CardHeader><CardTitle>Header Content</CardTitle></CardHeader>
           <CardContent className="space-y-4 max-w-2xl">
-            <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Heading (Use \n for breaks)</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Description</Label><Textarea rows={4} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
-            <div className="space-y-2"><Label>Guaranteed Tag Text (Bottom of Card)</Label><Input value={d.guaranteedTagText} onChange={e => handleChange(device, 'guaranteedTagText', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange( 'pillText', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading (Use \n for breaks)</Label><Textarea value={d.heading} onChange={e => handleChange( 'heading', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange( 'headingSize', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description</Label><Textarea rows={4} value={d.description} onChange={e => handleChange( 'description', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange( 'descriptionSize', e.target.value)} /></div>
+            <div className="space-y-2"><Label>Guaranteed Tag Text (Bottom of Card)</Label><Input value={d.guaranteedTagText} onChange={e => handleChange( 'guaranteedTagText', e.target.value)} /></div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row justify-between items-center"><CardTitle>Reasons Cards</CardTitle><Button size="sm" onClick={() => addReason(device)}><Plus className="w-4 h-4 mr-2"/>Add Card</Button></CardHeader>
+          <CardHeader className="flex flex-row justify-between items-center"><CardTitle>Reasons Cards</CardTitle><Button size="sm" onClick={() => addReason()}><Plus className="w-4 h-4 mr-2"/>Add Card</Button></CardHeader>
           <CardContent className="space-y-6">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {(d.reasons as any[]).map((reason: any, i) => (
                 <div key={i} className="p-4 border rounded relative space-y-3 bg-muted/20">
-                  <Button variant="ghost" size="icon" className="absolute top-2 right-2 text-red-500 hover:text-red-700" onClick={() => removeReason(device, i)}><Trash className="w-4 h-4" /></Button>
+                  <Button variant="ghost" size="icon" className="absolute top-2 right-2 text-red-500 hover:text-red-700" onClick={() => removeReason( i)}><Trash className="w-4 h-4" /></Button>
                   <p className="font-bold text-sm">Reason #{i+1}</p>
-                  <div className="space-y-1"><Label className="text-xs">Tag</Label><Input value={reason.tag} onChange={e => handleReasonChange(device, i, 'tag', e.target.value)} /></div>
-                  <div className="space-y-1"><Label className="text-xs">Title</Label><Textarea value={reason.title} onChange={e => handleReasonChange(device, i, 'title', e.target.value)} /></div>
-                  <div className="space-y-1"><Label className="text-xs">Description</Label><Textarea rows={3} value={reason.desc} onChange={e => handleReasonChange(device, i, 'desc', e.target.value)} /></div>
-                  <div className="space-y-1"><Label className="text-xs">Guaranteed Tag Text</Label><Input value={reason.guaranteedTagText || ""} onChange={e => handleReasonChange(device, i, 'guaranteedTagText', e.target.value)} /></div>
+                  <div className="space-y-1"><Label className="text-xs">Tag</Label><Input value={reason.tag} onChange={e => handleReasonChange( i, 'tag', e.target.value)} /></div>
+                  <div className="space-y-1"><Label className="text-xs">Title</Label><Textarea value={reason.title} onChange={e => handleReasonChange( i, 'title', e.target.value)} /></div>
+                  <div className="space-y-1"><Label className="text-xs">Description</Label><Textarea rows={3} value={reason.desc} onChange={e => handleReasonChange( i, 'desc', e.target.value)} /></div>
+                  <div className="space-y-1"><Label className="text-xs">Guaranteed Tag Text</Label><Input value={reason.guaranteedTagText || ""} onChange={e => handleReasonChange( i, 'guaranteedTagText', e.target.value)} /></div>
                 </div>
               ))}
             </div>
@@ -91,7 +91,7 @@ export default function ReasonsCmsPage() {
         <h2 className="text-3xl font-bold">Reasons Section CMS</h2>
         <Button onClick={handleSave} disabled={isSaving}>{isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes</Button>
       </div>
-      <DeviceTabsWrapper renderForm={renderForm} />
+      {renderForm()}
     </div>
   )
 }

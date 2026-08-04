@@ -1,27 +1,25 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Upload, Plus, Trash2 } from 'lucide-react'
 import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
-// Default template structure
-const defaultContentInner = {
+const defaultContent = {
   pillText: "AI LEAD GENERATION SYSTEM",
   headlineLine1: "LEAD",
   headlineLine2: "DOMINANCE",
-  headlineSize: "100", // in px for desktop
+  headlineSize: "100",
   headlineColor: "#ffffff",
   subtitle: "Convert ready buyers into deals with a proven 90-day system.",
-  subtitleSize: "12", // in px
+  subtitleSize: "12",
   subtitleColor: "#ffffff",
   ctaText: "Apply for Strategy Call",
   ctaLink: "#",
@@ -48,13 +46,8 @@ const defaultContentInner = {
   videoUrl: ""
 }
 
-const defaultContent = {
-  desktop: { ...defaultContentInner },
-  mobile: { ...defaultContentInner, headlineSize: "60", subtitleSize: "10" }
-}
-
 export default function HeroCmsPage() {
-  const [content, setContent] = useState<typeof defaultContent>(defaultContent)
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -62,52 +55,44 @@ export default function HeroCmsPage() {
   const [uploadingMarqueeIdx, setUploadingMarqueeIdx] = useState<number | null>(null)
   const { trackSave, trackCreate, trackDelete, trackUpload } = useAdminTracking()
 
-  // Fetch initial content
   useEffect(() => {
     async function fetchInitial() {
       const data = await getCmsContent('home', 'hero')
       if (data) {
-        if (data.desktop && data.mobile) {
-          setContent({ ...defaultContent, ...data })
-        } else {
-          // Migration from flat payload to nested mobile/desktop structure
-          setContent({
-            desktop: { ...defaultContent.desktop, ...data },
-            mobile: { ...defaultContent.mobile, ...data, headlineSize: "60", subtitleSize: "10" }
-          })
-        }
+        const flatData = data.desktop || data
+        setContent({ ...defaultContent, ...flatData })
       }
       setIsLoading(false)
     }
     fetchInitial()
   }, [])
 
-  const handleChange = (device: 'desktop' | 'mobile', key: keyof typeof defaultContentInner, value: any) => {
+  const handleChange = (key: keyof typeof defaultContent, value: any) => {
     setContent(prev => ({
       ...prev,
-      [device]: { ...prev[device], [key]: value }
+      [key]: value
     }))
   }
 
-  const handleArrayChange = (device: 'desktop' | 'mobile', key: 'avatars' | 'checkmarks', index: number, value: string) => {
-    const newArr = [...content[device][key]]
+  const handleArrayChange = (key: 'avatars' | 'checkmarks', index: number, value: string) => {
+    const newArr = [...content[key]]
     newArr[index] = value
-    handleChange(device, key, newArr)
+    handleChange(key, newArr)
   }
 
-  const addArrayItem = (device: 'desktop' | 'mobile', key: 'avatars' | 'checkmarks') => {
-    const newArr = [...content[device][key], ""]
-    handleChange(device, key, newArr)
-    trackCreate('hero', `Added new ${key === 'avatars' ? 'avatar' : 'checkmark'}`, { device, key, count: newArr.length })
+  const addArrayItem = (key: 'avatars' | 'checkmarks') => {
+    const newArr = [...content[key], ""]
+    handleChange(key, newArr)
+    trackCreate('hero', `Added new ${key === 'avatars' ? 'avatar' : 'checkmark'}`, { key, count: newArr.length })
   }
 
-  const removeArrayItem = (device: 'desktop' | 'mobile', key: 'avatars' | 'checkmarks', index: number) => {
-    const newArr = content[device][key].filter((_, i) => i !== index)
-    handleChange(device, key, newArr)
-    trackDelete('hero', `Removed ${key === 'avatars' ? 'avatar' : 'checkmark'} ${index + 1}`, { device, key, index })
+  const removeArrayItem = (key: 'avatars' | 'checkmarks', index: number) => {
+    const newArr = content[key].filter((_, i) => i !== index)
+    handleChange(key, newArr)
+    trackDelete('hero', `Removed ${key === 'avatars' ? 'avatar' : 'checkmark'} ${index + 1}`, { key, index })
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile') => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -122,9 +107,9 @@ export default function HeroCmsPage() {
         throw new Error(error || "Failed to upload file")
       }
 
-      handleChange(device, 'backgroundImageUrl', finalUrl)
-      trackUpload('hero', `Background image upload`, { device })
-      toast.success(`Background image (${device}) uploaded successfully!`)
+      handleChange('backgroundImageUrl', finalUrl)
+      trackUpload('hero', `Background image upload`)
+      toast.success(`Background image uploaded successfully!`)
     } catch (err: any) {
       toast.error(err.message || "Failed to upload file")
     } finally {
@@ -132,7 +117,7 @@ export default function HeroCmsPage() {
     }
   }
 
-  const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile') => {
+  const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -147,9 +132,9 @@ export default function HeroCmsPage() {
         throw new Error(error || "Failed to upload video")
       }
 
-      handleChange(device, 'videoUrl', finalUrl)
-      trackUpload('hero', `VSL video upload`, { device })
-      toast.success(`VSL Video (${device}) uploaded successfully!`)
+      handleChange('videoUrl', finalUrl)
+      trackUpload('hero', `VSL video upload`)
+      toast.success(`VSL Video uploaded successfully!`)
     } catch (err: any) {
       toast.error(err.message || "Failed to upload video")
     } finally {
@@ -157,7 +142,7 @@ export default function HeroCmsPage() {
     }
   }
 
-  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number, device: 'desktop' | 'mobile') => {
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -172,8 +157,8 @@ export default function HeroCmsPage() {
         throw new Error(error || "Failed to upload avatar")
       }
 
-      handleArrayChange(device, 'avatars', index, finalUrl)
-      trackUpload('hero', `Avatar ${index + 1} upload`, { device, index })
+      handleArrayChange('avatars', index, finalUrl)
+      trackUpload('hero', `Avatar ${index + 1} upload`, { index })
       toast.success("Avatar uploaded successfully!")
     } catch (err: any) {
       toast.error(err.message || "Failed to upload avatar")
@@ -182,7 +167,7 @@ export default function HeroCmsPage() {
     }
   }
 
-  const handleMarqueeLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number, device: 'desktop' | 'mobile') => {
+  const handleMarqueeLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -197,13 +182,13 @@ export default function HeroCmsPage() {
         throw new Error(error || "Failed to upload marquee logo")
       }
 
-      const newLogos = [...content[device].marqueeLogos]
+      const newLogos = [...content.marqueeLogos]
       newLogos[index] = {
         image: finalUrl,
         alt: newLogos[index]?.alt || ""
       }
-      handleChange(device, 'marqueeLogos', newLogos)
-      trackUpload('hero', `Marquee logo ${index + 1} upload`, { device, index })
+      handleChange('marqueeLogos', newLogos)
+      trackUpload('hero', `Marquee logo ${index + 1} upload`, { index })
       toast.success("Logo uploaded successfully!")
     } catch (err: any) {
       toast.error(err.message || "Failed to upload logo")
@@ -216,7 +201,7 @@ export default function HeroCmsPage() {
     setIsSaving(true)
     const { success, error } = await upsertCmsContent('home', 'hero', content)
     if (success) {
-      trackSave('hero', `Saved hero section content`, { device: 'all' })
+      trackSave('hero', `Saved hero section content`)
       toast.success("Hero content updated successfully")
     } else {
       toast.error(error || "Failed to save")
@@ -228,10 +213,19 @@ export default function HeroCmsPage() {
     return <div className="flex h-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>
   }
 
-  const renderForm = (device: 'desktop' | 'mobile') => {
-    const deviceContent = content[device]
+  return (
+    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Hero Section Settings</h2>
+          <p className="text-muted-foreground">Manage the content that appears first on the landing page</p>
+        </div>
+        <Button onClick={handleSave} disabled={isSaving}>
+          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Save Changes
+        </Button>
+      </div>
 
-    return (
       <div className="grid gap-6 md:grid-cols-2 mt-4">
         <Card>
           <CardHeader>
@@ -241,25 +235,25 @@ export default function HeroCmsPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2 col-span-2">
                 <Label>Centered Pill Bar Text</Label>
-                <Input value={deviceContent.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} />
+                <Input value={content.pillText} onChange={e => handleChange('pillText', e.target.value)} />
               </div>
               <div className="space-y-2 col-span-2">
                 <Label>Headline Line 1</Label>
-                <Input value={deviceContent.headlineLine1} onChange={e => handleChange(device, 'headlineLine1', e.target.value)} />
+                <Input value={content.headlineLine1} onChange={e => handleChange('headlineLine1', e.target.value)} />
               </div>
               <div className="space-y-2 col-span-2">
                 <Label>Headline Line 2</Label>
-                <Input value={deviceContent.headlineLine2} onChange={e => handleChange(device, 'headlineLine2', e.target.value)} />
+                <Input value={content.headlineLine2} onChange={e => handleChange('headlineLine2', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Headline Font Size (px)</Label>
-                <Input type="number" value={deviceContent.headlineSize} onChange={e => handleChange(device, 'headlineSize', e.target.value)} />
+                <Input type="number" value={content.headlineSize} onChange={e => handleChange('headlineSize', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Headline Color</Label>
                 <div className="flex gap-2">
-                  <Input type="color" className="p-1 h-10 w-12" value={deviceContent.headlineColor} onChange={e => handleChange(device, 'headlineColor', e.target.value)} />
-                  <Input value={deviceContent.headlineColor} onChange={e => handleChange(device, 'headlineColor', e.target.value)} />
+                  <Input type="color" className="p-1 h-10 w-12" value={content.headlineColor} onChange={e => handleChange('headlineColor', e.target.value)} />
+                  <Input value={content.headlineColor} onChange={e => handleChange('headlineColor', e.target.value)} />
                 </div>
               </div>
             </div>
@@ -267,18 +261,18 @@ export default function HeroCmsPage() {
             <div className="space-y-4 pt-4 border-t">
               <div className="space-y-2">
                 <Label>Subtitle</Label>
-                <Textarea value={deviceContent.subtitle} onChange={e => handleChange(device, 'subtitle', e.target.value)} />
+                <Textarea value={content.subtitle} onChange={e => handleChange('subtitle', e.target.value)} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Subtitle Font Size (px)</Label>
-                  <Input type="number" value={deviceContent.subtitleSize} onChange={e => handleChange(device, 'subtitleSize', e.target.value)} />
+                  <Input type="number" value={content.subtitleSize} onChange={e => handleChange('subtitleSize', e.target.value)} />
                 </div>
                 <div className="space-y-2">
                   <Label>Subtitle Color</Label>
                   <div className="flex gap-2">
-                    <Input type="color" className="p-1 h-10 w-12" value={deviceContent.subtitleColor} onChange={e => handleChange(device, 'subtitleColor', e.target.value)} />
-                    <Input value={deviceContent.subtitleColor} onChange={e => handleChange(device, 'subtitleColor', e.target.value)} />
+                    <Input type="color" className="p-1 h-10 w-12" value={content.subtitleColor} onChange={e => handleChange('subtitleColor', e.target.value)} />
+                    <Input value={content.subtitleColor} onChange={e => handleChange('subtitleColor', e.target.value)} />
                   </div>
                 </div>
               </div>
@@ -293,32 +287,32 @@ export default function HeroCmsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>Button Text</Label>
-              <Input value={deviceContent.ctaText} onChange={e => handleChange(device, 'ctaText', e.target.value)} />
+              <Input value={content.ctaText} onChange={e => handleChange('ctaText', e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>Button Link (URL)</Label>
-              <Input value={deviceContent.ctaLink} onChange={e => handleChange(device, 'ctaLink', e.target.value)} />
+              <Input value={content.ctaLink} onChange={e => handleChange('ctaLink', e.target.value)} />
             </div>
             <div className="grid grid-cols-1 gap-4">
               <div className="space-y-2">
                 <Label>Button Background Color</Label>
                 <div className="flex gap-2">
-                  <Input type="color" className="p-1 h-10 w-12" value={deviceContent.ctaBgColor} onChange={e => handleChange(device, 'ctaBgColor', e.target.value)} />
-                  <Input value={deviceContent.ctaBgColor} onChange={e => handleChange(device, 'ctaBgColor', e.target.value)} />
+                  <Input type="color" className="p-1 h-10 w-12" value={content.ctaBgColor} onChange={e => handleChange('ctaBgColor', e.target.value)} />
+                  <Input value={content.ctaBgColor} onChange={e => handleChange('ctaBgColor', e.target.value)} />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label>Button Text Color</Label>
                 <div className="flex gap-2">
-                  <Input type="color" className="p-1 h-10 w-12" value={deviceContent.ctaTextColor} onChange={e => handleChange(device, 'ctaTextColor', e.target.value)} />
-                  <Input value={deviceContent.ctaTextColor} onChange={e => handleChange(device, 'ctaTextColor', e.target.value)} />
+                  <Input type="color" className="p-1 h-10 w-12" value={content.ctaTextColor} onChange={e => handleChange('ctaTextColor', e.target.value)} />
+                  <Input value={content.ctaTextColor} onChange={e => handleChange('ctaTextColor', e.target.value)} />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label>Arrow Icon Wrapper Color</Label>
                 <div className="flex gap-2">
-                  <Input type="color" className="p-1 h-10 w-12" value={deviceContent.ctaArrowBgColor} onChange={e => handleChange(device, 'ctaArrowBgColor', e.target.value)} />
-                  <Input value={deviceContent.ctaArrowBgColor} onChange={e => handleChange(device, 'ctaArrowBgColor', e.target.value)} />
+                  <Input type="color" className="p-1 h-10 w-12" value={content.ctaArrowBgColor} onChange={e => handleChange('ctaArrowBgColor', e.target.value)} />
+                  <Input value={content.ctaArrowBgColor} onChange={e => handleChange('ctaArrowBgColor', e.target.value)} />
                 </div>
               </div>
             </div>
@@ -331,9 +325,9 @@ export default function HeroCmsPage() {
             <CardDescription>Upload a background image directly to Cloudflare R2</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {deviceContent.backgroundImageUrl && (
+            {content.backgroundImageUrl && (
               <div className="relative h-40 w-full overflow-hidden rounded-md border">
-                <img src={deviceContent.backgroundImageUrl} alt="Background Preview" className="object-cover w-full h-full" />
+                <img src={content.backgroundImageUrl} alt="Background Preview" className="object-cover w-full h-full" />
               </div>
             )}
 
@@ -345,7 +339,7 @@ export default function HeroCmsPage() {
                   type="file"
                   accept="image/*"
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  onChange={e => handleFileUpload(e, device)}
+                  onChange={handleFileUpload}
                   disabled={isUploading}
                 />
               </Button>
@@ -362,15 +356,15 @@ export default function HeroCmsPage() {
             <div className="space-y-2">
               <Label>Video URL</Label>
               <Input
-                value={deviceContent.videoUrl || ""}
+                value={content.videoUrl || ""}
                 placeholder="https://example.com/vsl.mp4"
-                onChange={e => handleChange(device, 'videoUrl', e.target.value)}
+                onChange={e => handleChange('videoUrl', e.target.value)}
               />
             </div>
 
-            {deviceContent.videoUrl && (
+            {content.videoUrl && (
               <div className="relative aspect-video w-full overflow-hidden rounded-md border bg-black">
-                <video src={deviceContent.videoUrl} controls className="w-full h-full object-contain" />
+                <video src={content.videoUrl} controls className="w-full h-full object-contain" />
               </div>
             )}
 
@@ -382,7 +376,7 @@ export default function HeroCmsPage() {
                   type="file"
                   accept="video/*"
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  onChange={e => handleVideoUpload(e, device)}
+                  onChange={handleVideoUpload}
                   disabled={isUploading}
                 />
               </Button>
@@ -397,22 +391,22 @@ export default function HeroCmsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>Rating Text</Label>
-              <Input value={deviceContent.ratingConfig} onChange={e => handleChange(device, 'ratingConfig', e.target.value)} />
+              <Input value={content.ratingConfig} onChange={e => handleChange('ratingConfig', e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>Trusted By Text</Label>
-              <Input value={deviceContent.trustedByText} onChange={e => handleChange(device, 'trustedByText', e.target.value)} />
+              <Input value={content.trustedByText} onChange={e => handleChange('trustedByText', e.target.value)} />
             </div>
 
             <div className="space-y-2 pt-4">
               <div className="flex items-center justify-between">
                 <Label>Value Propostion Checkmarks</Label>
-                <Button variant="ghost" size="sm" onClick={() => addArrayItem(device, 'checkmarks')}><Plus className="h-4 w-4" /></Button>
+                <Button variant="ghost" size="sm" onClick={() => addArrayItem('checkmarks')}><Plus className="h-4 w-4" /></Button>
               </div>
-              {deviceContent.checkmarks.map((text, idx) => (
+              {content.checkmarks.map((text, idx) => (
                 <div key={idx} className="flex gap-2">
-                  <Input value={text} onChange={e => handleArrayChange(device, 'checkmarks', idx, e.target.value)} />
-                  <Button variant="outline" size="icon" onClick={() => removeArrayItem(device, 'checkmarks', idx)}><Trash2 className="h-4 w-4 text-red-500" /></Button>
+                  <Input value={text} onChange={e => handleArrayChange('checkmarks', idx, e.target.value)} />
+                  <Button variant="outline" size="icon" onClick={() => removeArrayItem('checkmarks', idx)}><Trash2 className="h-4 w-4 text-red-500" /></Button>
                 </div>
               ))}
             </div>
@@ -425,11 +419,11 @@ export default function HeroCmsPage() {
             <CardDescription>Manage and upload avatar images for the trust badge</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
-            {deviceContent.avatars.map((url, idx) => (
+            {content.avatars.map((url, idx) => (
               <div key={idx} className="flex flex-col gap-4 p-4 border rounded-lg bg-card/50">
                 <div className="flex items-center justify-between">
                   <Label>Avatar {idx + 1}</Label>
-                  <Button variant="ghost" size="sm" onClick={() => removeArrayItem(device, 'avatars', idx)} className="text-red-500 hover:text-red-700">
+                  <Button variant="ghost" size="sm" onClick={() => removeArrayItem('avatars', idx)} className="text-red-500 hover:text-red-700">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -444,7 +438,7 @@ export default function HeroCmsPage() {
                   </div>
 
                   <div className="flex-1 space-y-2">
-                    <Input value={url} placeholder="Enter image URL..." onChange={e => handleArrayChange(device, 'avatars', idx, e.target.value)} />
+                    <Input value={url} placeholder="Enter image URL..." onChange={e => handleArrayChange('avatars', idx, e.target.value)} />
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm" className="relative flex-1" disabled={uploadingAvatarIdx === idx}>
                         {uploadingAvatarIdx === idx ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
@@ -453,7 +447,7 @@ export default function HeroCmsPage() {
                           type="file"
                           accept="image/*"
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                          onChange={(e) => handleAvatarUpload(e, idx, device)}
+                          onChange={(e) => handleAvatarUpload(e, idx)}
                           disabled={uploadingAvatarIdx === idx}
                         />
                       </Button>
@@ -463,7 +457,7 @@ export default function HeroCmsPage() {
               </div>
             ))}
 
-            <Button variant="outline" className="h-full border-dashed" onClick={() => addArrayItem(device, 'avatars')}>
+            <Button variant="outline" className="h-full border-dashed" onClick={() => addArrayItem('avatars')}>
               <Plus className="mr-2 h-4 w-4" /> Add New Avatar
             </Button>
           </CardContent>
@@ -480,22 +474,22 @@ export default function HeroCmsPage() {
               <div className="flex items-center gap-4">
                 <Input
                   type="number"
-                  value={deviceContent.marqueeSpeed}
-                  onChange={e => handleChange(device, 'marqueeSpeed', e.target.value)}
+                  value={content.marqueeSpeed}
+                  onChange={e => handleChange('marqueeSpeed', e.target.value)}
                 />
                 <span className="text-xs text-muted-foreground whitespace-nowrap">Lower = Faster</span>
               </div>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {deviceContent.marqueeLogos?.map((logo: { image: string, alt: string }, idx: number) => (
+              {content.marqueeLogos?.map((logo: { image: string, alt: string }, idx: number) => (
                 <div key={idx} className="flex flex-col gap-4 p-4 border rounded-lg bg-card/50">
                   <div className="flex items-center justify-between">
                     <Label>Logo {idx + 1}</Label>
                     <Button variant="ghost" size="sm" onClick={() => {
-                      const newLogos = deviceContent.marqueeLogos.filter((_: any, i: number) => i !== idx);
-                      handleChange(device, 'marqueeLogos', newLogos);
-                      trackDelete('hero', `Removed marquee logo ${idx + 1}`, { device, index: idx });
+                      const newLogos = content.marqueeLogos.filter((_: any, i: number) => i !== idx);
+                      handleChange('marqueeLogos', newLogos);
+                      trackDelete('hero', `Removed marquee logo ${idx + 1}`, { index: idx });
                     }} className="text-red-500 hover:text-red-700">
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -516,12 +510,12 @@ export default function HeroCmsPage() {
                         value={logo.alt}
                         placeholder="Organization name..."
                         onChange={e => {
-                          const newLogos = [...deviceContent.marqueeLogos];
+                          const newLogos = [...content.marqueeLogos];
                           newLogos[idx] = {
                             image: newLogos[idx]?.image || "",
                             alt: e.target.value || ""
                           };
-                          handleChange(device, 'marqueeLogos', newLogos);
+                          handleChange('marqueeLogos', newLogos);
                         }}
                       />
                     </div>
@@ -534,12 +528,12 @@ export default function HeroCmsPage() {
                           placeholder="Image URL..."
                           className="flex-1"
                           onChange={e => {
-                            const newLogos = [...deviceContent.marqueeLogos];
+                            const newLogos = [...content.marqueeLogos];
                             newLogos[idx] = {
                               image: e.target.value || "",
                               alt: newLogos[idx]?.alt || ""
                             };
-                            handleChange(device, 'marqueeLogos', newLogos);
+                            handleChange('marqueeLogos', newLogos);
                           }}
                         />
                         <Button variant="outline" size="icon" className="relative shrink-0" disabled={uploadingMarqueeIdx === idx}>
@@ -548,7 +542,7 @@ export default function HeroCmsPage() {
                             type="file"
                             accept="image/*"
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            onChange={(e) => handleMarqueeLogoUpload(e, idx, device)}
+                            onChange={(e) => handleMarqueeLogoUpload(e, idx)}
                             disabled={uploadingMarqueeIdx === idx}
                           />
                         </Button>
@@ -562,9 +556,9 @@ export default function HeroCmsPage() {
                 variant="outline"
                 className="h-full border-dashed flex flex-col gap-2 min-h-[200px]"
                 onClick={() => {
-                  const newLogos = [...(deviceContent.marqueeLogos || []), { image: "", alt: "" }];
-                  handleChange(device, 'marqueeLogos', newLogos);
-                  trackCreate('hero', `Added new marquee logo`, { device, count: newLogos.length });
+                  const newLogos = [...(content.marqueeLogos || []), { image: "", alt: "" }];
+                  handleChange('marqueeLogos', newLogos);
+                  trackCreate('hero', `Added new marquee logo`, { count: newLogos.length });
                 }}
               >
                 <Plus className="h-6 w-6" />
@@ -574,34 +568,6 @@ export default function HeroCmsPage() {
           </CardContent>
         </Card>
       </div>
-    )
-  }
-
-  return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Hero Section Settings</h2>
-          <p className="text-muted-foreground">Manage the content that appears first on the landing page</p>
-        </div>
-        <Button onClick={handleSave} disabled={isSaving}>
-          {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Save Changes
-        </Button>
-      </div>
-
-      <Tabs defaultValue="desktop" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 max-w-[400px]">
-          <TabsTrigger value="desktop">Desktop Edition</TabsTrigger>
-          <TabsTrigger value="mobile">Mobile Edition</TabsTrigger>
-        </TabsList>
-        <TabsContent value="desktop">
-          {renderForm('desktop')}
-        </TabsContent>
-        <TabsContent value="mobile">
-          {renderForm('mobile')}
-        </TabsContent>
-      </Tabs>
     </div>
   )
 }

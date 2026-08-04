@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Upload, Plus, Trash2 } from 'lucide-react'
-import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+
 
 const defaultContent = {
   headingLine1: "For Real Estate Leaders Who Want",
@@ -38,10 +38,7 @@ const defaultContent = {
 }
 
 export default function TargetAudienceCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({
-    desktop: { ...defaultContent },
-    mobile: { ...defaultContent }
-  })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [uploadingImage, setUploadingImage] = useState<'bg' | 'model' | null>(null)
@@ -50,21 +47,16 @@ export default function TargetAudienceCmsPage() {
     async function fetchInitial() {
       const data = await getCmsContent('home', 'target-audience')
       if (data) {
-        setContent(migrateToDeviceStructure(data, defaultContent))
+        const flatData = data.desktop || data; setContent({ ...defaultContent, ...flatData })
       }
       setIsLoading(false)
     }
     fetchInitial()
   }, [])
 
-  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => {
-    setContent(prev => ({
-      ...prev,
-      [device]: { ...prev[device], [key]: value }
-    }))
-  }
+  const handleChange = (key: string, value: any) => { setContent(prev => ({ ...prev, [key]: value })) }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile', type: 'bgImage' | 'modelImage') => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'bgImage' | 'modelImage') => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -74,7 +66,7 @@ export default function TargetAudienceCmsPage() {
       formData.append('file', file)
       const { success, finalUrl } = await uploadFile(formData)
       if (success && finalUrl) {
-        handleChange(device, type, finalUrl)
+        handleChange( type, finalUrl)
         toast.success("Image uploaded")
       }
     } catch (err) {
@@ -94,8 +86,8 @@ export default function TargetAudienceCmsPage() {
 
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
-  const renderForm = (device: 'desktop' | 'mobile') => {
-    const deviceContent = content[device]
+  const renderForm = () => {
+    const deviceContent = content
     return (
       <div className="grid gap-6 md:grid-cols-2 mt-4">
         <Card className="md:col-span-2">
@@ -104,35 +96,35 @@ export default function TargetAudienceCmsPage() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Heading Line 1</Label>
-                <Input value={deviceContent.headingLine1} onChange={e => handleChange(device, 'headingLine1', e.target.value)} />
+                <Input value={deviceContent.headingLine1} onChange={e => handleChange( 'headingLine1', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Heading Line 2</Label>
-                <Input value={deviceContent.headingLine2} onChange={e => handleChange(device, 'headingLine2', e.target.value)} />
+                <Input value={deviceContent.headingLine2} onChange={e => handleChange( 'headingLine2', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Heading Font Size (px)</Label>
-                <Input type="number" value={deviceContent.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} />
+                <Input type="number" value={deviceContent.headingSize} onChange={e => handleChange( 'headingSize', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Badge Tag</Label>
-                <Input value={deviceContent.tag} onChange={e => handleChange(device, 'tag', e.target.value)} />
+                <Input value={deviceContent.tag} onChange={e => handleChange( 'tag', e.target.value)} />
               </div>
               <div className="space-y-2 col-span-2">
                 <Label>Description/Subheading</Label>
-                <Textarea value={deviceContent.subHeading} onChange={e => handleChange(device, 'subHeading', e.target.value)} />
+                <Textarea value={deviceContent.subHeading} onChange={e => handleChange( 'subHeading', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Subheading Font Size (px)</Label>
-                <Input type="number" value={deviceContent.subHeadingSize} onChange={e => handleChange(device, 'subHeadingSize', e.target.value)} />
+                <Input type="number" value={deviceContent.subHeadingSize} onChange={e => handleChange( 'subHeadingSize', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Negative Label (Not For You)</Label>
-                <Input value={deviceContent.notForYouLabel} onChange={e => handleChange(device, 'notForYouLabel', e.target.value)} />
+                <Input value={deviceContent.notForYouLabel} onChange={e => handleChange( 'notForYouLabel', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Positive Label (For You)</Label>
-                <Input value={deviceContent.forYouLabel} onChange={e => handleChange(device, 'forYouLabel', e.target.value)} />
+                <Input value={deviceContent.forYouLabel} onChange={e => handleChange( 'forYouLabel', e.target.value)} />
               </div>
             </div>
           </CardContent>
@@ -147,7 +139,7 @@ export default function TargetAudienceCmsPage() {
             <Textarea 
               className="min-h-[200px]"
               value={deviceContent.notForYouPoints.join('\n')}
-              onChange={e => handleChange(device, 'notForYouPoints', e.target.value.split('\n'))}
+              onChange={e => handleChange( 'notForYouPoints', e.target.value.split('\n'))}
             />
           </CardContent>
         </Card>
@@ -161,7 +153,7 @@ export default function TargetAudienceCmsPage() {
             <Textarea 
               className="min-h-[200px]"
               value={deviceContent.forYouPoints.join('\n')}
-              onChange={e => handleChange(device, 'forYouPoints', e.target.value.split('\n'))}
+              onChange={e => handleChange( 'forYouPoints', e.target.value.split('\n'))}
             />
           </CardContent>
         </Card>
@@ -178,7 +170,7 @@ export default function TargetAudienceCmsPage() {
               <Input 
                 type="file" 
                 className="absolute inset-0 opacity-0 cursor-pointer" 
-                onChange={e => handleFileUpload(e, device, 'bgImage')} 
+                onChange={e => handleFileUpload(e, 'bgImage')} 
               />
               {uploadingImage === 'bg' && (
                 <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
@@ -202,7 +194,7 @@ export default function TargetAudienceCmsPage() {
               <Input 
                 type="file" 
                 className="absolute inset-0 opacity-0 cursor-pointer" 
-                onChange={e => handleFileUpload(e, device, 'modelImage')} 
+                onChange={e => handleFileUpload(e, 'modelImage')} 
               />
               {uploadingImage === 'model' && (
                 <div className="absolute inset-0 bg-background/50 flex items-center justify-center">
@@ -227,7 +219,7 @@ export default function TargetAudienceCmsPage() {
         </Button>
       </div>
 
-      <DeviceTabsWrapper renderForm={renderForm} />
+      {renderForm()}
     </div>
   )
 }

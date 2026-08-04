@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { getCmsContent, upsertCmsContent } from '@/app/actions/cms'
 import { uploadFile } from '@/app/actions/upload'
 import { Loader2, Upload, Plus, Trash2 } from 'lucide-react'
-import { DeviceTabsWrapper, migrateToDeviceStructure } from '@/components/admin/device-tabs-wrapper'
+
 import { useAdminTracking } from '@/hooks/use-admin-tracking'
 
 const defaultContent = {
@@ -33,73 +33,73 @@ const defaultContent = {
 }
 
 export default function PerformanceCmsPage() {
-  const [content, setContent] = useState<{ desktop: typeof defaultContent; mobile: typeof defaultContent }>({ desktop: { ...defaultContent }, mobile: { ...defaultContent } })
+  const [content, setContent] = useState<typeof defaultContent>({ ...defaultContent })
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [isUploadingValue, setIsUploadingValue] = useState<string | null>(null)
   const { trackSave, trackCreate, trackDelete, trackUpload } = useAdminTracking()
 
-  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'performance'); if (data) setContent(migrateToDeviceStructure(data, defaultContent)); setIsLoading(false) } fetchInitial() }, [])
-  const handleChange = (device: 'desktop' | 'mobile', key: string, value: any) => { setContent(prev => ({ ...prev, [device]: { ...prev[device], [key]: value } })) }
+  useEffect(() => { async function fetchInitial() { const data = await getCmsContent('home', 'performance'); if (data) { const flatData = data.desktop || data; setContent({ ...defaultContent, ...flatData }) }; setIsLoading(false) } fetchInitial() }, [])
+  const handleChange = (key: string, value: any) => { setContent(prev => ({ ...prev, [key]: value })) }
 
-  const handleMetricDataChange = (device: 'desktop' | 'mobile', index: number, key: string, value: string) => {
-    const newData = [...content[device].metricsData]
+  const handleMetricDataChange = (index: number, key: string, value: string) => {
+    const newData = [...content.metricsData]
     newData[index] = { ...newData[index], [key]: value } as any
-    handleChange(device, 'metricsData', newData)
+    handleChange( 'metricsData', newData)
   }
-  const addMetricCard = (device: 'desktop' | 'mobile') => { handleChange(device, 'metricsData', [...content[device].metricsData, { title: "New Metric", image: "" }]); trackCreate('performance', `Added new metric card`, { device, cardCount: content[device].metricsData.length + 1 }) }
-  const removeMetricCard = (device: 'desktop' | 'mobile', index: number) => { handleChange(device, 'metricsData', content[device].metricsData.filter((_: any, i: number) => i !== index)); trackDelete('performance', `Removed metric card ${index + 1}`, { device, cardIndex: index }) }
+  const addMetricCard = () => { handleChange( 'metricsData', [...content.metricsData, { title: "New Metric", image: "" }]); trackCreate('performance', `Added new metric card`, {  cardCount: content.metricsData.length + 1 }) }
+  const removeMetricCard = (index: number) => { handleChange( 'metricsData', content.metricsData.filter((_: any, i: number) => i !== index)); trackDelete('performance', `Removed metric card ${index + 1}`, {  cardIndex: index }) }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, device: 'desktop' | 'mobile', fieldKey: string, arrayIndex: number | null = null) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, fieldKey: string, arrayIndex: number | null = null) => {
     const file = e.target.files?.[0]; if (!file) return
     setIsUploadingValue(fieldKey + (arrayIndex !== null ? `-${arrayIndex}` : ''))
-    try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { if (arrayIndex !== null) { handleMetricDataChange(device, arrayIndex, fieldKey, finalUrl); trackUpload('performance', `Metric card ${arrayIndex + 1} image upload`, { device, cardIndex: arrayIndex }) } else { handleChange(device, fieldKey, finalUrl); trackUpload('performance', `${fieldKey} upload`, { device, field: fieldKey }) } toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setIsUploadingValue(null) }
+    try { const formData = new FormData(); formData.append('file', file); const { success, finalUrl } = await uploadFile(formData); if (success && finalUrl) { if (arrayIndex !== null) { handleMetricDataChange( arrayIndex, fieldKey, finalUrl); trackUpload('performance', `Metric card ${arrayIndex + 1} image upload`, {  cardIndex: arrayIndex }) } else { handleChange( fieldKey, finalUrl); trackUpload('performance', `${fieldKey} upload`, {  field: fieldKey }) } toast.success("Image uploaded") } } catch (err) { toast.error("Upload failed") } finally { setIsUploadingValue(null) }
   }
 
-  const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'performance', content); if (success) { trackSave('performance', `Saved performance section content`, { device: 'all', cardCount: content.desktop.metricsData.length }); toast.success("Saved successfully") } else toast.error("Failed to save"); setIsSaving(false) }
+  const handleSave = async () => { setIsSaving(true); const { success } = await upsertCmsContent('home', 'performance', content); if (success) { trackSave('performance', `Saved performance section content`, { device: 'all', cardCount: content.metricsData.length }); toast.success("Saved successfully") } else toast.error("Failed to save"); setIsSaving(false) }
   if (isLoading) return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>
 
-  const renderForm = (device: 'desktop' | 'mobile') => {
-    const d = content[device]
+  const renderForm = () => {
+    const d = content
     return (
       <div className="grid gap-6 md:grid-cols-2 mt-4">
         <div className="space-y-6">
           <Card>
             <CardHeader><CardTitle>Text Content Header</CardTitle></CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange(device, 'pillText', e.target.value)} /></div>
-              <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange(device, 'heading', e.target.value)} /></div>
-              <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange(device, 'headingSize', e.target.value)} /></div>
-              <div className="space-y-2"><Label>Description</Label><Textarea rows={3} value={d.description} onChange={e => handleChange(device, 'description', e.target.value)} /></div>
-              <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange(device, 'descriptionSize', e.target.value)} /></div>
-              <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange(device, 'btnText', e.target.value)} /></div>
-              <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange(device, 'btnLink', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Pill Label</Label><Input value={d.pillText} onChange={e => handleChange( 'pillText', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Heading</Label><Textarea value={d.heading} onChange={e => handleChange( 'heading', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Heading Font Size (px)</Label><Input type="number" value={d.headingSize} onChange={e => handleChange( 'headingSize', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Description</Label><Textarea rows={3} value={d.description} onChange={e => handleChange( 'description', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Description Font Size (px)</Label><Input type="number" value={d.descriptionSize} onChange={e => handleChange( 'descriptionSize', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Button Text</Label><Input value={d.btnText} onChange={e => handleChange( 'btnText', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Button Link (URL)</Label><Input value={d.btnLink || ""} onChange={e => handleChange( 'btnLink', e.target.value)} /></div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader><CardTitle>Main Featured Card</CardTitle></CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2"><Label>Main Card Title</Label><Input value={d.mainCardTitle} onChange={e => handleChange(device, 'mainCardTitle', e.target.value)} /></div>
-              <div className="space-y-2"><Label>Main Card Subtitle</Label><Input value={d.mainCardSubtitle} onChange={e => handleChange(device, 'mainCardSubtitle', e.target.value)} /></div>
-              <div className="grid grid-cols-2 gap-4 border-t pt-4"><div className="space-y-2"><Label>Stat 1 Value</Label><Input value={d.mainCardStat1Value} onChange={e => handleChange(device, 'mainCardStat1Value', e.target.value)} /></div><div className="space-y-2"><Label>Stat 1 Label</Label><Textarea value={d.mainCardStat1Label} onChange={e => handleChange(device, 'mainCardStat1Label', e.target.value)} /></div></div>
-              <div className="grid grid-cols-2 gap-4 border-t pt-4"><div className="space-y-2"><Label>Stat 2 Value</Label><Input value={d.mainCardStat2Value} onChange={e => handleChange(device, 'mainCardStat2Value', e.target.value)} /></div><div className="space-y-2"><Label>Stat 2 Label</Label><Textarea value={d.mainCardStat2Label} onChange={e => handleChange(device, 'mainCardStat2Label', e.target.value)} /></div></div>
+              <div className="space-y-2"><Label>Main Card Title</Label><Input value={d.mainCardTitle} onChange={e => handleChange( 'mainCardTitle', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Main Card Subtitle</Label><Input value={d.mainCardSubtitle} onChange={e => handleChange( 'mainCardSubtitle', e.target.value)} /></div>
+              <div className="grid grid-cols-2 gap-4 border-t pt-4"><div className="space-y-2"><Label>Stat 1 Value</Label><Input value={d.mainCardStat1Value} onChange={e => handleChange( 'mainCardStat1Value', e.target.value)} /></div><div className="space-y-2"><Label>Stat 1 Label</Label><Textarea value={d.mainCardStat1Label} onChange={e => handleChange( 'mainCardStat1Label', e.target.value)} /></div></div>
+              <div className="grid grid-cols-2 gap-4 border-t pt-4"><div className="space-y-2"><Label>Stat 2 Value</Label><Input value={d.mainCardStat2Value} onChange={e => handleChange( 'mainCardStat2Value', e.target.value)} /></div><div className="space-y-2"><Label>Stat 2 Label</Label><Textarea value={d.mainCardStat2Label} onChange={e => handleChange( 'mainCardStat2Label', e.target.value)} /></div></div>
               <div className="space-y-2 pt-4"><Label>Featured Card Background Image</Label>
-                <div className="flex gap-4"><Input value={d.mainCardBg} onChange={e => handleChange(device, 'mainCardBg', e.target.value)} className="flex-1" /><div className="relative overflow-hidden"><Button type="button" variant="outline" disabled={isUploadingValue === 'mainCardBg'}>{isUploadingValue === 'mainCardBg' ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}Upload</Button><Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, device, 'mainCardBg')} /></div></div>
+                <div className="flex gap-4"><Input value={d.mainCardBg} onChange={e => handleChange( 'mainCardBg', e.target.value)} className="flex-1" /><div className="relative overflow-hidden"><Button type="button" variant="outline" disabled={isUploadingValue === 'mainCardBg'}>{isUploadingValue === 'mainCardBg' ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}Upload</Button><Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, 'mainCardBg')} /></div></div>
               </div>
             </CardContent>
           </Card>
         </div>
         <div className="space-y-6">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between"><CardTitle>Masonry Grid Cards</CardTitle><Button variant="outline" size="sm" onClick={() => addMetricCard(device)}><Plus className="w-4 h-4 mr-1" /> Add Card</Button></CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between"><CardTitle>Masonry Grid Cards</CardTitle><Button variant="outline" size="sm" onClick={() => addMetricCard()}><Plus className="w-4 h-4 mr-1" /> Add Card</Button></CardHeader>
             <CardContent className="space-y-6">
               {d.metricsData.map((item, index) => (
                 <div key={index} className="p-4 border rounded-md relative space-y-4 bg-muted/20">
-                  <Button type="button" variant="ghost" size="icon" className="absolute right-2 top-2 text-destructive hover:bg-destructive/10" onClick={() => removeMetricCard(device, index)}><Trash2 className="w-4 h-4" /></Button>
-                  <div className="space-y-2 pr-8"><Label>Title {index + 1}</Label><Input value={item.title} onChange={e => handleMetricDataChange(device, index, 'title', e.target.value)} /></div>
-                  <div className="space-y-2"><Label>Link URL</Label><Input value={item.link || ""} onChange={e => handleMetricDataChange(device, index, 'link', e.target.value)} /></div>
+                  <Button type="button" variant="ghost" size="icon" className="absolute right-2 top-2 text-destructive hover:bg-destructive/10" onClick={() => removeMetricCard( index)}><Trash2 className="w-4 h-4" /></Button>
+                  <div className="space-y-2 pr-8"><Label>Title {index + 1}</Label><Input value={item.title} onChange={e => handleMetricDataChange( index, 'title', e.target.value)} /></div>
+                  <div className="space-y-2"><Label>Link URL</Label><Input value={item.link || ""} onChange={e => handleMetricDataChange( index, 'link', e.target.value)} /></div>
                   <div className="space-y-2"><Label>Background Image URL / Upload</Label>
-                    <div className="flex gap-4"><Input value={item.image} onChange={e => handleMetricDataChange(device, index, 'image', e.target.value)} className="flex-1" /><div className="relative overflow-hidden"><Button type="button" variant="outline" disabled={isUploadingValue === `image-${index}`}>{isUploadingValue === `image-${index}` ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}Upload</Button><Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, device, 'image', index)} /></div></div>
+                    <div className="flex gap-4"><Input value={item.image} onChange={e => handleMetricDataChange( index, 'image', e.target.value)} className="flex-1" /><div className="relative overflow-hidden"><Button type="button" variant="outline" disabled={isUploadingValue === `image-${index}`}>{isUploadingValue === `image-${index}` ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}Upload</Button><Input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, 'image', index)} /></div></div>
                     {item.image && (<img src={item.image} alt="Preview" className="h-20 object-cover mt-2 rounded border" />)}
                   </div>
                 </div>
@@ -117,7 +117,7 @@ export default function PerformanceCmsPage() {
         <h2 className="text-3xl font-bold">Performance Metrics CMS</h2>
         <Button onClick={handleSave} disabled={isSaving}>{isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Save Changes</Button>
       </div>
-      <DeviceTabsWrapper renderForm={renderForm} />
+      {renderForm()}
     </div>
   )
 }
