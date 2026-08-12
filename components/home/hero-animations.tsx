@@ -9,7 +9,7 @@ import { ExploreButton } from "@/components/ui/explore-button"
 // Dynamically import LogoMarquee to reduce initial bundle size
 const LogoMarquee = dynamic(() => import("./logo-marquee").then((mod) => ({ default: mod.LogoMarquee })), {
   loading: () => (
-    <div className="absolute right-0 bottom-0 left-0 z-20 border-t border-white/5 bg-gradient-to-r from-black/80 via-[#1A1613]/80 to-black/80 py-5 opacity-80 backdrop-blur-md sm:py-6">
+    <div className="relative z-20 w-full mt-1 border-t border-white/5 bg-gradient-to-r from-black/80 via-[#1A1613]/80 to-black/80 py-5 opacity-80 backdrop-blur-md sm:py-6">
       <div className="mx-auto flex max-w-[1400px] shrink-0 items-center justify-between overflow-hidden px-6 text-white/80 opacity-80">
         <div className="h-8 w-full animate-pulse bg-white/10 sm:h-10" />
       </div>

@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </>
         <Toaster />
-        <Agentation />
+        {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
   )

@@ -88,7 +88,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
   const content = { ...defaultValues, ...cmsContent }
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center overflow-hidden">
+    <section id="home" className="relative flex min-h-screen flex-col justify-between overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -105,8 +105,8 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto w-full max-w-8xl px-6 pt-6 lg:pt-20 pb-16 sm:px-8 lg:px-12 lg:pb-20 flex flex-col items-center">
-        <div className="mt-4 flex w-full flex-col items-center justify-center text-center mx-auto max-w-4xl">
+      <div className="relative z-10 mx-auto flex w-full max-w-8xl flex-1 flex-col items-center justify-center px-6 pt-6 pb-4 sm:px-8 lg:px-12 lg:pt-16">
+        <div className="mt-4 mb-1 flex w-full flex-col items-center justify-center text-center mx-auto max-w-4xl">
           {/* Centered Pill Bar Badge */}
           {content.pillText && (
             <div
@@ -160,8 +160,6 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             subtitleColor={content.subtitleColor}
           />
         </div>
-
-        
       </div>
 
       {/* Down Arrow Indicator — Client Component for animations */}
