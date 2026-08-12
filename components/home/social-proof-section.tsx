@@ -292,7 +292,7 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
                         <h4 className="text-sm font-bold text-gray-900">{t.name}</h4>
                         {/* Stars */}
                         <div className="mt-0.5 flex gap-0.5">
-                          {[...Array(Number(t.rating) || 5)].map((_, j) => (
+                          {[...Array(Math.max(1, Math.min(5, Math.floor(Number(t.rating) || 5))))].map((_, j) => (
                             <Star key={j} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                           ))}
                         </div>
@@ -311,7 +311,7 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
           {/* Dot Indicators */}
           {maxIndex > 0 && (
             <div className="mt-8 flex items-center justify-center gap-2">
-              {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              {Array.from({ length: Math.max(1, Math.floor(maxIndex + 1)) }).map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
