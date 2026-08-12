@@ -90,9 +90,9 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
       <div className="absolute inset-0 z-0 bg-gradient-to-r from-sky-100/90 via-sky-50/70 to-white/60" />
 
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-        <div className="flex flex-col justify-between gap-12 lg:flex-row lg:items-start lg:gap-20">
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-start lg:gap-16">
           {/* Left Column */}
-          <div className="flex flex-col gap-6 lg:gap-12">
+          <div className="flex flex-col gap-3 lg:gap-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
               className="max-w-2xl flex-1"
             >
               {/* Pill Badge */}
-              <div className="mb-8 inline-flex items-center rounded-full bg-[#F36B2B] px-4 py-1.5">
+              <div className="mb-4 inline-flex items-center rounded-full bg-[#F36B2B] px-4 py-1.5">
                 <span className="text-[10px] font-bold tracking-widest text-white uppercase sm:text-xs">
                   {content.pillLabel}
                 </span>
@@ -109,7 +109,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
 
               {/* Heading */}
               <h2
-                className="mb-10 font-serif text-4xl leading-[1.1] tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
+                className="mb-4 font-serif text-4xl leading-[1.1] tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
                 style={{ fontSize: `${content.headingSize}px` }}
               >
                 {content.headingLine1}
@@ -137,7 +137,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="shrink-0 lg:w-[440px] lg:pt-20"
+            className="shrink-0 lg:w-[440px] lg:pt-6"
           >
             <p
               className="space-y-4 text-sm leading-relaxed font-medium text-gray-800 sm:text-[15px]"
@@ -155,7 +155,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-16 w-full sm:mt-24"
+          className="mt-6 w-full sm:mt-8"
         >
           {/* We break out of the container padding on the right for elegant scroll on mobile/desktop */}
           <div className="no-scrollbar -mx-6 flex snap-x gap-6 overflow-x-auto px-6 pb-8 sm:-mx-8 sm:gap-8 sm:px-8 lg:-mx-12 lg:overflow-hidden lg:px-12">
@@ -326,10 +326,6 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
                         transform: idx >= activeIndex && idx < activeIndex + 2 ? "scale(1)" : "scale(0.95)",
                       }}
                     >
-                      {/* Transparent Overlay for First Visible Card */}
-                      {idx === activeIndex && (
-                        <div className="absolute inset-0 z-20 bg-white/40 backdrop-blur-[4px] transition-opacity duration-500" />
-                      )}
 
                       <div className="relative z-10 flex h-full flex-col justify-between">
                         <div className="mb-6 flex items-center gap-4">

@@ -141,6 +141,9 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
             {content.subtitle}
           </p>
 
+          {/* VSL / Demo Video Box — Client Component for animations */}
+          <HeroAnimatedVideo videoUrl={content.videoUrl} />
+
           {/* CTA & Trust Badge Row — Client Component for animations */}
           <HeroAnimatedCTA
             ctaText={content.ctaText}
@@ -158,8 +161,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
           />
         </div>
 
-        {/* VSL / Demo Video Box — Client Component for animations */}
-        <HeroAnimatedVideo videoUrl={content.videoUrl} />
+        
       </div>
 
       {/* Down Arrow Indicator — Client Component for animations */}

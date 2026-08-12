@@ -53,7 +53,12 @@ export default async function Footer() {
     },
     quickLinks: {
       title: 'Quick Links',
-      links: []
+      links: [
+        { label: 'Home', url: '/' },
+        { label: 'About Us', url: '#why-us' },
+        { label: 'Services', url: '#process' },
+        { label: 'Contact', url: '#contact' }
+      ]
     },
     legalLinks: {
       title: 'Legal',
@@ -82,7 +87,7 @@ export default async function Footer() {
         
         switch (item.section) {
           case 'description':
-            content.description = parsedContent.text || ''
+            content.description = parsedContent.text || content.description
             break
           case 'companyInfo':
             content.companyInfo = { ...content.companyInfo, ...parsedContent }
@@ -91,10 +96,14 @@ export default async function Footer() {
             content.socialLinks = { ...content.socialLinks, ...parsedContent }
             break
           case 'quickLinks':
-            content.quickLinks = { ...content.quickLinks, ...parsedContent }
+            if (parsedContent.links && parsedContent.links.length > 0) {
+              content.quickLinks = { ...content.quickLinks, ...parsedContent }
+            }
             break
           case 'legalLinks':
-            content.legalLinks = { ...content.legalLinks, ...parsedContent }
+            if (parsedContent.links && parsedContent.links.length > 0) {
+              content.legalLinks = { ...content.legalLinks, ...parsedContent }
+            }
             break
           case 'newsletter':
             content.newsletter = { ...content.newsletter, ...parsedContent }
@@ -108,11 +117,30 @@ export default async function Footer() {
     console.error('Failed to fetch footer content:', error)
   }
 
+  // Ensure default legal links exist if missing
+  if (!content.legalLinks.links || content.legalLinks.links.length === 0) {
+    content.legalLinks.links = [
+      { label: 'Privacy Policy', url: '/privacy-policy' },
+      { label: 'Terms & Conditions', url: '/terms-and-conditions' },
+      { label: 'Refund Policy', url: '/refund-policy' }
+    ]
+  }
+
+  // Ensure default quick links exist if missing
+  if (!content.quickLinks.links || content.quickLinks.links.length === 0) {
+    content.quickLinks.links = [
+      { label: 'Home', url: '/' },
+      { label: 'About Us', url: '#why-us' },
+      { label: 'Services', url: '#process' },
+      { label: 'Contact', url: '#contact' }
+    ]
+  }
+
   return (
     <footer className="bg-[#f0f0f0] pt-16 text-sm text-gray-700">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-6 lg:gap-8">
-          {/* Column 1: Logo & Subscribe */}
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-6 lg:gap-8">
+          {/* Column 1: Logo & Description */}
           <div className="lg:col-span-2">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-black">
@@ -125,8 +153,40 @@ export default async function Footer() {
             </p>
           </div>
 
-          {/* Column 4: Contact Us */}
+          {/* Column 2: Quick Links */}
           <div className="lg:col-span-1">
+            <h4 className="mb-6 font-serif text-sm font-semibold tracking-wider text-black">
+              {content.quickLinks.title ? content.quickLinks.title.toUpperCase() : 'QUICK LINKS'}
+            </h4>
+            <ul className="space-y-3 text-xs">
+              {content.quickLinks.links.map((link, index) => (
+                <li key={index}>
+                  <Link href={link.url} className="text-gray-600 transition-colors hover:text-black">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Legal Links */}
+          <div className="lg:col-span-1">
+            <h4 className="mb-6 font-serif text-sm font-semibold tracking-wider text-black">
+              {content.legalLinks.title ? content.legalLinks.title.toUpperCase() : 'LEGAL'}
+            </h4>
+            <ul className="space-y-3 text-xs">
+              {content.legalLinks.links.map((link, index) => (
+                <li key={index}>
+                  <Link href={link.url} className="text-gray-600 transition-colors hover:text-black">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Contact Us */}
+          <div className="lg:col-span-2">
             <h4 className="mb-6 font-serif text-sm font-semibold tracking-wider text-black">CONTACT US</h4>
             <div className="space-y-4">
               {content.companyInfo.phone && (
@@ -194,27 +254,27 @@ export default async function Footer() {
                 </a>
               )}
             </div>
-            <p className="max-w-3xl text-[10px] leading-relaxed text-gray-400">
-            This site is not part of the Facebook or Instagram website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook or Instagram in any way. Facebook is a trademark of FACEBOOK, Inc.
-          </p>
+            <p className="mt-4 max-w-3xl text-[10px] leading-relaxed text-gray-400">
+              This site is not part of the Facebook or Instagram website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook or Instagram in any way. Facebook is a trademark of FACEBOOK, Inc.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
       <div className="mt-16 border-t border-gray-300 py-6">
-        <div className="mx-auto flex max-w-7xl items-center justify-center px-4 text-xs text-gray-500">
-          <p>
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-xs text-gray-500 sm:flex-row">
+          <p>© {new Date().getFullYear()} Xigenis. All rights reserved.</p>
+          <div className="flex gap-4">
             {content.legalLinks.links.map((link, index) => (
               <span key={index}>
-                {index > 0 && " | "}
+                {index > 0 && <span className="mr-4 text-gray-300">|</span>}
                 <Link href={link.url} className="transition-colors hover:text-black">
                   {link.label}
                 </Link>
               </span>
             ))}
-          </p>
-          
+          </div>
         </div>
       </div>
     </footer>
