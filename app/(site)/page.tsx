@@ -55,14 +55,9 @@ function SectionWrapper({
   )
 }
 
-export default async function Web({ params }: { params: Promise<{ domain: string }> }) {
-  // In Next.js 15+ params is a Promise. We await it to extract domain safely.
-  const resolvedParams = await params;
-  // Fallback to "default" if no domain parameter is provided
-  const domain = resolvedParams?.domain || "default";
-
-  // Fetch all CMS content for the page in a single request to avoid N+1 queries
-  const pageContent = await getPageContent('home', domain);
+export default async function Web() {
+  // Fetch all CMS content for the home page directly
+  const pageContent = await getPageContent('home');
 
   return (
     <div className="bg-background text-foreground min-h-screen">

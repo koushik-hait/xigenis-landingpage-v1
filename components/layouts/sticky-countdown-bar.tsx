@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react"
 import { getCmsContent } from "@/app/actions/cms"
 
-export function StickyCountdownBar({ domain }: { domain?: string }) {
+export function StickyCountdownBar() {
   const [content, setContent] = useState({
     enabled: true,
     slotsCount: 3,
@@ -24,7 +24,7 @@ export function StickyCountdownBar({ domain }: { domain?: string }) {
   useEffect(() => {
     async function loadCms() {
       try {
-        const raw = await getCmsContent('home', 'countdown', domain)
+        const raw = await getCmsContent('home', 'countdown')
         if (raw) {
           const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768
           const deviceContent = isMobileDevice ? (raw.mobile || raw.desktop || raw) : (raw.desktop || raw)
@@ -69,7 +69,7 @@ export function StickyCountdownBar({ domain }: { domain?: string }) {
     if (mounted) {
       loadCms()
     }
-  }, [mounted, domain])
+  }, [mounted])
 
   useEffect(() => {
     if (!mounted || !content.enabled) return

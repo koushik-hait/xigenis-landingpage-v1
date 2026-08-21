@@ -53,23 +53,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Layout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: Promise<{ domain: string }>
-}) {
-  const resolvedParams = await params
-  const domain = resolvedParams?.domain || "default"
-
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <WebVitals />
       <SpeedInsights />
       <RandomToast enabled={true} />
       <div className={`font-sans ${montserrat.variable} ${poppins.variable} antialiased`}>
-        <StickyCountdownBar domain={domain} />
+        <StickyCountdownBar />
         <Header />
         {children}
         <Footer />
