@@ -16,7 +16,7 @@ export function FAQSection({ cmsContent }: FAQSectionProps) {
   const content = {
     heading: "Answers To Your Most Important\nQuestions",
     buttonText: "ASK A QUESTION",
-    buttonLink: "#",
+    buttonLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
     faqs: [
       {
         question: "How Quickly Can I Start Getting Buyer Leads?",

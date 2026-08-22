@@ -23,7 +23,7 @@ const ReferralSection = ({ cmsContent }: ReferralSectionProps) => {
     statBoxValue: "3x",
     statBoxText: "Agents with automated referral systems close 3× more deals than those relying on portals alone.",
     btnText: "Build My Own Pipeline",
-    btnLink: "#",
+    btnLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
     headBoxValue: "0",
     headBoxTitle: "Referrals this month",
     card1Title: "No post-sale CRM or \n follow-up system",

@@ -134,7 +134,7 @@ const ProcessTimeline = ({ cmsContent }: ProcessTimelineProps) => {
       { label: "4 DEALS GUARANTEED", sub: "IN 90 DAYS" },
     ],
     footerBtnText: "START YOUR 15 DAYS BUILD",
-    footerBtnLink: "#",
+    footerBtnLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
     headingSize: "48",
     descriptionSize: "16",
     ...cmsContent,

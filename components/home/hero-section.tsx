@@ -45,7 +45,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
     subtitleSize: "12",
     subtitleColor: "#ffffff",
     ctaText: "Apply for Strategy Call",
-    ctaLink: "#",
+    ctaLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
     ctaBgColor: "#000000",
     ctaTextColor: "#ffffff",
     ctaArrowBgColor: "#F36B2B",

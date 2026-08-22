@@ -20,7 +20,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
     headingLine1: "AI Lead System Results",
     headingLine2: "The 90-Day Transformation",
     ctaButtonText: "Start My 90 Days",
-    ctaButtonLink: "#",
+    ctaButtonLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
     description1:
       "This is the after state — what your pipeline, calendar, and revenue look like after 90 days working with our system.",
     description2: "No random referrals. No cold calling. Just a predictable system that brings serious buyers.",

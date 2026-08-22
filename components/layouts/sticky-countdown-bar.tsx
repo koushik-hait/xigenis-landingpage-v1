@@ -36,7 +36,7 @@ export function StickyCountdownBar() {
             slotsCount: parseInt(deviceContent.slotsCount) || 3,
             countdownDuration: duration,
             btnText: deviceContent.btnText || "Claim My Slot",
-            btnLink: deviceContent.btnLink || "#contact",
+            btnLink: (deviceContent.btnLink && deviceContent.btnLink !== "#" && deviceContent.btnLink !== "#contact") ? deviceContent.btnLink : "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
             text: deviceContent.text || "Only {slots} strategy call slots remaining this week"
           })
           
@@ -95,11 +95,17 @@ export function StickyCountdownBar() {
   const seconds = remaining % 60
 
   const scrollToCTA = () => {
-    if (content.btnLink.startsWith("#")) {
-      const el = document.getElementById(content.btnLink.substring(1))
+    const targetUrl = (content.btnLink && content.btnLink !== "#" && content.btnLink !== "#contact")
+      ? content.btnLink
+      : "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV"
+
+    if (targetUrl.startsWith("http")) {
+      window.open(targetUrl, "_blank")
+    } else if (targetUrl.startsWith("#")) {
+      const el = document.getElementById(targetUrl.substring(1))
       if (el) el.scrollIntoView({ behavior: "smooth" })
     } else {
-      window.location.href = content.btnLink
+      window.location.href = targetUrl
     }
   }
 

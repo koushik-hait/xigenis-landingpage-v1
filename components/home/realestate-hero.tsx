@@ -15,7 +15,7 @@ export function RealEstateHero({ cmsContent }: RealEstateHeroProps) {
     badgeText: "Trusted by 100+ B2B Organization",
     heading: "Generate Qualified Property Buyer Leads Without Wasting Money On Low-Quality Inquiries",
     buttonText: "Speak With A Strategy Expert Today",
-    buttonLink: "#",
+    buttonLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
     backgroundImage: "/hero-family-pool.jpg",
     valueProps: [
       "High-Intent Property Buyers",

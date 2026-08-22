@@ -2,6 +2,8 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import React from "react"
 
+export const TARGET_FORM_URL = "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV"
+
 interface ExploreButtonProps {
   children?: React.ReactNode
   href?: string
@@ -9,16 +11,31 @@ interface ExploreButtonProps {
   type?: "button" | "submit" | "reset"
   className?: string
   iconClassName?: string
+  target?: string
+  rel?: string
 }
 
 export const ExploreButton = ({
   children,
-  href,
+  href = TARGET_FORM_URL,
   onClick,
   type = "button",
   className,
   iconClassName,
+  target,
+  rel,
 }: ExploreButtonProps) => {
+  const targetHref = (!href || href === "#" || href === "#contact") ? TARGET_FORM_URL : href
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    if (onClick) {
+      onClick()
+    }
+    if (type !== "submit" && (!targetHref || targetHref.startsWith("http"))) {
+      window.open(targetHref || TARGET_FORM_URL, target || "_blank")
+    }
+  }
+
   const content = (
     <>
       {children || "Explore"}
@@ -43,17 +60,32 @@ export const ExploreButton = ({
     className
   )
 
-  if (href) {
+  if (targetHref && targetHref.startsWith("http")) {
     return (
-      <Link href={href} className={classes}>
+      <a
+        href={targetHref}
+        target={target || "_blank"}
+        rel={rel || "noopener noreferrer"}
+        className={classes}
+        onClick={onClick ? () => onClick() : undefined}
+      >
+        {content}
+      </a>
+    )
+  }
+
+  if (targetHref) {
+    return (
+      <Link href={targetHref} className={classes} onClick={onClick ? () => onClick() : undefined}>
         {content}
       </Link>
     )
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={handleClick} className={classes}>
       {content}
     </button>
   )
 }
+

@@ -24,14 +24,7 @@ export function Header() {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-4">
-          {/* <Button
-            variant="outline"
-            className="rounded-full border-white bg-transparent px-6 py-6 text-xs font-semibold tracking-widest text-white transition-all hover:bg-white hover:text-black"
-            onClick={() => scrollToSection("home")}
-          >
-            VISIT SITE <ArrowUpRight className="ml-1 h-4 w-4" />
-          </Button> */}
-          <ExploreButton onClick={() => scrollToSection("contact")} className="h-12 py-0">
+          <ExploreButton href="https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV" target="_blank" rel="noopener noreferrer" className="h-12 py-0">
             <span className="text-[10px] font-semibold tracking-widest">GET STARTED</span>
           </ExploreButton>
         </div>
