@@ -66,7 +66,7 @@ export function HeroSection({ cmsContent }: HeroSectionProps) {
       { image: "/assets/xigenis-logo.png", alt: "FF" },
       { image: "/assets/xigenis-logo.png", alt: "Godrej" },
     ],
-    videoUrl: "",
+    videoUrl: "https://pub-18a3a4375c514c64bedfd4c414fbfa08.r2.dev/cms/xigenis-optout-video.mp4",
   }
 
   const formatTitleWithHashtags = (text: string) => {

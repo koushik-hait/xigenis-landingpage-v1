@@ -125,6 +125,7 @@ export function HeroAnimatedVideo({ videoUrl }: Pick<HeroAnimationsProps, 'video
           src={videoUrl}
           controls
           playsInline
+          autoPlay
           className="h-full w-full object-contain"
         />
       </div>
