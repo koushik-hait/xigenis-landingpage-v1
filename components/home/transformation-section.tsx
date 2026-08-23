@@ -82,7 +82,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
     <section className="relative w-full overflow-hidden bg-sky-100 py-10 lg:py-12">
       {/* Background Image - Sky with clouds */}
       <div
-        className="absolute inset-0 z-0 h-[80%] w-full bg-cover bg-center opacity-80"
+        className="absolute inset-0 z-0 h-full w-full bg-cover bg-center opacity-80"
         style={{ backgroundImage: `url('${content.bgImage}')` }}
       />
 

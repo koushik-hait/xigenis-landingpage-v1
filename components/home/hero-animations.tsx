@@ -123,9 +123,11 @@ export function HeroAnimatedVideo({ videoUrl }: Pick<HeroAnimationsProps, 'video
       <div className="relative aspect-video w-full overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-[0_0_40px_rgba(194,65,12,0.6)]">
         <video
           src={videoUrl}
+          autoPlay
+          muted
+          loop
           controls
           playsInline
-          autoPlay
           className="h-full w-full object-contain"
         />
       </div>
