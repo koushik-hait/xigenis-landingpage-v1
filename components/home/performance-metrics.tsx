@@ -55,7 +55,7 @@ const PerformanceMetrics = ({ cmsContent }: PerformanceMetricsProps) => {
   }
 
   return (
-    <section className="flex w-full items-center overflow-hidden bg-white py-6 lg:py-12">
+    <section id="performance" className="flex w-full items-center overflow-hidden bg-white py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:gap-8">
           {/* Left Column: Heading & Intro */}

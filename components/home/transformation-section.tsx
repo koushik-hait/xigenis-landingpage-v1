@@ -79,7 +79,7 @@ export function TransformationSection({ cmsContent }: TransformationSectionProps
   // Let's make it more robust.
 
   return (
-    <section className="relative w-full overflow-hidden bg-sky-100 py-10 lg:py-12">
+    <section id="transformation" className="relative w-full overflow-hidden bg-sky-100 py-10 lg:py-12">
       {/* Background Image - Sky with clouds */}
       <div
         className="absolute inset-0 z-0 h-full w-full bg-cover bg-center opacity-80"

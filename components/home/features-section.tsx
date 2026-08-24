@@ -59,7 +59,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
 
 
   return (
-    <section className="max-w-8xl mx-auto bg-white px-6 py-6 font-sans lg:py-12">
+    <section id="features" className="max-w-8xl mx-auto bg-white px-6 py-6 font-sans lg:py-12">
       <div className="flex flex-col items-center gap-16 lg:flex-row">
         {/* Left Side: Creative Image */}
         <div className="relative flex w-full justify-center lg:w-1/2">

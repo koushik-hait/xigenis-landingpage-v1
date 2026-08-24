@@ -94,7 +94,7 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
   }
 
   return (
-    <section className="w-full bg-white py-6 lg:py-12">
+    <section id="why-us" className="w-full bg-white py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4">
         {/* Header */}
         <div className="mb-8 space-y-4 text-center lg:mb-12">

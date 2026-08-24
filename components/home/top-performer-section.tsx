@@ -104,7 +104,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
   }
 
   return (
-    <section className="border-t border-gray-100 bg-white py-10 sm:py-10 lg:py-10">
+    <section id="top-performers" className="border-t border-gray-100 bg-white py-10 sm:py-10 lg:py-10">
       <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
           {/* Left Content */}

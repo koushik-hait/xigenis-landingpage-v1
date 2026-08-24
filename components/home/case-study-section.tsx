@@ -47,7 +47,7 @@ const CaseStudies = ({ cmsContent }: CaseStudiesProps) => {
   }
 
   return (
-    <section className="w-full overflow-hidden bg-[#FDFDFD] py-6 lg:py-12">
+    <section id="case-studies" className="w-full overflow-hidden bg-[#FDFDFD] py-6 lg:py-12">
       <div className="max-w-8xl container mx-auto px-4">
         {/* Header Section */}
         <div className="mb-8 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end lg:mb-12">
