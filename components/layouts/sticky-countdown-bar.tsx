@@ -36,7 +36,7 @@ export function StickyCountdownBar() {
             slotsCount: parseInt(deviceContent.slotsCount) || 3,
             countdownDuration: duration,
             btnText: deviceContent.btnText || "Claim My Slot",
-            btnLink: (deviceContent.btnLink && deviceContent.btnLink !== "#" && deviceContent.btnLink !== "#contact") ? deviceContent.btnLink : "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+            btnLink: (deviceContent.btnLink && deviceContent.btnLink !== "#" && deviceContent.btnLink !== "#contact") ? deviceContent.btnLink : "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
             text: deviceContent.text || "Only {slots} strategy call slots remaining this week"
           })
           
@@ -97,7 +97,7 @@ export function StickyCountdownBar() {
   const scrollToCTA = () => {
     const targetUrl = (content.btnLink && content.btnLink !== "#" && content.btnLink !== "#contact")
       ? content.btnLink
-      : "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV"
+      : "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913"
 
     if (targetUrl.startsWith("http")) {
       window.open(targetUrl, "_blank")

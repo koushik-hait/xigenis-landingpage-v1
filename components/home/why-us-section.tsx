@@ -50,7 +50,7 @@ const WhyChooseUs = ({ cmsContent }: WhyChooseUsProps) => {
     heading: "Built for Those Who Close, Not Chase.",
     description: "We work exclusively with real estate professionals who want qualified pipeline — not vanity metrics.",
     btnText: "START YOUR GROWTH",
-    btnLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+    btnLink: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     features: [
       {
         title: "100% Real Estate DNA — No Generic Marketers",

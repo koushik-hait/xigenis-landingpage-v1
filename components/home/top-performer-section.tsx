@@ -56,7 +56,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
     descriptionSize: "14",
     descriptionColor: "#6B7280",
     ctaText: "Apply for Strategy Call",
-    ctaLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+    ctaLink: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     ctaBgColor: "#000000",
     ctaTextColor: "#ffffff",
     ctaArrowBgColor: "#F36B2B",
@@ -99,7 +99,7 @@ export function TopPerformerSection({ cmsContent }: TopPerformerSectionProps) {
       number: "12",
       labels: ["More", "Success", "Stories"],
       subLabels: "Agents • CPs Builders • Brokers",
-      link: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+      link: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     },
   }
 

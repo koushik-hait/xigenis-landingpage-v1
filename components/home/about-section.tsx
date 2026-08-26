@@ -16,7 +16,7 @@ export function AboutSection({ cmsContent }: AboutSectionProps) {
     description:
       "At Xigenis, we help real estate professionals build a predictable pipeline of qualified property buyers. \n\nOur system combines AI-driven lead generation, targeted campaigns, and smart follow-up automation to attract serious buyers and close more deals consistently.",
     btnText: "Build My Pipeline",
-    btnLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+    btnLink: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     stat1Value: "2X",
     stat1Label: "Faster Growth",
     stat1Sub: "Vs Industry Peers",

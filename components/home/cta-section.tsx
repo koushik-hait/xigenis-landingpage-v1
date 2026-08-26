@@ -17,7 +17,7 @@ const CTASection = ({ cmsContent }: CTASectionProps) => {
     description:
       "Discover how our system helps real estate professionals generate qualified leads, increase site visits, and close more deals.",
     buttonText: "Book Your Strategy Call",
-    buttonLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+    buttonLink: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     headingSize: "48",
     descriptionSize: "16",
     ...cmsContent,

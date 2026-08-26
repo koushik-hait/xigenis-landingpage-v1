@@ -23,7 +23,7 @@ export function FeaturesSection({ cmsContent }: FeaturesSectionProps) {
     heading: "Why Trust Us With Your Growth",
     description: "We don't hide behind dashboards or vanity metrics. What you see is exactly what is happening.",
     buttonText: "BOOK A FREE STRATEGY CALL",
-    buttonLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+    buttonLink: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     image: "/assets/man-on-house.webp",
     features: [
       {

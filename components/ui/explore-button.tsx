@@ -2,7 +2,7 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import React from "react"
 
-export const TARGET_FORM_URL = "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV"
+export const TARGET_FORM_URL = "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913"
 
 interface ExploreButtonProps {
   children?: React.ReactNode

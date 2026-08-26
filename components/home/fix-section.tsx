@@ -18,7 +18,7 @@ const FixSection = ({ cmsContent }: FixSectionProps) => {
     description:
       "Not another portal. Not a freelancer running random ads. A full pipeline — built, managed, and optimised for one outcome: closed deals in 90 days.",
     btnText: "Build My Pipeline",
-    btnLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+    btnLink: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     card1Title: "Complete Ad-to-Close Funnel",
     card1Text: "Targeting, nurture, and conversion — fully managed.",
     card2Title: "Qualified Buyers Only",

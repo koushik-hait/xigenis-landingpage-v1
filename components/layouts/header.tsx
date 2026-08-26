@@ -24,7 +24,7 @@ export function Header() {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-4">
-          <ExploreButton href="https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV" target="_blank" rel="noopener noreferrer" className="h-12 py-0">
+          <ExploreButton href="https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913" target="_blank" rel="noopener noreferrer" className="h-12 py-0">
             <span className="text-[10px] font-semibold tracking-widest">GET STARTED</span>
           </ExploreButton>
         </div>

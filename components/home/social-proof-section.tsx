@@ -44,7 +44,7 @@ const SocialProofSection = ({ cmsContent }: SocialProofSectionProps) => {
     description:
       "See how agents, brokers, and developers are generating qualified buyer leads, increasing site visits, and closing more property deals with our proven system.",
     btnText: "See How It Works",
-    btnLink: "https://link.yourmarketingai.com/widget/form/spArLMyaWXSR8rakhoMV",
+    btnLink: "https://link.yourmarketingai.com/widget/bookings/real-estate-growth-strategy-r-zfipu1-jvoty913",
     testimonials: [
       {
         name: "Rahul Sharma",
